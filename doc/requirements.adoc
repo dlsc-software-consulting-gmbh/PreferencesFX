@@ -1,0 +1,44 @@
+= Requirements
+François Martin; Marco Sanfratello
+
+//Check symbol
+:y: &#10003;
+
+== Features
+// Features Table
+.Features
+[format="csv", options="header"]
+|===
+include::features.csv[]
+|===
+{empty}* from 1-6, 1 is highest, 6 is lowest +
+{empty}*{empty}* **M**inimum **V**iable **P**roduct
+
+== Qualitative Requirements
+- Pages as forms
+    * Possibility of using https://github.com/dlemmermann/formsfx[FormsFX], in any way
+- Sensible Defaults
+    * default settings which make sense are present
+    * can be overriden by the API user
+- Efficiency, high productivity for API user
+- Follow standards
+    * Range of numbers => slider
+    * Positioning of GUI elements as we are used to them
+    * etc.
+- GUI => JavaFX
+- Desktop applications
+- Code base on GitHub
+- Opensource
+- Java 1.8.151
+- JUnit 4.12
+- i18n (via Resource Bundles)
+- Structure
+	* Information gets more specific from left to right
+	* no settings or interaction elements in the upper right corner
+- Testing
+	* Unit-Testing
+	    ** 100% coverage for what can be tested
+    * Manual testing for JavaFX parts
+	* (Usability testing)
+- Documentation via ASCIIDoc => http://asciidoctor.org/
+- Use factory pattern for widgets and pages
