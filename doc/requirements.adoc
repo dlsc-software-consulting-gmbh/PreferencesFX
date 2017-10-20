@@ -1,6 +1,6 @@
 = Requirements
 François Martin; Marco Sanfratello
-:toc:
+:toc: left
 
 //Check symbol
 :y: &#10003;
