@@ -43,3 +43,4 @@ include::features.csv[]
 	* (Usability testing)
 - Documentation via ASCIIDoc => http://asciidoctor.org/
 - Use factory pattern for widgets and pages
+- https://google.github.io/styleguide/javaguide.html[Google Java Style Guide]

@@ -11,15 +11,12 @@ buildscript {
     }
 }
 
-repositories {
-    mavenCentral()
-}
-
 ext.junit4Version        = '4.12'
 ext.mockitoVersion       = '2.11.0'
 
 apply plugin: 'java'
 apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'checkstyle'
 
 sourceSets {
     main {
@@ -51,4 +48,8 @@ task wrapper(type: Wrapper) {
 asciidoctor {
     sourceDir = file('doc')
     outputDir = file('build/doc')
+}
+
+checkstyle {
+    toolVersion ="8.3"
 }
