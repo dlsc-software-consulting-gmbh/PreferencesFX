@@ -32,10 +32,10 @@ compileTestJava {
 
 dependencies {
     // JUnit 4
-    testCompile("junit:junit:${mockitoVersion}")
+    testCompile("junit:junit:${junit4Version}")
 
     // Mockito
-    testCompile("org.mockito:mockito-core:${junit4Version}")
+    testCompile("org.mockito:mockito-core:${mockitoVersion}")
 }
 
 task wrapper(type: Wrapper) {
