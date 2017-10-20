@@ -8,14 +8,14 @@ import org.junit.Test;
  */
 public class ProjectSetupTest {
 
-    @Test
-    public void testJunitConfiguration(){
-        //given
+  @Test
+  public void testJunitConfiguration() {
+    //given
 
-        //when
+    //when
 
-        //then
+    //then
 
-        Assert.assertTrue("Mit diesem Test wird nur überprüft ob JUnit richtig ins Projekt integriert wurde", true);
-    }
+    Assert.assertTrue("Mit diesem Test wird nur überprüft ob JUnit richtig ins Projekt integriert wurde", true);
+  }
 }
