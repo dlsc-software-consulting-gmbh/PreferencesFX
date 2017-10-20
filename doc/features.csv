@@ -21,8 +21,8 @@ ID,Feature,Priority*,MVP**,Comment
 19,Widget - Table View,0,,
 20,Styling via CSS,0,,
 21,Tabs,0,,For multiple preference window
-22,Flexible Layout - Orientation of tabs,0,,Top, Bottom, Left, Right
-23,Flexible Layout - Change layout depending on amount of categories,0,,For example, 5 categories => more sophisticated view
+22,Flexible Layout - Orientation of tabs,0,,"Top, Bottom, Left, Right"
+23,Flexible Layout - Change layout depending on amount of categories,0,,"For example, 5 categories => more sophisticated view"
 24,FontAwesome Icons,0,,
 25,State persistence,0,,Have preferences window open just as it was left before closing it the last time
 26,Structure Elements - ItemList,0,,See IntelliJ -> Project Structure -> SDK, +/- Buttons, View
