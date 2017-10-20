@@ -1,0 +1,156 @@
+= Features
+François Martin; Marco Sanfratello
+
+//Check symbol
+:y: &#10003;
+
+// Features Table
+.Features
+|===
+|Feature |Priority |MVP |Comment
+
+|Demo App
+|0
+|{y}
+|
+
+|Widget - Toggle
+|0
+|{y}
+|
+
+|Widget - Combobox
+|0
+|{y}
+|
+
+|Widget - Textfield
+|0
+|{y}
+|
+
+|Widget - Slider as custom control
+|0
+|{y}
+|
+
+|Structure elements - Category
+|0
+|{y}
+|
+
+|Structure elements - Setting
+|0
+|{y}
+|
+
+|Structure elements - Section
+|0
+|{y}
+|
+
+|Structure elements - Section
+|0
+|{y}
+|Multiple settings as a group
+
+|TreeView - Multiple Top-Level Categories
+|0
+|{y}
+|
+
+|TreeView - Nesting of Categories
+|0
+|{y}
+|
+
+|Save - using Java Preferences API
+|0
+|{y}
+|
+
+|Save - Instant persistance
+|0
+|{y}
+|
+
+|Save - Binding via properties
+|0
+|{y}
+|
+
+|Search
+|0
+|{y}
+|
+
+|Search
+|0
+|{y}
+|
+
+|Undo/Redo - History (Git-like)
+|0
+|
+|Historisation of settings
+
+|Undo/Redo - Tags
+|0
+|
+|To save different states
+
+|Secured Lock
+|0
+|
+|Attribute "secured" and field is read only, until lock is clicked
+
+|Widget - Text area
+|0
+|
+|Multiple lines
+
+|Widget - Custom controls
+|0
+|
+|enable rendering of custom controls
+
+|Widget - Table View
+|0
+|
+|
+
+|Styling via CSS
+|0
+|
+|
+
+|Tabs
+|0
+|
+|for multiple preference window
+
+|Flexible Layout - Orientation of tabs
+|0
+|
+|top, bottom, left, right
+
+|Flexible Layout - Change layout depending on amount of categories
+|0
+|
+|for example, 5 categories => more sophisticated view
+
+|FontAwesome Icons
+|0
+|
+|
+
+|State persistence
+|0
+|
+|Have preferences window open just as it was left before closing it the last time
+
+|Structure Elements - ItemList
+|0
+|
+|see IntelliJ -> Project Structure -> SDK, +/- Buttons, View
+|===
