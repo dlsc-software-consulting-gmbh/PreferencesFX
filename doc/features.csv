@@ -1,4 +1,28 @@
-ID;Feature;Priority;MVP;Comment
+ID;Feature;Priority*;MVP**;Comment
 0;Demo App;0;{y};
 1;Widget - Toggle;0;{y};
 2;Widget - Combobox;0;{y};
+3;Widget - Textfield;0;{y};
+4;Widget - Slider as custom control;0;{y};
+5;Structure elements - Category;0;{y};
+6;Structure elements - Setting;0;{y};
+7;Structure elements - Section;0;{y};Multiple settings as a group
+8;TreeView - Multiple Top-Level Categories;0;{y};
+9;TreeView - Nesting of Categories;0;{y};
+10;Save - using Java Preferences API;0;{y};
+11;Save - Instant persistance;0;{y};
+12;Save - Binding via properties;0;{y};
+13;Search;0;;
+14;Undo/Redo - History (Git-like);0;;Historisation of settings
+15;Undo/Redo - Tags;0;;To save different states
+16;Secured Lock;0;;"Attribute ""secured"" and field is read only, until lock is clicked"
+17;Widget - Text area;0;;Multiple lines
+18;Widget - Custom controls;0;;Enable rendering of custom controls
+19;Widget - Table View;0;;
+20;Styling via CSS;0;;
+21;Tabs;0;;For multiple preference window
+22;Flexible Layout - Orientation of tabs;0;;Top, Bottom, Left, Right
+23;Flexible Layout - Change layout depending on amount of categories;0;;For example, 5 categories => more sophisticated view
+24;FontAwesome Icons;0;;
+25;State persistence;0;;Have preferences window open just as it was left before closing it the last time
+26;Structure Elements - ItemList;0;;See IntelliJ -> Project Structure -> SDK, +/- Buttons, View
