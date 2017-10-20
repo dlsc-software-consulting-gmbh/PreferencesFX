@@ -7,148 +7,171 @@ François Martin; Marco Sanfratello
 // Features Table
 .Features
 |===
-|Feature |Priority |MVP |Comment
+|ID |Feature |Priority |MVP |Comment
 
+|0
 |Demo App
 |0
 |{y}
 |
 
+|1
 |Widget - Toggle
 |0
 |{y}
 |
 
+|2
 |Widget - Combobox
 |0
 |{y}
 |
 
+|3
 |Widget - Textfield
 |0
 |{y}
 |
 
+|4
 |Widget - Slider as custom control
 |0
 |{y}
 |
 
+|5
 |Structure elements - Category
 |0
 |{y}
 |
 
+|5
 |Structure elements - Setting
 |0
 |{y}
 |
 
+|5
 |Structure elements - Section
 |0
 |{y}
 |
 
+|6
 |Structure elements - Section
 |0
 |{y}
 |Multiple settings as a group
 
+|7
 |TreeView - Multiple Top-Level Categories
 |0
 |{y}
 |
 
+|8
 |TreeView - Nesting of Categories
 |0
 |{y}
 |
 
+|9
 |Save - using Java Preferences API
 |0
 |{y}
 |
 
+|10
 |Save - Instant persistance
 |0
 |{y}
 |
 
+|11
 |Save - Binding via properties
 |0
 |{y}
 |
 
+|12
 |Search
 |0
 |{y}
 |
 
-|Search
-|0
-|{y}
-|
-
+|13
 |Undo/Redo - History (Git-like)
 |0
 |
 |Historisation of settings
 
+|14
 |Undo/Redo - Tags
 |0
 |
 |To save different states
 
+|15
 |Secured Lock
 |0
 |
 |Attribute "secured" and field is read only, until lock is clicked
 
+|16
 |Widget - Text area
 |0
 |
 |Multiple lines
 
+|17
 |Widget - Custom controls
 |0
 |
 |enable rendering of custom controls
 
+|18
 |Widget - Table View
 |0
 |
 |
 
+|19
 |Styling via CSS
 |0
 |
 |
 
+|20
 |Tabs
 |0
 |
 |for multiple preference window
 
+|21
 |Flexible Layout - Orientation of tabs
 |0
 |
 |top, bottom, left, right
 
+|22
 |Flexible Layout - Change layout depending on amount of categories
 |0
 |
 |for example, 5 categories => more sophisticated view
 
+|23
 |FontAwesome Icons
 |0
 |
 |
 
+|24
 |State persistence
 |0
 |
 |Have preferences window open just as it was left before closing it the last time
 
+|25
 |Structure Elements - ItemList
 |0
 |
