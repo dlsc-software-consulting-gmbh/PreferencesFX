@@ -13,6 +13,7 @@ buildscript {
 
 ext.junit4Version        = '4.12'
 ext.mockitoVersion       = '2.11.0'
+ext.checkstyleVersion    = '8.3'
 
 apply plugin: 'java'
 apply plugin: 'org.asciidoctor.convert'
@@ -51,5 +52,5 @@ asciidoctor {
 }
 
 checkstyle {
-    toolVersion ="8.3"
+    toolVersion ="${checkstyleVersion}"
 }
