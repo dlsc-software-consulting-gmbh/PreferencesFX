@@ -10,3 +10,5 @@ François Martin; Marco Sanfratello
 |===
 include::features.csv[]
 |===
+{empty}* from 1-6, 1 is highest, 6 is lowest +
+{empty}*{empty}* **M**inimum **V**iable **P**roduct
