@@ -3,6 +3,8 @@ package com.dlsc.preferencesfx;
 import com.dlsc.preferencesfx.widgets.TextField;
 import com.dlsc.preferencesfx.widgets.Toggle;
 import com.dlsc.preferencesfx.widgets.Widget;
+import javafx.beans.property.Property;
+import javafx.scene.Node;
 
 public class Setting<W extends Widget> {
   private String description;
@@ -13,7 +15,7 @@ public class Setting<W extends Widget> {
     this.widget = widget;
   }
 
-  public static <W extends Widget> Setting of(String description, Type type) { //beide W sind unterschiedlich
+  public static <W extends Widget> Setting of(String description, Type type) { //alle W sind unterschiedlich
     W widget = null;
     switch (type) {
       case BOOLEAN:
@@ -23,6 +25,12 @@ public class Setting<W extends Widget> {
     }
     return new Setting(description, widget);
   }
+
+  public static <W extends Widget> Setting of(String description, Node widget, Property property) {
+    return new Setting(description, new Widget(widget, property));
+  }
+
+
 
   enum Type {
     INTEGER, BOOLEAN
