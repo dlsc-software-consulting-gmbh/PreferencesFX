@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.widgets.TextField;
 import com.dlsc.preferencesfx.widgets.Widget;
+import javafx.scene.control.TextField;
 
 public class WidgetFactory {
 
@@ -10,7 +10,8 @@ public class WidgetFactory {
 
     switch (widgetType) {
       case "TEXTFIELD":
-        return new TextField();
+        TextField textField = new TextField();
+        return new Widget(textField, textField.textProperty());
       default:
         return null;
     }

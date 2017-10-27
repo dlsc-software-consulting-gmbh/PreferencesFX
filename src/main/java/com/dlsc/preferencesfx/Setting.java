@@ -1,10 +1,10 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.widgets.TextField;
-import com.dlsc.preferencesfx.widgets.Toggle;
 import com.dlsc.preferencesfx.widgets.Widget;
 import javafx.beans.property.Property;
 import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 
 public class Setting<W extends Widget> {
   private String description;
@@ -16,21 +16,21 @@ public class Setting<W extends Widget> {
   }
 
   public static <W extends Widget> Setting of(String description, Type type) { //alle W sind unterschiedlich
-    W widget = null;
     switch (type) {
       case BOOLEAN:
-        widget = (W) new Toggle();
+        CheckBox checkBox = new CheckBox();
+        return new Setting(description, new Widget(checkBox, checkBox.selectedProperty()));
       case INTEGER:
-        widget = (W) new TextField();
+        TextField textField = new TextField();
+        return new Setting(description, new Widget(textField, textField.textProperty()));
+      default:
+        return null;
     }
-    return new Setting(description, widget);
   }
 
   public static <W extends Widget> Setting of(String description, Node widget, Property property) {
     return new Setting(description, new Widget(widget, property));
   }
-
-
 
   enum Type {
     INTEGER, BOOLEAN
