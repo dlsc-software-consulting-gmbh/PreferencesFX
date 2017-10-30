@@ -1,6 +1,12 @@
 group 'com.dlsc'
 version '0.1-SNAPSHOT'
 
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -39,6 +45,9 @@ dependencies {
 
     // Mockito
     testCompile("org.mockito:mockito-core:${mockitoVersion}")
+
+    // FormsFX
+    compile 'com.github.dlemmermann:formsfx:master-SNAPSHOT'
 }
 
 task wrapper(type: Wrapper) {
