@@ -32,7 +32,4 @@ public class Setting<W extends Widget> {
     return new Setting(description, new Widget(widget, property));
   }
 
-  enum Type {
-    INTEGER, BOOLEAN
-  }
 }

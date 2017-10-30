@@ -11,8 +11,8 @@ public class RootPane extends StackPane {
 
   PreferencesFX preferencesFX = PreferencesFX.of(
       Category.of("Bildschirm",
-          Setting.of("Nachtmodus", Setting.Type.BOOLEAN),
-          Setting.of("Skalierung", Setting.Type.INTEGER),
+          Setting.of("Nachtmodus", Type.BOOLEAN),
+          Setting.of("Skalierung", Type.INTEGER),
           Setting.of("Custom", slider, slider.valueProperty())
       ),
       Category.of("Benachrichtigungen")
