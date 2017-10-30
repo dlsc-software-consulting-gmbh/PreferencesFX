@@ -4,9 +4,7 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
-import com.dlsc.formsfx.view.util.ColSpan;
 import com.dlsc.preferencesfx.Setting;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.layout.StackPane;
 
@@ -22,16 +20,16 @@ public class Page extends StackPane {
   }
 
   void initForm() {
-    StringProperty s = new SimpleStringProperty("Test");
     form = Form.of(
         Group.of()
     ).title("form_label");
-    form.getGroups().get(0).getFields().add(
-        Field.ofStringType(s)
-            .label("currency_label")
-            .placeholder("currency_placeholder")
-            .span(ColSpan.HALF)
-    );
+    for (Setting setting : settings) {
+      form.getGroups().get(0).getFields().add(
+          Field.ofStringType((StringProperty) setting.getWidget().valueProperty())
+              .label(setting.getDescription())
+      );
+    }
+
   }
 
 }

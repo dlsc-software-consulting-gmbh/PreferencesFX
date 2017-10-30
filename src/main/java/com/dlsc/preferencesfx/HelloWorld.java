@@ -12,7 +12,6 @@ public class HelloWorld extends Application {
     Button button = new Button("Hello World");
 
     RootPane rootPane = new RootPane();
-    rootPane.getChildren().add(button);
 
     Scene myScene = new Scene(rootPane);
 

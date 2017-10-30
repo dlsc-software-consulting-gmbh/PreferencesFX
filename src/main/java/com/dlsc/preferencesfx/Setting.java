@@ -23,6 +23,9 @@ public class Setting<W extends Widget> {
       case INTEGER:
         TextField textField = new TextField();
         return new Setting(description, new Widget(textField, textField.textProperty()));
+      case STRING:
+        TextField textField2 = new TextField();
+        return new Setting(description, new Widget(textField2, textField2.textProperty()));
       default:
         return null;
     }
@@ -32,4 +35,11 @@ public class Setting<W extends Widget> {
     return new Setting(description, new Widget(widget, property));
   }
 
+  public String getDescription() {
+    return description;
+  }
+
+  public W getWidget() {
+    return widget;
+  }
 }

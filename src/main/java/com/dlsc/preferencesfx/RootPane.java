@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.pages.Page;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -10,7 +11,9 @@ import javafx.scene.layout.StackPane;
 public class RootPane extends StackPane {
 
   RootPane(){
-    Slider slider = new Slider();
+    Slider slider = new Slider(0,100,0);
+    TextField tf = new TextField("bla");
+    getChildren().add(tf);
 
     PreferencesFX preferencesFX = PreferencesFX.of(
         Category.of("Bildschirm",
@@ -30,7 +33,11 @@ public class RootPane extends StackPane {
             )
     );
 
-    getChildren().add(new Page(null));
+    Setting s1 = Setting.of("Nachtmodus", Type.STRING);
+    Setting s2 = Setting.of("Nachtmodus2", Type.STRING);
+    getChildren().add(new Page(new Setting[]{s1, s2}));
+
+    tf.textProperty().bind(s1.getWidget().valueProperty());
   }
 
 }
