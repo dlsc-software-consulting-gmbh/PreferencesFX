@@ -4,8 +4,6 @@ import com.dlsc.preferencesfx.pages.Page;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -15,9 +13,9 @@ public class RootPane extends VBox {
 
   RootPane(){
     Slider slider = new Slider(0,100,0);
-    TextField textField = new TextField("bla");
-    setMargin(textField, new Insets(20, 20, 0, 20));
-    getChildren().add(textField);
+    Label label = new Label("bla");
+    setMargin(label, new Insets(20, 20, 0, 20));
+    getChildren().add(label);
 
     PreferencesFX preferencesFX = PreferencesFX.of(
         Category.of("Bildschirm",
@@ -40,7 +38,7 @@ public class RootPane extends VBox {
     Setting s1 = Setting.of("Nachtmodus", Type.STRING);
     getChildren().add(new Page(new Setting[]{s1}));
 
-    textField.textProperty().bindBidirectional(s1.getWidget().valueProperty());
+    label.textProperty().bind(s1.getWidget().valueProperty());
   }
 
 }

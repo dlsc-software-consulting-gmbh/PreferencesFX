@@ -23,13 +23,15 @@ public class Page extends StackPane {
   void initForm() {
     form = Form.of(
         Group.of()
-    ).title("form_label").binding(BindingMode.CONTINUOUS);
+    ).title("form_label");
     for (Setting setting : settings) {
       form.getGroups().get(0).getFields().add(
           Field.ofStringType((StringProperty) setting.getWidget().valueProperty())
               .label(setting.getDescription())
       );
     }
+
+    form.binding(BindingMode.CONTINUOUS);
 
   }
 
