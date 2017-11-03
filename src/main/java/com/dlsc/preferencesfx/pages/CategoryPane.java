@@ -6,17 +6,19 @@ import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.dlsc.preferencesfx.Setting;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Iterables;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.layout.StackPane;
 
-public class Page extends StackPane {
+public class CategoryPane extends StackPane {
 
   Setting[] settings;
   Form form;
 
-  public Page(Setting[] settings) {
+  public CategoryPane(Setting[] settings) {
     this.settings = settings;
     initForm();
     getChildren().add(new FormRenderer(form));
@@ -28,7 +30,10 @@ public class Page extends StackPane {
     ).title("form_label");
     for (Setting setting : settings) {
       String propertyString = setting.getWidget().valueProperty().getClass().toString();
-      propertyString = propertyString.substring(28, propertyString.length());
+      propertyString = Iterables.getLast(Splitter.on(".")
+          .omitEmptyStrings()
+          .trimResults()
+          .splitToList(propertyString));
 
       Field field = null;
 
