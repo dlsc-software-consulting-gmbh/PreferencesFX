@@ -48,6 +48,9 @@ dependencies {
 
     // FormsFX
     compile 'com.github.dlemmermann:formsfx:master-SNAPSHOT'
+
+    // Guava
+    compile 'com.google.guava:guava:23.3-jre'
 }
 
 task wrapper(type: Wrapper) {
