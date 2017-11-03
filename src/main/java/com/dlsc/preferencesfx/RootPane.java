@@ -56,8 +56,6 @@ public class RootPane extends VBox {
             Setting.of("Helligkeit", Type.INTEGER, helligkeit)
         )
     );
-
-    getChildren().add(preferencesFX);
     LOGGER.info("Preferences generated");
   }
 
