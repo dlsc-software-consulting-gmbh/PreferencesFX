@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
