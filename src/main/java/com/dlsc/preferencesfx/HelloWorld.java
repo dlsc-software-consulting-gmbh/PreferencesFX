@@ -3,17 +3,13 @@ package com.dlsc.preferencesfx;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class HelloWorld extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    Button button = new Button("Hello World");
-
-    StackPane rootPane = new StackPane();
-    rootPane.getChildren().add(button);
+    RootPane rootPane = new RootPane();
 
     Scene myScene = new Scene(rootPane);
 
