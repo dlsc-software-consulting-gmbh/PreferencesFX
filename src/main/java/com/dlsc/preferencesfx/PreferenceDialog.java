@@ -23,8 +23,9 @@ public class PreferenceDialog extends DialogPane {
     dialog.setTitle("PreferencesFX");
     dialog.setResizable(true);
 
-    this.setContent(preferencesFX);
     dialog.setDialogPane(this);
+    this.setContent(preferencesFX);
+    this.setPrefSize(1000, 700);
   }
 
   private void attachEvents() {
