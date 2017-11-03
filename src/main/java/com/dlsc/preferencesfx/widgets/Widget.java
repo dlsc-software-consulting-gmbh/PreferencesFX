@@ -1,24 +1,24 @@
 package com.dlsc.preferencesfx.widgets;
 
+import com.dlsc.formsfx.model.structure.Field;
 import javafx.beans.property.Property;
-import javafx.scene.Node;
 
-public class Widget<N extends Node, P extends Property> {
-  private N node;
+public class Widget<F extends Field, P extends Property> {
+  private F field;
   private P value;
 
-  public Widget(N node, P value) {
-    this.node = node;
+  public Widget(F field, P value) {
+    this.field = field;
     this.value = value;
   }
 
   // ------- Getters and Setters -------------
-  public N getNode() {
-    return node;
+  public F getField() {
+    return field;
   }
 
-  public void setNode(N node) {
-    this.node = node;
+  public void setField(F field) {
+    this.field = field;
   }
 
   public P valueProperty() {

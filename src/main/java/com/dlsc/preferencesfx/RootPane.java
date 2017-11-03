@@ -1,9 +1,14 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.pages.Page;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -11,34 +16,38 @@ import javafx.scene.layout.VBox;
  */
 public class RootPane extends VBox {
 
-  RootPane(){
-    Slider slider = new Slider(0,100,0);
-    Label label = new Label("bla");
-    setMargin(label, new Insets(20, 20, 0, 20));
-    getChildren().add(label);
+  private PreferencesFX preferencesFX;
+  BooleanProperty nachtmodus = new SimpleBooleanProperty(true);
+  StringProperty systemName = new SimpleStringProperty("PreferencesFX");
+  IntegerProperty helligkeit = new SimpleIntegerProperty(50);
 
-    PreferencesFX preferencesFX = PreferencesFX.of(
+  RootPane() {
+    preferencesFX = PreferencesFX.of(
         Category.of("Bildschirm",
-            Setting.of("Nachtmodus", Type.BOOLEAN),
-            Setting.of("Skalierung", Type.INTEGER),
-            Setting.of("Custom", slider, slider.valueProperty())
-        ),
-        Category.of("Benachrichtigungen")
-            .withSubCategories(
-                Category.of("Allgemein"),
-                Category.of("Farbe"),
-                Category.of("Schrift")
-            ),
-        Category.of("Netzbetrieb")
-            .withSubCategories(
-                Category.of("Allgemein")
-            )
+            Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
+            Setting.of("Systemname", Type.STRING, systemName),
+            Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+        )
     );
 
-    Setting s1 = Setting.of("Nachtmodus", Type.STRING);
-    getChildren().add(new Page(new Setting[]{s1}));
+    getChildren().add(preferencesFX);
 
-    label.textProperty().bind(s1.getWidget().valueProperty());
+    setupLabels();
   }
 
+  private void setupLabels() {
+    Label label = new Label();
+    label.textProperty().bind(nachtmodus.asString());
+
+    Label label2 = new Label();
+    label2.textProperty().bind(systemName);
+
+    Label label3 = new Label();
+    label3.textProperty().bind(helligkeit.asString().concat("%"));
+
+    HBox hBox = new HBox(label, label2, label3);
+    hBox.setSpacing(20);
+    hBox.setPadding(new Insets(0, 0, 0, 20));
+    getChildren().add(hBox);
+  }
 }

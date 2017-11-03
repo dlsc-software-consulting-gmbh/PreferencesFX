@@ -11,7 +11,7 @@ public class WidgetFactory {
     switch (widgetType) {
       case "TEXTFIELD":
         TextField textField = new TextField();
-        return new Widget(textField, textField.textProperty());
+//        return new Widget(textField, textField.textProperty());
       default:
         return null;
     }
