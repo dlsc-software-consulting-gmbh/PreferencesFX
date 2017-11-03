@@ -14,7 +14,7 @@ public class PreferenceDialog extends DialogPane {
     this.preferencesFX = preferencesFX;
 
     layoutForm();
-    attachEvents();
+    setupClose();
 
     dialog.show();
   }
@@ -28,8 +28,15 @@ public class PreferenceDialog extends DialogPane {
     this.setPrefSize(1000, 700);
   }
 
-  private void attachEvents() {
-    // Setup invisible button
+  /**
+   * Instantiates a close button and makes it invisible.
+   * Dialog requires at least one button to close the dialog window.
+   *
+   * @see <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Dialog.html">
+   * javafx.scene.control.Dialog</a>
+   * Chapter: Dialog Closing Rules
+   */
+  private void setupClose() {
     this.getButtonTypes().add(ButtonType.CLOSE);
     Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
     closeButton.managedProperty().bind(closeButton.visibleProperty());
