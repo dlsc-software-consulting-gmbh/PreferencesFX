@@ -52,6 +52,9 @@ dependencies {
     // Log4j
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.1'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.1'
+
+    // Guava
+    compile 'com.google.guava:guava:23.3-jre'
 }
 
 task wrapper(type: Wrapper) {

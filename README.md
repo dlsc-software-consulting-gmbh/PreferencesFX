@@ -20,7 +20,7 @@ It enables the developer to create preferences dialogs with ease and creates wel
  
 - Marco Sanfratello
   - marco.sanfratello@students.fhnw.ch
-  - Skype:  
+  - Skype: sanfratello.m@gmail.com 
   - GitHub: Genron
 
 - François Martin
