@@ -1,10 +1,9 @@
-package com.dlsc.preferencesfx.pages;
+package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
-import com.dlsc.preferencesfx.Setting;
 import javafx.scene.layout.StackPane;
 
 public class CategoryPane extends StackPane {
