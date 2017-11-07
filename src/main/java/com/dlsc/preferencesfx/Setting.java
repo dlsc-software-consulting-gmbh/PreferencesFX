@@ -16,6 +16,7 @@ public class Setting<F extends Field, P extends Property> {
     this.description = description;
     this.field = field;
     this.value = value;
+    this.type = type;
   }
 
   public static <F extends Field, P extends Property> Setting<F, P> of(String description, Type type, P property) { //alle W sind unterschiedlich
