@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,7 +12,7 @@ public class Group {
   private List<Setting> settings;
 
   Group(Setting... settings) {
-    Collections.addAll(this.settings, settings);
+    this.settings = Arrays.asList(settings);
   }
 
   public static Group of(Setting... settings) {

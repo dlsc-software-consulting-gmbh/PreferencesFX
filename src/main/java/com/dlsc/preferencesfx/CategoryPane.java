@@ -4,7 +4,7 @@ import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.structure.Section;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.formsfx.view.renderer.FormRenderer;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import javafx.scene.layout.StackPane;
 
@@ -14,7 +14,7 @@ public class CategoryPane extends StackPane {
   Form form;
 
   public CategoryPane(Group[] groups) {
-    Collections.addAll(this.groups, groups);
+    this.groups = Arrays.asList(groups);
     initForm();
     getChildren().add(new FormRenderer(form));
   }
