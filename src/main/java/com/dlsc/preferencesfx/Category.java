@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.pages.CategoryPane;
 import java.util.Arrays;
 import java.util.List;
 
