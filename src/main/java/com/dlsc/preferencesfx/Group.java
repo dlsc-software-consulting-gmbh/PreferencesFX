@@ -18,6 +18,7 @@ public class Group {
 
   public Group description(String description){
     this.description = description;
+    return this;
   }
 
   public String getDescription() {
