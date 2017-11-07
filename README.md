@@ -15,7 +15,7 @@ It enables the developer to create preferences dialogs with ease and creates wel
 
 ![alt text](MVP.png) MVP.png
 
-###Team
+##Team
  
 - Marco Sanfratello
   - marco.sanfratello@students.fhnw.ch
