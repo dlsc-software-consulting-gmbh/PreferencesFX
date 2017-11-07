@@ -6,21 +6,21 @@ import java.util.List;
 public class Category {
 
   private String description;
-  private List<Setting> settings;
+  private List<Group> groups;
   private List<Category> children;
   private CategoryPane page;
 
-  Category(String description, Setting... settings) {
+  Category(String description, Group... groups) {
     this.description = description;
-    this.settings = Arrays.asList(settings);
-    this.page = new CategoryPane(settings);
+    this.groups = Arrays.asList(groups);
+    this.page = new CategoryPane(groups);
   }
 
-  public static Category of(String description, Setting... settings) {
-    return new Category(description, settings);
+  public static Category of(String description, Group... groups) {
+    return new Category(description, groups);
   }
 
-  public Category withSubCategories(Category... children) {
+  public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
     return this;
   }
@@ -29,7 +29,15 @@ public class Category {
     return page;
   }
 
-  public List<Setting> getSettings() {
-    return settings;
+  public String getDescription() {
+    return description;
+  }
+
+  public List<Group> getGroups() {
+    return groups;
+  }
+
+  public List<Category> getChildren() {
+    return children;
   }
 }

@@ -1,15 +1,18 @@
 package com.dlsc.preferencesfx;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by François Martin on 07.11.17.
  */
 public class Group {
 
   private String description;
-  private Setting[] settings;
+  private List<Setting> settings;
 
   Group(Setting... settings) {
-    this.settings = settings;
+    Collections.addAll(this.settings, settings);
   }
 
   public static Group of(Setting... settings) {
@@ -25,7 +28,7 @@ public class Group {
     return description;
   }
 
-  public Setting[] getSettings() {
+  public List<Setting> getSettings() {
     return settings;
   }
 }
