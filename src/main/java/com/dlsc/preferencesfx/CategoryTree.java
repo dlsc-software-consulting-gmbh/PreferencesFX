@@ -25,7 +25,8 @@ public class CategoryTree extends TreeView {
 
   private void addRecursive(TreeItem treeItem, List<Category> categories) {
     for (Category category : categories) {
-      TreeItem item = new TreeItem<Category>(category);
+      TreeItem<Category> item = new TreeItem<>(category);
+      item.setExpanded(true);
       if (!Objects.equals(category.getChildren(), null)) {
         addRecursive(item, category.getChildren());
       }
