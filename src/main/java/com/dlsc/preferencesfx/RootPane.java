@@ -52,14 +52,14 @@ public class RootPane extends VBox {
     preferencesFX = PreferencesFX.of(
         Category.of("Bildschirm",
             Group.of(
-              Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
-              Setting.of("Systemname", Type.STRING, systemName),
-              Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+              Setting.of("Nachtmodus", nachtmodus),
+              Setting.of("Systemname", systemName),
+              Setting.of("Helligkeit", helligkeit)
             ).description("Bildschirmspezifische Einstellungen"),
             Group.of(
-                Setting.of("Nachtmodus2", Type.BOOLEAN, nachtmodus),
-                Setting.of("Systemname2", Type.STRING, systemName),
-                Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
+                Setting.of("Nachtmodus2", nachtmodus),
+                Setting.of("Systemname2", systemName),
+                Setting.of("Helligkeit2", helligkeit)
             ).description("Bildschirmspezifische Einstellungen2")
         )
     );
