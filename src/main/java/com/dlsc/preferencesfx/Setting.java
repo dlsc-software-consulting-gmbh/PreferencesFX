@@ -1,6 +1,8 @@
 package com.dlsc.preferencesfx;
 
+import com.dlsc.formsfx.model.structure.BooleanField;
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.view.util.ColSpan;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
@@ -39,6 +41,15 @@ public class Setting<F extends Field, P extends Property> {
             type,
             Field.ofStringType((StringProperty) property).label(description),
             property);
+      case SINGLE_SELECTION:
+        return new Setting(
+            description,
+            type,
+            Field.ofSingleSelectionType(country.allCapitalsProperty(), country.capitalProperty())
+                .label("capital_label")
+                .required("required_error_message")
+                .tooltip("capital_tooltip")
+                .span(ColSpan.HALF),
       default:
         return null;
     }
