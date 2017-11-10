@@ -62,16 +62,16 @@ public class RootPane extends VBox {
 
   private void setupPreferences() {
     preferencesFX = PreferencesFX.of(
-        Category.of("Brightness & Color",
+        Category.of("Screen",
             Group.of(
               Setting.of("Change Brightness", brightness),
               Setting.of("Night mode", nightMode)
-            ).description("Scaling & Ordering"),
+            ).description("Brightness & Color"),
             Group.of(
                 Setting.of("Screen name", screenName),
                 Setting.of("Resolution", resolutionItems, resolutionSelection),
                 Setting.of("Orientation", orientationItems, orientationSelection)
-            ).description("Bildschirmspezifische Einstellungen2")
+            ).description("Scaling & Ordering")
         )
     );
     LOGGER.info("Preferences generated");
