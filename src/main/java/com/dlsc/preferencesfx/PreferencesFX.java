@@ -11,16 +11,27 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-public class PreferencesFX extends StackPane {
+public class PreferencesFX extends BorderPane {
 
   private List<Category> categories;
+  private CategoryTree categoryTree;
 
   PreferencesFX(Category[] categories) {
     this.categories = Arrays.asList(categories);
+    setupParts();
+    layoutParts();
+  }
 
-    getChildren().add(this.categories.get(0).getPage());
+  private void setupParts() {
+    categoryTree = new CategoryTree(categories);
+  }
+
+  private void layoutParts() {
+    setLeft(categoryTree);
+    setCenter(this.categories.get(0).getPage());
   }
 
   public static PreferencesFX of(Category... categories) {

@@ -52,15 +52,90 @@ public class RootPane extends VBox {
     preferencesFX = PreferencesFX.of(
         Category.of("Bildschirm",
             Group.of(
-              Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
-              Setting.of("Systemname", Type.STRING, systemName),
-              Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+                Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
+                Setting.of("Systemname", Type.STRING, systemName),
+                Setting.of("Helligkeit", Type.INTEGER, helligkeit)
             ).description("Bildschirmspezifische Einstellungen"),
             Group.of(
                 Setting.of("Nachtmodus2", Type.BOOLEAN, nachtmodus),
                 Setting.of("Systemname2", Type.STRING, systemName),
                 Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
             ).description("Bildschirmspezifische Einstellungen2")
+        ).subCategories(
+            Category.of("Nachtmodus2",
+                Group.of(
+                    Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
+                    Setting.of("Systemname", Type.STRING, systemName),
+                    Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+                ).description("Bildschirmspezifische Einstellungen"),
+                Group.of(
+                    Setting.of("Nachtmodus2", Type.BOOLEAN, nachtmodus),
+                    Setting.of("Systemname2", Type.STRING, systemName),
+                    Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
+                ).description("Bildschirmspezifische Einstellungen2")
+            )
+        ),
+        Category.of("Nachtmodus2",
+            Group.of(
+                Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
+                Setting.of("Systemname", Type.STRING, systemName),
+                Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+            ).description("Bildschirmspezifische Einstellungen"),
+            Group.of(
+                Setting.of("Nachtmodus2", Type.BOOLEAN, nachtmodus),
+                Setting.of("Systemname2", Type.STRING, systemName),
+                Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
+            ).description("Bildschirmspezifische Einstellungen2")
+        ),
+        Category.of("Bildschirmspezifische",
+            Group.of(
+                Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
+                Setting.of("Systemname", Type.STRING, systemName),
+                Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+            ).description("Bildschirmspezifische Einstellungen"),
+            Group.of(
+                Setting.of("Nachtmodus2", Type.BOOLEAN, nachtmodus),
+                Setting.of("Systemname2", Type.STRING, systemName),
+                Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
+            ).description("Bildschirmspezifische Einstellungen2")
+        ).subCategories(
+            Category.of("Nachtmodus2",
+                Group.of(
+                    Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
+                    Setting.of("Systemname", Type.STRING, systemName),
+                    Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+                ).description("Bildschirmspezifische Einstellungen"),
+                Group.of(
+                    Setting.of("Nachtmodus2", Type.BOOLEAN, nachtmodus),
+                    Setting.of("Systemname2", Type.STRING, systemName),
+                    Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
+                ).description("Bildschirmspezifische Einstellungen2")
+            ),
+            Category.of("Bildschirmspezifische",
+                Group.of(
+                    Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
+                    Setting.of("Systemname", Type.STRING, systemName),
+                    Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+                ).description("Bildschirmspezifische Einstellungen"),
+                Group.of(
+                    Setting.of("Nachtmodus2", Type.BOOLEAN, nachtmodus),
+                    Setting.of("Systemname2", Type.STRING, systemName),
+                    Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
+                ).description("Bildschirmspezifische Einstellungen2")
+            ).subCategories(
+                Category.of("Nachtmodus2",
+                    Group.of(
+                        Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus),
+                        Setting.of("Systemname", Type.STRING, systemName),
+                        Setting.of("Helligkeit", Type.INTEGER, helligkeit)
+                    ).description("Bildschirmspezifische Einstellungen"),
+                    Group.of(
+                        Setting.of("Nachtmodus2", Type.BOOLEAN, nachtmodus),
+                        Setting.of("Systemname2", Type.STRING, systemName),
+                        Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
+                    ).description("Bildschirmspezifische Einstellungen2")
+                )
+            )
         )
     );
     LOGGER.info("Preferences generated");
