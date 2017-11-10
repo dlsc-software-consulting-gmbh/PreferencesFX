@@ -11,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
@@ -23,6 +24,7 @@ public class PreferencesFX extends BorderPane {
     this.categories = Arrays.asList(categories);
     setupParts();
     layoutParts();
+    setupListeners();
   }
 
   private void setupParts() {
@@ -32,6 +34,12 @@ public class PreferencesFX extends BorderPane {
   private void layoutParts() {
     setLeft(categoryTree);
     setCenter(this.categories.get(0).getPage());
+  }
+
+  private void setupListeners() {
+    categoryTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+      setCenter(((Category) ((TreeItem) newValue).getValue()).getPage());
+    });
   }
 
   public static PreferencesFX of(Category... categories) {
