@@ -38,6 +38,7 @@ public class CategoryTree extends TreeView {
     this.setRoot(rootItem);
     this.setShowRoot(false);
     this.getRoot().setExpanded(true);
+    this.getSelectionModel().select(0);
   }
 
 }
