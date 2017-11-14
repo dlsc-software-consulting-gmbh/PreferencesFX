@@ -24,13 +24,13 @@ public class RootPane extends VBox {
       LogManager.getLogger(RootPane.class.getName());
 
   private PreferencesFX preferencesFX;
-  BooleanProperty nachtmodus = new SimpleBooleanProperty(true);
-  StringProperty systemName = new SimpleStringProperty("PreferencesFX");
-  IntegerProperty helligkeit = new SimpleIntegerProperty(50);
+  private final BooleanProperty nachtmodus = new SimpleBooleanProperty(true);
+  private final StringProperty systemName = new SimpleStringProperty("PreferencesFX");
+  private final IntegerProperty helligkeit = new SimpleIntegerProperty(50);
 
-  MenuBar menuBar;
-  Menu menu;
-  MenuItem preferencesMenuItem;
+  private MenuBar menuBar;
+  private Menu menu;
+  private MenuItem preferencesMenuItem;
 
   RootPane() {
     setupMenuBar();
@@ -51,21 +51,32 @@ public class RootPane extends VBox {
   private void setupPreferences() {
     preferencesFX = PreferencesFX.of(
         Category.of("System",
-            Group.of(
-                Setting.of("Systemname", Type.STRING, systemName)
-            ).description("Systemname")
+            Group.of("Hello",
+                Setting.of("Systemname", Type.BOOLEAN, nachtmodus)
+            ),
+            Group.of("World",
+                Setting.of("Hi", Type.STRING, systemName)
+            ),
+            Group.of("Systemname",
+                Setting.of("What", Type.INTEGER, helligkeit)
+            )
         ),
         Category.of("Bildschirm")
             .subCategories(
                 Category.of("Helligkeitseinstellungen",
                     Group.of(
-                        Setting.of("Helligkeit", Type.INTEGER, helligkeit)
-                    ).description("Helligkeit")
+                        Setting.of("Helligkeit", Type.INTEGER, helligkeit),
+                        Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
+                    ).description("Hell"),
+                    Group.of("Helligkeit3",
+                        Setting.of("Helligkeit4", Type.INTEGER, helligkeit),
+                        Setting.of("Helligkeit5", Type.INTEGER, helligkeit)
+                    )
                 ),
                 Category.of("Tag- und Nachteinstellungen",
-                    Group.of(
+                    Group.of("Nachtmodus",
                         Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus)
-                    ).description("Nachtmodus")
+                    )
                 )
             )
     );

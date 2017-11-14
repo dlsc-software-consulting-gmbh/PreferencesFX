@@ -11,15 +11,20 @@ public class Group {
   private String description;
   private List<Setting> settings;
 
-  Group(Setting... settings) {
+  Group(String description, Setting... settings) {
+    this.description = description;
     this.settings = Arrays.asList(settings);
   }
 
-  public static Group of(Setting... settings) {
-    return new Group(settings);
+  public static Group of(String description, Setting... settings) {
+    return new Group(description, settings);
   }
 
-  public Group description(String description){
+  public static Group of(Setting... settings) {
+    return new Group(null, settings);
+  }
+
+  public Group description(String description) {
     this.description = description;
     return this;
   }
