@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx;
 
-import com.sun.tools.javac.util.List;
+import com.google.common.collect.Lists;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
@@ -37,9 +37,9 @@ public class RootPane extends VBox {
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
   // Group: Scaling & Ordering
   StringProperty screenName = new SimpleStringProperty("PreferencesFX Monitor");
-  ObservableList<String> resolutionItems = FXCollections.observableArrayList(List.of("1024x768", "1280x1024", "1440x900", "1920x1080"));
+  ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList("1024x768", "1280x1024", "1440x900", "1920x1080"));
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
-  ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(List.of("Vertical", "Horizontal")));
+  ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal")));
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 
   MenuBar menuBar;
@@ -61,6 +61,8 @@ public class RootPane extends VBox {
     getChildren().add(menuBar);
     preferencesMenuItem.setOnAction(e -> new PreferenceDialog(preferencesFX));
   }
+
+
 
   private void setupPreferences() {
     preferencesFX = PreferencesFX.of(
