@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -36,7 +37,7 @@ public class RootPane extends VBox {
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
   // Group: Scaling & Ordering
   StringProperty screenName = new SimpleStringProperty("PreferencesFX Monitor");
-  ListProperty<String> resolutionItems = new SimpleListProperty<>(FXCollections.observableArrayList(List.of("1024x768", "1280x1024", "1440x900", "1920x1080")));
+  ObservableList<String> resolutionItems = FXCollections.observableArrayList(List.of("1024x768", "1280x1024", "1440x900", "1920x1080"));
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
   ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(List.of("Vertical","Horizontal")));
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
