@@ -17,8 +17,6 @@ buildscript {
     }
 }
 
-ext.junit4Version        = '4.12'
-ext.mockitoVersion       = '2.11.0'
 ext.checkstyleVersion    = '8.3'
 
 apply plugin: 'java'
@@ -41,10 +39,10 @@ compileTestJava {
 
 dependencies {
     // JUnit 4
-    testCompile("junit:junit:${junit4Version}")
+    testCompile("junit:junit:4.12")
 
     // Mockito
-    testCompile("org.mockito:mockito-core:${mockitoVersion}")
+    testCompile("org.mockito:mockito-core:2.11.0")
 
     // FormsFX
     compile 'com.github.FHNW-IP5-IP6:formsfx:master-SNAPSHOT'
@@ -55,6 +53,9 @@ dependencies {
 
     // Guava
     compile 'com.google.guava:guava:23.3-jre'
+
+    // ControlsFX
+    compile 'org.controlsfx:controlsfx:8.40.14'
 }
 
 task wrapper(type: Wrapper) {
