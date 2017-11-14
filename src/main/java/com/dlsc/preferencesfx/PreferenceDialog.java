@@ -7,8 +7,8 @@ import javafx.scene.control.DialogPane;
 
 public class PreferenceDialog extends DialogPane {
 
-  PreferencesFX preferencesFX;
-  Dialog dialog = new Dialog();
+  private PreferencesFX preferencesFX;
+  private Dialog dialog = new Dialog();
 
   PreferenceDialog(PreferencesFX preferencesFX) {
     this.preferencesFX = preferencesFX;
