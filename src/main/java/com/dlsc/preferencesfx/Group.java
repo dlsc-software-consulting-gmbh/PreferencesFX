@@ -16,16 +16,12 @@ public class Group {
     this.settings = Arrays.asList(settings);
   }
 
-  Group(Setting... settings) {
-    this.settings = Arrays.asList(settings);
-  }
-
   public static Group of(String description, Setting... settings) {
     return new Group(description, settings);
   }
 
   public static Group of(Setting... settings) {
-    return new Group(settings);
+    return new Group(null, settings);
   }
 
   public Group description(String description) {
