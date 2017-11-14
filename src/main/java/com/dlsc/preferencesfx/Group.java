@@ -19,7 +19,7 @@ public class Group {
     return new Group(settings);
   }
 
-  public Group description(String description){
+  public Group description(String description) {
     this.description = description;
     return this;
   }

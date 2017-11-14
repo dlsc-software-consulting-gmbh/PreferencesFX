@@ -21,6 +21,10 @@ public class PreferencesFX extends MasterDetailPane {
     setupListeners();
   }
 
+  public static PreferencesFX of(Category... categories) {
+    return new PreferencesFX(categories);
+  }
+
   private void setupParts() {
     categoryTree = new CategoryTree(categories);
   }
@@ -38,10 +42,6 @@ public class PreferencesFX extends MasterDetailPane {
       setMasterNode(((Category) ((TreeItem) newValue).getValue()).getCategoryPane()); // Replaces the old CategoryPane with the new one.
       setDividerPosition(dividerPosition); // Sets the saved divider position.
     });
-  }
-
-  public static PreferencesFX of(Category... categories) {
-    return new PreferencesFX(categories);
   }
 
   public List<Category> getCategories() {

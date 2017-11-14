@@ -1,10 +1,9 @@
 package com.dlsc.preferencesfx;
 
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-
 import java.util.List;
 import java.util.Objects;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 
 public class CategoryTree extends TreeView {
 

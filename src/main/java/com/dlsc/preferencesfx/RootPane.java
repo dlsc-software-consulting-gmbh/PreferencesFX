@@ -29,9 +29,6 @@ import org.apache.logging.log4j.Logger;
 public class RootPane extends VBox {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
-
-  private PreferencesFX preferencesFX;
-
   // Group: Brightness & Color
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
@@ -41,10 +38,10 @@ public class RootPane extends VBox {
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
   ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal")));
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
-
   MenuBar menuBar;
   Menu menu;
   MenuItem preferencesMenuItem;
+  private PreferencesFX preferencesFX;
 
   RootPane() {
     setupMenuBar();
@@ -61,7 +58,6 @@ public class RootPane extends VBox {
     getChildren().add(menuBar);
     preferencesMenuItem.setOnAction(e -> new PreferenceDialog(preferencesFX));
   }
-
 
 
   private void setupPreferences() {
