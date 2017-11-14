@@ -1,11 +1,18 @@
 package com.dlsc.preferencesfx;
 
+import com.google.common.collect.Lists;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -22,15 +29,19 @@ import org.apache.logging.log4j.Logger;
 public class RootPane extends VBox {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
-
+  // Group: Brightness & Color
+  IntegerProperty brightness = new SimpleIntegerProperty(50);
+  BooleanProperty nightMode = new SimpleBooleanProperty(true);
+  // Group: Scaling & Ordering
+  StringProperty screenName = new SimpleStringProperty("PreferencesFX Monitor");
+  ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList("1024x768", "1280x1024", "1440x900", "1920x1080"));
+  ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
+  ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal")));
+  ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
+  MenuBar menuBar;
+  Menu menu;
+  MenuItem preferencesMenuItem;
   private PreferencesFX preferencesFX;
-  private final BooleanProperty nachtmodus = new SimpleBooleanProperty(true);
-  private final StringProperty systemName = new SimpleStringProperty("PreferencesFX");
-  private final IntegerProperty helligkeit = new SimpleIntegerProperty(50);
-
-  private MenuBar menuBar;
-  private Menu menu;
-  private MenuItem preferencesMenuItem;
 
   RootPane() {
     setupMenuBar();
@@ -48,35 +59,23 @@ public class RootPane extends VBox {
     preferencesMenuItem.setOnAction(e -> new PreferenceDialog(preferencesFX));
   }
 
+
   private void setupPreferences() {
     preferencesFX = PreferencesFX.of(
-        Category.of("System",
-            Group.of("Hello",
-                Setting.of("Systemname", Type.BOOLEAN, nachtmodus)
-            ),
-            Group.of("World",
-                Setting.of("Hi", Type.STRING, systemName)
-            ),
-            Group.of("Systemname",
-                Setting.of("What", Type.INTEGER, helligkeit)
-            )
+        Category.of("Screen",
+            Group.of(
+                Setting.of("Change Brightness", brightness),
+                Setting.of("Night mode", nightMode)
+            ).description("Brightness & Color")
         ),
-        Category.of("Bildschirm")
+        Category.of("Scaling & Ordering")
             .subCategories(
-                Category.of("Helligkeitseinstellungen",
+                Category.of("Screen",
                     Group.of(
-                        Setting.of("Helligkeit", Type.INTEGER, helligkeit),
-                        Setting.of("Helligkeit2", Type.INTEGER, helligkeit)
-                    ).description("Hell"),
-                    Group.of("Helligkeit3",
-                        Setting.of("Helligkeit4", Type.INTEGER, helligkeit),
-                        Setting.of("Helligkeit5", Type.INTEGER, helligkeit)
-                    )
-                ),
-                Category.of("Tag- und Nachteinstellungen",
-                    Group.of("Nachtmodus",
-                        Setting.of("Nachtmodus", Type.BOOLEAN, nachtmodus)
-                    )
+                        Setting.of("Screen name", screenName),
+                        Setting.of("Resolution", resolutionItems, resolutionSelection),
+                        Setting.of("Orientation", orientationItems, orientationSelection)
+                    ).description("Brightness & Color")
                 )
             )
     );
@@ -84,16 +83,22 @@ public class RootPane extends VBox {
   }
 
   private void setupLabels() {
-    Label label = new Label();
-    label.textProperty().bind(nachtmodus.asString());
+    Label brightnessLbl = new Label();
+    brightnessLbl.textProperty().bind(brightness.asString().concat("%"));
 
-    Label label2 = new Label();
-    label2.textProperty().bind(systemName);
+    Label nightModeLbl = new Label();
+    nightModeLbl.textProperty().bind(nightMode.asString());
 
-    Label label3 = new Label();
-    label3.textProperty().bind(helligkeit.asString().concat("%"));
+    Label screenNameLbl = new Label();
+    screenNameLbl.textProperty().bind(screenName);
 
-    HBox hBox = new HBox(label, label2, label3);
+    Label resolutionLbl = new Label();
+    resolutionLbl.textProperty().bind(resolutionSelection);
+
+    Label orientationLbl = new Label();
+    orientationLbl.textProperty().bind(orientationSelection);
+
+    HBox hBox = new HBox(brightnessLbl, nightModeLbl, screenNameLbl, resolutionLbl, orientationLbl);
     hBox.setSpacing(20);
     hBox.setPadding(new Insets(0, 0, 0, 20));
     getChildren().add(hBox);
