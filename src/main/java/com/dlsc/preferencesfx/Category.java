@@ -13,7 +13,7 @@ public class Category {
   Category(String description, Group... groups) {
     this.description = description;
     this.groups = Arrays.asList(groups);
-    this.categoryPane = new CategoryPane(groups);
+    this.categoryPane = new CategoryPane(this.groups);
   }
 
   public static Category of(String description, Group... groups) {
