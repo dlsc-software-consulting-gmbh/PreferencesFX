@@ -40,4 +40,9 @@ public class Category {
   public List<Category> getChildren() {
     return children;
   }
+
+  @Override
+  public String toString() {
+    return description;
+  }
 }
