@@ -28,14 +28,14 @@ public class PreferencesFX extends MasterDetailPane {
   private void layoutParts() {
     setDetailSide(Side.LEFT);
     setDetailNode(categoryTree);
-    setMasterNode(this.categories.get(INITIAL_CATEGORY).getPage()); // Sets initial shown CategoryPane.
+    setMasterNode(this.categories.get(INITIAL_CATEGORY).getCategoryPane()); // Sets initial shown CategoryPane.
     setDividerPosition(DIVIDER_POSITION);
   }
 
   private void setupListeners() {
     categoryTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
       double dividerPosition = this.getDividerPosition(); // Save the old divider position. When you set the new item, it resets the position.
-      setMasterNode(((Category) ((TreeItem) newValue).getValue()).getPage()); // Replaces the old CategoryPane with the new one.
+      setMasterNode(((Category) ((TreeItem) newValue).getValue()).getCategoryPane()); // Replaces the old CategoryPane with the new one.
       setDividerPosition(dividerPosition); // Sets the saved divider position.
     });
   }

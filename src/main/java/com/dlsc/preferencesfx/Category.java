@@ -8,12 +8,12 @@ public class Category {
   private String description;
   private List<Group> groups;
   private List<Category> children;
-  private CategoryPane page;
+  private CategoryPane categoryPane;
 
   Category(String description, Group... groups) {
     this.description = description;
     this.groups = Arrays.asList(groups);
-    this.page = new CategoryPane(groups);
+    this.categoryPane = new CategoryPane(groups);
   }
 
   public static Category of(String description, Group... groups) {
@@ -25,8 +25,8 @@ public class Category {
     return this;
   }
 
-  public CategoryPane getPage() {
-    return page;
+  public CategoryPane getCategoryPane() {
+    return categoryPane;
   }
 
   public String getDescription() {
