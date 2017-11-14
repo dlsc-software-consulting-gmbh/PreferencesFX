@@ -39,7 +39,7 @@ public class RootPane extends VBox {
   StringProperty screenName = new SimpleStringProperty("PreferencesFX Monitor");
   ObservableList<String> resolutionItems = FXCollections.observableArrayList(List.of("1024x768", "1280x1024", "1440x900", "1920x1080"));
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
-  ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(List.of("Vertical","Horizontal")));
+  ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(List.of("Vertical", "Horizontal")));
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 
   MenuBar menuBar;
@@ -66,15 +66,20 @@ public class RootPane extends VBox {
     preferencesFX = PreferencesFX.of(
         Category.of("Screen",
             Group.of(
-              Setting.of("Change Brightness", brightness),
-              Setting.of("Night mode", nightMode)
-            ).description("Brightness & Color"),
-            Group.of(
-                Setting.of("Screen name", screenName),
-                Setting.of("Resolution", resolutionItems, resolutionSelection),
-                Setting.of("Orientation", orientationItems, orientationSelection)
-            ).description("Scaling & Ordering")
-        )
+                Setting.of("Change Brightness", brightness),
+                Setting.of("Night mode", nightMode)
+            ).description("Brightness & Color")
+        ),
+        Category.of("Scaling & Ordering")
+            .subCategories(
+                Category.of("Screen",
+                    Group.of(
+                        Setting.of("Screen name", screenName),
+                        Setting.of("Resolution", resolutionItems, resolutionSelection),
+                        Setting.of("Orientation", orientationItems, orientationSelection)
+                    ).description("Brightness & Color")
+                )
+            )
     );
     LOGGER.info("Preferences generated");
   }
