@@ -24,7 +24,7 @@ public class Setting<F extends Field, P extends Property> {
   public static Setting of(String description, BooleanProperty property) {
     return new Setting<>(
         description,
-        Field.ofBooleanType(property).label(description),
+        Field.ofBooleanType(property).label(description).render(new ToggleControl()),
         property);
   }
 
