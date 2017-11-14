@@ -3,11 +3,10 @@ package com.dlsc.preferencesfx;
 import com.dlsc.formsfx.model.structure.Field;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 
 public class Setting<F extends Field, P extends Property> {
   private String description;
@@ -41,10 +40,10 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
-  public static <P> Setting of(String description, ObservableList<P> items, ObjectProperty<P> selection) {
+  public static <P> Setting of(String description, ListProperty<P> items, ObjectProperty<P> selection) {
     return new Setting<>(
         description,
-        Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection).label(description),
+        Field.ofSingleSelectionType(items, selection).label(description),
         selection);
   }
 

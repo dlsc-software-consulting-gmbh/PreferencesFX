@@ -3,14 +3,15 @@ package com.dlsc.preferencesfx;
 import com.sun.tools.javac.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -35,9 +36,9 @@ public class RootPane extends VBox {
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
   // Group: Scaling & Ordering
   StringProperty screenName = new SimpleStringProperty("PreferencesFX Monitor");
-  ObservableList<String> resolutionItems = FXCollections.observableArrayList(List.of("1024x768", "1280x1024", "1440x900", "1920x1080"));
+  ListProperty<String> resolutionItems = new SimpleListProperty<>(FXCollections.observableArrayList(List.of("1024x768", "1280x1024", "1440x900", "1920x1080")));
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
-  ObservableList<String> orientationItems = FXCollections.observableArrayList(List.of("Vertical","Horizontal"));
+  ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(List.of("Vertical","Horizontal")));
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 
   MenuBar menuBar;
@@ -88,7 +89,7 @@ public class RootPane extends VBox {
     screenNameLbl.textProperty().bind(screenName);
 
     Label resolutionLbl = new Label();
-    resolutionSelection.bind(resolutionSelection);
+    resolutionLbl.textProperty().bind(resolutionSelection);
 
     Label orientationLbl = new Label();
     orientationLbl.textProperty().bind(orientationSelection);
