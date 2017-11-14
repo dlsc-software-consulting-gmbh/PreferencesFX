@@ -25,7 +25,9 @@ public class Setting<F extends Field, P extends Property> {
         return new Setting(
             description,
             type,
-            Field.ofBooleanType((BooleanProperty) property).label(description),
+            Field.ofBooleanType((BooleanProperty) property)
+                .label(description)
+                .render(new ToggleControl()),
             property);
       case INTEGER:
         return new Setting(
