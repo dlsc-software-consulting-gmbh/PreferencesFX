@@ -28,7 +28,7 @@ public class PreferencesFX extends MasterDetailPane {
   private void layoutParts() {
     setDetailSide(Side.LEFT);
     setDetailNode(categoryTree);
-    setMasterNode(this.categories.get(INITIAL_CATEGORY).getPage());
+    setMasterNode(this.categories.get(INITIAL_CATEGORY).getPage()); // Sets initial shown CategoryPane.
     setDividerPosition(DIVIDER_POSITION);
   }
 
