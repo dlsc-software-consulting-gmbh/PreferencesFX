@@ -1,17 +1,16 @@
 package com.dlsc.preferencesfx;
 
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TreeItem;
-
 import java.util.Arrays;
 import java.util.List;
+import javafx.geometry.Side;
+import javafx.scene.control.TreeItem;
+import org.controlsfx.control.MasterDetailPane;
 
-public class PreferencesFX extends SplitPane {
+public class PreferencesFX extends MasterDetailPane {
 
-  public static final int FIRST_DIVIDER = 0;
-  public static final int CATEGORY_PANE = 1;
   public static final float DIVIDER_POSITION = 0.2f;
   public static final int INITIAL_CATEGORY = 0;
+
   private List<Category> categories;
   private CategoryTree categoryTree;
 
@@ -27,20 +26,17 @@ public class PreferencesFX extends SplitPane {
   }
 
   private void layoutParts() {
-    getItems().addAll(
-        categoryTree,
-        this.categories.get(INITIAL_CATEGORY).getPage()
-    );
-
-    this.setDividerPositions(DIVIDER_POSITION);
+    setDetailSide(Side.LEFT);
+    setDetailNode(categoryTree);
+    setMasterNode(this.categories.get(INITIAL_CATEGORY).getPage());
+    setDividerPosition(DIVIDER_POSITION);
   }
 
   private void setupListeners() {
     categoryTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-      double dividerPosition = this.getDividerPositions()[FIRST_DIVIDER]; // Save the old divider position. When you set the new item, it resets the position.
-      getItems().remove(CATEGORY_PANE); // Removes the old page
-      getItems().add(((Category) ((TreeItem) newValue).getValue()).getPage()); // Places the new page
-//            this.setDividerPositions(dividerPosition); // Sets the saved divider position
+      double dividerPosition = this.getDividerPosition(); // Save the old divider position. When you set the new item, it resets the position.
+      setMasterNode(((Category) ((TreeItem) newValue).getValue()).getPage()); // Replaces the old CategoryPane with the new one.
+      setDividerPosition(dividerPosition); // Sets the saved divider position.
     });
   }
 
