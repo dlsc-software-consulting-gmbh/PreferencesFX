@@ -98,9 +98,31 @@ public class RootPane extends VBox {
     Label orientationLbl = new Label();
     orientationLbl.textProperty().bind(orientationSelection);
 
-    HBox hBox = new HBox(brightnessLbl, nightModeLbl, screenNameLbl, resolutionLbl, orientationLbl);
-    hBox.setSpacing(20);
-    hBox.setPadding(new Insets(0, 0, 0, 20));
-    getChildren().add(hBox);
+    VBox vBoxBindings = new VBox(
+        brightnessLbl,
+        nightModeLbl,
+        screenNameLbl,
+        resolutionLbl,
+        orientationLbl
+    );
+    vBoxBindings.setSpacing(20);
+    vBoxBindings.setPadding(new Insets(20, 0, 0, 20));
+
+    VBox vBoxTitles = new VBox(
+        new Label("Brightness:"),
+        new Label("Night mode:"),
+        new Label("Screen name:"),
+        new Label("Resolution:"),
+        new Label("Orientation:")
+    );
+    vBoxTitles.setSpacing(20);
+    vBoxTitles.setPadding(new Insets(20, 0, 0, 20));
+
+    getChildren().add(
+        new HBox(
+            vBoxTitles,
+            vBoxBindings
+        )
+    );
   }
 }
