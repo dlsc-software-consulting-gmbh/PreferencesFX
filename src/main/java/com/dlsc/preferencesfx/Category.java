@@ -16,8 +16,24 @@ public class Category {
     this.categoryPane = new CategoryPane(this.groups);
   }
 
+  /**
+   * Creates a new category from groups.
+   * @param description Category name, for display in {@link CategoryTree}
+   * @param groups {@link Group} with {@link Setting} to be shown in the {@link CategoryPane}
+   * @return initialized Category object
+   */
   public static Category of(String description, Group... groups) {
     return new Category(description, groups);
+  }
+
+  /**
+   * Creates a new category from settings, if the settings shouldn't be individually grouped.
+   * @param description Category name, for display in {@link CategoryTree}
+   * @param settings {@link Setting} to be shown in the {@link CategoryPane}
+   * @return initialized Category object
+   */
+  public static Category of(String description, Setting... settings) {
+    return new Category(description, Group.of(settings));
   }
 
   public Category subCategories(Category... children) {
