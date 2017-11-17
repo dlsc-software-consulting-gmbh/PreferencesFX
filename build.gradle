@@ -17,8 +17,6 @@ buildscript {
     }
 }
 
-ext.junit4Version        = '4.12'
-ext.mockitoVersion       = '2.11.0'
 ext.checkstyleVersion    = '8.3'
 
 apply plugin: 'java'
@@ -41,16 +39,23 @@ compileTestJava {
 
 dependencies {
     // JUnit 4
-    testCompile("junit:junit:${junit4Version}")
+    testCompile("junit:junit:4.12")
 
     // Mockito
-    testCompile("org.mockito:mockito-core:${mockitoVersion}")
+    testCompile("org.mockito:mockito-core:2.11.0")
 
     // FormsFX
-    compile 'com.github.dlemmermann:formsfx:master-SNAPSHOT'
+    compile 'com.github.FHNW-IP5-IP6:formsfx:master-SNAPSHOT'
+
+    // Log4j
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.9.1'
 
     // Guava
     compile 'com.google.guava:guava:23.3-jre'
+
+    // ControlsFX
+    compile 'org.controlsfx:controlsfx:8.40.14'
 }
 
 task wrapper(type: Wrapper) {
