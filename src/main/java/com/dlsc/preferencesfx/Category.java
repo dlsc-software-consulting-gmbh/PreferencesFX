@@ -10,10 +10,29 @@ public class Category {
   private List<Category> children;
   private CategoryPane categoryPane;
 
+  /**
+   * Creates a category without groups, for top-level categories without any settings.
+   * @param description Category name, for display in {@link CategoryTree}
+   */
+  private Category(String description) {
+    this.description = description;
+    this.categoryPane = new CategoryPane();
+  }
+
   private Category(String description, Group... groups) {
     this.description = description;
     this.groups = Arrays.asList(groups);
     this.categoryPane = new CategoryPane(this.groups);
+  }
+
+  /**
+   * Creates an empty category.
+   * Can be used for top-level categories without {@link Setting}.
+   * @param description Category name, for display in {@link CategoryTree}
+   * @return initialized Category object
+   */
+  public static Category of(String description) {
+    return new Category(description);
   }
 
   /**
