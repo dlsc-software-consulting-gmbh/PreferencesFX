@@ -5,12 +5,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 
-public class PreferenceDialog extends DialogPane {
+public class PreferencesDialog extends DialogPane {
 
   private PreferencesFX preferencesFX;
   private Dialog dialog = new Dialog();
 
-  PreferenceDialog(PreferencesFX preferencesFX) {
+  public PreferencesDialog(PreferencesFX preferencesFX) {
     this.preferencesFX = preferencesFX;
 
     layoutForm();

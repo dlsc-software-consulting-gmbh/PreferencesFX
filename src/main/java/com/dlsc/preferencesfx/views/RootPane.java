@@ -1,5 +1,9 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.views;
 
+import com.dlsc.preferencesfx.Category;
+import com.dlsc.preferencesfx.Group;
+import com.dlsc.preferencesfx.PreferencesFX;
+import com.dlsc.preferencesfx.Setting;
 import com.google.common.collect.Lists;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -13,20 +17,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 30.10.17.
  */
-public class RootPane extends VBox {
+public class RootPane extends StackPane {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
   // Group: Brightness & Color
@@ -38,30 +36,13 @@ public class RootPane extends VBox {
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
   ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal")));
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
-  MenuBar menuBar;
-  Menu menu;
-  MenuItem preferencesMenuItem;
-  private PreferencesFX preferencesFX;
 
-  RootPane() {
-    setupMenuBar();
-    setupPreferences();
-    setupLabels();
+  public RootPane() {
+    getChildren().add(new DemoView(createPreferences(), this));
   }
 
-  private void setupMenuBar() {
-    menuBar = new MenuBar();
-    menu = new Menu("Edit");
-    preferencesMenuItem = new MenuItem("Preferences");
-    menu.getItems().add(preferencesMenuItem);
-    menuBar.getMenus().add(menu);
-    getChildren().add(menuBar);
-    preferencesMenuItem.setOnAction(e -> new PreferenceDialog(preferencesFX));
-  }
-
-
-  private void setupPreferences() {
-    preferencesFX = PreferencesFX.of(
+  private PreferencesFX createPreferences() {
+    return PreferencesFX.of(
         Category.of("Screen",
             Group.of(
                 Setting.of("Change Brightness", brightness),
@@ -78,51 +59,6 @@ public class RootPane extends VBox {
                     ).description("Brightness & Color")
                 )
             )
-    );
-    LOGGER.info("Preferences generated");
-  }
-
-  private void setupLabels() {
-    Label brightnessLbl = new Label();
-    brightnessLbl.textProperty().bind(brightness.asString().concat("%"));
-
-    Label nightModeLbl = new Label();
-    nightModeLbl.textProperty().bind(nightMode.asString());
-
-    Label screenNameLbl = new Label();
-    screenNameLbl.textProperty().bind(screenName);
-
-    Label resolutionLbl = new Label();
-    resolutionLbl.textProperty().bind(resolutionSelection);
-
-    Label orientationLbl = new Label();
-    orientationLbl.textProperty().bind(orientationSelection);
-
-    VBox vBoxBindings = new VBox(
-        brightnessLbl,
-        nightModeLbl,
-        screenNameLbl,
-        resolutionLbl,
-        orientationLbl
-    );
-    vBoxBindings.setSpacing(20);
-    vBoxBindings.setPadding(new Insets(20, 0, 0, 20));
-
-    VBox vBoxTitles = new VBox(
-        new Label("Brightness:"),
-        new Label("Night mode:"),
-        new Label("Screen name:"),
-        new Label("Resolution:"),
-        new Label("Orientation:")
-    );
-    vBoxTitles.setSpacing(20);
-    vBoxTitles.setPadding(new Insets(20, 0, 0, 20));
-
-    getChildren().add(
-        new HBox(
-            vBoxTitles,
-            vBoxBindings
-        )
     );
   }
 }
