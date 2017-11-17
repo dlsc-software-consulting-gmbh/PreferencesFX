@@ -22,7 +22,7 @@ public class CategoryPane extends StackPane {
     form = Form.of();
     List<com.dlsc.formsfx.model.structure.Group> formGroups = form.getGroups();
     for (int i = 0; i < groups.size(); i++) {
-      formGroups.add(Section.of().title(groups.get(i).getDescription()));
+      formGroups.add(PreferencesGroup.of().title(groups.get(i).getDescription()));
       for (Setting setting : groups.get(i).getSettings()) {
         formGroups.get(i).getFields().add(setting.getField());
       }
