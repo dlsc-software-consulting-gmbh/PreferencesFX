@@ -17,7 +17,7 @@ public class AppStarter extends Application {
 
     Scene myScene = new Scene(rootPane);
 
-    primaryStage.setTitle("PreferencesFX Demo");
+    primaryStage.setTitle("PreferencesFx Demo");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(600);
     primaryStage.setHeight(600);

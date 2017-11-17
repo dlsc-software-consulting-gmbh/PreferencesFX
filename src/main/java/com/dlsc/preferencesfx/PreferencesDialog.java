@@ -7,11 +7,11 @@ import javafx.scene.control.DialogPane;
 
 public class PreferencesDialog extends DialogPane {
 
-  private PreferencesFX preferencesFX;
+  private PreferencesFx preferencesFx;
   private Dialog dialog = new Dialog();
 
-  public PreferencesDialog(PreferencesFX preferencesFX) {
-    this.preferencesFX = preferencesFX;
+  public PreferencesDialog(PreferencesFx preferencesFx) {
+    this.preferencesFx = preferencesFx;
 
     layoutForm();
     setupClose();
@@ -20,11 +20,11 @@ public class PreferencesDialog extends DialogPane {
   }
 
   private void layoutForm() {
-    dialog.setTitle("PreferencesFX");
+    dialog.setTitle("PreferencesFx");
     dialog.setResizable(true);
 
     dialog.setDialogPane(this);
-    this.setContent(preferencesFX);
+    this.setContent(preferencesFx);
     this.setPrefSize(1000, 700);
   }
 

@@ -34,9 +34,10 @@ public class CategoryTree extends TreeView {
 
   private void layoutParts() {
     setRoot(rootItem);
-    setShowRoot(false); // TreeView requires a RootItem, but in this case it's not desired to have it visible.
+    // TreeView requires a RootItem, but in this case it's not desired to have it visible.
+    setShowRoot(false);
     getRoot().setExpanded(true);
-    getSelectionModel().select(PreferencesFX.INITIAL_CATEGORY); // Set initial selected category.
+    getSelectionModel().select(PreferencesFx.INITIAL_CATEGORY); // Set initial selected category.
   }
 
 }

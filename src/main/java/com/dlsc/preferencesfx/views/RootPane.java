@@ -2,7 +2,7 @@ package com.dlsc.preferencesfx.views;
 
 import com.dlsc.preferencesfx.Category;
 import com.dlsc.preferencesfx.Group;
-import com.dlsc.preferencesfx.PreferencesFX;
+import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.Setting;
 import com.google.common.collect.Lists;
 import javafx.beans.property.BooleanProperty;
@@ -31,18 +31,22 @@ public class RootPane extends StackPane {
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
   // Group: Scaling & Ordering
-  StringProperty screenName = new SimpleStringProperty("PreferencesFX Monitor");
-  ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList("1024x768", "1280x1024", "1440x900", "1920x1080"));
+  StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
+  ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList(
+      "1024x768", "1280x1024", "1440x900", "1920x1080")
+  );
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
-  ListProperty<String> orientationItems = new SimpleListProperty<>(FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal")));
+  ListProperty<String> orientationItems = new SimpleListProperty<>(
+      FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal"))
+  );
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 
   public RootPane() {
     getChildren().add(new DemoView(createPreferences(), this));
   }
 
-  private PreferencesFX createPreferences() {
-    return PreferencesFX.of(
+  private PreferencesFx createPreferences() {
+    return PreferencesFx.of(
         Category.of("Screen",
             Group.of(
                 Setting.of("Change Brightness", brightness),

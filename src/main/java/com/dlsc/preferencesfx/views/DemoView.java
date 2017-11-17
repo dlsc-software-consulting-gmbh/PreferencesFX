@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx.views;
 
 import com.dlsc.preferencesfx.PreferencesDialog;
-import com.dlsc.preferencesfx.PreferencesFX;
+import com.dlsc.preferencesfx.PreferencesFx;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class DemoView extends VBox {
-  private PreferencesFX preferencesFX;
+  private PreferencesFx preferencesFx;
   private MenuBar menuBar;
   private Menu menu;
   private MenuItem preferencesMenuItem;
@@ -24,8 +24,8 @@ public class DemoView extends VBox {
   private Label orientationLbl;
 
 
-  public DemoView(PreferencesFX preferencesFX, RootPane rootPane) {
-    this.preferencesFX = preferencesFX;
+  public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
+    this.preferencesFx = preferencesFx;
     this.rootPane = rootPane;
 
     initializeParts();
@@ -92,7 +92,7 @@ public class DemoView extends VBox {
   }
 
   private void setupEventHandlers() {
-    preferencesMenuItem.setOnAction(e -> new PreferencesDialog(preferencesFX));
+    preferencesMenuItem.setOnAction(e -> new PreferencesDialog(preferencesFx));
 
   }
 }
