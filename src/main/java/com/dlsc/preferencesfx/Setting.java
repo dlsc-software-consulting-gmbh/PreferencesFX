@@ -42,23 +42,21 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
-  public static <P> Setting of(String description, ListProperty<P> items, ObjectProperty<P> selection) {
+  public static <P> Setting of(
+      String description, ListProperty<P> items, ObjectProperty<P> selection) {
     return new Setting<>(
         description,
         Field.ofSingleSelectionType(items, selection).label(description),
         selection);
   }
-
-  public static <P> Setting of(String description, ObservableList<P> items, ObjectProperty<P> selection) {
+  
+  public static <P> Setting of(
+      String description, ObservableList<P> items, ObjectProperty<P> selection) {
     return new Setting<>(
         description,
         Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection).label(description),
         selection);
   }
-
-  /*public static <F extends Field, P extends Property> Setting<F, P> of(String description, Node customControl, P value) {
-    return new Setting(description, new Widget(widget, value));
-  }*/
 
   public String getDescription() {
     return description;

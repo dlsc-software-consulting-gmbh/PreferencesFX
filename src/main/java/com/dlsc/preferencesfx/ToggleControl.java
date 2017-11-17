@@ -68,12 +68,17 @@ public class ToggleControl extends SimpleControl<BooleanField> {
   @Override
   public void setupValueChangedListeners() {
     super.setupValueChangedListeners();
-    field.userInputProperty().addListener((observable, oldValue, newValue) -> toggleSwitch.setSelected(Boolean.parseBoolean(field.getUserInput())));
+    field.userInputProperty().addListener((observable, oldValue, newValue) -> {
+      toggleSwitch.setSelected(Boolean.parseBoolean(field.getUserInput()));
+    });
 
-    field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(toggleSwitch));
-    field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(toggleSwitch));
+    field.errorMessagesProperty().addListener(
+        (observable, oldValue, newValue) -> toggleTooltip(toggleSwitch));
+    field.tooltipProperty().addListener(
+        (observable, oldValue, newValue) -> toggleTooltip(toggleSwitch));
 
-    toggleSwitch.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(toggleSwitch));
+    toggleSwitch.focusedProperty().addListener(
+        (observable, oldValue, newValue) -> toggleTooltip(toggleSwitch));
   }
 
   /**
@@ -84,7 +89,9 @@ public class ToggleControl extends SimpleControl<BooleanField> {
     setOnMouseEntered(event -> toggleTooltip(toggleSwitch));
     setOnMouseExited(event -> toggleTooltip(toggleSwitch));
 
-    toggleSwitch.selectedProperty().addListener((observable, oldValue, newValue) -> field.userInputProperty().setValue(String.valueOf(newValue)));
+    toggleSwitch.selectedProperty().addListener((observable, oldValue, newValue) -> {
+      field.userInputProperty().setValue(String.valueOf(newValue));
+    });
   }
 
 }
