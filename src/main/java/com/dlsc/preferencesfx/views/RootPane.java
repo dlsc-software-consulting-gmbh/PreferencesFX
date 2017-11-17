@@ -48,10 +48,8 @@ public class RootPane extends StackPane {
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(
         Category.of("Screen",
-            Group.of(
-                Setting.of("Change Brightness", brightness),
-                Setting.of("Night mode", nightMode)
-            ).description("Brightness & Color")
+            Setting.of("Change Brightness", brightness),
+            Setting.of("Night mode", nightMode)
         ),
         Category.of("Scaling & Ordering")
             .subCategories(
