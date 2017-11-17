@@ -10,7 +10,7 @@ public class Category {
   private List<Category> children;
   private CategoryPane categoryPane;
 
-  Category(String description, Group... groups) {
+  private Category(String description, Group... groups) {
     this.description = description;
     this.groups = Arrays.asList(groups);
     this.categoryPane = new CategoryPane(this.groups);

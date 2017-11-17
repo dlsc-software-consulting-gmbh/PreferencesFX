@@ -11,7 +11,7 @@ public class Group {
   private String description;
   private List<Setting> settings;
 
-  Group(String description, Setting... settings) {
+  private Group(String description, Setting... settings) {
     this.description = description;
     this.settings = Arrays.asList(settings);
   }

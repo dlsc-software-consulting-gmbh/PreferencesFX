@@ -15,7 +15,7 @@ public class Setting<F extends Field, P extends Property> {
   private F field;
   private P value;
 
-  Setting(String description, F field, P value) {
+  private Setting(String description, F field, P value) {
     this.description = description;
     this.field = field;
     this.value = value;
