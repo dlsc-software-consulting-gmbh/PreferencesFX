@@ -58,6 +58,22 @@ public class Setting<F extends Field, P extends Property> {
         selection);
   }
 
+  public static <P> Setting of(
+      String description, ListProperty<P> items, ListProperty<P> selections) {
+    return new Setting<>(
+        description,
+        Field.ofMultiSelectionType(items, selections).label(description),
+        selections);
+  }
+
+  public static <P> Setting of(
+      String description, ObservableList<P> items, ListProperty<P> selections) {
+    return new Setting<>(
+        description,
+        Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections).label(description),
+        selections);
+  }
+
   public String getDescription() {
     return description;
   }
