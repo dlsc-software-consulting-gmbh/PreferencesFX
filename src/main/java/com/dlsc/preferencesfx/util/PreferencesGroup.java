@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.util;
 
 /*-
  * ========================LICENSE_START=================================
@@ -20,9 +20,9 @@ package com.dlsc.preferencesfx;
  * =========================LICENSE_END==================================
  */
 
+import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.util.TranslationService;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import com.dlsc.preferencesfx.Group;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -34,7 +34,7 @@ import javafx.beans.property.StringProperty;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class PreferencesGroup extends Group {
+public class PreferencesGroup extends com.dlsc.formsfx.model.structure.Group{
 
   /**
    * The title acts as a description for the group. It is always visible to
@@ -47,14 +47,9 @@ public class PreferencesGroup extends Group {
   private final StringProperty title = new SimpleStringProperty("");
 
   /**
-   * A group can optionally be collapsed.
-   */
-  private final BooleanProperty collapsed = new SimpleBooleanProperty(false);
-
-  /**
    * {@inheritDoc}
    */
-  private Section(Field... fields) {
+  private PreferencesGroup(Field... fields) {
     super(fields);
 
     // Whenever the title's key changes, update the displayed value based
@@ -71,8 +66,8 @@ public class PreferencesGroup extends Group {
    *
    * @return Returns a new {@code Section}.
    */
-  public static Section of(Field... fields) {
-    return new Section(fields);
+  public static PreferencesGroup of(Field... fields) {
+    return new PreferencesGroup(fields);
   }
 
   /**
@@ -113,24 +108,6 @@ public class PreferencesGroup extends Group {
     }
 
     fields.forEach(f -> f.translate(translationService));
-  }
-
-  /**
-   * Changes the collapsed state on a section.
-   *
-   * @param newValue
-   *              The new value for the collapsed state.
-   */
-  public void collapse(boolean newValue) {
-    collapsed.setValue(newValue);
-  }
-
-  public BooleanProperty collapsedProperty() {
-    return collapsed;
-  }
-
-  public boolean isCollapsed() {
-    return collapsed.get();
   }
 
   public String getTitle() {
