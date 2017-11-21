@@ -2,6 +2,8 @@ package com.dlsc.preferencesfx.views;
 
 import com.dlsc.preferencesfx.PreferencesDialog;
 import com.dlsc.preferencesfx.PreferencesFx;
+import java.util.stream.Collectors;
+import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -22,7 +24,7 @@ public class DemoView extends VBox {
   private Label screenNameLbl;
   private Label resolutionLbl;
   private Label orientationLbl;
-
+  private Label favoritesLbl;
 
   public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
     this.preferencesFx = preferencesFx;
@@ -44,6 +46,7 @@ public class DemoView extends VBox {
     screenNameLbl = new Label();
     resolutionLbl = new Label();
     orientationLbl = new Label();
+    favoritesLbl = new Label();
   }
 
   private void layoutParts() {
@@ -57,7 +60,8 @@ public class DemoView extends VBox {
         nightModeLbl,
         screenNameLbl,
         resolutionLbl,
-        orientationLbl
+        orientationLbl,
+        favoritesLbl
     );
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
@@ -68,7 +72,8 @@ public class DemoView extends VBox {
         new Label("Night mode:"),
         new Label("Screen name:"),
         new Label("Resolution:"),
-        new Label("Orientation:")
+        new Label("Orientation:"),
+        new Label("Favorites:")
     );
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
@@ -89,6 +94,10 @@ public class DemoView extends VBox {
     screenNameLbl.textProperty().bind(rootPane.screenName);
     resolutionLbl.textProperty().bind(rootPane.resolutionSelection);
     orientationLbl.textProperty().bind(rootPane.orientationSelection);
+    favoritesLbl.textProperty().bind(Bindings.createStringBinding(
+        () -> rootPane.favoritesSelection.stream().collect(Collectors.joining("\n")),
+        rootPane.favoritesSelection
+    ));
   }
 
   private void setupEventHandlers() {
