@@ -78,7 +78,8 @@ public class RootPane extends StackPane {
                 )
             ),
         Category.of("Favorites",
-            Setting.of("Favorites", favoritesItems, favoritesSelection))
+            Setting.of("Favorites", favoritesItems, favoritesSelection)
+        )
     );
   }
 }
