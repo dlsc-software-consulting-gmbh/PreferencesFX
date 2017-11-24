@@ -2,6 +2,8 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.DoubleField;
 import com.dlsc.formsfx.view.controls.SimpleControl;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
@@ -19,18 +21,41 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
   private Label fieldLabel;
   private Slider slider;
   private VBox container;
+  private double min, max;
+  private int precision;
+
+  /**
+   * {@inheritDoc}
+   */
+  DoubleSliderControl(double min, double max, int precision) {
+    super();
+    this.min = min;
+    this.max = max;
+    this.precision = precision;
+  }
+
+  private double round(double value, int precision) {
+    return BigDecimal.valueOf(value)
+        .setScale(precision, RoundingMode.HALF_UP)
+        .doubleValue();
+  }
 
   /**
    * {@inheritDoc}
    */
   @Override
+
   public void initializeParts() {
     super.initializeParts();
 
     getStyleClass().add("double-slider-control");
 
     fieldLabel = new Label(field.labelProperty().getValue());
+
     slider = new Slider();
+    slider.setMin(min);
+    slider.setMax(max);
+
     container = new VBox();
     slider.setValue(field.getValue());
   }
@@ -66,7 +91,7 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
   public void setupValueChangedListeners() {
     super.setupValueChangedListeners();
     field.userInputProperty().addListener((observable, oldValue, newValue) -> {
-      slider.setValue(Double.parseDouble(field.getUserInput()));
+      slider.setValue(round(Double.parseDouble(field.getUserInput()), precision));
     });
 
     field.errorMessagesProperty().addListener(
@@ -87,7 +112,7 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
     setOnMouseExited(event -> toggleTooltip(slider));
 
     slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-      field.userInputProperty().setValue(String.valueOf(newValue));
+      field.userInputProperty().setValue(String.valueOf(round(newValue.doubleValue(), precision)));
     });
   }
 }

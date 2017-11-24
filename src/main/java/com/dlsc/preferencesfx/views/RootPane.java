@@ -84,7 +84,7 @@ public class RootPane extends StackPane {
                     ).description("Screen Options"),
                     Group.of(
                         Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3)
+                        Setting.of("Line Spacing", lineSpacing, 0, 3, 2)
                     )
                 )
             ),

@@ -43,10 +43,10 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
-  public static Setting of(String description, DoubleProperty property, double min, double max) {
+  public static Setting of(String description, DoubleProperty property, double min, double max, int precision) {
     return new Setting<>(
         description,
-        Field.ofDoubleType(property).label(description).render(new DoubleSliderControl()),
+        Field.ofDoubleType(property).label(description).render(new DoubleSliderControl(min, max, precision)),
         property);
   }
 
