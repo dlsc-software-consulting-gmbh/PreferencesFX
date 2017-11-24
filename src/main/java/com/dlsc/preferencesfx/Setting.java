@@ -58,6 +58,10 @@ public class Setting<F extends Field, P extends Property> {
         selection);
   }
 
+  /**
+   * Creates a combobox with multiselection.
+   * At least one element has to be selected at all times.
+   */
   public static <P> Setting of(
       String description, ListProperty<P> items, ListProperty<P> selections) {
     return new Setting<>(
@@ -66,6 +70,10 @@ public class Setting<F extends Field, P extends Property> {
         selections);
   }
 
+  /**
+   * Creates a combobox with multiselection.
+   * At least one element has to be selected at all times.
+   */
   public static <P> Setting of(
       String description, ObservableList<P> items, ListProperty<P> selections) {
     return new Setting<>(
