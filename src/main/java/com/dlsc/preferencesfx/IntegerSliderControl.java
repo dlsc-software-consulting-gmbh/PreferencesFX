@@ -16,7 +16,7 @@ public class IntegerSliderControl extends SimpleNumberControl<IntegerField, Inte
   public void initializeParts() {
     super.initializeParts();
 
-    getStyleClass().addAll("simple-integer-control");
+    getStyleClass().addAll("integer-slider-control");
     editableSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(Integer.MIN_VALUE, Integer.MAX_VALUE, field.getValue()));
   }
 

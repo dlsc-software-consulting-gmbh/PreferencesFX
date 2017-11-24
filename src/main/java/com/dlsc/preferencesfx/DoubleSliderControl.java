@@ -16,7 +16,7 @@ public class DoubleSliderControl extends SimpleNumberControl<DoubleField, Double
   public void initializeParts() {
     super.initializeParts();
 
-    getStyleClass().add("simple-double-control");
+    getStyleClass().add("double-slider-control");
     editableSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-Double.MAX_VALUE, Double.MAX_VALUE, field.getValue()));
   }
 
