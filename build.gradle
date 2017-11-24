@@ -7,6 +7,11 @@ allprojects {
     }
 }
 
+// Needed for Jitpack, so that changes to dependencies are automatically rebuilt
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 buildscript {
     repositories {
         mavenCentral()
