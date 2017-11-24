@@ -4,6 +4,7 @@ import com.dlsc.formsfx.model.structure.DoubleField;
 import com.dlsc.formsfx.view.controls.SimpleControl;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
@@ -21,6 +22,7 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
   private Label fieldLabel;
   private Slider slider;
   private VBox container;
+  private Label valueLabel;
   private double min, max;
   private int precision;
 
@@ -61,9 +63,13 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
 
     fieldLabel = new Label(field.labelProperty().getValue());
 
+    valueLabel = new Label(String.valueOf(field.getValue().doubleValue()));
+
     slider = new Slider();
     slider.setMin(min);
     slider.setMax(max);
+    slider.setShowTickLabels(true);
+    slider.setShowTickMarks(true);
 
     container = new VBox();
     slider.setValue(field.getValue());
@@ -79,7 +85,9 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
     container.getChildren().add(slider);
 
     add(fieldLabel, 0, 0, 2, 1);
-    add(container, 2, 0, field.getSpan() - 2, 1);
+    add(container, 2, 0, field.getSpan() - 4, 1);
+    add(valueLabel, 2+field.getSpan()-3, 0, 2, 1);
+    valueLabel.setAlignment(Pos.CENTER);
   }
 
   /**
@@ -100,7 +108,9 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
   public void setupValueChangedListeners() {
     super.setupValueChangedListeners();
     field.userInputProperty().addListener((observable, oldValue, newValue) -> {
-      slider.setValue(round(Double.parseDouble(field.getUserInput()), precision));
+      double sliderValue = round(Double.parseDouble(field.getUserInput()), precision);
+      slider.setValue(sliderValue);
+      valueLabel.setText(String.valueOf(sliderValue));
     });
 
     field.errorMessagesProperty().addListener(

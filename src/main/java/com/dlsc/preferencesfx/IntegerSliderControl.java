@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.view.controls.SimpleControl;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
@@ -18,7 +19,20 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
    */
   private Label fieldLabel;
   private Slider slider;
+  private Label valueLabel;
   private VBox container;
+  private int min, max;
+
+  /**
+   * Creates a slider for integer values.
+   * @param min minimum slider value
+   * @param max maximum slider value
+   */
+  IntegerSliderControl(int min, int max) {
+    super();
+    this.min = min;
+    this.max = max;
+  }
 
   /**
    * {@inheritDoc}
@@ -30,7 +44,15 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
     getStyleClass().add("integer-slider-control");
 
     fieldLabel = new Label(field.labelProperty().getValue());
+
+    valueLabel = new Label(String.valueOf(field.getValue().intValue()));
+
     slider = new Slider();
+    slider.setMin(min);
+    slider.setMax(max);
+    slider.setShowTickLabels(true);
+    slider.setShowTickMarks(true);
+
     container = new VBox();
     slider.setValue(field.getValue());
   }
@@ -45,7 +67,9 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
     container.getChildren().add(slider);
 
     add(fieldLabel, 0, 0, 2, 1);
-    add(container, 2, 0, field.getSpan() - 2, 1);
+    add(container, 2, 0, field.getSpan() - 4, 1);
+    add(valueLabel, 2+field.getSpan()-3, 0, 2, 1);
+    valueLabel.setAlignment(Pos.CENTER);
   }
 
   /**
@@ -66,7 +90,9 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   public void setupValueChangedListeners() {
     super.setupValueChangedListeners();
     field.userInputProperty().addListener((observable, oldValue, newValue) -> {
-      slider.setValue(Integer.parseInt(field.getUserInput()));
+      int sliderValue = Integer.parseInt(field.getUserInput());
+      slider.setValue(sliderValue);
+      valueLabel.setText(String.valueOf(sliderValue));
     });
 
     field.errorMessagesProperty().addListener(
