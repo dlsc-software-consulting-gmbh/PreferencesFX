@@ -1,7 +1,6 @@
 package com.dlsc.preferencesfx.util;
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.view.controls.SimpleControl;
 import com.dlsc.formsfx.view.util.ViewMixin;
 import java.util.Iterator;
@@ -15,7 +14,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
 
   protected final int SPACING = 10;
   protected GridPane grid;
-  protected Group group;
+  protected PreferencesGroup group;
 
   private Label titleLabel;
 
@@ -24,7 +23,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
    *
    * @param group The section which gets rendered.
    */
-  PreferencesGroupRenderer(Group group) {
+  PreferencesGroupRenderer(PreferencesGroup group) {
     this.group = group;
     init();
   }
@@ -59,7 +58,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
     int currentColumnCount = 0;
 
     int span;
-    for (Iterator var4 = this.group.getFields().iterator(); var4.hasNext(); currentColumnCount += span) {
+    for (Iterator var4 = group.getFields().iterator(); var4.hasNext(); currentColumnCount += span) {
       Field f = (Field) var4.next();
       span = f.getSpan();
       if (currentColumnCount + span > COLUMN_COUNT) {
@@ -72,19 +71,21 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
       this.grid.add(c, currentColumnCount, currentRow, span, 1);
     }
 
-    getStyleClass().add("formsfx-group");
+    getStyleClass().add("preferencesfx-group");
 
-    setFocusTraversable(false);
-    setPadding(new Insets(SPACING * 2));
+    // Spaces from each Group
+    setPadding(new Insets(SPACING * 1.5));
+    setMargin(titleLabel, new Insets(0, 0, 10, 0));
+    titleLabel.getStyleClass().add("category-title");
 
-    if (((PreferencesGroup) group).getTitle() != null) {
+    if (group.getTitle() != null) {
       getChildren().add(titleLabel);
     }
     getChildren().add(grid);
   }
 
   public void setupBindings() {
-    titleLabel.textProperty().bind(((PreferencesGroup) group).titleProperty());
+    titleLabel.textProperty().bind(group.titleProperty());
   }
 
 }

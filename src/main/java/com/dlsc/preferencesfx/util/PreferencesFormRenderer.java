@@ -1,7 +1,6 @@
 package com.dlsc.preferencesfx.util;
 
 import com.dlsc.formsfx.model.structure.Form;
-import com.dlsc.formsfx.view.renderer.FormRenderer;
 import com.dlsc.formsfx.view.util.ViewMixin;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
 
   @Override
   public String getUserAgentStylesheet() {
-    return FormRenderer.class.getResource("style.css").toExternalForm();
+    return PreferencesFormRenderer.class.getResource("style.css").toExternalForm();
   }
 
   /**
@@ -34,9 +33,8 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
    */
   @Override
   public void initializeParts() {
-    sections = form.getGroups().stream().map(group -> {
-      return new PreferencesGroupRenderer(group);
-    }).collect(Collectors.toList());
+    sections = form.getGroups().stream().map(
+        g -> new PreferencesGroupRenderer((PreferencesGroup) g)).collect(Collectors.toList());
   }
 
   /**
@@ -44,6 +42,7 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
    */
   @Override
   public void layoutParts() {
+    // Outer Padding of Category Pane
     setPadding(new Insets(10));
     getChildren().addAll(sections);
   }
