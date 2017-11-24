@@ -6,10 +6,12 @@ import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.Setting;
 import com.google.common.collect.Lists;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -31,6 +33,7 @@ public class RootPane extends StackPane {
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
   // Group: Scaling & Ordering
+  DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
   ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList(
       "1024x768", "1280x1024", "1440x900", "1920x1080")
@@ -47,7 +50,7 @@ public class RootPane extends StackPane {
 
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(
-        Category.of("Screen",
+        Category.of("General",
             Setting.of("Change Brightness", brightness),
             Setting.of("Night mode", nightMode)
         ),
@@ -55,6 +58,7 @@ public class RootPane extends StackPane {
             .subCategories(
                 Category.of("Screen",
                     Group.of(
+                        Setting.of("Scaling", scaling),
                         Setting.of("Screen name", screenName),
                         Setting.of("Resolution", resolutionItems, resolutionSelection),
                         Setting.of("Orientation", orientationItems, orientationSelection)

@@ -19,6 +19,7 @@ public class DemoView extends VBox {
 
   private Label brightnessLbl;
   private Label nightModeLbl;
+  private Label scalingLbl;
   private Label screenNameLbl;
   private Label resolutionLbl;
   private Label orientationLbl;
@@ -41,6 +42,7 @@ public class DemoView extends VBox {
 
     brightnessLbl = new Label();
     nightModeLbl = new Label();
+    scalingLbl = new Label();
     screenNameLbl = new Label();
     resolutionLbl = new Label();
     orientationLbl = new Label();
@@ -55,6 +57,7 @@ public class DemoView extends VBox {
     VBox valueBox = new VBox(
         brightnessLbl,
         nightModeLbl,
+        scalingLbl,
         screenNameLbl,
         resolutionLbl,
         orientationLbl
@@ -66,6 +69,7 @@ public class DemoView extends VBox {
     VBox descriptionBox = new VBox(
         new Label("Brightness:"),
         new Label("Night mode:"),
+        new Label("Scaling:"),
         new Label("Screen name:"),
         new Label("Resolution:"),
         new Label("Orientation:")
@@ -86,6 +90,7 @@ public class DemoView extends VBox {
   private void setupBindings() {
     brightnessLbl.textProperty().bind(rootPane.brightness.asString().concat("%"));
     nightModeLbl.textProperty().bind(rootPane.nightMode.asString());
+    scalingLbl.textProperty().bind(rootPane.scaling.asString());
     screenNameLbl.textProperty().bind(rootPane.screenName);
     resolutionLbl.textProperty().bind(rootPane.resolutionSelection);
     orientationLbl.textProperty().bind(rootPane.orientationSelection);
