@@ -22,7 +22,6 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
    */
   public PreferencesFormRenderer (Form form) {
     this.form = form;
-
     init();
   }
 
@@ -36,9 +35,8 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
    */
   @Override
   public void initializeParts() {
-    sections = form.getGroups().stream()
-        .map(s -> {
-          return new PreferencesGroupRenderer(s);
+    sections = form.getGroups().stream().map(group -> {
+          return new PreferencesGroupRenderer(group);
         }).collect(Collectors.toList());
   }
 

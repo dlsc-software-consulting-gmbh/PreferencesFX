@@ -22,7 +22,7 @@ package com.dlsc.preferencesfx.util;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.util.TranslationService;
-import com.dlsc.preferencesfx.Group;
+import com.dlsc.formsfx.model.structure.Group;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -34,7 +34,7 @@ import javafx.beans.property.StringProperty;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class PreferencesGroup extends com.dlsc.formsfx.model.structure.Group{
+public class PreferencesGroup extends Group {
 
   /**
    * The title acts as a description for the group. It is always visible to
