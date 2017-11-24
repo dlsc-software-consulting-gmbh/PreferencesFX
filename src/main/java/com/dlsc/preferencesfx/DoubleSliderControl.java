@@ -25,7 +25,10 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
   private int precision;
 
   /**
-   * {@inheritDoc}
+   * Creates a slider for double values with a minimum and maximum value, with a set precision.
+   * @param min minimum slider value
+   * @param max maximum slider value
+   * @param precision number of digits after the decimal point
    */
   DoubleSliderControl(double min, double max, int precision) {
     super();
@@ -34,6 +37,12 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
     this.precision = precision;
   }
 
+  /**
+   * Rounds a value to a given precision, using {@link RoundingMode#HALF_UP}.
+   * @param value value to be rounded
+   * @param precision number of digits after the decimal point
+   * @return
+   */
   private double round(double value, int precision) {
     return BigDecimal.valueOf(value)
         .setScale(precision, RoundingMode.HALF_UP)
