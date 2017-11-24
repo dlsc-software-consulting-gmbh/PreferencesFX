@@ -5,7 +5,6 @@ import com.dlsc.formsfx.view.controls.SimpleControl;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.ToggleSwitch;
 
 /**
  * Created by François Martin on 24.11.17.
@@ -14,8 +13,8 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   /**
    * - fieldLabel is the container that displays the label property of the
    * field.
-   * - slider is the toggle switch to set user input.
-   * - container holds the toggle so that it can be styled properly.
+   * - slider is the control to change the value.
+   * - container holds the control so that it can be styled properly.
    */
   private Label fieldLabel;
   private Slider slider;
@@ -28,12 +27,12 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   public void initializeParts() {
     super.initializeParts();
 
-    getStyleClass().add("toggle-control");
+    getStyleClass().add("integer-slider-control");
 
     fieldLabel = new Label(field.labelProperty().getValue());
     slider = new Slider();
     container = new VBox();
-    slider.setSelected(field.getValue());
+    slider.setValue(field.getValue());
   }
 
   /**
@@ -67,7 +66,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   public void setupValueChangedListeners() {
     super.setupValueChangedListeners();
     field.userInputProperty().addListener((observable, oldValue, newValue) -> {
-      slider.setSelected(Boolean.parseBoolean(field.getUserInput()));
+      slider.setValue(Double.parseDouble(field.getUserInput()));
     });
 
     field.errorMessagesProperty().addListener(
@@ -87,7 +86,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
     setOnMouseEntered(event -> toggleTooltip(slider));
     setOnMouseExited(event -> toggleTooltip(slider));
 
-    slider.selectedProperty().addListener((observable, oldValue, newValue) -> {
+    slider.valueProperty().addListener((observable, oldValue, newValue) -> {
       field.userInputProperty().setValue(String.valueOf(newValue));
     });
   }
