@@ -30,11 +30,11 @@ public class RootPane extends StackPane {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
 
-  // Group: Brightness & Color
+  // General
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
 
-  // Group: Scaling & Ordering
+  // Screen
   DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
 
@@ -48,7 +48,10 @@ public class RootPane extends StackPane {
   );
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 
-  // Group: Favorites
+  IntegerProperty fontSize = new SimpleIntegerProperty(12);
+  DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
+
+  // Favorites
   ListProperty<String> favoritesItems = new SimpleListProperty<>(
       FXCollections.observableArrayList(Lists.newArrayList(
           "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
@@ -78,7 +81,11 @@ public class RootPane extends StackPane {
                         Setting.of("Screen name", screenName),
                         Setting.of("Resolution", resolutionItems, resolutionSelection),
                         Setting.of("Orientation", orientationItems, orientationSelection)
-                    ).description("Brightness & Color")
+                    ).description("Screen Options"),
+                    Group.of(
+                        Setting.of("Font Size", fontSize, 6, 36),
+                        Setting.of("Line Spacing", lineSpacing, 0, 3)
+                    )
                 )
             ),
         Category.of("Favorites",

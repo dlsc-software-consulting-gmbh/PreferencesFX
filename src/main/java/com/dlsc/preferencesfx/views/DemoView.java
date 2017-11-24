@@ -26,6 +26,9 @@ public class DemoView extends VBox {
   private Label resolutionLbl;
   private Label orientationLbl;
   private Label favoritesLbl;
+  private Label fontSizeLbl;
+  private Label lineSpacingLbl;
+
 
   public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
     this.preferencesFx = preferencesFx;
@@ -49,6 +52,8 @@ public class DemoView extends VBox {
     resolutionLbl = new Label();
     orientationLbl = new Label();
     favoritesLbl = new Label();
+    fontSizeLbl = new Label();
+    lineSpacingLbl = new Label();
   }
 
   private void layoutParts() {
@@ -64,7 +69,9 @@ public class DemoView extends VBox {
         screenNameLbl,
         resolutionLbl,
         orientationLbl,
-        favoritesLbl
+        favoritesLbl,
+        fontSizeLbl,
+        lineSpacingLbl
     );
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
@@ -77,7 +84,9 @@ public class DemoView extends VBox {
         new Label("Screen name:"),
         new Label("Resolution:"),
         new Label("Orientation:"),
-        new Label("Favorites:")
+        new Label("Favorites:"),
+        new Label("Font Size:"),
+        new Label("Line Spacing:")
     );
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
@@ -103,6 +112,8 @@ public class DemoView extends VBox {
         () -> rootPane.favoritesSelection.stream().collect(Collectors.joining("\n")),
         rootPane.favoritesSelection
     ));
+    fontSizeLbl.textProperty().bind(rootPane.fontSize.asString());
+    lineSpacingLbl.textProperty().bind(rootPane.lineSpacing.asString());
   }
 
   private void setupEventHandlers() {
