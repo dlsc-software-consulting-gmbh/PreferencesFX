@@ -109,7 +109,7 @@ public class DemoView extends VBox {
     resolutionLbl.textProperty().bind(rootPane.resolutionSelection);
     orientationLbl.textProperty().bind(rootPane.orientationSelection);
     favoritesLbl.textProperty().bind(Bindings.createStringBinding(
-        () -> rootPane.favoritesSelection.stream().collect(Collectors.joining("\n")),
+        () -> rootPane.favoritesSelection.stream().collect(Collectors.joining(", ")),
         rootPane.favoritesSelection
     ));
     fontSizeLbl.textProperty().bind(rootPane.fontSize.asString());
