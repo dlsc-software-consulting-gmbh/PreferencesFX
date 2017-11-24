@@ -1,7 +1,6 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Form;
-import com.dlsc.formsfx.model.structure.Section;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.preferencesfx.util.PreferencesFormRenderer;
 import com.dlsc.preferencesfx.util.PreferencesGroup;
