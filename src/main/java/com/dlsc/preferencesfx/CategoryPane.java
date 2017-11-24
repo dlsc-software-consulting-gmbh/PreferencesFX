@@ -1,9 +1,11 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Form;
+import com.dlsc.formsfx.model.structure.Section;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.preferencesfx.util.PreferencesFormRenderer;
 import com.dlsc.preferencesfx.util.PreferencesGroup;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.StackPane;
 
@@ -11,6 +13,15 @@ public class CategoryPane extends StackPane {
 
   private List<Group> groups;
   private Form form;
+
+  /**
+   * Creates an empty CategoryPane, in case of a {@link Category} without settings.
+   */
+  public CategoryPane() {
+    groups = new ArrayList<>();
+    initForm();
+    getChildren().add(new PreferencesFormRenderer(form));
+  }
 
   public CategoryPane(List<Group> groups) {
     this.groups = groups;
