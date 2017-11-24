@@ -46,14 +46,14 @@ public class Setting<F extends Field, P extends Property> {
   public static Setting of(String description, DoubleProperty property, double min, double max) {
     return new Setting<>(
         description,
-        Field.ofDoubleType(property).label(description).render(new ToggleControl()),
+        Field.ofDoubleType(property).label(description).render(new DoubleSliderControl()),
         property);
   }
 
   public static Setting of(String description, IntegerProperty property, int min, int max) {
     return new Setting<>(
         description,
-        Field.ofIntegerType(property).label(description),
+        Field.ofIntegerType(property).label(description).render(new IntegerSliderControl()),
         property);
   }
 
