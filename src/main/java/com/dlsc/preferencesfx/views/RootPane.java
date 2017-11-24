@@ -29,20 +29,36 @@ import org.apache.logging.log4j.Logger;
 public class RootPane extends StackPane {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
+
   // Group: Brightness & Color
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
+
   // Group: Scaling & Ordering
   DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
+
   ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList(
       "1024x768", "1280x1024", "1440x900", "1920x1080")
   );
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
+
   ListProperty<String> orientationItems = new SimpleListProperty<>(
       FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal"))
   );
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
+
+  // Group: Favorites
+  ListProperty<String> favoritesItems = new SimpleListProperty<>(
+      FXCollections.observableArrayList(Lists.newArrayList(
+          "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
+          "Mikesoft Numbers", "Mikesoft Present", "IntelliG"
+          )
+      )
+  );
+  ListProperty<String> favoritesSelection = new SimpleListProperty<>(
+      FXCollections.observableArrayList(Lists.newArrayList("Eboda Phot-O-Shop", "Mikesoft Text"))
+  );
 
   public RootPane() {
     getChildren().add(new DemoView(createPreferences(), this));
@@ -64,7 +80,10 @@ public class RootPane extends StackPane {
                         Setting.of("Orientation", orientationItems, orientationSelection)
                     ).description("Brightness & Color")
                 )
-            )
+            ),
+        Category.of("Favorites",
+            Setting.of("Favorites", favoritesItems, favoritesSelection)
+        )
     );
   }
 }
