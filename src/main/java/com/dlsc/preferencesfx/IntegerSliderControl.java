@@ -87,7 +87,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
     setOnMouseExited(event -> toggleTooltip(slider));
 
     slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-      field.userInputProperty().setValue(String.valueOf((int)newValue));
+      field.userInputProperty().setValue(String.valueOf(newValue.intValue()));
     });
   }
 
