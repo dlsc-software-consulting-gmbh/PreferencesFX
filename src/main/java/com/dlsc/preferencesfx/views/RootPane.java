@@ -70,9 +70,9 @@ public class RootPane extends StackPane {
             Setting.of("Change Brightness", brightness),
             Setting.of("Night mode", nightMode)
         ),
-        Category.of("Scaling & Ordering")
+        Category.of("Screen")
             .subCategories(
-                Category.of("Screen",
+                Category.of("Scaling & Ordering",
                     Group.of(
                         Setting.of("Scaling", scaling),
                         Setting.of("Screen name", screenName),
