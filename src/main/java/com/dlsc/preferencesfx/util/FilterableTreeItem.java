@@ -53,7 +53,7 @@ public class FilterableTreeItem<T> extends TreeItem<T> {
    * all items in the tree are "FilteredTreeItem" class objects.
    *
    * "getChildren()" from TreeItem cannot be overwritten properly, because of bug JDK-8089158
-   * https://bugs.openjdk.java.net/browse/JDK-8089158
+   * {@see https://bugs.openjdk.java.net/browse/JDK-8089158}
    * @return list of tree items
    */
   public ObservableList<TreeItem<T>> getSourceChildren() {
