@@ -27,7 +27,7 @@ public class CategoryTreeBox extends VBox{
   }
 
   private void setupBindings() {
-    searchFld = new TextField();
+    tree.searchTextProperty().bind(searchFld.textProperty());
   }
 
 }

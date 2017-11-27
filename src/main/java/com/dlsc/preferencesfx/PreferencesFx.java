@@ -28,7 +28,7 @@ public class PreferencesFx extends MasterDetailPane {
 
   private void setupParts() {
     categoryTree = new CategoryTree(categories);
-    categoryTreeBox = new CategoryTreeBox()
+    categoryTreeBox = new CategoryTreeBox(categoryTree);
   }
 
   private void layoutParts() {
