@@ -17,7 +17,7 @@ public class CategoryTree extends TreeView {
   }
 
   private void setupParts() {
-    rootItem = new TreeItem();
+    rootItem = new TreeItem<>();
     addRecursive(rootItem, categories);
   }
 
