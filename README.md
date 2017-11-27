@@ -10,13 +10,12 @@ It enables the developer to create preferences dialogs with ease and creates wel
 ## Main Features
 
 - Simple and understandable  API
-- one
-- two
-- three
-- Localisation
+- The most important Features are shown below in the MVP.png
+- We're also referencing to the requirements.adoc. You can create one when launching the gradle task: 'ascidoctor'
 
+![alt text](MVP.png) MVP.png
 
-###Team
+##Team
  
 - Marco Sanfratello
   - marco.sanfratello@students.fhnw.ch

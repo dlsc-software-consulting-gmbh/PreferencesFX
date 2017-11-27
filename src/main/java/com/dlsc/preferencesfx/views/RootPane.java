@@ -31,6 +31,7 @@ public class RootPane extends StackPane {
       LogManager.getLogger(RootPane.class.getName());
 
   // General
+  StringProperty welcomeText = new SimpleStringProperty("Hello World");
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
 
@@ -60,7 +61,8 @@ public class RootPane extends StackPane {
       )
   );
   ListProperty<String> favoritesSelection = new SimpleListProperty<>(
-      FXCollections.observableArrayList(Lists.newArrayList("Eboda Phot-O-Shop", "Mikesoft Text"))
+      FXCollections.observableArrayList(Lists.newArrayList(
+          "Eboda Phot-O-Shop", "Mikesoft Text"))
   );
 
   public RootPane() {
@@ -70,8 +72,13 @@ public class RootPane extends StackPane {
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(
         Category.of("General",
-            Setting.of("Change Brightness", brightness),
-            Setting.of("Night mode", nightMode)
+            Group.of("Greeting",
+                Setting.of("Welcome Text", welcomeText)
+            ),
+            Group.of("Display",
+                Setting.of("Brightness", brightness),
+                Setting.of("Night mode", nightMode)
+            )
         ),
         Category.of("Screen")
             .subCategories(
