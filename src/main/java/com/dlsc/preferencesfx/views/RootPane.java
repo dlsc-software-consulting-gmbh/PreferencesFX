@@ -75,7 +75,7 @@ public class RootPane extends StackPane {
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)
             ),
-            Group.of(
+            Group.of("Display",
                 Setting.of("Brightness", brightness),
                 Setting.of("Night mode", nightMode)
             )
