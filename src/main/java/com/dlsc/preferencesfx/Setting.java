@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Field;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -32,6 +33,27 @@ public class Setting<F extends Field, P extends Property> {
     return new Setting<>(
         description,
         Field.ofIntegerType(property).label(description),
+        property);
+  }
+
+  public static Setting of(String description, DoubleProperty property) {
+    return new Setting<>(
+        description,
+        Field.ofDoubleType(property).label(description),
+        property);
+  }
+
+  public static Setting of(String description, DoubleProperty property, double min, double max, int precision) {
+    return new Setting<>(
+        description,
+        Field.ofDoubleType(property).label(description).render(new DoubleSliderControl(min, max, precision)),
+        property);
+  }
+
+  public static Setting of(String description, IntegerProperty property, int min, int max) {
+    return new Setting<>(
+        description,
+        Field.ofIntegerType(property).label(description).render(new IntegerSliderControl(min, max)),
         property);
   }
 

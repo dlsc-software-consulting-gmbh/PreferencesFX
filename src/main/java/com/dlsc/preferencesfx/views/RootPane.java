@@ -6,10 +6,12 @@ import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.Setting;
 import com.google.common.collect.Lists;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,11 +30,12 @@ public class RootPane extends StackPane {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
 
-  // Group: Brightness & Color
+  // General
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
 
-  // Group: Scaling & Ordering
+  // Screen
+  DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
 
   ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList(
@@ -45,7 +48,10 @@ public class RootPane extends StackPane {
   );
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 
-  // Group: Favorites
+  IntegerProperty fontSize = new SimpleIntegerProperty(12);
+  DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
+
+  // Favorites
   ListProperty<String> favoritesItems = new SimpleListProperty<>(
       FXCollections.observableArrayList(Lists.newArrayList(
           "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
@@ -63,18 +69,23 @@ public class RootPane extends StackPane {
 
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(
-        Category.of("Screen",
+        Category.of("General",
             Setting.of("Change Brightness", brightness),
             Setting.of("Night mode", nightMode)
         ),
-        Category.of("Scaling & Ordering")
+        Category.of("Screen")
             .subCategories(
-                Category.of("Screen",
+                Category.of("Scaling & Ordering",
                     Group.of(
+                        Setting.of("Scaling", scaling),
                         Setting.of("Screen name", screenName),
                         Setting.of("Resolution", resolutionItems, resolutionSelection),
                         Setting.of("Orientation", orientationItems, orientationSelection)
-                    ).description("Brightness & Color")
+                    ).description("Screen Options"),
+                    Group.of(
+                        Setting.of("Font Size", fontSize, 6, 36),
+                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
+                    )
                 )
             ),
         Category.of("Favorites",
