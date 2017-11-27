@@ -10,20 +10,18 @@ import javafx.scene.layout.StackPane;
 
 public class CategoryPane extends StackPane {
 
-  private List<Group> groups;
+  private List<Group> groups = new ArrayList<>();
   private Form form;
 
   /**
-   * Creates an empty CategoryPane, in case of a {@link Category} without settings.
+   * Creates a CategoryPane.
+   * @param groups if null, an empty CategoryPane will be created,
+   *               in case of a {@link Category} without settings.
    */
-  public CategoryPane() {
-    groups = new ArrayList<>();
-    initForm();
-    getChildren().add(new PreferencesFormRenderer(form));
-  }
-
   public CategoryPane(List<Group> groups) {
-    this.groups = groups;
+    if (groups != null) {
+      this.groups = groups;
+    }
     initForm();
     getChildren().add(new PreferencesFormRenderer(form));
   }
