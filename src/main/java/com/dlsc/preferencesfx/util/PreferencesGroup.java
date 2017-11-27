@@ -39,7 +39,7 @@ public class PreferencesGroup extends Group {
   /**
    * The title acts as a description for the group. It is always visible to
    * the user and tells them how the contained fields are grouped.
-   *
+   * <p>
    * This property is translatable if a {@link TranslationService} is set on
    * the containing form.
    */
@@ -55,15 +55,14 @@ public class PreferencesGroup extends Group {
     // Whenever the title's key changes, update the displayed value based
     // on the new translation.
 
-    titleKey.addListener((observable, oldValue, newValue) -> title.setValue(translationService.translate(newValue)));
+    titleKey.addListener((observable, oldValue, newValue) ->
+        title.setValue(translationService.translate(newValue)));
   }
 
   /**
    * Creates a new section containing the given fields.
    *
-   * @param fields
-   *              The fields to be included in the section.
-   *
+   * @param fields The fields to be included in the section.
    * @return Returns a new {@code Section}.
    */
   public static PreferencesGroup of(Field... fields) {
@@ -73,13 +72,10 @@ public class PreferencesGroup extends Group {
   /**
    * Sets the title property of the current group.
    *
-   * @param newValue
-   *              The new value for the title property. This can be the title
-   *              itself or a key that is then used for translation.
-   *
-   * @see TranslationService
-   *
+   * @param newValue The new value for the title property. This can be the title
+   *                 itself or a key that is then used for translation.
    * @return Returns the current group to allow for chaining.
+   * @see TranslationService
    */
   public Group title(String newValue) {
     if (isI18N()) {
