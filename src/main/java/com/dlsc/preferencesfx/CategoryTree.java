@@ -8,22 +8,23 @@ import javafx.scene.control.TreeView;
 public class CategoryTree extends TreeView {
 
   private List<Category> categories;
-  private TreeItem<Category> rootItem;
+  private FilterableTreeItem<Category> rootItem;
 
   public CategoryTree(List<Category> categories) {
     this.categories = categories;
     setupParts();
     layoutParts();
+    rootItem.predicateProperty().setValue(category -> category.getDescription().equals("Screen"));
   }
 
   private void setupParts() {
-    rootItem = new TreeItem<>();
+    rootItem = new FilterableTreeItem<>(null);
     addRecursive(rootItem, categories);
   }
 
   private void addRecursive(TreeItem treeItem, List<Category> categories) {
     for (Category category : categories) {
-      TreeItem<Category> item = new TreeItem<>(category);
+      FilterableTreeItem<Category> item = new FilterableTreeItem<>(category);
       // If there are subcategries, add them recursively.
       if (!Objects.equals(category.getChildren(), null)) {
         addRecursive(item, category.getChildren());
