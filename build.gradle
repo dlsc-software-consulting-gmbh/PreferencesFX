@@ -7,6 +7,11 @@ allprojects {
     }
 }
 
+// Needed for Jitpack, so that changes to dependencies are automatically rebuilt
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -18,10 +23,6 @@ buildscript {
 }
 
 ext.checkstyleVersion    = '8.3'
-
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
 
 apply plugin: 'java'
 apply plugin: 'org.asciidoctor.convert'

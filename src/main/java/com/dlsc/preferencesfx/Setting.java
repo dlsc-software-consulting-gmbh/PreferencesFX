@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.util.ToggleControl;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -36,6 +37,27 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
+  public static Setting of(String description, DoubleProperty property) {
+    return new Setting<>(
+        description,
+        Field.ofDoubleType(property).label(description),
+        property);
+  }
+
+  public static Setting of(String description, DoubleProperty property, double min, double max, int precision) {
+    return new Setting<>(
+        description,
+        Field.ofDoubleType(property).label(description).render(new DoubleSliderControl(min, max, precision)),
+        property);
+  }
+
+  public static Setting of(String description, IntegerProperty property, int min, int max) {
+    return new Setting<>(
+        description,
+        Field.ofIntegerType(property).label(description).render(new IntegerSliderControl(min, max)),
+        property);
+  }
+
   public static Setting of(String description, StringProperty property) {
     return new Setting<>(
         description,
@@ -57,6 +79,30 @@ public class Setting<F extends Field, P extends Property> {
         description,
         Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection).label(description),
         selection);
+  }
+
+  /**
+   * Creates a combobox with multiselection.
+   * At least one element has to be selected at all times.
+   */
+  public static <P> Setting of(
+      String description, ListProperty<P> items, ListProperty<P> selections) {
+    return new Setting<>(
+        description,
+        Field.ofMultiSelectionType(items, selections).label(description),
+        selections);
+  }
+
+  /**
+   * Creates a combobox with multiselection.
+   * At least one element has to be selected at all times.
+   */
+  public static <P> Setting of(
+      String description, ObservableList<P> items, ListProperty<P> selections) {
+    return new Setting<>(
+        description,
+        Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections).label(description),
+        selections);
   }
 
   public String getDescription() {
