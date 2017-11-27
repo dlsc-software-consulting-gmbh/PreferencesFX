@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.prefs.Preferences;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
 import org.controlsfx.control.MasterDetailPane;
@@ -13,16 +14,23 @@ public class PreferencesFx extends MasterDetailPane {
 
   private List<Category> categories;
   private CategoryTree categoryTree;
+  private Preferences preferences;
 
-  PreferencesFx(Category[] categories) {
+  PreferencesFx(Category[] categories, Class<?> aClass) {
     this.categories = Arrays.asList(categories);
     setupParts();
     layoutParts();
     setupListeners();
+    preferences = Preferences.userNodeForPackage(aClass);
   }
 
-  public static PreferencesFx of(Category... categories) {
-    return new PreferencesFx(categories);
+  /**
+   * @param saveClass  the class which the preferences are saved as
+   * @param categories the preferences categories
+   * @return creates the Preferences window
+   */
+  public static PreferencesFx of(Class<?> saveClass, Category... categories) {
+    return new PreferencesFx(categories, saveClass);
   }
 
   private void setupParts() {
