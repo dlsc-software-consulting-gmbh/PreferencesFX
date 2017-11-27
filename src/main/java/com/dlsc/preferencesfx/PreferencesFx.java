@@ -13,6 +13,7 @@ public class PreferencesFx extends MasterDetailPane {
 
   private List<Category> categories;
   private CategoryTree categoryTree;
+  private CategoryTreeBox categoryTreeBox;
 
   PreferencesFx(Category[] categories) {
     this.categories = Arrays.asList(categories);
@@ -27,11 +28,12 @@ public class PreferencesFx extends MasterDetailPane {
 
   private void setupParts() {
     categoryTree = new CategoryTree(categories);
+    categoryTreeBox = new CategoryTreeBox()
   }
 
   private void layoutParts() {
     setDetailSide(Side.LEFT);
-    setDetailNode(categoryTree);
+    setDetailNode(categoryTreeBox);
     // Sets initial shown CategoryPane.
     setMasterNode(this.categories.get(INITIAL_CATEGORY).getCategoryPane());
     setDividerPosition(DIVIDER_POSITION);

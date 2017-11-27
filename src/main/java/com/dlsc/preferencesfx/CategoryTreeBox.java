@@ -8,10 +8,26 @@ import javafx.scene.layout.VBox;
  */
 public class CategoryTreeBox extends VBox{
 
-  TextField searchFld = new TextField();
+  TextField searchFld;
+  CategoryTree tree;
 
-  CategoryTreeBox(Category... categories) {
+  CategoryTreeBox(CategoryTree tree) {
+    this.tree = tree;
+    setupParts();
+    layoutParts();
+    setupBindings();
+  }
 
+  private void setupParts() {
+    searchFld = new TextField();
+  }
+
+  private void layoutParts() {
+    getChildren().addAll(searchFld, tree);
+  }
+
+  private void setupBindings() {
+    searchFld = new TextField();
   }
 
 }
