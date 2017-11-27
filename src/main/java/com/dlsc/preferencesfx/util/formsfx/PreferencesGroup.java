@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util;
+package com.dlsc.preferencesfx.util.formsfx;
 
 /*-
  * ========================LICENSE_START=================================

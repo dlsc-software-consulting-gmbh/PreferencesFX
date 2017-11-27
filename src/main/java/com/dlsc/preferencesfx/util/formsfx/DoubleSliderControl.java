@@ -1,7 +1,9 @@
-package com.dlsc.preferencesfx.util;
+package com.dlsc.preferencesfx.util.formsfx;
 
-import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.formsfx.model.structure.DoubleField;
 import com.dlsc.formsfx.view.controls.SimpleControl;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -10,7 +12,7 @@ import javafx.scene.layout.VBox;
 /**
  * Created by François Martin on 24.11.17.
  */
-public class IntegerSliderControl extends SimpleControl<IntegerField> {
+public class DoubleSliderControl extends SimpleControl<DoubleField> {
   /**
    * - fieldLabel is the container that displays the label property of the
    * field.
@@ -19,35 +21,52 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
    */
   private Label fieldLabel;
   private Slider slider;
-  private Label valueLabel;
   private VBox container;
-  private int min;
-  private int max;
+  private Label valueLabel;
+  private double min;
+  private double max;
+  private int precision;
 
   /**
-   * Creates a slider for integer values.
+   * Creates a slider for double values with a minimum and maximum value, with a set precision.
    *
-   * @param min minimum slider value
-   * @param max maximum slider value
+   * @param min       minimum slider value
+   * @param max       maximum slider value
+   * @param precision number of digits after the decimal point
    */
-  public IntegerSliderControl(int min, int max) {
+  public DoubleSliderControl(double min, double max, int precision) {
     super();
     this.min = min;
     this.max = max;
+    this.precision = precision;
+  }
+
+  /**
+   * Rounds a value to a given precision, using {@link RoundingMode#HALF_UP}.
+   *
+   * @param value     value to be rounded
+   * @param precision number of digits after the decimal point
+   * @return
+   */
+  private double round(double value, int precision) {
+    return BigDecimal.valueOf(value)
+        .setScale(precision, RoundingMode.HALF_UP)
+        .doubleValue();
   }
 
   /**
    * {@inheritDoc}
    */
   @Override
+
   public void initializeParts() {
     super.initializeParts();
 
-    getStyleClass().add("integer-slider-control");
+    getStyleClass().add("double-slider-control");
 
     fieldLabel = new Label(field.labelProperty().getValue());
 
-    valueLabel = new Label(String.valueOf(field.getValue().intValue()));
+    valueLabel = new Label(String.valueOf(field.getValue().doubleValue()));
 
     slider = new Slider();
     slider.setMin(min);
@@ -92,7 +111,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   public void setupValueChangedListeners() {
     super.setupValueChangedListeners();
     field.userInputProperty().addListener((observable, oldValue, newValue) -> {
-      int sliderValue = Integer.parseInt(field.getUserInput());
+      double sliderValue = round(Double.parseDouble(field.getUserInput()), precision);
       slider.setValue(sliderValue);
       valueLabel.setText(String.valueOf(sliderValue));
     });
@@ -115,8 +134,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
     setOnMouseExited(event -> toggleTooltip(slider));
 
     slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-      field.userInputProperty().setValue(String.valueOf(newValue.intValue()));
+      field.userInputProperty().setValue(String.valueOf(round(newValue.doubleValue(), precision)));
     });
   }
-
 }
