@@ -42,10 +42,12 @@ public class PreferencesFx extends MasterDetailPane {
   private void setupListeners() {
     categoryTree.getSelectionModel().selectedItemProperty().addListener(
         // Save the old divider position. When you set the new item, it resets the position.
-        (observable, oldValue, newValue) -> {
+        (observable, oldItem, newItem) -> {
           double dividerPosition = this.getDividerPosition();
           // Replaces the old CategoryPane with the new one.
-          setMasterNode(((Category) ((TreeItem) newValue).getValue()).getCategoryPane());
+          if (newItem != null) {
+            setMasterNode(((Category) ((TreeItem) newItem).getValue()).getCategoryPane());
+          }
           setDividerPosition(dividerPosition); // Sets the saved divider position.
         });
   }
