@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 public class PreferencesFormRenderer extends VBox implements ViewMixin {
 
   private Form form;
-  private List<PreferencesGroupRenderer> sections = new ArrayList<>();
+  private List<PreferencesGroupRenderer> groups = new ArrayList<>();
 
   /**
    * This is the constructor to pass over data.
@@ -33,7 +33,7 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
    */
   @Override
   public void initializeParts() {
-    sections = form.getGroups().stream().map(
+    groups = form.getGroups().stream().map(
         g -> new PreferencesGroupRenderer((PreferencesGroup) g)).collect(Collectors.toList());
   }
 
@@ -44,6 +44,6 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
   public void layoutParts() {
     // Outer Padding of Category Pane
     setPadding(new Insets(10));
-    getChildren().addAll(sections);
+    getChildren().addAll(groups);
   }
 }

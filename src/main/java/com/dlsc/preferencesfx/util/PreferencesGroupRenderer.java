@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 public class PreferencesGroupRenderer extends VBox implements ViewMixin {
 
   /**
-   * SPACING is used to set the spacing of the section as well as the
+   * SPACING is used to set the spacing of the group as well as the
    * spacing for vertical/horizontal gaps between controls.
    */
   private final double SPACING = 10;
