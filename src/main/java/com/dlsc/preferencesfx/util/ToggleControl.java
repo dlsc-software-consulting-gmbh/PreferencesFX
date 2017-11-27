@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.util;
 
 import com.dlsc.formsfx.model.structure.BooleanField;
 import com.dlsc.formsfx.view.controls.SimpleControl;

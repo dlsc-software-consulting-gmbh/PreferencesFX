@@ -1,10 +1,15 @@
 group 'com.dlsc'
-version '0.1-SNAPSHOT'
+version '0.3-SNAPSHOT'
 
 allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
     }
+}
+
+// Needed for Jitpack, so that changes to dependencies are automatically rebuilt
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 buildscript {
