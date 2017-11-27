@@ -28,7 +28,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
    * @param min minimum slider value
    * @param max maximum slider value
    */
-  IntegerSliderControl(int min, int max) {
+  public IntegerSliderControl(int min, int max) {
     super();
     this.min = min;
     this.max = max;

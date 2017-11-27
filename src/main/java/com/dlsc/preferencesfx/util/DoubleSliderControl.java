@@ -32,7 +32,7 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
    * @param max maximum slider value
    * @param precision number of digits after the decimal point
    */
-  DoubleSliderControl(double min, double max, int precision) {
+  public DoubleSliderControl(double min, double max, int precision) {
     super();
     this.min = min;
     this.max = max;
