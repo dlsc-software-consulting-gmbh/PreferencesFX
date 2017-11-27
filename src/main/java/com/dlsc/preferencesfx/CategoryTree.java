@@ -16,12 +16,14 @@ public class CategoryTree extends TreeView {
   private FilterableTreeItem<Category> rootItem;
   private StringProperty searchText = new SimpleStringProperty();
   private Predicate<Category> filterPredicate = category -> {
+    // look in category description for matches
     boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText.get());
     boolean settingMatch = false;
     if (category.getGroups() != null) {
+      // look in settings too
       settingMatch = category.getGroups().stream()
-          .map(Group::getSettings)
-          .flatMap(Collection::stream)
+          .map(Group::getSettings)      // get settings from groups
+          .flatMap(Collection::stream)  // flatten all lists of settings to settings
           .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText.get()));
     }
     return categoryMatch || settingMatch;
