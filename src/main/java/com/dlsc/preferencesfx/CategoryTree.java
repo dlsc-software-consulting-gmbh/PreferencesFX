@@ -21,13 +21,7 @@ public class CategoryTree extends TreeView {
     this.categories = categories;
     setupParts();
     layoutParts();
-
-    rootItem.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-      if (searchText.get() == null || searchText.get().isEmpty()) {
-        return null;
-      }
-      return filterPredicate;
-    }, searchText));
+    setupBindings();
   }
 
   private void setupParts() {
@@ -52,6 +46,16 @@ public class CategoryTree extends TreeView {
     setShowRoot(false);
     getRoot().setExpanded(true);
     getSelectionModel().select(PreferencesFx.INITIAL_CATEGORY); // Set initial selected category.
+  }
+
+  private void setupBindings() {
+    // Make TreeView filterable by implementing the necessary binding
+    rootItem.predicateProperty().bind(Bindings.createObjectBinding(() -> {
+      if (searchText.get() == null || searchText.get().isEmpty()) {
+        return null;
+      }
+      return filterPredicate;
+    }, searchText));
   }
 
   public StringProperty searchTextProperty() {
