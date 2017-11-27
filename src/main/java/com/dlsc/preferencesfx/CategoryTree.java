@@ -10,6 +10,7 @@ public class CategoryTree extends TreeView {
   private List<Category> categories;
   private FilterableTreeItem<Category> rootItem;
 
+
   public CategoryTree(List<Category> categories) {
     this.categories = categories;
     setupParts();
@@ -18,13 +19,15 @@ public class CategoryTree extends TreeView {
   }
 
   private void setupParts() {
-    rootItem = new FilterableTreeItem<>(null);
-    addRecursive(rootItem, categories);
+    rootItem = new FilterableTreeItem<>();
+    TreeItem<Category> treeItem = new TreeItem<>();
+    rootItem.getSourceChildren().add(treeItem);
+    addRecursive(treeItem, categories);
   }
 
   private void addRecursive(TreeItem treeItem, List<Category> categories) {
     for (Category category : categories) {
-      FilterableTreeItem<Category> item = new FilterableTreeItem<>(category);
+      TreeItem<Category> item = new TreeItem<>(category);
       // If there are subcategries, add them recursively.
       if (!Objects.equals(category.getChildren(), null)) {
         addRecursive(item, category.getChildren());

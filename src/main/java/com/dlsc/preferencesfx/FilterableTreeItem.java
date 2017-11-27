@@ -15,8 +15,8 @@ public class FilterableTreeItem<T> extends TreeItem<T> {
   private final FilteredList<TreeItem<T>> filteredChildren = new FilteredList<>(sourceChildren);
   private final ObjectProperty<Predicate<T>> predicate = new SimpleObjectProperty<>();
 
-  public FilterableTreeItem(T value) {
-    super(value);
+  public FilterableTreeItem() {
+    super();
 
     filteredChildren.predicateProperty().bind(Bindings.createObjectBinding(() -> {
       Predicate<TreeItem<T>> p = child -> {
