@@ -4,6 +4,7 @@ import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.util.BindingMode;
 import com.dlsc.preferencesfx.util.PreferencesFormRenderer;
 import com.dlsc.preferencesfx.util.PreferencesGroup;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.StackPane;
@@ -37,5 +38,4 @@ public class CategoryPane extends StackPane {
     }
     form.binding(BindingMode.CONTINUOUS);
   }
-
 }

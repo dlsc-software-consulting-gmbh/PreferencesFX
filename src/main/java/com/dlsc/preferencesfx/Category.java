@@ -1,9 +1,11 @@
 package com.dlsc.preferencesfx;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
-public class Category {
+public class Category implements Serializable {
 
   private String description;
   private List<Group> groups;
@@ -12,6 +14,7 @@ public class Category {
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
+   *
    * @param description Category name, for display in {@link CategoryTree}
    */
   private Category(String description) {
@@ -28,6 +31,7 @@ public class Category {
   /**
    * Creates an empty category.
    * Can be used for top-level categories without {@link Setting}.
+   *
    * @param description Category name, for display in {@link CategoryTree}
    * @return initialized Category object
    */
@@ -37,8 +41,9 @@ public class Category {
 
   /**
    * Creates a new category from groups.
+   *
    * @param description Category name, for display in {@link CategoryTree}
-   * @param groups {@link Group} with {@link Setting} to be shown in the {@link CategoryPane}
+   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link CategoryPane}
    * @return initialized Category object
    */
   public static Category of(String description, Group... groups) {
@@ -47,8 +52,9 @@ public class Category {
 
   /**
    * Creates a new category from settings, if the settings shouldn't be individually grouped.
+   *
    * @param description Category name, for display in {@link CategoryTree}
-   * @param settings {@link Setting} to be shown in the {@link CategoryPane}
+   * @param settings    {@link Setting} to be shown in the {@link CategoryPane}
    * @return initialized Category object
    */
   public static Category of(String description, Setting... settings) {
@@ -79,5 +85,23 @@ public class Category {
   @Override
   public String toString() {
     return description;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Category category = (Category) o;
+    return Objects.equals(description, category.description) &&
+        Objects.equals(groups, category.groups);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(description, groups);
   }
 }

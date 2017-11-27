@@ -1,6 +1,8 @@
 package com.dlsc.preferencesfx;
 
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
+import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_POS_X;
+import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_POS_Y;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_HEIGHT;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_X;
@@ -39,8 +41,8 @@ public class PreferencesDialog extends DialogPane {
         preferences.getDouble(WINDOW_WIDTH, DEFAULT_PREFERENCES_WIDTH),
         preferences.getDouble(WINDOW_HEIGHT, DEFAULT_PREFERENCES_HEIGHT)
     );
-    getScene().getWindow().setX(preferences.getDouble(WINDOW_POS_X, 500));
-    getScene().getWindow().setY(preferences.getDouble(WINDOW_POS_Y, 300));
+    getScene().getWindow().setX(preferences.getDouble(WINDOW_POS_X, DEFAULT_PREFERENCES_POS_X));
+    getScene().getWindow().setY(preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y));
   }
 
   /**
