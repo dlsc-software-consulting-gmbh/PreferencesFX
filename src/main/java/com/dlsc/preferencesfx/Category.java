@@ -16,7 +16,7 @@ public class Category {
    */
   private Category(String description) {
     this.description = description;
-    this.categoryPane = new CategoryPane();
+    this.categoryPane = new CategoryPane(null);
   }
 
   private Category(String description, Group... groups) {
