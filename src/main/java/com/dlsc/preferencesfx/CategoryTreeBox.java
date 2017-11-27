@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx;
 
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -20,9 +21,11 @@ public class CategoryTreeBox extends VBox{
 
   private void setupParts() {
     searchFld = new TextField();
+    searchFld.setPromptText("Search..."); // TODO: make this i18n
   }
 
   private void layoutParts() {
+    setVgrow(tree, Priority.ALWAYS);
     getChildren().addAll(searchFld, tree);
   }
 
