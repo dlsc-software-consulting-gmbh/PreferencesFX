@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.util.FilterableTreeItem;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -14,14 +15,27 @@ public class CategoryTree extends TreeView {
   private List<Category> categories;
   private FilterableTreeItem<Category> rootItem;
   private StringProperty searchText = new SimpleStringProperty();
-  Predicate<Category> filterPredicate =
-      category -> category.getDescription().toLowerCase().contains(searchText.get().toLowerCase());
+  private Predicate<Category> filterPredicate = category -> {
+    boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText.get());
+    boolean settingMatch = false;
+    if (category.getGroups() != null) {
+      settingMatch = category.getGroups().stream()
+          .map(Group::getSettings)
+          .flatMap(Collection::stream)
+          .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText.get()));
+    }
+    return categoryMatch || settingMatch;
+  };
 
   public CategoryTree(List<Category> categories) {
     this.categories = categories;
     setupParts();
     layoutParts();
     setupBindings();
+  }
+
+  private boolean containsIgnoreCase(String source, String match) {
+    return source.toLowerCase().contains(match.toLowerCase());
   }
 
   private void setupParts() {
