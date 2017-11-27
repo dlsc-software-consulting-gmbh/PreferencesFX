@@ -12,19 +12,27 @@ import javafx.scene.layout.VBox;
 
 public class PreferencesGroupRenderer extends VBox implements ViewMixin {
 
-  protected final int SPACING = 10;
-  protected GridPane grid;
-  protected PreferencesGroup group;
-
+  /**
+   * SPACING is used to set the spacing of the section as well as the
+   * spacing for vertical/horizontal gaps between controls.
+   */
+  private final double SPACING = 10;
+  /**
+   * Add the controls in the GridPane in a 12-column layout. If a control
+   * takes up too much horizontal space, wrap it to the next row.
+   */
+  private final int COLUMN_COUNT = 12;
   private Label titleLabel;
+  private GridPane grid;
+  private PreferencesGroup preferencesGroup;
 
   /**
    * This is the constructor to pass over data.
    *
-   * @param group The section which gets rendered.
+   * @param preferencesGroup The PreferencesGroup which gets rendered.
    */
-  PreferencesGroupRenderer(PreferencesGroup group) {
-    this.group = group;
+  PreferencesGroupRenderer(PreferencesGroup preferencesGroup) {
+    this.preferencesGroup = preferencesGroup;
     init();
   }
 
@@ -33,7 +41,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
    */
   @Override
   public void initializeParts() {
-    this.grid = new GridPane();
+    grid = new GridPane();
     titleLabel = new Label();
   }
 
@@ -42,25 +50,22 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
    */
   @Override
   public void layoutParts() {
-    int COLUMN_COUNT = 12;
-
     int currentRow;
     for (currentRow = 0; currentRow < COLUMN_COUNT; ++currentRow) {
       ColumnConstraints colConst = new ColumnConstraints();
-      colConst.setPercentWidth(100.0D / (double) COLUMN_COUNT);
-      this.grid.getColumnConstraints().add(colConst);
+      colConst.setPercentWidth(SPACING * 10 / (double) COLUMN_COUNT);
+      grid.getColumnConstraints().add(colConst);
     }
 
-    this.grid.setHgap(10.0D);
-    this.grid.setVgap(10.0D);
-    this.setPadding(new Insets(10.0D));
     currentRow = 0;
     int currentColumnCount = 0;
 
     int span;
-    for (Iterator var4 = group.getFields().iterator(); var4.hasNext(); currentColumnCount += span) {
+    for (Iterator var4 = preferencesGroup.getFields().iterator(); var4.hasNext();
+         currentColumnCount += span) {
       Field f = (Field) var4.next();
       span = f.getSpan();
+
       if (currentColumnCount + span > COLUMN_COUNT) {
         ++currentRow;
         currentColumnCount = 0;
@@ -68,24 +73,25 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
 
       SimpleControl c = f.getRenderer();
       c.setField(f);
-      this.grid.add(c, currentColumnCount, currentRow, span, 1);
+      grid.add(c, currentColumnCount, currentRow, span, 1);
     }
 
-    getStyleClass().add("preferencesfx-group");
-
-    // Spaces from each Group
+    // Styling
+    grid.setHgap(SPACING);
+    grid.setVgap(SPACING);
     setPadding(new Insets(SPACING * 1.5));
-    setMargin(titleLabel, new Insets(0, 0, 10, 0));
     titleLabel.getStyleClass().add("category-title");
 
-    if (group.getTitle() != null) {
+    // Only when the preferencesGroup has a title
+    if (preferencesGroup.getTitle() != null) {
       getChildren().add(titleLabel);
+      grid.getStyleClass().add("category-content");
     }
     getChildren().add(grid);
   }
 
   public void setupBindings() {
-    titleLabel.textProperty().bind(group.titleProperty());
+    titleLabel.textProperty().bind(preferencesGroup.titleProperty());
   }
 
 }

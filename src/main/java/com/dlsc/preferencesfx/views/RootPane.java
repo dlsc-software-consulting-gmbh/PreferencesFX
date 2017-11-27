@@ -58,6 +58,16 @@ public class RootPane extends StackPane {
                         Setting.of("Screen name", screenName),
                         Setting.of("Resolution", resolutionItems, resolutionSelection),
                         Setting.of("Orientation", orientationItems, orientationSelection)
+                    ).description("Brightness & Color"),
+                    Group.of(
+                        Setting.of("Screen name", screenName),
+                        Setting.of("Resolution", resolutionItems, resolutionSelection),
+                        Setting.of("Orientation", orientationItems, orientationSelection)
+                    ),
+                    Group.of(
+                        Setting.of("Screen name", screenName),
+                        Setting.of("Resolution", resolutionItems, resolutionSelection),
+                        Setting.of("Orientation", orientationItems, orientationSelection)
                     ).description("Brightness & Color")
                 )
             )
