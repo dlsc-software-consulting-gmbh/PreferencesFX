@@ -16,12 +16,12 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
    * SPACING is used to set the spacing of the group as well as the
    * spacing for vertical/horizontal gaps between controls.
    */
-  private final double SPACING = 10;
+  private static final double SPACING = 10;
   /**
    * Add the controls in the GridPane in a 12-column layout. If a control
    * takes up too much horizontal space, wrap it to the next row.
    */
-  private final int COLUMN_COUNT = 12;
+  private static final int COLUMN_COUNT = 12;
   private Label titleLabel;
   private GridPane grid;
   private PreferencesGroup preferencesGroup;

@@ -21,8 +21,8 @@ package com.dlsc.preferencesfx.util;
  */
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.formsfx.model.structure.Group;
+import com.dlsc.formsfx.model.util.TranslationService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -39,7 +39,6 @@ public class PreferencesGroup extends Group {
   /**
    * The title acts as a description for the group. It is always visible to
    * the user and tells them how the contained fields are grouped.
-   * <p>
    * This property is translatable if a {@link TranslationService} is set on
    * the containing form.
    */

@@ -15,6 +15,7 @@ public class CategoryPane extends StackPane {
 
   /**
    * Creates a CategoryPane.
+   *
    * @param groups if null, an empty CategoryPane will be created,
    *               in case of a {@link Category} without settings.
    */
