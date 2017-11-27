@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.util;
 
 import com.dlsc.formsfx.model.structure.DoubleField;
 import com.dlsc.formsfx.view.controls.SimpleControl;
@@ -23,16 +23,18 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
   private Slider slider;
   private VBox container;
   private Label valueLabel;
-  private double min, max;
+  private double min;
+  private double max;
   private int precision;
 
   /**
    * Creates a slider for double values with a minimum and maximum value, with a set precision.
-   * @param min minimum slider value
-   * @param max maximum slider value
+   *
+   * @param min       minimum slider value
+   * @param max       maximum slider value
    * @param precision number of digits after the decimal point
    */
-  DoubleSliderControl(double min, double max, int precision) {
+  public DoubleSliderControl(double min, double max, int precision) {
     super();
     this.min = min;
     this.max = max;
@@ -41,7 +43,8 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
 
   /**
    * Rounds a value to a given precision, using {@link RoundingMode#HALF_UP}.
-   * @param value value to be rounded
+   *
+   * @param value     value to be rounded
    * @param precision number of digits after the decimal point
    * @return
    */
@@ -86,7 +89,7 @@ public class DoubleSliderControl extends SimpleControl<DoubleField> {
 
     add(fieldLabel, 0, 0, 2, 1);
     add(container, 2, 0, field.getSpan() - 4, 1);
-    add(valueLabel, 2+field.getSpan()-3, 0, 2, 1);
+    add(valueLabel, 2 + field.getSpan() - 3, 0, 2, 1);
     valueLabel.setAlignment(Pos.CENTER);
   }
 

@@ -19,6 +19,7 @@ public class DemoView extends VBox {
   private MenuItem preferencesMenuItem;
   private RootPane rootPane;
 
+  private Label welcomeLbl;
   private Label brightnessLbl;
   private Label nightModeLbl;
   private Label scalingLbl;
@@ -45,6 +46,7 @@ public class DemoView extends VBox {
     menu = new Menu("Edit");
     preferencesMenuItem = new MenuItem("Preferences");
 
+    welcomeLbl = new Label();
     brightnessLbl = new Label();
     nightModeLbl = new Label();
     scalingLbl = new Label();
@@ -63,6 +65,7 @@ public class DemoView extends VBox {
 
     // VBox with values
     VBox valueBox = new VBox(
+        welcomeLbl,
         brightnessLbl,
         nightModeLbl,
         scalingLbl,
@@ -78,6 +81,7 @@ public class DemoView extends VBox {
 
     // VBox with descriptions
     VBox descriptionBox = new VBox(
+        new Label("Welcome Text:"),
         new Label("Brightness:"),
         new Label("Night mode:"),
         new Label("Scaling:"),
@@ -102,6 +106,7 @@ public class DemoView extends VBox {
   }
 
   private void setupBindings() {
+    welcomeLbl.textProperty().bind(rootPane.welcomeText);
     brightnessLbl.textProperty().bind(rootPane.brightness.asString().concat("%"));
     nightModeLbl.textProperty().bind(rootPane.nightMode.asString());
     scalingLbl.textProperty().bind(rootPane.scaling.asString());

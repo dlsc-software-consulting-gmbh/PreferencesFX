@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.util;
 
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.view.controls.SimpleControl;
@@ -21,14 +21,16 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   private Slider slider;
   private Label valueLabel;
   private VBox container;
-  private int min, max;
+  private int min;
+  private int max;
 
   /**
    * Creates a slider for integer values.
+   *
    * @param min minimum slider value
    * @param max maximum slider value
    */
-  IntegerSliderControl(int min, int max) {
+  public IntegerSliderControl(int min, int max) {
     super();
     this.min = min;
     this.max = max;
@@ -68,7 +70,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
 
     add(fieldLabel, 0, 0, 2, 1);
     add(container, 2, 0, field.getSpan() - 4, 1);
-    add(valueLabel, 2+field.getSpan()-3, 0, 2, 1);
+    add(valueLabel, 2 + field.getSpan() - 3, 0, 2, 1);
     valueLabel.setAlignment(Pos.CENTER);
   }
 
