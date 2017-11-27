@@ -1,6 +1,8 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.preferencesfx.util.DoubleSliderControl;
+import com.dlsc.preferencesfx.util.IntegerSliderControl;
 import com.dlsc.preferencesfx.util.ToggleControl;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
