@@ -4,7 +4,6 @@ import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -83,7 +82,7 @@ public class CategoryTree extends TreeView {
     }, searchText));
   }
 
-  public void setSelectedItem(Category category){
+  public void setSelectedItem(Category category) {
     getSelectionModel().select(categoryTreeItemMap.get(category));
   }
 
