@@ -96,7 +96,12 @@ public class PreferencesFx extends MasterDetailPane {
    */
   public void saveSelectedCategory() {
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
-    Category category = (Category) treeItem.getValue();
+    Category category;
+    if (treeItem != null) {
+      category = (Category) treeItem.getValue();
+    } else {
+      category = categoryTree.findCategoryById(DEFAULT_CATEGORY);
+    }
     preferences.putInt(SELECTED_CATEGORY, category.getId());
   }
 }
