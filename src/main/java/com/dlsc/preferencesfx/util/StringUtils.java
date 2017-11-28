@@ -7,9 +7,8 @@ import com.google.common.base.Strings;
  */
 public class StringUtils {
   public static boolean containsIgnoreCase(String source, String match) {
-    if (Strings.isNullOrEmpty(source) || Strings.isNullOrEmpty(match)) {
-      return false;
-    }
-    return source.toLowerCase().contains(match.toLowerCase());
+    return !Strings.isNullOrEmpty(source)
+        && !Strings.isNullOrEmpty(match)
+        && source.toLowerCase().contains(match.toLowerCase());
   }
 }

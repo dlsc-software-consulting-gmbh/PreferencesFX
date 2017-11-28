@@ -23,7 +23,7 @@ buildscript {
     }
 }
 
-ext.checkstyleVersion    = '8.3'
+ext.checkstyleVersion = '8.3'
 
 apply plugin: 'java'
 apply plugin: 'org.asciidoctor.convert'
@@ -78,5 +78,5 @@ asciidoctor {
 }
 
 checkstyle {
-    toolVersion ="${checkstyleVersion}"
+    toolVersion = "${checkstyleVersion}"
 }

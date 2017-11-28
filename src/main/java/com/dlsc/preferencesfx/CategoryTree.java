@@ -2,7 +2,6 @@ package com.dlsc.preferencesfx;
 
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -77,7 +76,8 @@ public class CategoryTree extends TreeView {
     // TreeView requires a RootItem, but in this case it's not desired to have it visible.
     setShowRoot(false);
     getRoot().setExpanded(true);
-    getSelectionModel().select(PreferencesFx.INITIAL_CATEGORY); // Set initial selected category.
+    // Set initial selected category.
+    getSelectionModel().select(PreferencesFx.DEFAULT_CATEGORY);
   }
 
   private void setupBindings() {
@@ -137,4 +137,36 @@ public class CategoryTree extends TreeView {
     return searchText;
   }
 
+  /**
+   * Sets the selected item in the TreeView to the category of the given categoryId.
+   *
+   * @param categoryId the id of the category to be found
+   * @return the category with categoryId or the first category in the TreeView if none is found
+   */
+  public void setSelectedCategoryById(int categoryId) {
+    Category category = findCategoryById(categoryId);
+    setSelectedItem(category);
+  }
+
+  /**
+   * Finds the category with the matching id.
+   *
+   * @param categoryId the id of the category to be found
+   * @return the category with categoryId or the first category in the TreeView if none is found
+   */
+  public Category findCategoryById(int categoryId) {
+    Category selectedCategory = categoryTreeItemMap.keySet().stream().filter(
+        category -> category.getId() == categoryId).findFirst()
+        .orElse(rootItem.getChildren().get(0).getValue());
+    return selectedCategory;
+  }
+
+  /**
+   * Selects the given category in the TreeView.
+   *
+   * @param category the category to be selected
+   */
+  public void setSelectedItem(Category category) {
+    getSelectionModel().select(categoryTreeItemMap.get(category));
+  }
 }
