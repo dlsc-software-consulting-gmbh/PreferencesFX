@@ -4,6 +4,7 @@ version '0.3-SNAPSHOT'
 allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
+        maven { url 'http://maven.bestsolution.at/efxclipse-releases/' }
     }
 }
 
@@ -61,6 +62,9 @@ dependencies {
 
     // ControlsFX
     compile 'org.controlsfx:controlsfx:8.40.14'
+
+    // e(fx)clipse for FilterableTree
+    compile 'at.bestsolution.efxclipse.rt:org.eclipse.fx.ui.controls:3.0.0'
 }
 
 task wrapper(type: Wrapper) {

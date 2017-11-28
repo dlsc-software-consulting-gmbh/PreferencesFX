@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util;
+package com.dlsc.preferencesfx.util.formsfx;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.view.controls.SimpleControl;
