@@ -127,15 +127,15 @@ public class CategoryTree extends TreeView {
       if (amountSettings == 1) {
         setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
       }
+      // Remove all markings from settings
+      Category selectedCategory = getSelectedItem();
+      if (selectedCategory != null && selectedCategory.getGroups() != null) {
+        selectedCategory.getGroups().stream()
+            .map(Group::getSettings)
+            .flatMap(Collection::stream)
+            .forEach(Setting::unmark);
+      }
       if (amountSettings >= 1) {
-        // Remove all markings from settings
-        Category selectedCategory = getSelectedItem();
-        if (selectedCategory.getGroups() != null) {
-          selectedCategory.getGroups().stream()
-              .map(Group::getSettings)
-              .flatMap(Collection::stream)
-              .forEach(Setting::unmark);
-        }
         filteredSettingsLst.stream().forEach(Setting::mark);
       }
     });
@@ -182,6 +182,10 @@ public class CategoryTree extends TreeView {
    * Retrieves the currently selected category in the TreeView.
    */
   public Category getSelectedItem() {
-    return ((TreeItem<Category>) getSelectionModel().getSelectedItem()).getValue();
+    TreeItem<Category> selectedTreeItem = (TreeItem<Category>) getSelectionModel().getSelectedItem();
+    if (selectedTreeItem != null) {
+      return ((TreeItem<Category>) getSelectionModel().getSelectedItem()).getValue();
+    }
+    return null;
   }
 }
