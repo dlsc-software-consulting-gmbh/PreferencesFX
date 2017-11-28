@@ -82,10 +82,6 @@ public class CategoryTree extends TreeView {
     }, searchText));
   }
 
-  public void setSelectedItem(Category category) {
-    getSelectionModel().select(categoryTreeItemMap.get(category));
-  }
-
   public StringProperty searchTextProperty() {
     return searchText;
   }
