@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -22,10 +23,17 @@ public class CategoryTree extends TreeView {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryTree.class.getName());
 
+  List<Category> categoriesLst;
+  List<Setting> settingsLst;
+  List<Category> filteredCategoriesLst;
+  List<Setting> filteredSettingsLst;
+
+  private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
+  private HashMap<Setting, Category> settingCategoryMap = new HashMap<>();
+
   private List<Category> categories;
   private FilterableTreeItem<Category> rootItem;
   private StringProperty searchText = new SimpleStringProperty();
-  private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
   private Predicate<Category> filterPredicate = category -> {
     // look in category description for matches
     boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText.get());
@@ -81,18 +89,43 @@ public class CategoryTree extends TreeView {
       return TreeItemPredicate.create(filterPredicate);
     }, searchText));
 
+    categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
+    for (Category category : categoriesLst) {
+      if (category.getGroups() != null) {
+        for (Group group : category.getGroups()) {
+          if (group.getSettings() != null) {
+            for (Setting setting : group.getSettings()) {
+              settingCategoryMap.put(setting, category);
+            }
+          }
+        }
+      }
+    }
 
-    List<Category> categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
-    List<Setting> settingsLst =
-
+    settingsLst = categoriesLst.stream()
+        .map(Category::getGroups)     // get groups from categories
+        .filter(Objects::nonNull)     // remove all null
+        .flatMap(Collection::stream)
+        .map(Group::getSettings)      // get settings from groups
+        .filter(Objects::nonNull)     // remove all null
+        .flatMap(Collection::stream)
+        .collect(Collectors.toList());
     // select category
     searchText.addListener((observable, oldText, newText) -> {
-
-
-      category.getGroups().stream()
-          .map(Group::getSettings)      // get settings from groups
-          .flatMap(Collection::stream)  // flatten all lists of settings to settings
-          .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText.get()));
+      filteredCategoriesLst = categoriesLst.stream().filter(category -> containsIgnoreCase(category.getDescription(), searchText.get())).collect(Collectors.toList());
+      filteredSettingsLst = settingsLst.stream().filter(setting -> containsIgnoreCase(setting.getDescription(), searchText.get())).collect(Collectors.toList());
+      int amountCategories = filteredCategoriesLst.size();
+      int amountSettings = filteredSettingsLst.size();
+      LOGGER.trace("Matched Categories: " + amountCategories);
+      LOGGER.trace("Matched Settings: " + amountSettings);
+      // if there is one category left, select it
+      if (amountCategories == 1) {
+        setSelectedItem(filteredCategoriesLst.get(0));
+      }
+      if (amountSettings == 1) {
+        setSelectedItem(filteredCategoriesLst.get(0));
+      }
+      }
     });
   }
 
