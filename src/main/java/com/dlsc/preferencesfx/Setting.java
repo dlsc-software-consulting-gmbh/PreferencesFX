@@ -15,6 +15,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 public class Setting<F extends Field, P extends Property> {
+  public static final String MARKED_STYLE_CLASS = "simple-control-marked";
   private String description;
   private F field;
   private P value;
@@ -106,6 +107,14 @@ public class Setting<F extends Field, P extends Property> {
         description,
         Field.ofMultiSelectionType(
             new SimpleListProperty<>(items), selections).label(description), selections);
+  }
+
+  public void mark() {
+    getField().getRenderer().addStyleClass(MARKED_STYLE_CLASS);
+  }
+
+  public void unmark() {
+    getField().getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
   }
 
   public String getDescription() {

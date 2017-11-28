@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -124,8 +125,18 @@ public class CategoryTree extends TreeView {
         setSelectedItem(filteredCategoriesLst.get(0));
       }
       if (amountSettings == 1) {
-        setSelectedItem(filteredCategoriesLst.get(0));
+        setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
       }
+      if (amountSettings >= 1) {
+        // Remove all markings from settings
+        Category selectedCategory = getSelectedItem();
+        if (selectedCategory.getGroups() != null) {
+          selectedCategory.getGroups().stream()
+              .map(Group::getSettings)
+              .flatMap(Collection::stream)
+              .forEach(Setting::unmark);
+        }
+        filteredSettingsLst.stream().forEach(Setting::mark);
       }
     });
   }
@@ -165,5 +176,12 @@ public class CategoryTree extends TreeView {
    */
   public void setSelectedItem(Category category) {
     getSelectionModel().select(categoryTreeItemMap.get(category));
+  }
+
+  /**
+   * Retrieves the currently selected category in the TreeView.
+   */
+  public Category getSelectedItem() {
+    return ((TreeItem<Category>) getSelectionModel().getSelectedItem()).getValue();
   }
 }

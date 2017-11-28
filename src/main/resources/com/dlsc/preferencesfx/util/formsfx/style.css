@@ -218,3 +218,13 @@
 .simple-checkbox-control:invalid .check-box:armed > .box {
     -fx-color: #ffcccc;
 }
+
+/*******************
+ * SPECIAL STYLING *
+ *******************/
+.simple-control-marked {
+    -fx-border-color: rgba(255, 255, 0, 0.4);
+    -fx-border-width: 5px;
+    -fx-border-radius: 10px;
+    -fx-padding: 2px;
+}
