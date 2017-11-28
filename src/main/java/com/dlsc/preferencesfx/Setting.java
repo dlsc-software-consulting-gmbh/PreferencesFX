@@ -4,6 +4,7 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.util.DoubleSliderControl;
 import com.dlsc.preferencesfx.util.IntegerSliderControl;
 import com.dlsc.preferencesfx.util.ToggleControl;
+import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -118,4 +119,5 @@ public class Setting<F extends Field, P extends Property> {
   public F getField() {
     return field;
   }
+
 }

@@ -1,16 +1,16 @@
 package com.dlsc.preferencesfx;
 
-import java.io.Serializable;
+import com.dlsc.preferencesfx.util.IncrementId;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
-public class Category implements Serializable {
+public class Category {
 
   private String description;
   private List<Group> groups;
   private List<Category> children;
   private CategoryPane categoryPane;
+  private final int id = IncrementId.get();
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -87,21 +87,7 @@ public class Category implements Serializable {
     return description;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Category category = (Category) o;
-    return Objects.equals(description, category.description) &&
-        Objects.equals(groups, category.groups);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(description, groups);
+  public int getId() {
+    return id;
   }
 }

@@ -36,8 +36,8 @@ public class PreferencesDialog extends DialogPane {
     dialog.setResizable(true);
 
     dialog.setDialogPane(this);
-    this.setContent(preferencesFx);
-    this.setPrefSize(
+    setContent(preferencesFx);
+    setPrefSize(
         preferences.getDouble(WINDOW_WIDTH, DEFAULT_PREFERENCES_WIDTH),
         preferences.getDouble(WINDOW_HEIGHT, DEFAULT_PREFERENCES_HEIGHT)
     );
@@ -62,11 +62,11 @@ public class PreferencesDialog extends DialogPane {
 
   private void savePreferencesOnCloseRequest() {
     dialog.setOnCloseRequest(e -> {
-      preferences.putDouble(WINDOW_WIDTH, this.widthProperty().get());
-      preferences.putDouble(WINDOW_HEIGHT, this.heightProperty().get());
+      preferences.putDouble(WINDOW_WIDTH, widthProperty().get());
+      preferences.putDouble(WINDOW_HEIGHT, heightProperty().get());
       preferences.putDouble(WINDOW_POS_X, getScene().getWindow().getX());
       preferences.putDouble(WINDOW_POS_Y, getScene().getWindow().getY());
-      preferencesFx.save();
+      preferencesFx.saveSelectedCategory();
     });
   }
 }

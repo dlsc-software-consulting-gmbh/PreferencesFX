@@ -12,7 +12,7 @@ public class PreferencesFx extends MasterDetailPane {
 
   public static final String DIVIDER_POSITION = "DIVIDER_POSITION";
   public static final double DEFAULT_DIVIDER_POSITION = 0.2;
-  public static final int INITIAL_CATEGORY = 0;
+  public static final int DEFAULT_CATEGORY = 0;
 
   public static final int DEFAULT_PREFERENCES_WIDTH = 1000;
   public static final int DEFAULT_PREFERENCES_HEIGHT = 700;
@@ -32,8 +32,8 @@ public class PreferencesFx extends MasterDetailPane {
     preferences = Preferences.userNodeForPackage(aClass);
     this.categories = Arrays.asList(categories);
     setupParts();
-    layoutParts();
     setupListeners();
+    layoutParts();
   }
 
   /**
@@ -54,39 +54,43 @@ public class PreferencesFx extends MasterDetailPane {
     setDetailSide(Side.LEFT);
     setDetailNode(categoryTree);
 
-    // Sets initial shown CategoryPane.
-    Category category = categories.stream().filter(e -> e.hashCode() == preferences.getInt(SELECTED_CATEGORY, 0)).findFirst().orElse(categories.get(INITIAL_CATEGORY));
-    setMasterNode(category.getCategoryPane());
-    setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
+    setSelectedCategory(
+        categoryTree.setSelectedCategoryById(
+            preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY)
+        )
+    );
   }
 
   private void setupListeners() {
-    /**
-     * Whenever the divider position is changed, it's position is saved
-     */
+    // Whenever the divider position is changed, it's position is saved.
     dividerPositionProperty().addListener((observable, oldValue, newValue) ->
         preferences.putDouble(DIVIDER_POSITION, getDividerPosition())
     );
 
     categoryTree.getSelectionModel().selectedItemProperty().addListener(
-        (observable, oldValue, newValue) -> {
-          setMasterNode(((Category) ((TreeItem) newValue).getValue()).getCategoryPane());
-          // Sets the saved divider position.
-          setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
-        }
-    );
+        (observable, oldValue, newValue) ->
+            setSelectedCategory((Category) ((TreeItem) newValue).getValue()));
   }
 
-  public List<Category> getCategories() {
-    return categories;
+  /**
+   * @param category sets the selected Category to the MasterNode.
+   */
+  private void setSelectedCategory(Category category) {
+    setMasterNode(category.getCategoryPane());
+    // Sets the saved divider position.
+    setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
   }
 
   public Preferences getPreferences() {
     return preferences;
   }
 
-  public void save() {
-//    preferences.putByteArray(SELECTED_CATEGORY, SerializationUtils.serialize((Serializable) categoryTree.getSelectionModel().getSelectedItem()));
+  /**
+   * Saves the current selected Category.
+   */
+  public void saveSelectedCategory() {
+    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
+    Category category = (Category) treeItem.getValue();
+    preferences.putInt(SELECTED_CATEGORY, category.getId());
   }
-
 }

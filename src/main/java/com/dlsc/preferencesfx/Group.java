@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by François Martin on 07.11.17.
@@ -36,4 +37,5 @@ public class Group {
   public List<Setting> getSettings() {
     return settings;
   }
+
 }
