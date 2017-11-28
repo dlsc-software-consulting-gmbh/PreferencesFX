@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.util.FilterableTreeItem;
+import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -9,8 +10,15 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
+import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
 public class CategoryTree extends TreeView {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(CategoryTree.class.getName());
 
   private List<Category> categories;
   private FilterableTreeItem<Category> rootItem;
@@ -36,12 +44,8 @@ public class CategoryTree extends TreeView {
     setupBindings();
   }
 
-  private boolean containsIgnoreCase(String source, String match) {
-    return source.toLowerCase().contains(match.toLowerCase());
-  }
-
   private void setupParts() {
-    rootItem = new FilterableTreeItem<>();
+    rootItem = new FilterableTreeItem<>(Category.of("Root"));
     addRecursive(rootItem, categories);
   }
 
@@ -52,7 +56,7 @@ public class CategoryTree extends TreeView {
       if (!Objects.equals(category.getChildren(), null)) {
         addRecursive(item, category.getChildren());
       }
-      treeItem.getSourceChildren().add(item);
+      treeItem.getInternalChildren().add(item);
     }
   }
 
@@ -70,7 +74,7 @@ public class CategoryTree extends TreeView {
       if (searchText.get() == null || searchText.get().isEmpty()) {
         return null;
       }
-      return filterPredicate;
+      return TreeItemPredicate.create(filterPredicate);
     }, searchText));
   }
 
