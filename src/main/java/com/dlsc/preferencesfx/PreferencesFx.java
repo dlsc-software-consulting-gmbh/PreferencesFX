@@ -40,7 +40,7 @@ public class PreferencesFx extends MasterDetailPane {
   /**
    * Creates the Preferences window.
    *
-   * @param saveClass  the class which the preferences are saved as.
+   * @param saveClass  the class which the preferences are saved as
    *                   Must be unique to the application using the preferences
    * @param categories the items to be displayed in the TreeView
    * @return the preferences window
@@ -79,7 +79,7 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   /**
-   * @param category sets the selected Category to the MasterNode.
+   * @param category sets the selected Category to the MasterNode
    */
   private void setSelectedCategory(Category category) {
     setMasterNode(category.getCategoryPane());
