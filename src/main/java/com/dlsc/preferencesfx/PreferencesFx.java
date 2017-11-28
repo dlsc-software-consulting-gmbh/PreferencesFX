@@ -31,8 +31,7 @@ public class PreferencesFx extends MasterDetailPane {
 
   PreferencesFx(Class<?> saveClass, Category[] categories) {
     storageHandler = new StorageHandler(saveClass);
-    this.categories = Arrays.asList(categories);
-
+    this.categories = storageHandler.setupPreferenceProperties(Arrays.asList(categories));
     setupParts();
     setupListeners();
     layoutParts();
@@ -55,15 +54,6 @@ public class PreferencesFx extends MasterDetailPane {
     categoryTreeBox = new CategoryTreeBox(categoryTree);
   }
 
-  private void layoutParts() {
-    setDetailSide(Side.LEFT);
-    setDetailNode(categoryTreeBox);
-    // Load last selected category in TreeView.
-    categoryTree.setSelectedCategoryById(storageHandler.getSelectedCategory());
-    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
-    setSelectedCategory((Category) treeItem.getValue());
-  }
-
   private void setupListeners() {
     // Whenever the divider position is changed, it's position is saved.
     dividerPositionProperty().addListener((observable, oldValue, newValue) ->
@@ -77,6 +67,15 @@ public class PreferencesFx extends MasterDetailPane {
           }
         }
     );
+  }
+
+  private void layoutParts() {
+    setDetailSide(Side.LEFT);
+    setDetailNode(categoryTreeBox);
+    // Load last selected category in TreeView.
+    categoryTree.setSelectedCategoryById(storageHandler.getSelectedCategory());
+    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
+    setSelectedCategory((Category) treeItem.getValue());
   }
 
   /**
