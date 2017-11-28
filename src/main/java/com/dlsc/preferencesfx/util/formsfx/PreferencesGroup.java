@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util;
+package com.dlsc.preferencesfx.util.formsfx;
 
 /*-
  * ========================LICENSE_START=================================
@@ -39,7 +39,6 @@ public class PreferencesGroup extends Group {
   /**
    * The title acts as a description for the group. It is always visible to
    * the user and tells them how the contained fields are grouped.
-   * <p>
    * This property is translatable if a {@link TranslationService} is set on
    * the containing form.
    */

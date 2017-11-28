@@ -26,6 +26,7 @@ public class PreferencesFx extends MasterDetailPane {
 
   private List<Category> categories;
   private CategoryTree categoryTree;
+  private CategoryTreeBox categoryTreeBox;
   private Preferences preferences;
 
   PreferencesFx(Class<?> saveClass, Category[] categories) {
@@ -50,12 +51,12 @@ public class PreferencesFx extends MasterDetailPane {
 
   private void setupParts() {
     categoryTree = new CategoryTree(categories);
+    categoryTreeBox = new CategoryTreeBox(categoryTree);
   }
 
   private void layoutParts() {
     setDetailSide(Side.LEFT);
-    setDetailNode(categoryTree);
-
+    setDetailNode(categoryTreeBox);
     // Load last selected category in TreeView.
     categoryTree.setSelectedCategoryById(preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY));
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
@@ -69,8 +70,11 @@ public class PreferencesFx extends MasterDetailPane {
     );
 
     categoryTree.getSelectionModel().selectedItemProperty().addListener(
-        (observable, oldValue, newValue) ->
-            setSelectedCategory((Category) ((TreeItem) newValue).getValue())
+        (observable, oldValue, newValue) -> {
+          if (newValue != null) {
+            setSelectedCategory((Category) ((TreeItem) newValue).getValue());
+          }
+        }
     );
   }
 

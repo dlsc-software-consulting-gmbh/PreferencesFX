@@ -1,9 +1,9 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.preferencesfx.util.DoubleSliderControl;
-import com.dlsc.preferencesfx.util.IntegerSliderControl;
-import com.dlsc.preferencesfx.util.ToggleControl;
+import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
+import com.dlsc.preferencesfx.util.formsfx.IntegerSliderControl;
+import com.dlsc.preferencesfx.util.formsfx.ToggleControl;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -46,18 +46,19 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
-  public static Setting of(String description, DoubleProperty property, double min, double max, int precision) {
+  public static Setting of(
+      String description, DoubleProperty property, double min, double max, int precision) {
     return new Setting<>(
         description,
-        Field.ofDoubleType(property).label(description).render(new DoubleSliderControl(min, max, precision)),
-        property);
+        Field.ofDoubleType(property).label(description).render(
+            new DoubleSliderControl(min, max, precision)), property);
   }
 
   public static Setting of(String description, IntegerProperty property, int min, int max) {
     return new Setting<>(
         description,
-        Field.ofIntegerType(property).label(description).render(new IntegerSliderControl(min, max)),
-        property);
+        Field.ofIntegerType(property).label(description).render(
+            new IntegerSliderControl(min, max)), property);
   }
 
   public static Setting of(String description, StringProperty property) {
@@ -79,8 +80,8 @@ public class Setting<F extends Field, P extends Property> {
       String description, ObservableList<P> items, ObjectProperty<P> selection) {
     return new Setting<>(
         description,
-        Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection).label(description),
-        selection);
+        Field.ofSingleSelectionType(
+            new SimpleListProperty<>(items), selection).label(description), selection);
   }
 
   /**
@@ -103,8 +104,8 @@ public class Setting<F extends Field, P extends Property> {
       String description, ObservableList<P> items, ListProperty<P> selections) {
     return new Setting<>(
         description,
-        Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections).label(description),
-        selections);
+        Field.ofMultiSelectionType(
+            new SimpleListProperty<>(items), selections).label(description), selections);
   }
 
   public String getDescription() {
