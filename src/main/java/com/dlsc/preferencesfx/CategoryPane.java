@@ -38,5 +38,4 @@ public class CategoryPane extends StackPane {
     }
     form.binding(BindingMode.CONTINUOUS);
   }
-
 }

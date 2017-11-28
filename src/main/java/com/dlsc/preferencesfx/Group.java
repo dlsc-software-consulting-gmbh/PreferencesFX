@@ -36,4 +36,5 @@ public class Group {
   public List<Setting> getSettings() {
     return settings;
   }
+
 }

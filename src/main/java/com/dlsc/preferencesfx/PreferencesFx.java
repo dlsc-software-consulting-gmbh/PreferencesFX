@@ -2,28 +2,51 @@ package com.dlsc.preferencesfx;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.prefs.Preferences;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
 import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesFx extends MasterDetailPane {
+  public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
 
-  public static final float DIVIDER_POSITION = 0.2f;
-  public static final int INITIAL_CATEGORY = 0;
+  public static final String DIVIDER_POSITION = "DIVIDER_POSITION";
+  public static final double DEFAULT_DIVIDER_POSITION = 0.2;
+  public static final int DEFAULT_CATEGORY = 0;
+
+  public static final int DEFAULT_PREFERENCES_WIDTH = 1000;
+  public static final int DEFAULT_PREFERENCES_HEIGHT = 700;
+  public static final int DEFAULT_PREFERENCES_POS_X = 700;
+  public static final int DEFAULT_PREFERENCES_POS_Y = 500;
+
+  public static final String WINDOW_WIDTH = "WINDOW_WIDTH";
+  public static final String WINDOW_HEIGHT = "WINDOW_HEIGHT";
+  public static final String WINDOW_POS_X = "WINDOW_POS_X";
+  public static final String WINDOW_POS_Y = "WINDOW_POS_Y";
 
   private List<Category> categories;
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
+  private Preferences preferences;
 
-  PreferencesFx(Category[] categories) {
+  PreferencesFx(Class<?> saveClass, Category[] categories) {
+    preferences = Preferences.userNodeForPackage(saveClass);
     this.categories = Arrays.asList(categories);
     setupParts();
-    layoutParts();
     setupListeners();
+    layoutParts();
   }
 
-  public static PreferencesFx of(Category... categories) {
-    return new PreferencesFx(categories);
+  /**
+   * Creates the Preferences window.
+   *
+   * @param saveClass  the class which the preferences are saved as
+   *                   Must be unique to the application using the preferences
+   * @param categories the items to be displayed in the TreeView
+   * @return the preferences window
+   */
+  public static PreferencesFx of(Class<?> saveClass, Category... categories) {
+    return new PreferencesFx(saveClass, categories);
   }
 
   private void setupParts() {
@@ -34,25 +57,51 @@ public class PreferencesFx extends MasterDetailPane {
   private void layoutParts() {
     setDetailSide(Side.LEFT);
     setDetailNode(categoryTreeBox);
-    // Sets initial shown CategoryPane.
-    setMasterNode(this.categories.get(INITIAL_CATEGORY).getCategoryPane());
-    setDividerPosition(DIVIDER_POSITION);
+    // Load last selected category in TreeView.
+    categoryTree.setSelectedCategoryById(preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY));
+    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
+    setSelectedCategory((Category) treeItem.getValue());
   }
 
   private void setupListeners() {
+    // Whenever the divider position is changed, it's position is saved.
+    dividerPositionProperty().addListener((observable, oldValue, newValue) ->
+        preferences.putDouble(DIVIDER_POSITION, getDividerPosition())
+    );
+
     categoryTree.getSelectionModel().selectedItemProperty().addListener(
-        // Save the old divider position. When you set the new item, it resets the position.
-        (observable, oldItem, newItem) -> {
-          double dividerPosition = this.getDividerPosition();
-          // Replaces the old CategoryPane with the new one.
-          if (newItem != null) {
-            setMasterNode(((Category) ((TreeItem) newItem).getValue()).getCategoryPane());
+        (observable, oldValue, newValue) -> {
+          if (newValue != null) {
+            setSelectedCategory((Category) ((TreeItem) newValue).getValue());
           }
-          setDividerPosition(dividerPosition); // Sets the saved divider position.
-        });
+        }
+    );
   }
 
-  public List<Category> getCategories() {
-    return categories;
+  /**
+   * @param category sets the selected Category to the MasterNode
+   */
+  private void setSelectedCategory(Category category) {
+    setMasterNode(category.getCategoryPane());
+    // Sets the saved divider position.
+    setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
+  }
+
+  public Preferences getPreferences() {
+    return preferences;
+  }
+
+  /**
+   * Saves the current selected Category.
+   */
+  public void saveSelectedCategory() {
+    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
+    Category category;
+    if (treeItem != null) {
+      category = (Category) treeItem.getValue();
+    } else {
+      category = categoryTree.findCategoryById(DEFAULT_CATEGORY);
+    }
+    preferences.putInt(SELECTED_CATEGORY, category.getId());
   }
 }

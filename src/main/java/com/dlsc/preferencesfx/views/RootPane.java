@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.views;
 
+import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.Category;
 import com.dlsc.preferencesfx.Group;
 import com.dlsc.preferencesfx.PreferencesFx;
@@ -70,7 +71,7 @@ public class RootPane extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(
+    return PreferencesFx.of(AppStarter.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)

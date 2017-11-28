@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx;
 
+import com.dlsc.preferencesfx.util.IncrementId;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +10,7 @@ public class Category {
   private List<Group> groups;
   private List<Category> children;
   private CategoryPane categoryPane;
+  private final int id = IncrementId.get();
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -83,5 +85,9 @@ public class Category {
   @Override
   public String toString() {
     return description;
+  }
+
+  public int getId() {
+    return id;
   }
 }

@@ -119,4 +119,5 @@ public class Setting<F extends Field, P extends Property> {
   public F getField() {
     return field;
   }
+
 }
