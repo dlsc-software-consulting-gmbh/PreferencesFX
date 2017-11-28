@@ -45,9 +45,9 @@ public class CategoryTree extends TreeView {
   }
 
   /**
-   * @param categoryId the id of the category which was last selected using the application.
-   * @return searches a Category matching the id, selects and returns it.
-   * Returns the first Category in the TreeView if none is found.
+   * Sets the selected item in the TreeView to the category of the given categoryId.
+   * @param categoryId the id of the category to be found
+   * @return the category with categoryId or the first category in the TreeView if none is found
    */
   public Category setSelectedCategoryById(int categoryId) {
     Category category = findCategoryById(categoryId);
@@ -56,9 +56,9 @@ public class CategoryTree extends TreeView {
   }
 
   /**
-   * @param categoryId the id of the category which was last selected using the application.
-   * @return searches a Category matching the id and returns it.
-   * Returns the first Category in the TreeView if none is found.
+   * Finds the category with the matching id.
+   * @param categoryId the id of the category to be found
+   * @return the category with categoryId or the first category in the TreeView if none is found
    */
   public Category findCategoryById(int categoryId) {
     Category selectedCategory = categoryTreeItemMap.keySet().stream().filter(
@@ -68,7 +68,8 @@ public class CategoryTree extends TreeView {
   }
 
   /**
-   * @param category selects the Category.
+   * Selects the given category in the TreeView.
+   * @param category the category to be selected
    */
   public void setSelectedItem(Category category) {
     getSelectionModel().select(categoryTreeItemMap.get(category));
