@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx;
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
@@ -23,6 +24,7 @@ public class CategoryTree extends TreeView {
   private List<Category> categories;
   private FilterableTreeItem<Category> rootItem;
   private StringProperty searchText = new SimpleStringProperty();
+  private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
   private Predicate<Category> filterPredicate = category -> {
     // look in category description for matches
     boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText.get());
@@ -33,6 +35,9 @@ public class CategoryTree extends TreeView {
           .map(Group::getSettings)      // get settings from groups
           .flatMap(Collection::stream)  // flatten all lists of settings to settings
           .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText.get()));
+    }
+    if (settingMatch) {
+      getSelectionModel().select(categoryTreeItemMap.get(category));
     }
     return categoryMatch || settingMatch;
   };
@@ -57,6 +62,7 @@ public class CategoryTree extends TreeView {
         addRecursive(item, category.getChildren());
       }
       treeItem.getInternalChildren().add(item);
+      categoryTreeItemMap.put(category, item);
     }
   }
 
