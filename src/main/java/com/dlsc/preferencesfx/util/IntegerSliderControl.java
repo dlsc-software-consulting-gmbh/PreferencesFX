@@ -25,6 +25,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
 
   /**
    * Creates a slider for integer values.
+   *
    * @param min minimum slider value
    * @param max maximum slider value
    */
@@ -68,7 +69,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
 
     add(fieldLabel, 0, 0, 2, 1);
     add(container, 2, 0, field.getSpan() - 4, 1);
-    add(valueLabel, 2+field.getSpan()-3, 0, 2, 1);
+    add(valueLabel, 2 + field.getSpan() - 3, 0, 2, 1);
     valueLabel.setAlignment(Pos.CENTER);
   }
 

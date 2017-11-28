@@ -21,8 +21,8 @@ package com.dlsc.preferencesfx.util;
  */
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.formsfx.model.structure.Group;
+import com.dlsc.formsfx.model.util.TranslationService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 

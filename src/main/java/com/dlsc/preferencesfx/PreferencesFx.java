@@ -28,8 +28,8 @@ public class PreferencesFx extends MasterDetailPane {
   private CategoryTree categoryTree;
   private Preferences preferences;
 
-  PreferencesFx(Class<?> aClass, Category[] categories) {
-    preferences = Preferences.userNodeForPackage(aClass);
+  PreferencesFx(Class<?> saveClass, Category[] categories) {
+    preferences = Preferences.userNodeForPackage(saveClass);
     this.categories = Arrays.asList(categories);
     setupParts();
     setupListeners();
@@ -37,10 +37,12 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   /**
+   * Creates the Preferences window.
+   *
    * @param saveClass  the class which the preferences are saved as.
-   *                   Must be unique to the application using the preferences.
-   * @param categories the preferences categories
-   * @return creates the Preferences window
+   *                   Must be unique to the application using the preferences
+   * @param categories the items to be displayed in the TreeView
+   * @return the preferences window
    */
   public static PreferencesFx of(Class<?> saveClass, Category... categories) {
     return new PreferencesFx(saveClass, categories);
@@ -54,11 +56,10 @@ public class PreferencesFx extends MasterDetailPane {
     setDetailSide(Side.LEFT);
     setDetailNode(categoryTree);
 
-    setSelectedCategory(
-        categoryTree.setSelectedCategoryById(
-            preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY)
-        )
-    );
+    // Load last selected category in TreeView.
+    categoryTree.setSelectedCategoryById(preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY));
+    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
+    setSelectedCategory((Category) treeItem.getValue());
   }
 
   private void setupListeners() {
@@ -69,7 +70,8 @@ public class PreferencesFx extends MasterDetailPane {
 
     categoryTree.getSelectionModel().selectedItemProperty().addListener(
         (observable, oldValue, newValue) ->
-            setSelectedCategory((Category) ((TreeItem) newValue).getValue()));
+            setSelectedCategory((Category) ((TreeItem) newValue).getValue())
+    );
   }
 
   /**

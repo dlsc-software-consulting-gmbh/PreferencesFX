@@ -46,17 +46,18 @@ public class CategoryTree extends TreeView {
 
   /**
    * Sets the selected item in the TreeView to the category of the given categoryId.
+   *
    * @param categoryId the id of the category to be found
    * @return the category with categoryId or the first category in the TreeView if none is found
    */
-  public Category setSelectedCategoryById(int categoryId) {
+  public void setSelectedCategoryById(int categoryId) {
     Category category = findCategoryById(categoryId);
     setSelectedItem(category);
-    return category;
   }
 
   /**
    * Finds the category with the matching id.
+   *
    * @param categoryId the id of the category to be found
    * @return the category with categoryId or the first category in the TreeView if none is found
    */
@@ -69,6 +70,7 @@ public class CategoryTree extends TreeView {
 
   /**
    * Selects the given category in the TreeView.
+   *
    * @param category the category to be selected
    */
   public void setSelectedItem(Category category) {

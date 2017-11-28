@@ -4,7 +4,6 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.util.DoubleSliderControl;
 import com.dlsc.preferencesfx.util.IntegerSliderControl;
 import com.dlsc.preferencesfx.util.ToggleControl;
-import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -75,7 +74,7 @@ public class Setting<F extends Field, P extends Property> {
         Field.ofSingleSelectionType(items, selection).label(description),
         selection);
   }
-  
+
   public static <P> Setting of(
       String description, ObservableList<P> items, ObjectProperty<P> selection) {
     return new Setting<>(

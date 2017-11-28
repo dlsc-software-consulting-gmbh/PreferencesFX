@@ -37,6 +37,13 @@ public class PreferencesDialog extends DialogPane {
 
     dialog.setDialogPane(this);
     setContent(preferencesFx);
+    loadLastState();
+  }
+
+  /**
+   * Loads last saved size and position of the window.
+   */
+  private void loadLastState() {
     setPrefSize(
         preferences.getDouble(WINDOW_WIDTH, DEFAULT_PREFERENCES_WIDTH),
         preferences.getDouble(WINDOW_HEIGHT, DEFAULT_PREFERENCES_HEIGHT)
