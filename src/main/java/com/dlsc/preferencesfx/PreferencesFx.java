@@ -1,8 +1,8 @@
 package com.dlsc.preferencesfx;
 
+import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
 import java.util.List;
-import java.util.prefs.Preferences;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
 import org.controlsfx.control.MasterDetailPane;
@@ -27,11 +27,12 @@ public class PreferencesFx extends MasterDetailPane {
   private List<Category> categories;
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
-  private Preferences preferences;
+  private StorageHandler storageHandler;
 
   PreferencesFx(Class<?> saveClass, Category[] categories) {
-    preferences = Preferences.userNodeForPackage(saveClass);
+    storageHandler = new StorageHandler(saveClass);
     this.categories = Arrays.asList(categories);
+
     setupParts();
     setupListeners();
     layoutParts();
@@ -58,7 +59,7 @@ public class PreferencesFx extends MasterDetailPane {
     setDetailSide(Side.LEFT);
     setDetailNode(categoryTreeBox);
     // Load last selected category in TreeView.
-    categoryTree.setSelectedCategoryById(preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY));
+    categoryTree.setSelectedCategoryById(storageHandler.getSelectedCategory());
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
     setSelectedCategory((Category) treeItem.getValue());
   }
@@ -66,7 +67,7 @@ public class PreferencesFx extends MasterDetailPane {
   private void setupListeners() {
     // Whenever the divider position is changed, it's position is saved.
     dividerPositionProperty().addListener((observable, oldValue, newValue) ->
-        preferences.putDouble(DIVIDER_POSITION, getDividerPosition())
+        storageHandler.putDividerPosition(getDividerPosition())
     );
 
     categoryTree.getSelectionModel().selectedItemProperty().addListener(
@@ -84,11 +85,7 @@ public class PreferencesFx extends MasterDetailPane {
   private void setSelectedCategory(Category category) {
     setMasterNode(category.getCategoryPane());
     // Sets the saved divider position.
-    setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
-  }
-
-  public Preferences getPreferences() {
-    return preferences;
+    setDividerPosition(storageHandler.getDividerPosition());
   }
 
   /**
@@ -102,6 +99,10 @@ public class PreferencesFx extends MasterDetailPane {
     } else {
       category = categoryTree.findCategoryById(DEFAULT_CATEGORY);
     }
-    preferences.putInt(SELECTED_CATEGORY, category.getId());
+    storageHandler.putSelectedCategory(category.getId());
+  }
+
+  public StorageHandler getStorageHandler() {
+    return storageHandler;
   }
 }

@@ -56,8 +56,8 @@ public class RootPane extends StackPane {
   // Favorites
   ListProperty<String> favoritesItems = new SimpleListProperty<>(
       FXCollections.observableArrayList(Lists.newArrayList(
-          "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
-          "Mikesoft Numbers", "Mikesoft Present", "IntelliG"
+          "PreferencesFX", "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
+          "Mikesoft Numbers", "Mikesoft Present", "IntelliG", "Network Management UI"
           )
       )
   );
