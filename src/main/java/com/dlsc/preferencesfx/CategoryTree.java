@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -35,9 +36,6 @@ public class CategoryTree extends TreeView {
           .map(Group::getSettings)      // get settings from groups
           .flatMap(Collection::stream)  // flatten all lists of settings to settings
           .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText.get()));
-    }
-    if (settingMatch) {
-      getSelectionModel().select(categoryTreeItemMap.get(category));
     }
     return categoryMatch || settingMatch;
   };
@@ -82,6 +80,24 @@ public class CategoryTree extends TreeView {
       }
       return TreeItemPredicate.create(filterPredicate);
     }, searchText));
+
+
+    List<Category> categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
+    List<Setting> settingsLst =
+
+    // select category
+    searchText.addListener((observable, oldText, newText) -> {
+
+
+      category.getGroups().stream()
+          .map(Group::getSettings)      // get settings from groups
+          .flatMap(Collection::stream)  // flatten all lists of settings to settings
+          .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText.get()));
+    });
+  }
+
+  public void setSelectedItem(Category category){
+    getSelectionModel().select(categoryTreeItemMap.get(category));
   }
 
   public StringProperty searchTextProperty() {
