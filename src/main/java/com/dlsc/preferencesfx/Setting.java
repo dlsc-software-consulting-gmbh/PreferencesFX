@@ -11,12 +11,12 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 public class Setting<F extends Field, P extends Property> {
-  private static StorageHandler storageHandler;
   private String description;
   private F field;
   private P value;
@@ -28,7 +28,6 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public static Setting of(String description, BooleanProperty property) {
-//    storageHandler = StorageHandler.getInstance();
     return new Setting<>(
         description,
         Field.ofBooleanType(property).label(description).render(new ToggleControl()),
@@ -124,4 +123,11 @@ public class Setting<F extends Field, P extends Property> {
     return field;
   }
 
+  public void updateFromPreferences(StorageHandler storageHandler) {
+    if (value instanceof BooleanProperty) {
+      System.out.println("Is instance of BOOLEANPROPERTY");
+    } else {
+      System.out.println("Is instance of something else");
+    }
+  }
 }

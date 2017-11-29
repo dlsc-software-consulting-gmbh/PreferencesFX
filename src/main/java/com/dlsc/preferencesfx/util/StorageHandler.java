@@ -17,38 +17,10 @@ import java.util.prefs.Preferences;
 
 public class StorageHandler {
 
-  private static StorageHandler storageHandler;
   private static Preferences preferences;
 
-  private StorageHandler(Class<?> saveClass) {
+  public StorageHandler(Class<?> saveClass) {
     preferences = Preferences.userNodeForPackage(saveClass);
-  }
-
-  /**
-   * Instanciates the preferences with the given class.
-   * Allows only once to define a class for the preferences.
-   *
-   * @param saveClass defines the class where to store the prefererences
-   * @return the populated StorageHandler.
-   */
-  public static StorageHandler getInstance(Class<?> saveClass) {
-    if (storageHandler == null) {
-      storageHandler = new StorageHandler(saveClass);
-    }
-    return storageHandler;
-  }
-
-  /**
-   * When the StorageHandler was already instanciated, it returns it.
-   *
-   * @return the already instanciated StorageHandler
-   * @throws NullPointerException when getInstance(Class<?> saveClass) was not executed before
-   */
-  public static StorageHandler getInstance() {
-    if (storageHandler == null) {
-      throw new NullPointerException("Preferences class not defined");
-    }
-    return storageHandler;
   }
 
   /**
