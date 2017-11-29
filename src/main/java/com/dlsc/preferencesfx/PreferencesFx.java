@@ -76,11 +76,11 @@ public class PreferencesFx extends MasterDetailPane {
    * @param category the category to be shown
    */
   public void showCategory(Category category) {
+    displayedCategory = category;
+    category.unmarkSettings();
     setMasterNode(category.getCategoryPane());
     // Sets the saved divider position
     setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
-    displayedCategory = category;
-    category.unmarkSettings();
   }
 
   public Preferences getPreferences() {

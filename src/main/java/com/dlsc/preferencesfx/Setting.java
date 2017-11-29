@@ -19,6 +19,7 @@ public class Setting<F extends Field, P extends Property> {
   private String description;
   private F field;
   private P value;
+  private boolean marked = false;
 
   private Setting(String description, F field, P value) {
     this.description = description;
@@ -110,11 +111,19 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public void mark() {
-    getField().getRenderer().addStyleClass(MARKED_STYLE_CLASS);
+    // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
+    if (!marked) {
+      getField().getRenderer().addStyleClass(MARKED_STYLE_CLASS);
+      marked = !marked;
+    }
   }
 
   public void unmark() {
-    getField().getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
+    // check if it's marked before removing the style class
+    if (marked) {
+      getField().getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
+      marked = !marked;
+    }
   }
 
   public String getDescription() {
