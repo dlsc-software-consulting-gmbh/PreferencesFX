@@ -32,6 +32,9 @@ public class CategoryTree extends TreeView {
   private List<Category> filteredCategoriesLst;
   private List<Setting> filteredSettingsLst;
   private List<Group> filteredGroupsLst;
+  private int categoryMatches;
+  private int settingsMatches;
+  private int groupsMatches;
 
   private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
   private HashMap<Setting, Category> settingCategoryMap;
@@ -40,6 +43,11 @@ public class CategoryTree extends TreeView {
   private List<Category> categories;
   private FilterableTreeItem<Category> rootItem;
   private StringProperty searchText = new SimpleStringProperty();
+
+  /**
+   * Decides whether a TreeItem should be shown in the TreeView or not.
+   * If result is true, it will be shown, if the result is false, it will be hidden.
+   */
   private Predicate<Category> filterPredicate = category -> {
     // look in category description for matches
     boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText.get());
@@ -57,9 +65,6 @@ public class CategoryTree extends TreeView {
     }
     return categoryMatch || settingMatch || groupMatch;
   };
-  private int categoryMatches;
-  private int settingsMatches;
-  private int groupsMatches;
 
   public CategoryTree(PreferencesFx preferencesFx, List<Category> categories) {
     this.categories = categories;
