@@ -24,6 +24,10 @@ public class CategoryTree extends TreeView {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryTree.class.getName());
 
+  Category displayedCategory;
+
+  PreferencesFx preferencesFx;
+
   List<Category> categoriesLst;
   List<Setting> settingsLst;
   List<Category> filteredCategoriesLst;
@@ -49,11 +53,25 @@ public class CategoryTree extends TreeView {
     return categoryMatch || settingMatch;
   };
 
-  public CategoryTree(List<Category> categories) {
+  public CategoryTree(PreferencesFx preferencesFx, List<Category> categories) {
     this.categories = categories;
+    this.preferencesFx = preferencesFx;
     setupParts();
     layoutParts();
     setupBindings();
+    addListeners();
+  }
+
+  private void addListeners() {
+    // Update category upon selection
+    getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          if (newValue != null) {
+            displayedCategory = (Category) ((TreeItem) newValue).getValue();
+            preferencesFx.setSelectedCategory(displayedCategory);
+          }
+        }
+    );
   }
 
   private void setupParts() {
@@ -128,7 +146,7 @@ public class CategoryTree extends TreeView {
         setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
       }
       // Remove all markings from settings
-      Category selectedCategory = getSelectedItem();
+      Category selectedCategory = getSelectedCategory();
       if (selectedCategory != null && selectedCategory.getGroups() != null) {
         selectedCategory.getGroups().stream()
             .map(Group::getSettings)
@@ -181,11 +199,18 @@ public class CategoryTree extends TreeView {
   /**
    * Retrieves the currently selected category in the TreeView.
    */
-  public Category getSelectedItem() {
+  public Category getSelectedCategory() {
     TreeItem<Category> selectedTreeItem = (TreeItem<Category>) getSelectionModel().getSelectedItem();
     if (selectedTreeItem != null) {
       return ((TreeItem<Category>) getSelectionModel().getSelectedItem()).getValue();
     }
     return null;
+  }
+
+  /**
+   * Retrieves the category which has last been displayed in the CategoryPane.
+   */
+  public Category getDisplayedCategory() {
+    return displayedCategory;
   }
 }

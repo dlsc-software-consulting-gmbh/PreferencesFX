@@ -50,7 +50,7 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void setupParts() {
-    categoryTree = new CategoryTree(categories);
+    categoryTree = new CategoryTree(this, categories);
     categoryTreeBox = new CategoryTreeBox(categoryTree);
   }
 
@@ -68,20 +68,12 @@ public class PreferencesFx extends MasterDetailPane {
     dividerPositionProperty().addListener((observable, oldValue, newValue) ->
         preferences.putDouble(DIVIDER_POSITION, getDividerPosition())
     );
-
-    categoryTree.getSelectionModel().selectedItemProperty().addListener(
-        (observable, oldValue, newValue) -> {
-          if (newValue != null) {
-            setSelectedCategory((Category) ((TreeItem) newValue).getValue());
-          }
-        }
-    );
   }
 
   /**
    * @param category sets the selected Category to the MasterNode
    */
-  private void setSelectedCategory(Category category) {
+  public void setSelectedCategory(Category category) {
     setMasterNode(category.getCategoryPane());
     // Sets the saved divider position.
     setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
