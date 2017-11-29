@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class CategoryTree extends TreeView {
   List<Setting> filteredSettingsLst;
 
   private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
-  private HashMap<Setting, Category> settingCategoryMap = new HashMap<>();
+  private HashMap<Setting, Category> settingCategoryMap;
 
   private List<Category> categories;
   private FilterableTreeItem<Category> rootItem;
@@ -107,26 +108,9 @@ public class CategoryTree extends TreeView {
     }, searchText));
 
     categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
-    for (Category category : categoriesLst) {
-      if (category.getGroups() != null) {
-        for (Group group : category.getGroups()) {
-          if (group.getSettings() != null) {
-            for (Setting setting : group.getSettings()) {
-              settingCategoryMap.put(setting, category);
-            }
-          }
-        }
-      }
-    }
+    PreferencesFxUtils.mapSettingsToCategories(categoriesLst);
 
-    settingsLst = categoriesLst.stream()
-        .map(Category::getGroups)     // get groups from categories
-        .filter(Objects::nonNull)     // remove all null
-        .flatMap(Collection::stream)
-        .map(Group::getSettings)      // get settings from groups
-        .filter(Objects::nonNull)     // remove all null
-        .flatMap(Collection::stream)
-        .collect(Collectors.toList());
+    settingsLst = PreferencesFxUtils.categoriesToSettings(categoriesLst);
     // select category
     searchText.addListener((observable, oldText, newText) -> {
       filteredCategoriesLst = categoriesLst.stream().filter(category -> containsIgnoreCase(category.getDescription(), searchText.get())).collect(Collectors.toList());
