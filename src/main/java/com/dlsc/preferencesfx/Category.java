@@ -74,6 +74,16 @@ public class Category {
     }
   }
 
+  public void unmarkGroups() {
+    if (getGroups() != null) {
+      getGroups().forEach(Group::unmark);
+    }
+  }
+
+  public void unmarkAll() {
+    unmarkGroups();
+    unmarkSettings();
+  }
 
   public CategoryPane getCategoryPane() {
     return categoryPane;

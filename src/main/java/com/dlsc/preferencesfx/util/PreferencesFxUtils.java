@@ -42,6 +42,18 @@ public class PreferencesFxUtils {
     return settingCategoryMap;
   }
 
+  public static HashMap<Group, Category> mapGroupsToCategories(List<Category> categories) {
+    HashMap<Group, Category> groupCategoryMap = new HashMap<>();
+    for (Category category : categories) {
+      if (category.getGroups() != null) {
+        for (Group group : category.getGroups()) {
+          groupCategoryMap.put(group, category);
+        }
+      }
+    }
+    return groupCategoryMap;
+  }
+
   public static List<Category> filterCategoriesByDescription(List<Category> categories, String description) {
     return categories.stream()
         .filter(category -> containsIgnoreCase(category.getDescription(), description))
@@ -61,4 +73,17 @@ public class PreferencesFxUtils {
         .collect(Collectors.toList());
   }
 
+  public static List<Group> filterGroupsByDescription(List<Group> groups, String description) {
+    return groups.stream()
+        .filter(group -> containsIgnoreCase(group.getDescription(), description))
+        .collect(Collectors.toList());
+  }
+
+  public static List<Group> categoriesToGroups(List<Category> categories) {
+    return categories.stream()
+        .map(Category::getGroups)     // get groups from categories
+        .filter(Objects::nonNull)     // remove all null
+        .flatMap(Collection::stream)
+        .collect(Collectors.toList());
+  }
 }

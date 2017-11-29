@@ -78,7 +78,6 @@ public class PreferencesFx extends MasterDetailPane {
    */
   public void showCategory(Category category) {
     displayedCategory = category;
-    category.unmarkSettings();
     setMasterNode(category.getCategoryPane());
     // Sets the saved divider position
     setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
@@ -107,5 +106,12 @@ public class PreferencesFx extends MasterDetailPane {
    */
   public Category getDisplayedCategory() {
     return displayedCategory;
+  }
+
+  public void removeMarksFromDisplayedCategory() {
+    // Remove all markings from settings
+    if (displayedCategory != null) {
+      displayedCategory.unmarkAll();
+    }
   }
 }
