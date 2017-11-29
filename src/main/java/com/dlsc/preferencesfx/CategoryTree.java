@@ -143,7 +143,7 @@ public class CategoryTree extends TreeView {
         setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
       }
       // Remove all markings from settings
-      Category selectedCategory = getSelectedCategory();
+      Category selectedCategory = preferencesFx.getDisplayedCategory();
       if (selectedCategory != null && selectedCategory.getGroups() != null) {
         selectedCategory.getGroups().stream()
             .map(Group::getSettings)
