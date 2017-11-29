@@ -67,7 +67,7 @@ public class Category {
     return this;
   }
 
-  public void unmarkSettings(){
+  public void unmarkSettings() {
     if (getGroups() != null) {
       PreferencesFxUtils.groupsToSettings(getGroups())
           .forEach(Setting::unmark);

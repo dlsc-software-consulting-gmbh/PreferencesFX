@@ -73,6 +73,7 @@ public class PreferencesFx extends MasterDetailPane {
 
   /**
    * Shows the category as its CategoryPane in the master node.
+   *
    * @param category the category to be shown
    */
   public void showCategory(Category category) {
