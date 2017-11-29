@@ -1,8 +1,8 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.util.IncrementId;
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class Category {
@@ -69,9 +69,7 @@ public class Category {
 
   public void unmarkSettings(){
     if (getGroups() != null) {
-      getGroups().stream()
-          .map(Group::getSettings)
-          .flatMap(Collection::stream)
+      PreferencesFxUtils.groupsToSettings(getGroups())
           .forEach(Setting::unmark);
     }
   }

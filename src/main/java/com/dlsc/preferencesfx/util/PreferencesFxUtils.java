@@ -54,5 +54,11 @@ public class PreferencesFxUtils {
         .collect(Collectors.toList());
   }
 
+  public static List<Setting> groupsToSettings(List<Group> groups) {
+    return groups.stream()
+        .map(Group::getSettings)
+        .flatMap(Collection::stream)
+        .collect(Collectors.toList());
+  }
 
 }
