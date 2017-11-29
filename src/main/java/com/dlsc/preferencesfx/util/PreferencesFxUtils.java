@@ -1,5 +1,7 @@
 package com.dlsc.preferencesfx.util;
 
+import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
+
 import com.dlsc.preferencesfx.Category;
 import com.dlsc.preferencesfx.Group;
 import com.dlsc.preferencesfx.Setting;
@@ -39,5 +41,18 @@ public class PreferencesFxUtils {
     }
     return settingCategoryMap;
   }
+
+  public static List<Category> filterCategoriesByDescription(List<Category> categories, String description) {
+    return categories.stream()
+        .filter(category -> containsIgnoreCase(category.getDescription(), description))
+        .collect(Collectors.toList());
+  }
+
+  public static List<Setting> filterSettingsByDescription(List<Setting> settings, String description) {
+    return settings.stream()
+        .filter(setting -> containsIgnoreCase(setting.getDescription(), description))
+        .collect(Collectors.toList());
+  }
+
 
 }

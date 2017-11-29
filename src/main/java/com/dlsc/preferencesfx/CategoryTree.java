@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -73,8 +72,8 @@ public class CategoryTree extends TreeView {
 
     // Filter TreeView upon Search
     searchText.addListener((observable, oldText, newText) -> {
-      filteredCategoriesLst = categoriesLst.stream().filter(category -> containsIgnoreCase(category.getDescription(), searchText.get())).collect(Collectors.toList());
-      filteredSettingsLst = settingsLst.stream().filter(setting -> containsIgnoreCase(setting.getDescription(), searchText.get())).collect(Collectors.toList());
+      filteredCategoriesLst = PreferencesFxUtils.filterCategoriesByDescription(categoriesLst, newText);
+      filteredSettingsLst = PreferencesFxUtils.filterSettingsByDescription(settingsLst, newText);
       int amountCategories = filteredCategoriesLst.size();
       int amountSettings = filteredSettingsLst.size();
       LOGGER.trace("Matched Categories: " + amountCategories);
