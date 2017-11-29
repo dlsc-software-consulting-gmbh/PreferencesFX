@@ -121,6 +121,6 @@ public class CategoryTree extends TreeView {
   }
 
   public ArrayList<Category> getAllCategoriesFlatAsList() {
-   return new ArrayList<>(categoryTreeItemMap.keySet());
+    return new ArrayList<>(categoryTreeItemMap.keySet());
   }
 }

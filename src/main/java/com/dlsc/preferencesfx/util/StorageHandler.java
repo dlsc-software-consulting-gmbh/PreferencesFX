@@ -13,11 +13,18 @@ import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_X;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
 
+import java.io.Serializable;
 import java.util.prefs.Preferences;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import org.apache.commons.lang3.SerializationUtils;
 
 public class StorageHandler {
 
-  private static Preferences preferences;
+  private Preferences preferences;
 
   public StorageHandler(Class<?> saveClass) {
     preferences = Preferences.userNodeForPackage(saveClass);
@@ -129,6 +136,51 @@ public class StorageHandler {
    */
   public double getWindowPosY() {
     return preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y);
+  }
+
+
+  public void saveSetting(String breadCrumb, BooleanProperty value) {
+    preferences.putBoolean(breadCrumb, value.get());
+  }
+
+  public void saveSetting(String breadCrumb, IntegerProperty value) {
+    preferences.putInt(breadCrumb, value.get());
+  }
+
+  public void saveSetting(String breadCrumb, DoubleProperty value) {
+    preferences.putDouble(breadCrumb, value.get());
+  }
+
+  public void saveSetting(String breadCrumb, ObjectProperty value) {
+//    byte[] data = SerializationUtils.serialize(yourObject);
+//    YourObject yourObject = SerializationUtils.deserialize(data)
+    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value);
+    preferences.putByteArray(breadCrumb, serializedObjectProperty);
+  }
+
+  public void saveSetting(String breadCrumb, ListProperty value) {
+    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value);
+    preferences.putByteArray(breadCrumb, serializedObjectProperty);
+  }
+
+  public boolean getValue(String breadCrumb, boolean value) {
+    return preferences.getBoolean(breadCrumb, value);
+  }
+
+  public int getValue(String breadCrumb, int value) {
+    return preferences.getInt(breadCrumb, value);
+  }
+
+  public double getValue(String breadCrumb, double value) {
+    return preferences.getDouble(breadCrumb, value);
+  }
+
+  public ObjectProperty getValue(String breadCrumb, ObjectProperty value) {
+    return value;
+  }
+
+  public ListProperty getValue(String breadCrumb, ListProperty value) {
+    return value;
   }
 
 }
