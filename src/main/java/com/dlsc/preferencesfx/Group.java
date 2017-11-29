@@ -3,17 +3,16 @@ package com.dlsc.preferencesfx;
 import com.dlsc.preferencesfx.util.formsfx.PreferencesGroup;
 import java.util.Arrays;
 import java.util.List;
-import javafx.scene.input.MouseEvent;
 
 /**
  * Created by François Martin on 07.11.17.
  */
 public class Group {
 
+  private static final String MARKED_STYLE_CLASS = "group-marked";
   private String description;
   private List<Setting> settings;
   private PreferencesGroup preferencesGroup;
-  private static final String MARKED_STYLE_CLASS = "group-marked";
   private boolean marked = false;
 
   private Group(String description, Setting... settings) {

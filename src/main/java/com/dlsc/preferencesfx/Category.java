@@ -7,11 +7,11 @@ import java.util.List;
 
 public class Category {
 
+  private final int id = IncrementId.get();
   private String description;
   private List<Group> groups;
   private List<Category> children;
   private CategoryPane categoryPane;
-  private final int id = IncrementId.get();
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
