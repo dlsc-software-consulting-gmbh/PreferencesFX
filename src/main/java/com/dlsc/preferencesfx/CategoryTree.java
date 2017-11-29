@@ -70,11 +70,39 @@ public class CategoryTree extends TreeView {
           }
         }
     );
+
+    // Filter TreeView upon Search
+    searchText.addListener((observable, oldText, newText) -> {
+      filteredCategoriesLst = categoriesLst.stream().filter(category -> containsIgnoreCase(category.getDescription(), searchText.get())).collect(Collectors.toList());
+      filteredSettingsLst = settingsLst.stream().filter(setting -> containsIgnoreCase(setting.getDescription(), searchText.get())).collect(Collectors.toList());
+      int amountCategories = filteredCategoriesLst.size();
+      int amountSettings = filteredSettingsLst.size();
+      LOGGER.trace("Matched Categories: " + amountCategories);
+      LOGGER.trace("Matched Settings: " + amountSettings);
+      // if there is one category left, select it
+      if (amountCategories == 1) {
+        setSelectedItem(filteredCategoriesLst.get(0));
+      }
+      if (amountSettings == 1) {
+        setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
+      }
+      // Remove all markings from settings
+      Category selectedCategory = preferencesFx.getDisplayedCategory();
+      if (selectedCategory != null) {
+        selectedCategory.unmarkSettings();
+      }
+      if (amountSettings >= 1) {
+        filteredSettingsLst.stream().forEach(Setting::mark);
+      }
+    });
   }
 
   private void setupParts() {
     rootItem = new FilterableTreeItem<>(Category.of("Root"));
     addRecursive(rootItem, categories);
+    categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
+    PreferencesFxUtils.mapSettingsToCategories(categoriesLst);
+    settingsLst = PreferencesFxUtils.categoriesToSettings(categoriesLst);
   }
 
   private void addRecursive(FilterableTreeItem treeItem, List<Category> categories) {
@@ -106,35 +134,6 @@ public class CategoryTree extends TreeView {
       }
       return TreeItemPredicate.create(filterPredicate);
     }, searchText));
-
-    categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
-    PreferencesFxUtils.mapSettingsToCategories(categoriesLst);
-
-    settingsLst = PreferencesFxUtils.categoriesToSettings(categoriesLst);
-    // select category
-    searchText.addListener((observable, oldText, newText) -> {
-      filteredCategoriesLst = categoriesLst.stream().filter(category -> containsIgnoreCase(category.getDescription(), searchText.get())).collect(Collectors.toList());
-      filteredSettingsLst = settingsLst.stream().filter(setting -> containsIgnoreCase(setting.getDescription(), searchText.get())).collect(Collectors.toList());
-      int amountCategories = filteredCategoriesLst.size();
-      int amountSettings = filteredSettingsLst.size();
-      LOGGER.trace("Matched Categories: " + amountCategories);
-      LOGGER.trace("Matched Settings: " + amountSettings);
-      // if there is one category left, select it
-      if (amountCategories == 1) {
-        setSelectedItem(filteredCategoriesLst.get(0));
-      }
-      if (amountSettings == 1) {
-        setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
-      }
-      // Remove all markings from settings
-      Category selectedCategory = preferencesFx.getDisplayedCategory();
-      if (selectedCategory != null) {
-        selectedCategory.unmarkSettings();
-      }
-      if (amountSettings >= 1) {
-        filteredSettingsLst.stream().forEach(Setting::mark);
-      }
-    });
   }
 
   public StringProperty searchTextProperty() {
