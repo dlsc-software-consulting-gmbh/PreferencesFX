@@ -13,20 +13,42 @@ import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_X;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
 
-import com.dlsc.preferencesfx.Category;
-import com.dlsc.preferencesfx.Group;
-import com.dlsc.preferencesfx.Setting;
-import java.util.List;
-import java.util.Objects;
 import java.util.prefs.Preferences;
-import javafx.collections.FXCollections;
 
 public class StorageHandler {
 
-  private Preferences preferences;
+  private static StorageHandler storageHandler;
+  private static Preferences preferences;
 
-  public StorageHandler(Class<?> saveClass) {
+  private StorageHandler(Class<?> saveClass) {
     preferences = Preferences.userNodeForPackage(saveClass);
+  }
+
+  /**
+   * Instanciates the preferences with the given class.
+   * Allows only once to define a class for the preferences.
+   *
+   * @param saveClass defines the class where to store the prefererences
+   * @return the populated StorageHandler.
+   */
+  public static StorageHandler getInstance(Class<?> saveClass) {
+    if (storageHandler == null) {
+      storageHandler = new StorageHandler(saveClass);
+    }
+    return storageHandler;
+  }
+
+  /**
+   * When the StorageHandler was already instanciated, it returns it.
+   *
+   * @return the already instanciated StorageHandler
+   * @throws NullPointerException when getInstance(Class<?> saveClass) was not executed before
+   */
+  public static StorageHandler getInstance() {
+    if (storageHandler == null) {
+      throw new NullPointerException("Preferences class not defined");
+    }
+    return storageHandler;
   }
 
   /**
@@ -137,34 +159,4 @@ public class StorageHandler {
     return preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y);
   }
 
-  private List<Category> reworkedCategories = FXCollections.observableArrayList();
-
-  public List<Category> setupPreferenceProperties(List<Category> categories) {
-    categories.forEach(category -> reworkedCategories.add(getRecursiveCategory(category)));
-    return reworkedCategories;
-  }
-
-  private Category getRecursiveCategory(Category category) {
-    String breadCrumbString = "";
-    breadCrumbString += category.getDescription();
-    Category newCategory = Category.of(category.getDescription());
-
-    for (Group group : category.getGroups()) {
-      breadCrumbString += group.getDescription();
-      Group newGroup = Group.of(group.getDescription());
-      newCategory.getGroups().add(newGroup);
-
-      for (Setting setting : group.getSettings()) {
-        breadCrumbString += setting.getDescription();
-        newGroup.getSettings().add(Setting.of(setting.getDescription(), preferences.get(breadCrumbString, setting.valueProperty())));
-      }
-    }
-
-    if (!Objects.equals(category.getChildren(), null)) {
-      category.getChildren().forEach(category1 ->
-          newCategory.subCategories(getRecursiveCategory(category1))
-      );
-    }
-    return newCategory;
-  }
 }

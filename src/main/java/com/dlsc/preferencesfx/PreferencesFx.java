@@ -30,8 +30,8 @@ public class PreferencesFx extends MasterDetailPane {
   private StorageHandler storageHandler;
 
   PreferencesFx(Class<?> saveClass, Category[] categories) {
-    storageHandler = new StorageHandler(saveClass);
-    this.categories = storageHandler.setupPreferenceProperties(Arrays.asList(categories));
+    storageHandler = StorageHandler.getInstance(saveClass);
+    this.categories = Arrays.asList(categories);
     setupParts();
     setupListeners();
     layoutParts();

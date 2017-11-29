@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.IntegerSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.ToggleControl;
@@ -15,6 +16,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 public class Setting<F extends Field, P extends Property> {
+  private static StorageHandler storageHandler;
   private String description;
   private F field;
   private P value;
@@ -26,10 +28,12 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public static Setting of(String description, BooleanProperty property) {
+//    storageHandler = StorageHandler.getInstance();
     return new Setting<>(
         description,
         Field.ofBooleanType(property).label(description).render(new ToggleControl()),
-        property);
+        property
+    );
   }
 
   public static Setting of(String description, IntegerProperty property) {
