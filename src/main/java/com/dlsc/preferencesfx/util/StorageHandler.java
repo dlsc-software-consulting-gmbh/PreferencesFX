@@ -20,6 +20,9 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import org.apache.commons.lang3.SerializationUtils;
 
 public class StorageHandler {
@@ -138,6 +141,9 @@ public class StorageHandler {
     return preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y);
   }
 
+  public void saveSetting(String breadCrumb, StringProperty value) {
+    preferences.put(breadCrumb, value.get());
+  }
 
   public void saveSetting(String breadCrumb, BooleanProperty value) {
     preferences.putBoolean(breadCrumb, value.get());
@@ -154,13 +160,17 @@ public class StorageHandler {
   public void saveSetting(String breadCrumb, ObjectProperty value) {
 //    byte[] data = SerializationUtils.serialize(yourObject);
 //    YourObject yourObject = SerializationUtils.deserialize(data)
-    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value);
+    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value.getValue());
     preferences.putByteArray(breadCrumb, serializedObjectProperty);
   }
 
-  public void saveSetting(String breadCrumb, ListProperty value) {
-    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value);
-    preferences.putByteArray(breadCrumb, serializedObjectProperty);
+//  public void saveSetting(String breadCrumb, ListProperty value) {
+//    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value.getValue());
+//    preferences.putByteArray(breadCrumb, serializedObjectProperty);
+//  }
+
+  public String getValue(String breadCrumb, String value) {
+    return preferences.get(breadCrumb, value);
   }
 
   public boolean getValue(String breadCrumb, boolean value) {
@@ -175,12 +185,16 @@ public class StorageHandler {
     return preferences.getDouble(breadCrumb, value);
   }
 
-  public ObjectProperty getValue(String breadCrumb, ObjectProperty value) {
-    return value;
+  public Object getValue(String breadCrumb, ObjectProperty value) {
+    byte[] serializedValue = SerializationUtils.serialize((Serializable) value.getValue());
+    byte[] serializedValue2 = preferences.getByteArray(breadCrumb, serializedValue);
+    return SerializationUtils.deserialize(serializedValue2);
   }
 
-  public ListProperty getValue(String breadCrumb, ListProperty value) {
-    return value;
-  }
+//  public ObservableList getValue(String breadCrumb, ListProperty value) {
+//    byte[] serializedValue = SerializationUtils.serialize((Serializable) value.getValue());
+//    byte[] serializedValue2 = preferences.getByteArray(breadCrumb, serializedValue);
+//    return SerializationUtils.deserialize(serializedValue2);
+//  }
 
 }

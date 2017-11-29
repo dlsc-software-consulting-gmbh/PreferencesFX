@@ -1,6 +1,9 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.util.StorageHandler;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -62,6 +65,18 @@ public class PreferencesDialog extends DialogPane {
       storageHandler.putWindowPosX(getScene().getWindow().getX());
       storageHandler.putWindowPosY(getScene().getWindow().getY());
       preferencesFx.saveSelectedCategory();
+
+      preferencesFx.getCategoryTree()
+          .getAllCategoriesFlatAsList()
+          .stream()
+          .map(Category::getGroups)     // get groups from categories
+          .filter(Objects::nonNull)     // remove all null
+          .flatMap(Collection::stream)
+          .map(Group::getSettings)      // get settings from groups
+          .filter(Objects::nonNull)     // remove all null
+          .flatMap(Collection::stream)
+          .collect(Collectors.toList())
+          .forEach(setting -> setting.saveSettingsPreferences(storageHandler));
     });
   }
 }

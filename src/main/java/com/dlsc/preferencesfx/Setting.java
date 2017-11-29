@@ -5,7 +5,6 @@ import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.IntegerSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.ToggleControl;
-import java.io.Serializable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -15,9 +14,9 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import org.apache.commons.lang.SerializationException;
 
 public class Setting<F extends Field, P extends Property> {
+  private String breadCrumb;
   private String description;
   private F field;
   private P value;
@@ -74,7 +73,7 @@ public class Setting<F extends Field, P extends Property> {
 
   public static <P> Setting of(
       String description, ListProperty<P> items, ObjectProperty<P> selection) {
-    testIfSerializable(selection);
+    testIfSerializable(selection.getValue());
     return new Setting<>(
         description,
         Field.ofSingleSelectionType(items, selection).label(description),
@@ -83,7 +82,7 @@ public class Setting<F extends Field, P extends Property> {
 
   public static <P> Setting of(
       String description, ObservableList<P> items, ObjectProperty<P> selection) {
-    testIfSerializable(selection);
+    testIfSerializable(selection.getValue());
     return new Setting<>(
         description,
         Field.ofSingleSelectionType(
@@ -96,7 +95,7 @@ public class Setting<F extends Field, P extends Property> {
    */
   public static <P> Setting of(
       String description, ListProperty<P> items, ListProperty<P> selections) {
-    testIfSerializable(selections);
+    testIfSerializable(selections.getValue());
     return new Setting<>(
         description,
         Field.ofMultiSelectionType(items, selections).label(description),
@@ -109,7 +108,7 @@ public class Setting<F extends Field, P extends Property> {
    */
   public static <P> Setting of(
       String description, ObservableList<P> items, ListProperty<P> selections) {
-    testIfSerializable(selections);
+    testIfSerializable(selections.getValue());
     return new Setting<>(
         description,
         Field.ofMultiSelectionType(
@@ -117,9 +116,9 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   private static <P> void testIfSerializable(P selection) {
-    if (!(selection instanceof Serializable)) {
-      throw new SerializationException("Property must implement Serializable");
-    }
+//    if (!(selection instanceof Serializable)) {
+//      throw new SerializationException("Property must implement Serializable");
+//    }
   }
 
   public String getDescription() {
@@ -134,7 +133,10 @@ public class Setting<F extends Field, P extends Property> {
     return field;
   }
 
-  public void saveSettingsPreferences(String breadCrumb, StorageHandler storageHandler) {
+  public void saveSettingsPreferences(StorageHandler storageHandler) {
+    if (value instanceof StringProperty) {
+      storageHandler.saveSetting(breadCrumb, (StringProperty) value);
+    }
     if (value instanceof BooleanProperty) {
       storageHandler.saveSetting(breadCrumb, (BooleanProperty) value);
     }
@@ -148,11 +150,17 @@ public class Setting<F extends Field, P extends Property> {
       storageHandler.saveSetting(breadCrumb, (ObjectProperty) value);
     }
     if (value instanceof ListProperty) {
-      storageHandler.saveSetting(breadCrumb, (ListProperty) value);
+      System.out.println("PUT - ListProperty");
+//      storageHandler.saveSetting(breadCrumb, (ListProperty) value);
     }
   }
 
-  public void updateFromPreferences(String breadCrumb, StorageHandler storageHandler) {
+  public void updateFromPreferences(StorageHandler storageHandler) {
+    if (value instanceof StringProperty) {
+      ((StringProperty) value).set(
+          storageHandler.getValue(breadCrumb, ((StringProperty) value).get())
+      );
+    }
     if (value instanceof BooleanProperty) {
       ((BooleanProperty) value).set(
           storageHandler.getValue(breadCrumb, ((BooleanProperty) value).get())
@@ -172,7 +180,12 @@ public class Setting<F extends Field, P extends Property> {
       ((ObjectProperty) value).set(storageHandler.getValue(breadCrumb, ((ObjectProperty) value)));
     }
     if (value instanceof ListProperty) {
-      ((ListProperty) value).set(storageHandler.getValue(breadCrumb, ((ListProperty) value)));
+      System.out.println("GET - ListProperty");
+//      ((ListProperty) value).set(storageHandler.getValue(breadCrumb, ((ListProperty) value)));
     }
+  }
+
+  public void addToBreadCrumb(String breadCrumb) {
+    this.breadCrumb = breadCrumb + description;
   }
 }

@@ -37,4 +37,7 @@ public class Group {
     return settings;
   }
 
+  public void addToBreadCrumb(String breadCrumb) {
+    settings.forEach(setting -> setting.addToBreadCrumb(breadCrumb + description));
+  }
 }

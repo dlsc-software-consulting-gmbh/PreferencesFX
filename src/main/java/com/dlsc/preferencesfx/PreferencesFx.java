@@ -52,7 +52,7 @@ public class PreferencesFx extends MasterDetailPane {
         .filter(Objects::nonNull)     // remove all null
         .flatMap(Collection::stream)
         .collect(Collectors.toList())
-        .forEach(setting -> setting.updateFromPreferences("", storageHandler));
+        .forEach(setting -> setting.updateFromPreferences(storageHandler));
   }
 
   /**
@@ -121,5 +121,9 @@ public class PreferencesFx extends MasterDetailPane {
 
   public StorageHandler getStorageHandler() {
     return storageHandler;
+  }
+
+  public CategoryTree getCategoryTree () {
+    return categoryTree;
   }
 }

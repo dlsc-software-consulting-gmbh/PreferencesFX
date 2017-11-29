@@ -25,6 +25,7 @@ public class Category {
   private Category(String description, Group... groups) {
     this.description = description;
     this.groups = Arrays.asList(groups);
+    this.groups.forEach(group -> group.addToBreadCrumb(description));
     this.categoryPane = new CategoryPane(this.groups);
   }
 
