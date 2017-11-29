@@ -144,11 +144,8 @@ public class CategoryTree extends TreeView {
       }
       // Remove all markings from settings
       Category selectedCategory = preferencesFx.getDisplayedCategory();
-      if (selectedCategory != null && selectedCategory.getGroups() != null) {
-        selectedCategory.getGroups().stream()
-            .map(Group::getSettings)
-            .flatMap(Collection::stream)
-            .forEach(Setting::unmark);
+      if (selectedCategory != null) {
+        selectedCategory.unmarkSettings();
       }
       if (amountSettings >= 1) {
         filteredSettingsLst.stream().forEach(Setting::mark);

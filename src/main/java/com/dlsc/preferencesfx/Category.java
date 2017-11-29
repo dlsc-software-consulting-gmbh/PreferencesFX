@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.util.IncrementId;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class Category {
@@ -65,6 +66,16 @@ public class Category {
     this.children = Arrays.asList(children);
     return this;
   }
+
+  public void unmarkSettings(){
+    if (getGroups() != null) {
+      getGroups().stream()
+          .map(Group::getSettings)
+          .flatMap(Collection::stream)
+          .forEach(Setting::unmark);
+    }
+  }
+
 
   public CategoryPane getCategoryPane() {
     return categoryPane;

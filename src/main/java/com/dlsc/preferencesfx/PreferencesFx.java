@@ -80,6 +80,7 @@ public class PreferencesFx extends MasterDetailPane {
     // Sets the saved divider position
     setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
     displayedCategory = category;
+    category.unmarkSettings();
   }
 
   public Preferences getPreferences() {
