@@ -57,10 +57,10 @@ public class CategoryTree extends TreeView {
     setupParts();
     layoutParts();
     setupBindings();
-    addListeners();
+    setupListeners();
   }
 
-  private void addListeners() {
+  private void setupListeners() {
     // Update category upon selection
     getSelectionModel().selectedItemProperty().addListener(
         (observable, oldValue, newValue) -> {
