@@ -24,12 +24,12 @@ public class CategoryTree extends TreeView {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryTree.class.getName());
 
-  PreferencesFx preferencesFx;
+  private PreferencesFx preferencesFx;
 
-  List<Category> categoriesLst;
-  List<Setting> settingsLst;
-  List<Category> filteredCategoriesLst;
-  List<Setting> filteredSettingsLst;
+  private List<Category> categoriesLst;
+  private List<Setting> settingsLst;
+  private List<Category> filteredCategoriesLst;
+  private List<Setting> filteredSettingsLst;
 
   private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
   private HashMap<Setting, Category> settingCategoryMap;
