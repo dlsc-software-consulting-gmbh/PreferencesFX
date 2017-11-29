@@ -2,7 +2,10 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
 import org.controlsfx.control.MasterDetailPane;
@@ -39,14 +42,18 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void updateSettingsFromPreferences() {
-    // Loop through categories
-    categories.forEach(category -> {
-      category.getGroups().forEach(group -> {
-        group.getSettings().forEach(setting -> {
-          setting.updateFromPreferences(storageHandler);
-        });
-      });
-    });
+
+
+    List<Setting> settingsLst = categories.stream()
+        .map(Category::getGroups)     // get groups from categories
+        .filter(Objects::nonNull)     // remove all null
+        .flatMap(Collection::stream)
+        .map(Group::getSettings)      // get settings from groups
+        .filter(Objects::nonNull)     // remove all null
+        .flatMap(Collection::stream)
+        .collect(Collectors.toList());
+
+    settingsLst.forEach(setting -> setting.updateFromPreferences(storageHandler));
   }
 
   /**
