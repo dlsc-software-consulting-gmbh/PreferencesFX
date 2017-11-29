@@ -58,8 +58,7 @@ public class PreferencesDialog extends DialogPane {
       getScene().getWindow().setY(preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y));
     } else {
       setPrefSize(DEFAULT_PREFERENCES_WIDTH, DEFAULT_PREFERENCES_HEIGHT);
-      getScene().getWindow().setX(DEFAULT_PREFERENCES_POS_X);
-      getScene().getWindow().setY(DEFAULT_PREFERENCES_POS_Y);
+      getScene().getWindow().centerOnScreen();
     }
 
   }
