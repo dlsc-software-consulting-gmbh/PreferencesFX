@@ -15,13 +15,7 @@ import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
 
 import java.io.Serializable;
 import java.util.prefs.Preferences;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -141,60 +135,143 @@ public class StorageHandler {
     return preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y);
   }
 
-  public void saveSetting(String breadCrumb, StringProperty value) {
-    preferences.put(breadCrumb, value.get());
+  /**
+   * Saves a String to the preferences using the given key.
+   *
+   * @param breadCrumb the key to be used to store the String
+   * @param value      the String to be saved in the preferences
+   */
+  public void saveSetting(String breadCrumb, String value) {
+    preferences.put(breadCrumb, value);
   }
 
-  public void saveSetting(String breadCrumb, BooleanProperty value) {
-    preferences.putBoolean(breadCrumb, value.get());
+  /**
+   * Saves a boolean to the preferences using the given key.
+   *
+   * @param breadCrumb the key to be used to store the boolean
+   * @param value      the boolean to be saved in the preferences
+   */
+  public void saveSetting(String breadCrumb, boolean value) {
+    preferences.putBoolean(breadCrumb, value);
   }
 
-  public void saveSetting(String breadCrumb, IntegerProperty value) {
-    preferences.putInt(breadCrumb, value.get());
+  /**
+   * Saves an int to the preferences using the given key.
+   *
+   * @param breadCrumb the key to be used to store the int
+   * @param value      the int to be saved in the preferences
+   */
+  public void saveSetting(String breadCrumb, int value) {
+    preferences.putInt(breadCrumb, value);
   }
 
-  public void saveSetting(String breadCrumb, DoubleProperty value) {
-    preferences.putDouble(breadCrumb, value.get());
+  /**
+   * Saves a double to the preferences using the given key.
+   *
+   * @param breadCrumb the key to be used to store the double
+   * @param value      the double to be saved in the preferences
+   */
+  public void saveSetting(String breadCrumb, double value) {
+    preferences.putDouble(breadCrumb, value);
   }
 
+  /**
+   * Saves an Object to the preferences using the given key.
+   *
+   * @param breadCrumb the key to be used to store the Object
+   * @param value      the ObjectProperty whose value is used to be saved in the preferences
+   */
   public void saveSetting(String breadCrumb, ObjectProperty value) {
-//    byte[] data = SerializationUtils.serialize(yourObject);
-//    YourObject yourObject = SerializationUtils.deserialize(data)
     byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value.getValue());
     preferences.putByteArray(breadCrumb, serializedObjectProperty);
   }
 
-//  public void saveSetting(String breadCrumb, ListProperty value) {
-//    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value.getValue());
-//    preferences.putByteArray(breadCrumb, serializedObjectProperty);
-//  }
+  /**
+   * Saves an ObservableList to the preferences using the given key.
+   *
+   * @param breadCrumb the key to be used to store the ObservableList
+   * @param value      the ObservableList to be saved in the preferences
+   */
+  public void saveSetting(String breadCrumb, ObservableList value) {
+    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value);
+    preferences.putByteArray(breadCrumb, serializedObjectProperty);
+  }
 
+  /**
+   * Finds a String which is stored in the preferences using the given key
+   * or a default value if no such is found.
+   *
+   * @param breadCrumb the key to be used to search the String
+   * @param value      the default String to be returned if nothing is found
+   * @return the String which is stored in the preferences or the default value
+   */
   public String getValue(String breadCrumb, String value) {
     return preferences.get(breadCrumb, value);
   }
 
+  /**
+   * Finds a boolean which is stored in the preferences using the given key
+   * or a default value if no such is found.
+   *
+   * @param breadCrumb the key to be used to search the boolean
+   * @param value      the default boolean to be returned if nothing is found
+   * @return the boolean which is stored in the preferences or the default value
+   */
   public boolean getValue(String breadCrumb, boolean value) {
     return preferences.getBoolean(breadCrumb, value);
   }
 
+  /**
+   * Finds an int which is stored in the preferences using the given key
+   * or a default value if no such is found.
+   *
+   * @param breadCrumb the key to be used to search the int
+   * @param value      the default int to be returned if nothing is found
+   * @return the int which is stored in the preferences or the default value
+   */
   public int getValue(String breadCrumb, int value) {
     return preferences.getInt(breadCrumb, value);
   }
 
+  /**
+   * Finds a double which is stored in the preferences using the given key
+   * or a default value if no such is found.
+   *
+   * @param breadCrumb the key to be used to search the double
+   * @param value      the default double to be returned if nothing is found
+   * @return the double which is stored in the preferences or the default value
+   */
   public double getValue(String breadCrumb, double value) {
     return preferences.getDouble(breadCrumb, value);
   }
 
+  /**
+   * Finds an Object which is stored in the preferences using the given key
+   * or a default value if no such is found.
+   *
+   * @param breadCrumb the key to be used to search the Object
+   * @param value      the ObjectProperty whose value is used as the default Object
+   *                   to be returned if nothing is found
+   * @return the Object which is stored in the preferences or the default value
+   */
   public Object getValue(String breadCrumb, ObjectProperty value) {
-    byte[] serializedValue = SerializationUtils.serialize((Serializable) value.getValue());
-    byte[] serializedValue2 = preferences.getByteArray(breadCrumb, serializedValue);
-    return SerializationUtils.deserialize(serializedValue2);
+    byte[] defaultObject = SerializationUtils.serialize((Serializable) value.getValue());
+    byte[] finalValue = preferences.getByteArray(breadCrumb, defaultObject);
+    return SerializationUtils.deserialize(finalValue);
   }
 
-//  public ObservableList getValue(String breadCrumb, ListProperty value) {
-//    byte[] serializedValue = SerializationUtils.serialize((Serializable) value.getValue());
-//    byte[] serializedValue2 = preferences.getByteArray(breadCrumb, serializedValue);
-//    return SerializationUtils.deserialize(serializedValue2);
-//  }
+  /**
+   * Finds an ObservableList which is stored in the preferences using the given key
+   * or a default value if no such is found.
+   *
+   * @param breadCrumb the key to be used to search the ObservableList
+   * @param value      the default ObservableList to be returned if nothing is found
+   * @return the ObservableList which is stored in the preferences or the default value
+   */
+  public ObservableList getValue(String breadCrumb, ObservableList value) {
+    byte[] defaultObject = SerializationUtils.serialize((Serializable) value);
+    byte[] finalValue = preferences.getByteArray(breadCrumb, defaultObject);
+    return SerializationUtils.deserialize(finalValue);
+  }
 
 }
