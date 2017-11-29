@@ -24,8 +24,6 @@ public class CategoryTree extends TreeView {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryTree.class.getName());
 
-  Category displayedCategory;
-
   PreferencesFx preferencesFx;
 
   List<Category> categoriesLst;
@@ -67,8 +65,7 @@ public class CategoryTree extends TreeView {
     getSelectionModel().selectedItemProperty().addListener(
         (observable, oldValue, newValue) -> {
           if (newValue != null) {
-            displayedCategory = (Category) ((TreeItem) newValue).getValue();
-            preferencesFx.setSelectedCategory(displayedCategory);
+            preferencesFx.showCategory((Category) ((TreeItem) newValue).getValue());
           }
         }
     );
@@ -205,12 +202,5 @@ public class CategoryTree extends TreeView {
       return ((TreeItem<Category>) getSelectionModel().getSelectedItem()).getValue();
     }
     return null;
-  }
-
-  /**
-   * Retrieves the category which has last been displayed in the CategoryPane.
-   */
-  public Category getDisplayedCategory() {
-    return displayedCategory;
   }
 }
