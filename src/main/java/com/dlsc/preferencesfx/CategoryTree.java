@@ -99,9 +99,12 @@ public class CategoryTree extends TreeView {
   }
 
   private void updateFilteredLists(String searchText) {
-    filteredCategoriesLst = PreferencesFxUtils.filterCategoriesByDescription(categoriesLst, searchText);
-    filteredSettingsLst = PreferencesFxUtils.filterSettingsByDescription(settingsLst, searchText);
-    filteredGroupsLst = PreferencesFxUtils.filterGroupsByDescription(groupsLst, searchText);
+    filteredCategoriesLst =
+        PreferencesFxUtils.filterCategoriesByDescription(categoriesLst, searchText);
+    filteredSettingsLst =
+        PreferencesFxUtils.filterSettingsByDescription(settingsLst, searchText);
+    filteredGroupsLst =
+        PreferencesFxUtils.filterGroupsByDescription(groupsLst, searchText);
     categoryMatches = filteredCategoriesLst.size();
     settingsMatches = filteredSettingsLst.size();
     groupsMatches = filteredGroupsLst.size();
@@ -181,7 +184,6 @@ public class CategoryTree extends TreeView {
    * Sets the selected item in the TreeView to the category of the given categoryId.
    *
    * @param categoryId the id of the category to be found
-   * @return the category with categoryId or the first category in the TreeView if none is found
    */
   public void setSelectedCategoryById(int categoryId) {
     Category category = findCategoryById(categoryId);
@@ -214,7 +216,8 @@ public class CategoryTree extends TreeView {
    * Retrieves the currently selected category in the TreeView.
    */
   public Category getSelectedCategory() {
-    TreeItem<Category> selectedTreeItem = (TreeItem<Category>) getSelectionModel().getSelectedItem();
+    TreeItem<Category> selectedTreeItem =
+        (TreeItem<Category>) getSelectionModel().getSelectedItem();
     if (selectedTreeItem != null) {
       return ((TreeItem<Category>) getSelectionModel().getSelectedItem()).getValue();
     }

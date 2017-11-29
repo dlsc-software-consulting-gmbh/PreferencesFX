@@ -31,7 +31,8 @@ public class CategoryPane extends StackPane {
     form = Form.of();
     List<com.dlsc.formsfx.model.structure.Group> formGroups = form.getGroups();
     for (int i = 0; i < groups.size(); i++) {
-      PreferencesGroup preferencesGroup = (PreferencesGroup) PreferencesGroup.of().title(groups.get(i).getDescription());
+      PreferencesGroup preferencesGroup =
+          (PreferencesGroup) PreferencesGroup.of().title(groups.get(i).getDescription());
       groups.get(i).setPreferencesGroup(preferencesGroup);
       formGroups.add(preferencesGroup);
       for (Setting setting : groups.get(i).getSettings()) {

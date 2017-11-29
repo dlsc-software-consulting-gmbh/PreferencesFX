@@ -54,13 +54,15 @@ public class PreferencesFxUtils {
     return groupCategoryMap;
   }
 
-  public static List<Category> filterCategoriesByDescription(List<Category> categories, String description) {
+  public static List<Category> filterCategoriesByDescription(List<Category> categories,
+                                                             String description) {
     return categories.stream()
         .filter(category -> containsIgnoreCase(category.getDescription(), description))
         .collect(Collectors.toList());
   }
 
-  public static List<Setting> filterSettingsByDescription(List<Setting> settings, String description) {
+  public static List<Setting> filterSettingsByDescription(List<Setting> settings,
+                                                          String description) {
     return settings.stream()
         .filter(setting -> containsIgnoreCase(setting.getDescription(), description))
         .collect(Collectors.toList());
