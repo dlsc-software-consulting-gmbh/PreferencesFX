@@ -100,7 +100,7 @@ public class CategoryTree extends TreeView {
     rootItem = new FilterableTreeItem<>(Category.of("Root"));
     addRecursive(rootItem, categories);
     categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
-    PreferencesFxUtils.mapSettingsToCategories(categoriesLst);
+    settingCategoryMap = PreferencesFxUtils.mapSettingsToCategories(categoriesLst);
     settingsLst = PreferencesFxUtils.categoriesToSettings(categoriesLst);
   }
 
