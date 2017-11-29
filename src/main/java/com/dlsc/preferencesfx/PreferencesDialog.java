@@ -20,15 +20,21 @@ public class PreferencesDialog extends DialogPane {
   private PreferencesFx preferencesFx;
   private Preferences preferences;
   private Dialog dialog = new Dialog();
+  private boolean persistWindowState;
+
+  public PreferencesDialog(PreferencesFx preferencesFx, boolean persistWindowState) {
+    this.preferencesFx = preferencesFx;
+    this.persistWindowState = persistWindowState;
+    preferences = preferencesFx.getPreferences();
+    layoutForm();
+    savePreferencesOnCloseRequest();
+    loadLastState();
+    setupClose();
+    dialog.show();
+  }
 
   public PreferencesDialog(PreferencesFx preferencesFx) {
-    this.preferencesFx = preferencesFx;
-    preferences = preferencesFx.getPreferences();
-
-    layoutForm();
-    setupClose();
-    savePreferencesOnCloseRequest();
-    dialog.show();
+    this(preferencesFx, false);
   }
 
   private void layoutForm() {
@@ -37,19 +43,25 @@ public class PreferencesDialog extends DialogPane {
 
     dialog.setDialogPane(this);
     setContent(preferencesFx);
-    loadLastState();
   }
 
   /**
    * Loads last saved size and position of the window.
    */
   private void loadLastState() {
-    setPrefSize(
-        preferences.getDouble(WINDOW_WIDTH, DEFAULT_PREFERENCES_WIDTH),
-        preferences.getDouble(WINDOW_HEIGHT, DEFAULT_PREFERENCES_HEIGHT)
-    );
-    getScene().getWindow().setX(preferences.getDouble(WINDOW_POS_X, DEFAULT_PREFERENCES_POS_X));
-    getScene().getWindow().setY(preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y));
+    if (persistWindowState) {
+      setPrefSize(
+          preferences.getDouble(WINDOW_WIDTH, DEFAULT_PREFERENCES_WIDTH),
+          preferences.getDouble(WINDOW_HEIGHT, DEFAULT_PREFERENCES_HEIGHT)
+      );
+      getScene().getWindow().setX(preferences.getDouble(WINDOW_POS_X, DEFAULT_PREFERENCES_POS_X));
+      getScene().getWindow().setY(preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y));
+    } else {
+      setPrefSize(DEFAULT_PREFERENCES_WIDTH, DEFAULT_PREFERENCES_HEIGHT);
+      getScene().getWindow().setX(DEFAULT_PREFERENCES_POS_X);
+      getScene().getWindow().setY(DEFAULT_PREFERENCES_POS_Y);
+    }
+
   }
 
   /**
@@ -68,12 +80,14 @@ public class PreferencesDialog extends DialogPane {
   }
 
   private void savePreferencesOnCloseRequest() {
-    dialog.setOnCloseRequest(e -> {
-      preferences.putDouble(WINDOW_WIDTH, widthProperty().get());
-      preferences.putDouble(WINDOW_HEIGHT, heightProperty().get());
-      preferences.putDouble(WINDOW_POS_X, getScene().getWindow().getX());
-      preferences.putDouble(WINDOW_POS_Y, getScene().getWindow().getY());
-      preferencesFx.saveSelectedCategory();
-    });
+    if (persistWindowState) {
+      dialog.setOnCloseRequest(e -> {
+        preferences.putDouble(WINDOW_WIDTH, widthProperty().get());
+        preferences.putDouble(WINDOW_HEIGHT, heightProperty().get());
+        preferences.putDouble(WINDOW_POS_X, getScene().getWindow().getX());
+        preferences.putDouble(WINDOW_POS_Y, getScene().getWindow().getY());
+        preferencesFx.saveSelectedCategory();
+      });
+    }
   }
 }
