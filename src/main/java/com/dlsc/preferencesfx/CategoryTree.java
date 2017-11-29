@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -117,5 +118,9 @@ public class CategoryTree extends TreeView {
    */
   public void setSelectedItem(Category category) {
     getSelectionModel().select(categoryTreeItemMap.get(category));
+  }
+
+  public ArrayList<Category> getAllCategoriesFlatAsList() {
+   return new ArrayList<>(categoryTreeItemMap.keySet());
   }
 }

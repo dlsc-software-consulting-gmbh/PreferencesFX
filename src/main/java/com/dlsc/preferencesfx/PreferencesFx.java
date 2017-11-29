@@ -42,18 +42,17 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void updateSettingsFromPreferences() {
-
-
-    List<Setting> settingsLst = categories.stream()
+    categoryTree
+        .getAllCategoriesFlatAsList()
+        .stream()
         .map(Category::getGroups)     // get groups from categories
         .filter(Objects::nonNull)     // remove all null
         .flatMap(Collection::stream)
         .map(Group::getSettings)      // get settings from groups
         .filter(Objects::nonNull)     // remove all null
         .flatMap(Collection::stream)
-        .collect(Collectors.toList());
-
-    settingsLst.forEach(setting -> setting.updateFromPreferences(storageHandler));
+        .collect(Collectors.toList())
+        .forEach(setting -> setting.updateFromPreferences(storageHandler));
   }
 
   /**
