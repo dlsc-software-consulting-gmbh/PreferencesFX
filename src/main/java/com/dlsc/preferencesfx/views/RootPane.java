@@ -72,58 +72,28 @@ public class RootPane extends StackPane {
 
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(AppStarter.class,
-        Category.of("General",
-            Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
-            ),
-            Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
+        Category.of("Cat0",
+            Group.of("Grp0",
+                Setting.of("Stn0", welcomeText)
             )
-        ),
-        Category.of("Screen")
-            .subCategories(
-                Category.of("Scaling & Ordering",
-                    Group.of(
-                        Setting.of("Scaling", scaling),
-                        Setting.of("Screen name", screenName),
-                        Setting.of("Resolution", resolutionItems, resolutionSelection),
-                        Setting.of("Orientation", orientationItems, orientationSelection)
-                    ).description("Screen Options"),
-                    Group.of(
-                        Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
+        ).subCategories(
+            Category.of("Cat1",
+                Group.of("Grp1",
+                    Setting.of("Stn1", brightness)
+                )
+            ).subCategories(
+                Category.of("Cat2",
+                    Group.of("Grp2",
+                        Setting.of("Stn2", nightMode)
                     )
                 ).subCategories(
-                    Category.of("Scaling & Ordering",
-                        Group.of(
-                            Setting.of("Scaling", scaling),
-                            Setting.of("Screen name", screenName),
-                            Setting.of("Resolution", resolutionItems, resolutionSelection),
-                            Setting.of("Orientation", orientationItems, orientationSelection)
-                        ).description("Screen Options"),
-                        Group.of(
-                            Setting.of("Font Size", fontSize, 6, 36),
-                            Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
-                        )
-                    ).subCategories(
-                        Category.of("Scaling & Ordering",
-                            Group.of(
-                                Setting.of("Scaling", scaling),
-                                Setting.of("Screen name", screenName),
-                                Setting.of("Resolution", resolutionItems, resolutionSelection),
-                                Setting.of("Orientation", orientationItems, orientationSelection)
-                            ).description("Screen Options"),
-                            Group.of(
-                                Setting.of("Font Size", fontSize, 6, 36),
-                                Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
-                            )
+                    Category.of("Cat3",
+                        Group.of("Grp3",
+                            Setting.of("Stn3", scaling)
                         )
                     )
                 )
-            ),
-        Category.of("Favorites",
-            Setting.of("Favorites", favoritesItems, favoritesSelection)
+            )
         )
     );
   }

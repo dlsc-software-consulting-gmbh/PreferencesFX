@@ -16,7 +16,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 public class Setting<F extends Field, P extends Property> {
-  private String breadCrumb;
+  private String breadcrumb;
   private String description;
   private F field;
   private P value;
@@ -132,57 +132,57 @@ public class Setting<F extends Field, P extends Property> {
 
   public void saveSettingsPreferences(StorageHandler storageHandler) {
     if (value instanceof StringProperty) {
-      storageHandler.saveSetting(breadCrumb, (String) value.getValue());
+      storageHandler.saveSetting(breadcrumb, (String) value.getValue());
     }
     if (value instanceof BooleanProperty) {
-      storageHandler.saveSetting(breadCrumb, (Boolean) value.getValue());
+      storageHandler.saveSetting(breadcrumb, (Boolean) value.getValue());
     }
     if (value instanceof IntegerProperty) {
-      storageHandler.saveSetting(breadCrumb, (Integer) value.getValue());
+      storageHandler.saveSetting(breadcrumb, (Integer) value.getValue());
     }
     if (value instanceof DoubleProperty) {
-      storageHandler.saveSetting(breadCrumb, (Double) value.getValue());
+      storageHandler.saveSetting(breadcrumb, (Double) value.getValue());
     }
     if (value instanceof ObjectProperty) {
       System.out.println("PUT - ObjectProperty");
-      storageHandler.saveSetting(breadCrumb, (ObjectProperty) value);
+      storageHandler.saveSetting(breadcrumb, (ObjectProperty) value);
     }
     if (value instanceof ListProperty) {
       System.out.println("PUT - ListProperty");
-//      storageHandler.saveSetting(breadCrumb, (ObservableList) value.getValue());
+//      storageHandler.saveSetting(breadcrumb, (ObservableList) value.getValue());
     }
   }
 
   public void updateFromPreferences(StorageHandler storageHandler) {
     if (value instanceof StringProperty) {
-      value.setValue(storageHandler.getValue(breadCrumb, (String) value.getValue()));
+      value.setValue(storageHandler.getValue(breadcrumb, (String) value.getValue()));
     }
     if (value instanceof BooleanProperty) {
-      value.setValue(storageHandler.getValue(breadCrumb, (Boolean) value.getValue()));
+      value.setValue(storageHandler.getValue(breadcrumb, (Boolean) value.getValue()));
     }
     if (value instanceof IntegerProperty) {
-      value.setValue(storageHandler.getValue(breadCrumb, (Integer) value.getValue())
+      value.setValue(storageHandler.getValue(breadcrumb, (Integer) value.getValue())
       );
     }
     if (value instanceof DoubleProperty) {
-      value.setValue(storageHandler.getValue(breadCrumb, (Double) value.getValue()));
+      value.setValue(storageHandler.getValue(breadcrumb, (Double) value.getValue()));
     }
     if (value instanceof ObjectProperty) {
       System.out.println("GET - ObjectProperty");
-      value.setValue(storageHandler.getValue(breadCrumb, (ObjectProperty) value));
+      value.setValue(storageHandler.getValue(breadcrumb, (ObjectProperty) value));
     }
     if (value instanceof ListProperty) {
       System.out.println("GET - ListProperty");
-//      value.setValue(storageHandler.getValue(breadCrumb, (ObservableList) value.getValue()));
+//      value.setValue(storageHandler.getValue(breadcrumb, (ObservableList) value.getValue()));
     }
   }
 
-  public void addToBreadCrumb(String breadCrumb) {
-    this.breadCrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
-    System.out.println(this.breadCrumb);
+  public void addToBreadcrumb(String breadCrumb) {
+    this.breadcrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
+    System.out.println(description + ": " + this.breadcrumb);
   }
 
-  public String getBreadCrumb() {
-    return breadCrumb;
+  public String getBreadcrumb() {
+    return breadcrumb;
   }
 }

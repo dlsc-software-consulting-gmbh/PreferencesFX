@@ -43,6 +43,7 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void updateSettingsFromPreferences() {
+//    createBreadcrumbs(categories);
     categoryTree
         .getAllCategoriesFlatAsList()
         .stream()

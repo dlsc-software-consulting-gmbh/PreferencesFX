@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx;
 import com.dlsc.preferencesfx.util.IncrementId;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Category {
 
@@ -11,7 +12,7 @@ public class Category {
   private List<Category> children;
   private CategoryPane categoryPane;
   private final int id = IncrementId.get();
-  private String breadCrumb;
+  private String breadcrumb;
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -20,7 +21,7 @@ public class Category {
    */
   private Category(String description) {
     this.description = description;
-    breadCrumb = description;
+    breadcrumb = description;
     categoryPane = new CategoryPane(null);
   }
 
@@ -28,8 +29,8 @@ public class Category {
     this.description = description;
     this.groups = Arrays.asList(groups);
 
-    breadCrumb = description;
-    this.groups.forEach(group -> group.addToBreadCrumb(breadCrumb));
+    breadcrumb = description;
+    this.groups.forEach(group -> group.addToBreadcrumb(breadcrumb));
 
     categoryPane = new CategoryPane(this.groups);
   }
@@ -69,13 +70,18 @@ public class Category {
 
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
-    this.children.forEach(category -> category.prefixBreadcrumb(description));
+    updateBreadcrumbs(this.children);
     return this;
   }
 
-  private void prefixBreadcrumb(String description) {
-    breadCrumb = description + PreferencesFx.BREADCRUMB_DELIMITER + breadCrumb;
-    this.groups.forEach(group -> group.addToBreadCrumb(breadCrumb));
+  private void updateBreadcrumbs(List<Category> categories) {
+    categories.forEach(category -> {
+      this.breadcrumb = breadcrumb + PreferencesFx.BREADCRUMB_DELIMITER + category.getDescription();
+      category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
+      if (!Objects.equals(category.getChildren(), null)) {
+        updateBreadcrumbs(category.getChildren());
+      }
+    });
   }
 
   public CategoryPane getCategoryPane() {
@@ -103,7 +109,11 @@ public class Category {
     return id;
   }
 
-  public String getBreadCrumb() {
-    return breadCrumb;
+  public String getBreadcrumb() {
+    return breadcrumb;
+  }
+
+  public void setBreadcrumb(String breadcrumb) {
+    this.breadcrumb = breadcrumb;
   }
 }
