@@ -73,7 +73,9 @@ public class Category {
   public void updateBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
       breadcrumb = breadcrumb + PreferencesFx.BREADCRUMB_DELIMITER + category.getDescription();
-      category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
+      if (!Objects.equals(category.getGroups(), null)) {
+        category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
+      }
       if (!Objects.equals(category.getChildren(), null)) {
         updateBreadcrumbs(category.getChildren());
       }

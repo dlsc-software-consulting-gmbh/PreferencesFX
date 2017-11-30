@@ -59,7 +59,9 @@ public class PreferencesFx extends MasterDetailPane {
 
   private void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
-      category.getGroups().forEach(group -> group.addToBreadcrumb(category.getBreadcrumb()));
+      if (!Objects.equals(category.getGroups(), null)) {
+        category.getGroups().forEach(group -> group.addToBreadcrumb(category.getBreadcrumb()));
+      }
       if (!Objects.equals(category.getChildren(), null)) {
         category.updateBreadcrumbs(category.getChildren());
       }

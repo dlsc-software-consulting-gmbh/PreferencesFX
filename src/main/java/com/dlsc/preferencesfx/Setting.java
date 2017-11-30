@@ -1,5 +1,7 @@
 package com.dlsc.preferencesfx;
 
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
@@ -179,7 +181,7 @@ public class Setting<F extends Field, P extends Property> {
 
   public void addToBreadcrumb(String breadCrumb) {
     this.breadcrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
-    System.out.println(description + ": " + this.breadcrumb);
+    LOGGER.info("Setting: " + description + ", Breadcrumb: " + this.breadcrumb);
   }
 
   public String getBreadcrumb() {

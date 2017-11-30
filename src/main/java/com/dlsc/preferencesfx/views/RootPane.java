@@ -30,34 +30,28 @@ import org.apache.logging.log4j.Logger;
 public class RootPane extends StackPane {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
-
   // General
   StringProperty welcomeText = new SimpleStringProperty("Hello World");
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
-
   // Screen
   DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
-
   ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList(
       "1024x768", "1280x1024", "1440x900", "1920x1080")
   );
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
-
   ListProperty<String> orientationItems = new SimpleListProperty<>(
       FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal"))
   );
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
-
   IntegerProperty fontSize = new SimpleIntegerProperty(12);
   DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
-
   // Favorites
   ListProperty<String> favoritesItems = new SimpleListProperty<>(
       FXCollections.observableArrayList(Lists.newArrayList(
-          "PreferencesFX", "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
-          "Mikesoft Numbers", "Mikesoft Present", "IntelliG", "Network Management UI"
+          "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
+          "Mikesoft Numbers", "Mikesoft Present", "IntelliG"
           )
       )
   );
@@ -72,28 +66,40 @@ public class RootPane extends StackPane {
 
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(AppStarter.class,
-        Category.of("Cat0",
-            Group.of("Grp0",
-                Setting.of("Stn0", welcomeText)
+        Category.of("General",
+            Group.of("Greeting",
+                Setting.of("Welcome Text", welcomeText)
+            ),
+            Group.of("Display",
+                Setting.of("Brightness", brightness),
+                Setting.of("Night mode", nightMode),
+                Setting.of("Scaling", scaling),
+                Setting.of("Screen name", screenName),
+                Setting.of("Resolution", resolutionItems, resolutionSelection),
+                Setting.of("Orientation", orientationItems, orientationSelection)
             )
-        ).subCategories(
-            Category.of("Cat1",
-                Group.of("Grp1",
-                    Setting.of("Stn1", brightness)
-                )
-            ).subCategories(
-                Category.of("Cat2",
-                    Group.of("Grp2",
-                        Setting.of("Stn2", nightMode)
+        ),
+        Category.of("Screen")
+            .subCategories(
+                Category.of("Scaling & Ordering",
+                    Group.of(
+                        Setting.of("Scaling", scaling),
+                        Setting.of("Screen name", screenName),
+                        Setting.of("Resolution", resolutionItems, resolutionSelection),
+                        Setting.of("Orientation", orientationItems, orientationSelection)
+                    ).description("Screen Options"),
+                    Group.of(
+                        Setting.of("Font Size", fontSize, 6, 36),
+                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1),
+                        Setting.of("Scaling", scaling),
+                        Setting.of("Screen name", screenName),
+                        Setting.of("Resolution", resolutionItems, resolutionSelection),
+                        Setting.of("Orientation", orientationItems, orientationSelection)
                     )
-                ).subCategories(
-                    Category.of("Cat3",
-                        Group.of("Grp3",
-                            Setting.of("Stn3", scaling)
-                        )
-                    )
                 )
-            )
+            ),
+        Category.of("Favorites",
+            Setting.of("Favorites", favoritesItems, favoritesSelection)
         )
     );
   }
