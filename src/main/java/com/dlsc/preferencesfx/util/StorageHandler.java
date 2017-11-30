@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.util;
 
+import static com.dlsc.preferencesfx.PreferencesFx.BREADCRUMB_DELIMITER;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_CATEGORY;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_DIVIDER_POSITION;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
@@ -14,8 +15,10 @@ import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.prefs.Preferences;
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -182,8 +185,12 @@ public class StorageHandler {
    * @param value      the ObjectProperty whose value is used to be saved in the preferences
    */
   public void saveSetting(String breadCrumb, ObjectProperty value) {
-    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value.getValue());
-    preferences.putByteArray(breadCrumb, serializedObjectProperty);
+    preferences.put(breadCrumb, value.getValue().toString());
+//    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value.getValue());
+//    preferences.putByteArray(breadCrumb, serializedObjectProperty);
+//    for (byte by : serializedObjectProperty) {
+//      System.out.println(by);
+//    }
   }
 
   /**
@@ -193,7 +200,18 @@ public class StorageHandler {
    * @param value      the ObservableList to be saved in the preferences
    */
   public void saveSetting(String breadCrumb, ObservableList value) {
-    byte[] serializedObjectProperty = SerializationUtils.serialize((Serializable) value);
+    List<Byte> serializedObjects = FXCollections.observableArrayList();
+    for (Object object : value) {
+      byte[] array = SerializationUtils.serialize((Serializable) object);
+      for (byte by : array) {
+        serializedObjects.add(by);
+      }
+      serializedObjects.add(Byte.valueOf(BREADCRUMB_DELIMITER));
+    }
+    byte[] serializedObjectProperty = new byte[serializedObjects.size()];
+    for (int i = 0; i < serializedObjectProperty.length; ++i) {
+      serializedObjectProperty[i] = serializedObjects.get(i);
+    }
     preferences.putByteArray(breadCrumb, serializedObjectProperty);
   }
 
@@ -249,29 +267,40 @@ public class StorageHandler {
    * Finds an Object which is stored in the preferences using the given key
    * or a default value if no such is found.
    *
-   * @param breadCrumb the key to be used to search the Object
+   * @param breadcrumb the key to be used to search the Object
    * @param value      the ObjectProperty whose value is used as the default Object
    *                   to be returned if nothing is found
    * @return the Object which is stored in the preferences or the default value
    */
-  public Object getValue(String breadCrumb, ObjectProperty value) {
-    byte[] defaultObject = SerializationUtils.serialize((Serializable) value.getValue());
-    byte[] finalValue = preferences.getByteArray(breadCrumb, defaultObject);
-    return SerializationUtils.deserialize(finalValue);
+  public Object getValue(String breadcrumb, ObjectProperty objectProperty, ObservableList observableList) {
+    for (Object obj : observableList) {
+      String string = preferences.get(breadcrumb, null);
+      if(obj.toString().equals(string)) {
+        return obj;
+      }
+    }
+    return objectProperty.getValue();
+//
+//    preferences.put(breadcrumb, value.getValue().toString());
+//
+//    byte[] defaultObject = SerializationUtils.serialize((Serializable) value.getValue());
+//    byte[] finalValue = preferences.getByteArray(breadcrumb, defaultObject);
+//    return SerializationUtils.deserialize(finalValue);
   }
 
   /**
    * Finds an ObservableList which is stored in the preferences using the given key
    * or a default value if no such is found.
    *
-   * @param breadCrumb the key to be used to search the ObservableList
-   * @param value      the default ObservableList to be returned if nothing is found
-   * @return the ObservableList which is stored in the preferences or the default value
+   * @param breadCrumb     the key to be used to search the ObservableList
+   * @param objectProperty
+   * @param value          the default ObservableList to be returned if nothing is found  @return the ObservableList which is stored in the preferences or the default value
    */
-  public ObservableList getValue(String breadCrumb, ObservableList value) {
-    byte[] defaultObject = SerializationUtils.serialize((Serializable) value);
-    byte[] finalValue = preferences.getByteArray(breadCrumb, defaultObject);
-    return SerializationUtils.deserialize(finalValue);
+  public ObservableList getValue(String breadCrumb, ObservableList observableList) {
+//    byte[] defaultObject = SerializationUtils.serialize((Serializable) value);
+//    byte[] finalValue = preferences.getByteArray(breadCrumb, defaultObject);
+//    return SerializationUtils.deserialize(finalValue);
+    return FXCollections.observableArrayList();
   }
 
 }

@@ -1,8 +1,7 @@
 package com.dlsc.preferencesfx;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.SingleSelectionField;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.IntegerSliderControl;
@@ -151,7 +150,7 @@ public class Setting<F extends Field, P extends Property> {
     }
     if (value instanceof ListProperty) {
       System.out.println("PUT - ListProperty");
-//      storageHandler.saveSetting(breadcrumb, (ObservableList) value.getValue());
+      storageHandler.saveSetting(breadcrumb, (ObservableList) value.getValue());
     }
   }
 
@@ -171,17 +170,30 @@ public class Setting<F extends Field, P extends Property> {
     }
     if (value instanceof ObjectProperty) {
       System.out.println("GET - ObjectProperty");
-      value.setValue(storageHandler.getValue(breadcrumb, (ObjectProperty) value));
+//      value.setValue(storageHandler.getValue(breadcrumb, (ObjectProperty) value));
+
+
+      ObservableList<SingleSelectionField> allItems = ((SingleSelectionField) field).getItems();
+      ObjectProperty defaultValue = (ObjectProperty) this.value;
+
+      Object object = storageHandler.getValue(breadcrumb, defaultValue, allItems);
+      System.out.println(object);
+
+
+      this.value.setValue(object);
+
+
+//      value.setValue(storageHandler.getValue(breadcrumb, (ObjectProperty) value, ((SingleSelectionField) field).getItems()));
     }
     if (value instanceof ListProperty) {
       System.out.println("GET - ListProperty");
-//      value.setValue(storageHandler.getValue(breadcrumb, (ObservableList) value.getValue()));
+      value.setValue(storageHandler.getValue(breadcrumb, (ObservableList) value.getValue()));
     }
   }
 
   public void addToBreadcrumb(String breadCrumb) {
     this.breadcrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
-    LOGGER.info("Setting: " + description + ", Breadcrumb: " + this.breadcrumb);
+    System.out.println("Setting: " + description + ", Breadcrumb: " + this.breadcrumb);
   }
 
   public String getBreadcrumb() {
