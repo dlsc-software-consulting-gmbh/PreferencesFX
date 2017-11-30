@@ -172,7 +172,7 @@ public class Setting<F extends Field, P extends Property> {
       ListProperty defaultSelections = (ListProperty) value;
       ObservableList selectedObjects =
           storageHandler.getValue(breadcrumb, defaultSelections, allObjects);
-      value.setValue(selectedObjects);
+      value.setValue(selectedObjects); // TODO: THE BAD GUY IS HERE!
     }
   }
 
