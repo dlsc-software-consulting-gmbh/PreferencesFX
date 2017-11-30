@@ -121,7 +121,7 @@ public class DemoView extends VBox {
   }
 
   private void setupEventHandlers() {
-    preferencesMenuItem.setOnAction(e -> preferencesFx.open());
+    preferencesMenuItem.setOnAction(e -> preferencesFx.show());
 
   }
 }

@@ -108,16 +108,16 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   /**
-   * Opens the PreferencesFX dialog.
+   * Shows the PreferencesFX dialog.
    */
-  public void open() {
+  public void show() {
     new PreferencesDialog(this, persistWindowState);
   }
 
   /**
    * Defines whether the state of the dialog window should be persisted or not.
    * @param persist if true, the size, position and last selected item in the TreeView are
-   *                being saved. When the dialog is opened again, it will be restored to
+   *                being saved. When the dialog is showed again, it will be restored to
    *                the last saved state. Defaults to false.
    * @return this object for fluent API
    */
