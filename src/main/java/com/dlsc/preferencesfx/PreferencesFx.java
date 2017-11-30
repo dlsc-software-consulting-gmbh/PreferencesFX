@@ -108,10 +108,4 @@ public class PreferencesFx extends MasterDetailPane {
     return displayedCategory;
   }
 
-  public void removeMarksFromDisplayedCategory() {
-    // Remove all markings from settings
-    if (displayedCategory != null) {
-      displayedCategory.unmarkAll();
-    }
-  }
 }

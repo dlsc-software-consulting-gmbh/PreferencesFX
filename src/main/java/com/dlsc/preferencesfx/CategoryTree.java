@@ -33,8 +33,8 @@ public class CategoryTree extends TreeView {
   private List<Setting> filteredSettingsLst;
   private List<Group> filteredGroupsLst;
   private int categoryMatches;
-  private int settingsMatches;
-  private int groupsMatches;
+  private int settingMatches;
+  private int groupMatches;
 
   private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
   private HashMap<Setting, Category> settingCategoryMap;
@@ -89,17 +89,21 @@ public class CategoryTree extends TreeView {
     searchText.addListener((observable, oldText, newText) -> {
       if (newText.equals("")) { // empty search
         // unmark all categories
-        categoryTreeItemMap.keySet().forEach(Category::unmarkAll);
+        unmarkEverything();
       } else {
         updateSearch(newText);
       }
     });
   }
 
+  private void unmarkEverything() {
+    categoryTreeItemMap.keySet().forEach(Category::unmarkAll);
+  }
+
   public void updateSearch(String searchText) {
     updateFilteredLists(searchText);
-    selectCategoryByMatch();
-    preferencesFx.removeMarksFromDisplayedCategory();
+    setSelectedCategoryByMatch();
+    unmarkEverything();
     markMatches();
   }
 
@@ -111,31 +115,60 @@ public class CategoryTree extends TreeView {
     filteredGroupsLst =
         PreferencesFxUtils.filterGroupsByDescription(groupsLst, searchText);
     categoryMatches = filteredCategoriesLst.size();
-    settingsMatches = filteredSettingsLst.size();
-    groupsMatches = filteredGroupsLst.size();
+    settingMatches = filteredSettingsLst.size();
+    groupMatches = filteredGroupsLst.size();
     LOGGER.trace("Matched Categories: " + categoryMatches);
-    LOGGER.trace("Matched Settings: " + settingsMatches);
-    LOGGER.trace("Matched Groups: " + groupsMatches);
+    LOGGER.trace("Matched Settings: " + settingMatches);
+    LOGGER.trace("Matched Groups: " + groupMatches);
   }
 
-  private void selectCategoryByMatch() {
-    // if there is one category left, select it
-    if (categoryMatches == 1) {
+  private void setSelectedCategoryByMatch() {
+    // Strategy: Go from most specific match to most unspecific match
+    if (settingMatches < groupMatches && settingMatches < categoryMatches) {
+      // there are fewer settings matches than matches for groups and categories
+      setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0))); // select first setting
+    } else if (groupMatches < settingMatches && groupMatches < categoryMatches) {
+      // there are fewer group matches than matches for settings and categories
+      setSelectedItem(groupCategoryMap.get(filteredGroupsLst.get(0))); // select first group
+    } else if (categoryMatches < settingMatches && categoryMatches < groupMatches) {
+      // there are fewer category matches than matches for settings and groups
+      setSelectedItem(filteredCategoriesLst.get(0));
+    } else {
+
+    }
+
+
+    if (settingMatches == 1) {
+      // if there is one setting left, select it
+      setSelectedItem(filteredCategoriesLst.get(0));
+    } else if (groupMatches == 1) {
+      // if there is one group left, select it
+      setSelectedItem(groupCategoryMap.get(filteredGroupsLst.get(0)));
+    } else if (categoryMatches == 1) {
+      // if there is one category left, select it
+      setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
+    } else if (settingMatches > 1){
       setSelectedItem(filteredCategoriesLst.get(0));
     }
-    if (groupsMatches == 1) {
+
+    if (categoryMatches == 1) {
+      // if there is one category left, select it
+      setSelectedItem(filteredCategoriesLst.get(0));
+    } else if (groupMatches == 1) {
+      // if there is one group left, select it
       setSelectedItem(groupCategoryMap.get(filteredGroupsLst.get(0)));
-    }
-    if (settingsMatches == 1) {
+    } else if (settingMatches == 1) {
       setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
+    } else {
+
     }
   }
 
   private void markMatches() {
-    if (settingsMatches >= 1) {
+    if (settingMatches >= 1) {
       filteredSettingsLst.forEach(Setting::mark);
     }
-    if (groupsMatches >= 1) {
+    if (groupMatches >= 1) {
       filteredGroupsLst.forEach(Group::mark);
     }
   }
