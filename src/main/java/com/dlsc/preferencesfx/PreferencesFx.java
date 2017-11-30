@@ -96,7 +96,7 @@ public class PreferencesFx extends MasterDetailPane {
     if (treeItem != null) {
       category = (Category) treeItem.getValue();
     } else {
-      category = categoryTree.findCategoryById(DEFAULT_CATEGORY);
+      category = categories.get(DEFAULT_CATEGORY);
     }
     preferences.putInt(SELECTED_CATEGORY, category.getId());
   }

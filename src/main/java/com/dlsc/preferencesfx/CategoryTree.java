@@ -124,44 +124,18 @@ public class CategoryTree extends TreeView {
 
   private void setSelectedCategoryByMatch() {
     // Strategy: Go from most specific match to most unspecific match
-    if (settingMatches < groupMatches && settingMatches < categoryMatches) {
-      // there are fewer settings matches than matches for groups and categories
-      setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0))); // select first setting
-    } else if (groupMatches < settingMatches && groupMatches < categoryMatches) {
-      // there are fewer group matches than matches for settings and categories
-      setSelectedItem(groupCategoryMap.get(filteredGroupsLst.get(0))); // select first group
-    } else if (categoryMatches < settingMatches && categoryMatches < groupMatches) {
-      // there are fewer category matches than matches for settings and groups
-      setSelectedItem(filteredCategoriesLst.get(0));
-    } else {
-
-    }
-
-
-    if (settingMatches == 1) {
-      // if there is one setting left, select it
-      setSelectedItem(filteredCategoriesLst.get(0));
-    } else if (groupMatches == 1) {
-      // if there is one group left, select it
-      setSelectedItem(groupCategoryMap.get(filteredGroupsLst.get(0)));
-    } else if (categoryMatches == 1) {
-      // if there is one category left, select it
-      setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
-    } else if (settingMatches > 1){
-      setSelectedItem(filteredCategoriesLst.get(0));
-    }
-
-    if (categoryMatches == 1) {
-      // if there is one category left, select it
-      setSelectedItem(filteredCategoriesLst.get(0));
-    } else if (groupMatches == 1) {
-      // if there is one group left, select it
-      setSelectedItem(groupCategoryMap.get(filteredGroupsLst.get(0)));
-    } else if (settingMatches == 1) {
-      setSelectedItem(settingCategoryMap.get(filteredSettingsLst.get(0)));
-    } else {
-
-    }
+    Category firstFilteredSetting =
+        filteredSettingsLst.size() == 0 ? null : settingCategoryMap.get(filteredSettingsLst.get(0));
+    Category firstFilteredGroup =
+        filteredGroupsLst.size() == 0 ? null : groupCategoryMap.get(filteredGroupsLst.get(0));
+    Category firstFilteredCategory =
+        filteredCategoriesLst.size() == 0 ? null : filteredCategoriesLst.get(0);
+    setSelectedItem(
+        PreferencesFxUtils.compareThree(
+            firstFilteredSetting, firstFilteredGroup, firstFilteredCategory,
+            settingMatches, groupMatches, settingMatches
+        )
+    );
   }
 
   private void markMatches() {
