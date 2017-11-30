@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.MultiSelectionField;
 import com.dlsc.formsfx.model.structure.SingleSelectionField;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
@@ -113,12 +114,6 @@ public class Setting<F extends Field, P extends Property> {
         selections);
   }
 
-  private static <P> void testIfSerializable(P selection) {
-//    if (!(selection instanceof Serializable)) {
-//      throw new SerializationException("Property must implement Serializable");
-//    }
-  }
-
   public String getDescription() {
     return description;
   }
@@ -169,31 +164,21 @@ public class Setting<F extends Field, P extends Property> {
       value.setValue(storageHandler.getValue(breadcrumb, (Double) value.getValue()));
     }
     if (value instanceof ObjectProperty) {
-      System.out.println("GET - ObjectProperty");
-//      value.setValue(storageHandler.getValue(breadcrumb, (ObjectProperty) value));
-
-
-      ObservableList<SingleSelectionField> allItems = ((SingleSelectionField) field).getItems();
-      ObjectProperty defaultValue = (ObjectProperty) this.value;
-
-      Object object = storageHandler.getValue(breadcrumb, defaultValue, allItems);
-      System.out.println(object);
-
-
-      this.value.setValue(object);
-
-
-//      value.setValue(storageHandler.getValue(breadcrumb, (ObjectProperty) value, ((SingleSelectionField) field).getItems()));
+      ObservableList allObjects = ((SingleSelectionField) field).getItems();
+      ObjectProperty defaultObject = (ObjectProperty) value;
+      Object selectedObject = storageHandler.getValue(breadcrumb, defaultObject, allObjects);
+      value.setValue(selectedObject);
     }
     if (value instanceof ListProperty) {
-      System.out.println("GET - ListProperty");
-      value.setValue(storageHandler.getValue(breadcrumb, (ObservableList) value.getValue()));
+      ObservableList allObjects = ((MultiSelectionField) field).getItems();
+      ListProperty defaultSelections = (ListProperty) value;
+      ObservableList selectedObjects = storageHandler.getValue(breadcrumb, defaultSelections, allObjects);
+      value.setValue(selectedObjects);
     }
   }
 
   public void addToBreadcrumb(String breadCrumb) {
     this.breadcrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
-    System.out.println("Setting: " + description + ", Breadcrumb: " + this.breadcrumb);
   }
 
   public String getBreadcrumb() {
