@@ -26,12 +26,8 @@ public class Category {
   }
 
   private Category(String description, Group... groups) {
-    this.description = description;
+    this(description);
     this.groups = Arrays.asList(groups);
-
-    breadcrumb = description;
-    this.groups.forEach(group -> group.addToBreadcrumb(breadcrumb));
-
     categoryPane = new CategoryPane(this.groups);
   }
 
@@ -70,13 +66,13 @@ public class Category {
 
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
-    updateBreadcrumbs(this.children);
+//    updateBreadcrumbs(this.children);
     return this;
   }
 
-  private void updateBreadcrumbs(List<Category> categories) {
+  public void updateBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
-      this.breadcrumb = breadcrumb + PreferencesFx.BREADCRUMB_DELIMITER + category.getDescription();
+      breadcrumb = breadcrumb + PreferencesFx.BREADCRUMB_DELIMITER + category.getDescription();
       category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
       if (!Objects.equals(category.getChildren(), null)) {
         updateBreadcrumbs(category.getChildren());
@@ -116,4 +112,5 @@ public class Category {
   public void setBreadcrumb(String breadcrumb) {
     this.breadcrumb = breadcrumb;
   }
+
 }

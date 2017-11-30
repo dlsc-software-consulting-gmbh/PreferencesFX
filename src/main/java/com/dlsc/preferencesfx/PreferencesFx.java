@@ -43,7 +43,7 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void updateSettingsFromPreferences() {
-//    createBreadcrumbs(categories);
+    createBreadcrumbs(categories);
     categoryTree
         .getAllCategoriesFlatAsList()
         .stream()
@@ -55,6 +55,15 @@ public class PreferencesFx extends MasterDetailPane {
         .flatMap(Collection::stream)
         .collect(Collectors.toList())
         .forEach(setting -> setting.updateFromPreferences(storageHandler));
+  }
+
+  private void createBreadcrumbs(List<Category> categories) {
+    categories.forEach(category -> {
+      category.getGroups().forEach(group -> group.addToBreadcrumb(category.getBreadcrumb()));
+      if (!Objects.equals(category.getChildren(), null)) {
+        category.updateBreadcrumbs(category.getChildren());
+      }
+    });
   }
 
   /**
@@ -125,7 +134,7 @@ public class PreferencesFx extends MasterDetailPane {
     return storageHandler;
   }
 
-  public CategoryTree getCategoryTree () {
+  public CategoryTree getCategoryTree() {
     return categoryTree;
   }
 }

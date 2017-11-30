@@ -10,7 +10,7 @@ public class Group {
 
   private String description;
   private List<Setting> settings;
-  private String breadcrumb;
+  private String breadcrumb = "";
 
   private Group(String description, Setting... settings) {
     this.description = description;

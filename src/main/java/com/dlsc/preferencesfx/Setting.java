@@ -16,10 +16,10 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 
 public class Setting<F extends Field, P extends Property> {
-  private String breadcrumb;
   private String description;
   private F field;
   private P value;
+  private String breadcrumb = "";
 
   private Setting(String description, F field, P value) {
     this.description = description;
