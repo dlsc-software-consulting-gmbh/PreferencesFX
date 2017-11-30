@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx.views;
 
-import com.dlsc.preferencesfx.PreferencesDialog;
 import com.dlsc.preferencesfx.PreferencesFx;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
@@ -122,7 +121,7 @@ public class DemoView extends VBox {
   }
 
   private void setupEventHandlers() {
-    preferencesMenuItem.setOnAction(e -> new PreferencesDialog(preferencesFx));
+    preferencesMenuItem.setOnAction(e -> preferencesFx.open());
 
   }
 }
