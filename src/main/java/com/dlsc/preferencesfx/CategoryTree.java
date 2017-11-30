@@ -221,6 +221,7 @@ public class CategoryTree extends TreeView {
    * @param category the category to be selected
    */
   public void setSelectedItem(Category category) {
+    LOGGER.trace("Selected: " + category.toString());
     getSelectionModel().select(categoryTreeItemMap.get(category));
   }
 
