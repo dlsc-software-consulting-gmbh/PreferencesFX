@@ -100,23 +100,40 @@ public class PreferencesFxUtils {
    * @param <T>
    * @return the object with the least amount of matches, taking into account the priority
    */
-  public static <T> T compareThree(T o1, T o2, T o3, int match1, int match2, int match3){
-    if (match1 == 0 && match2 == 0 && match3 == 0) {
+  public static <T> T compareThree(T o1, T o2, T o3, int match1, int match2, int match3) {
+
+
+
+    if (match1 == 0 && match2 == 0 && match3 == 0) { // if all values are 0
       return null;
+    } else if (match1 == match2 && match1 == match3) { // if all values are equal to each other
+      return o1;
     } else if (match1 == 1) {
       return o1;
     } else if (match2 == 1) {
       return o2;
     } else if (match3 == 1) {
       return o3;
-    } else if (match1 != 0 && match2 == 0 &&  match3 == 0) {
+    } else if (match1 != 0 && match2 == 0 && match3 == 0) {
       return o1;
-    } else if (match1 == 0 && match2 != 0 &&  match3 == 0) {
+    } else if (match1 == 0 && match2 != 0 && match3 == 0) {
       return o2;
-    } else if (match1 == 0 && match2 == 0 &&  match3 != 0) {
+    } else if (match1 == 0 && match2 == 0 && match3 != 0) {
       return o3;
-    } else if (match1 == 0 && match2 <= match3) {
+    } else if (match1 == 0 && match3 < match2) { // can only be match3, if it's smaller than match2
+      return o3;
+    } else if (match1 == 0) { // from here it can only be match2 if match1 is 0
       return o2;
+    } else if (match2 == 0 && match1 <= match3) { // can only be match1, if it's smaller or equal to match3
+      return o1;
+    } else if (match2 == 0) { // from here it can only be match3
+      return o3;
+    } else if (match3 == 0 & match2 < match1) { // can only be match2, if it's smaller than match1
+      return o2;
+    } else if (match3 == 0) { // from here it can only be match1
+      return o1;
+    } else if (match1 <= match2 && ) {
+
     }
     return o1; // if match1, match2 and match3 are all 0
   }
