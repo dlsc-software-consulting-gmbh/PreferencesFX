@@ -140,11 +140,9 @@ public class Setting<F extends Field, P extends Property> {
       storageHandler.saveSetting(breadcrumb, (Double) value.getValue());
     }
     if (value instanceof ObjectProperty) {
-      System.out.println("PUT - ObjectProperty");
       storageHandler.saveSetting(breadcrumb, (ObjectProperty) value);
     }
     if (value instanceof ListProperty) {
-      System.out.println("PUT - ListProperty");
       storageHandler.saveSetting(breadcrumb, (ObservableList) value.getValue());
     }
   }
@@ -172,7 +170,8 @@ public class Setting<F extends Field, P extends Property> {
     if (value instanceof ListProperty) {
       ObservableList allObjects = ((MultiSelectionField) field).getItems();
       ListProperty defaultSelections = (ListProperty) value;
-      ObservableList selectedObjects = storageHandler.getValue(breadcrumb, defaultSelections, allObjects);
+      ObservableList selectedObjects =
+          storageHandler.getValue(breadcrumb, defaultSelections, allObjects);
       value.setValue(selectedObjects);
     }
   }

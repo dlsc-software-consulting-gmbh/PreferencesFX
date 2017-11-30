@@ -15,13 +15,13 @@ import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.commons.lang3.SerializationException;
 import org.apache.commons.lang3.SerializationUtils;
 
 public class StorageHandler {
@@ -257,10 +257,14 @@ public class StorageHandler {
    * Finds an Object which is stored in the preferences using the given key
    * or a default value if no such is found.
    *
-   * @param breadcrumb the key to be used to search the Object
+   * @param breadcrumb    the key to be used to search the Object
+   * @param defaultObject the default ObjectProperty whose value will be returned
+   *                      if nothing is found
+   * @param allObjects    all possible Objects which can possibly be selected
    * @return the Object which is stored in the preferences or the default value
    */
-  public Object getValue(String breadcrumb, ObjectProperty defaultObject, ObservableList allObjects) {
+  public Object getValue(
+      String breadcrumb, ObjectProperty defaultObject, ObservableList allObjects) {
     for (Object object : allObjects) {
       String toStringOfFoundObject = preferences.get(breadcrumb, null);
       if (object.toString().equals(toStringOfFoundObject)) {
@@ -274,17 +278,25 @@ public class StorageHandler {
    * Finds an ObservableList which is stored in the preferences using the given key
    * or a default value if no such is found.
    *
-   * @param breadcrumb the key to be used to search the ObservableList
+   * @param breadcrumb        the key to be used to search the ObservableList
+   * @param defaultSelections the default Objects which are returned if nothing is found
+   * @param allObjects        all possible Objects which can possibly be selected
+   * @return the selection which is stored in the preferences or the default value
    */
-  public ObservableList getValue(String breadcrumb, ListProperty defaultSelections, ObservableList allObjects) {
-    byte[] serializedStrings = preferences.getByteArray(breadcrumb, null);
-    if (!Objects.equals(serializedStrings, null)) {
+  public ObservableList getValue(
+      String breadcrumb, ListProperty defaultSelections, ObservableList allObjects) {
+    try {
+      byte[] serializedStrings = preferences.getByteArray(breadcrumb, null);
       String[] strings = SerializationUtils.deserialize(serializedStrings);
       List<String> stringsLst = Arrays.asList(strings);
-      List list = (List) allObjects.stream().filter(obj -> stringsLst.contains(obj.toString())).collect(Collectors.toList());
+      List list = (List) allObjects
+          .stream()
+          .filter(obj -> stringsLst.contains(obj.toString()))
+          .collect(Collectors.toList());
       return FXCollections.observableList(list);
+    } catch (SerializationException e) {
+      return defaultSelections;
     }
-    return defaultSelections;
   }
 
 }
