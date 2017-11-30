@@ -222,7 +222,7 @@
 /*******************
  * SPECIAL STYLING *
  *******************/
-.simple-control-marked {
+.simple-control-marked, .group-marked {
     -fx-border-color: rgba(255, 255, 0, 0.4);
     -fx-border-width: 5px;
     -fx-border-radius: 10px;

@@ -3,6 +3,8 @@ package com.dlsc.preferencesfx;
 import com.dlsc.preferencesfx.util.formsfx.PreferencesGroup;
 import java.util.Arrays;
 import java.util.List;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Created by François Martin on 07.11.17.
@@ -14,6 +16,7 @@ public class Group {
   private List<Setting> settings;
   private PreferencesGroup preferencesGroup;
   private boolean marked = false;
+  private final EventHandler<MouseEvent> unmarker = event -> unmark();
 
   private Group(String description, Setting... settings) {
     this.description = description;
@@ -52,8 +55,8 @@ public class Group {
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
-      /*preferencesGroup.().getRenderer().addStyleClass(MARKED_STYLE_CLASS);
-      getField().getRenderer().setOnMouseExited(unmarker);*/ // TODO: how to add styleclass?
+      preferencesGroup.getRenderer().addStyleClass(MARKED_STYLE_CLASS);
+      preferencesGroup.getRenderer().setOnMouseExited(unmarker); // TODO: how to add styleclass?
       marked = !marked;
     }
   }
@@ -61,8 +64,8 @@ public class Group {
   public void unmark() {
     // check if it's marked before removing the style class
     if (marked) {
-      /*getField().getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
-      getField().getRenderer().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);*/ // TODO: how to add styleclass?
+      preferencesGroup.getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
+      preferencesGroup.getRenderer().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker); // TODO: how to add styleclass?
       marked = !marked;
     }
   }
