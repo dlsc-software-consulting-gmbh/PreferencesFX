@@ -56,10 +56,10 @@ public class PreferencesFxUtilsTest {
     String setting = new String("setting");
     String group = new String("group");
     String category = new String("category");
-    int[] matches1 = {1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 2, 0};
-    int[] matches2 = {0, 0, 0, 1, 1, 1, 2, 2, 2, 0, 0, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 0, 0, 2, 0, 2, 0};
-    int[] matches3 = {0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 2, 0, 2, 0, 1, 2, 0, 2, 0, 1, 2, 1, 2, 1, 1, 1, 0};
-    Object[] expected = {setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, group, group, group, group, group, group, group, group, category, category, category, category, category, null};
+    int[] matches1 = {0, 0, 0, 0, 0, 0, 2, 2, 2, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3};
+    int[] matches2 = {0, 2, 3, 0, 3, 0, 0, 2, 3, 0, 2, 3, 0, 3, 1, 2, 3, 1, 1, 2, 1, 2, 3, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 0, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3, 0, 2, 3, 0, 2, 3, 0, 2, 3, 0, 3, 0, 3};
+    int[] matches3 = {1, 1, 1, 2, 2, 3, 1, 1, 1, 1, 1, 1, 2, 2, 0, 0, 0, 1, 2, 2, 3, 3, 3, 0, 1, 2, 3, 0, 0, 1, 2, 2, 3, 3, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 0, 0, 0, 2, 2, 2, 3, 3, 3, 0, 0, 3, 3};
+    Object[] expected = {category, category, category, category, category, category, category, category, category, category, category, category, category, category, group, group, group, group, group, group, group, group, group, group, group, group, group, group, group, group, group, group, group, group, null, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting, setting};
     for (int i = 0; i < matches1.length; i++) {
       assertSame(
           "match1: " + matches1[i] + ", match2: " + matches2[i] + ", match3: " + matches3[i],
