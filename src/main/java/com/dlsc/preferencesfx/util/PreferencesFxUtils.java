@@ -101,19 +101,23 @@ public class PreferencesFxUtils {
    * @return the object with the least amount of matches, taking into account the priority
    */
   public static <T> T compareThree(T o1, T o2, T o3, int match1, int match2, int match3){
-    if (match1 == 1) {
+    if (match1 == 0 && match2 == 0 && match3 == 0) {
+      return null;
+    } else if (match1 == 1) {
       return o1;
     } else if (match2 == 1) {
       return o2;
     } else if (match3 == 1) {
       return o3;
-    } else if (match2 == 0 && match3 == 0) {
+    } else if (match1 != 0 && match2 == 0 &&  match3 == 0) {
       return o1;
-    } else if (match1 == 0 && match3 == 0 || (match1 == 0 && match2 <= match3)) {
+    } else if (match1 == 0 && match2 != 0 &&  match3 == 0) {
       return o2;
-    } else if (((match2 == 0 && match1 <= match3) || (match3 == 0 && match1 <= match2) || (match1 <= match2 && match1 <= match3)) && (match1 != 0 && match2 != 0 && match3 != 0)) {
-      return o1;
+    } else if (match1 == 0 && match2 == 0 &&  match3 != 0) {
+      return o3;
+    } else if (match1 == 0 && match2 <= match3) {
+      return o2;
     }
-    return null; // if match1, match2 and match3 are all 0
+    return o1; // if match1, match2 and match3 are all 0
   }
 }
