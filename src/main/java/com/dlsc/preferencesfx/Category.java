@@ -11,6 +11,7 @@ public class Category {
   private List<Category> children;
   private CategoryPane categoryPane;
   private final int id = IncrementId.get();
+  private String breadCrumb;
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -19,14 +20,18 @@ public class Category {
    */
   private Category(String description) {
     this.description = description;
-    this.categoryPane = new CategoryPane(null);
+    breadCrumb = description;
+    categoryPane = new CategoryPane(null);
   }
 
   private Category(String description, Group... groups) {
     this.description = description;
     this.groups = Arrays.asList(groups);
-    this.groups.forEach(group -> group.addToBreadCrumb(description));
-    this.categoryPane = new CategoryPane(this.groups);
+
+    breadCrumb = description;
+    this.groups.forEach(group -> group.addToBreadCrumb(breadCrumb));
+
+    categoryPane = new CategoryPane(this.groups);
   }
 
   /**
@@ -64,7 +69,13 @@ public class Category {
 
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
+    this.children.forEach(category -> category.prefixBreadcrumb(description));
     return this;
+  }
+
+  private void prefixBreadcrumb(String description) {
+    breadCrumb = description + PreferencesFx.BREADCRUMB_DELIMITER + breadCrumb;
+    this.groups.forEach(group -> group.addToBreadCrumb(breadCrumb));
   }
 
   public CategoryPane getCategoryPane() {
@@ -90,5 +101,9 @@ public class Category {
 
   public int getId() {
     return id;
+  }
+
+  public String getBreadCrumb() {
+    return breadCrumb;
   }
 }

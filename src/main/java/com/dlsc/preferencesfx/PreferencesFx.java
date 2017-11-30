@@ -14,6 +14,7 @@ public class PreferencesFx extends MasterDetailPane {
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
 
   public static final String DIVIDER_POSITION = "DIVIDER_POSITION";
+  public static final String BREADCRUMB_DELIMITER = "_";
   public static final double DEFAULT_DIVIDER_POSITION = 0.2;
   public static final int DEFAULT_CATEGORY = 0;
 

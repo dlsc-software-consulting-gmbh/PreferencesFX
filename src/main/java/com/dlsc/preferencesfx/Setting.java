@@ -178,6 +178,11 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public void addToBreadCrumb(String breadCrumb) {
-    this.breadCrumb = breadCrumb + description;
+    this.breadCrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
+    System.out.println(this.breadCrumb);
+  }
+
+  public String getBreadCrumb() {
+    return breadCrumb;
   }
 }

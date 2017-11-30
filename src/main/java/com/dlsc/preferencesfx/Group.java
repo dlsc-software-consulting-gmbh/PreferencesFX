@@ -10,6 +10,7 @@ public class Group {
 
   private String description;
   private List<Setting> settings;
+  private String breadCrumb;
 
   private Group(String description, Setting... settings) {
     this.description = description;
@@ -38,6 +39,11 @@ public class Group {
   }
 
   public void addToBreadCrumb(String breadCrumb) {
-    settings.forEach(setting -> setting.addToBreadCrumb(breadCrumb + description));
+    this.breadCrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
+    settings.forEach(setting -> setting.addToBreadCrumb(this.breadCrumb));
+  }
+
+  public String getBreadCrumb() {
+    return breadCrumb;
   }
 }

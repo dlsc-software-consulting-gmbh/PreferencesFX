@@ -94,6 +94,32 @@ public class RootPane extends StackPane {
                         Setting.of("Font Size", fontSize, 6, 36),
                         Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
                     )
+                ).subCategories(
+                    Category.of("Scaling & Ordering",
+                        Group.of(
+                            Setting.of("Scaling", scaling),
+                            Setting.of("Screen name", screenName),
+                            Setting.of("Resolution", resolutionItems, resolutionSelection),
+                            Setting.of("Orientation", orientationItems, orientationSelection)
+                        ).description("Screen Options"),
+                        Group.of(
+                            Setting.of("Font Size", fontSize, 6, 36),
+                            Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
+                        )
+                    ).subCategories(
+                        Category.of("Scaling & Ordering",
+                            Group.of(
+                                Setting.of("Scaling", scaling),
+                                Setting.of("Screen name", screenName),
+                                Setting.of("Resolution", resolutionItems, resolutionSelection),
+                                Setting.of("Orientation", orientationItems, orientationSelection)
+                            ).description("Screen Options"),
+                            Group.of(
+                                Setting.of("Font Size", fontSize, 6, 36),
+                                Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
+                            )
+                        )
+                    )
                 )
             ),
         Category.of("Favorites",
