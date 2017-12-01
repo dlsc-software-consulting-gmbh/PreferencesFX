@@ -164,7 +164,8 @@ public class StorageHandler {
   /**
    * Searches in the preferences after a serialized ArrayList using the given key,
    * deserializes and returns it as ObservableArrayList.
-   * Returns a default Object if nothing is found.
+   * When an ObservableList is deserialzed, Gson returns an ArrayList
+   * and needs to be wrapped into an ObservableArrayList. This is only needed for loading.
    *
    * @param breadcrumb            the key which is used to search the serialized ArrayList
    * @param defaultObservableList the default ObservableList
