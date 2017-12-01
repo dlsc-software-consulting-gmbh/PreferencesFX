@@ -13,23 +13,27 @@ import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_X;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
 
+import com.google.gson.Gson;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.commons.lang3.SerializationException;
 import org.apache.commons.lang3.SerializationUtils;
 
 public class StorageHandler {
 
   private Preferences preferences;
+  private Gson gson;
 
   public StorageHandler(Class<?> saveClass) {
     preferences = Preferences.userNodeForPackage(saveClass);
+    gson = new Gson();
   }
 
   /**
@@ -187,7 +191,8 @@ public class StorageHandler {
    * @param value      the ObjectProperty whose value is used to be saved in the preferences
    */
   public void saveSetting(String breadcrumb, ObjectProperty value) {
-    preferences.put(breadcrumb, value.getValue().toString());
+    preferences.put(breadcrumb, gson.toJson(value.getValue()));
+//    preferences.put(breadcrumb, value.getValue().toString());
   }
 
   /**
@@ -197,12 +202,13 @@ public class StorageHandler {
    * @param value      the ObservableList to be saved in the preferences
    */
   public void saveSetting(String breadcrumb, ObservableList value) {
-    String[] strings = new String[value.size()];
-    for (int i = 0; i < strings.length; ++i) {
-      strings[i] = value.get(i).toString();
-    }
-    byte[] serializedStrings = SerializationUtils.serialize(strings);
-    preferences.putByteArray(breadcrumb, serializedStrings);
+    preferences.put(breadcrumb, gson.toJson(value));
+//    String[] strings = new String[value.size()];
+//    for (int i = 0; i < strings.length; ++i) {
+//      strings[i] = value.get(i).toString();
+//    }
+//    byte[] serializedStrings = SerializationUtils.serialize(strings);
+//    preferences.putByteArray(breadcrumb, serializedStrings);
   }
 
   /**
@@ -265,13 +271,17 @@ public class StorageHandler {
    */
   public Object getValue(
       String breadcrumb, ObjectProperty defaultObject, ObservableList allObjects) {
-    for (Object object : allObjects) {
-      String toStringOfFoundObject = preferences.get(breadcrumb, null);
-      if (object.toString().equals(toStringOfFoundObject)) {
-        return object;
-      }
-    }
-    return defaultObject.getValue();
+    String serializedDefault = gson.toJson(defaultObject.getValue());
+    String json = preferences.get(breadcrumb, serializedDefault);
+    return gson.fromJson(json, Object.class);
+
+//    for (Object object : allObjects) {
+//      String toStringOfFoundObject = preferences.get(breadcrumb, null);
+//      if (object.toString().equals(toStringOfFoundObject)) {
+//        return object;
+//      }
+//    }
+//    return defaultObject.getValue();
   }
 
   /**
@@ -285,18 +295,28 @@ public class StorageHandler {
    */
   public ObservableList getValue(
       String breadcrumb, ListProperty defaultSelections, ObservableList allObjects) {
-    try {
-      byte[] serializedStrings = preferences.getByteArray(breadcrumb, null);
-      String[] strings = SerializationUtils.deserialize(serializedStrings);
-      List<String> stringsLst = Arrays.asList(strings);
-      List list = (List) allObjects
-          .stream()
-          .filter(obj -> stringsLst.contains(obj.toString()))
-          .collect(Collectors.toList());
-      return FXCollections.observableList(list);
-    } catch (SerializationException e) {
-      return defaultSelections;
-    }
+
+    String serializedDefault = gson.toJson(defaultSelections.getValue());
+    String json = preferences.get(breadcrumb, serializedDefault);
+    ArrayList arrayList = gson.fromJson(json, ArrayList.class);
+    return FXCollections.observableArrayList(arrayList);
+
+//    byte[] serializedStrings = preferences.getByteArray(breadcrumb, null);
+//
+//    if (Objects.equals(serializedStrings, null)) {
+//      return defaultSelections.getValue();
+//    }
+//
+//    String[] strings = SerializationUtils.deserialize(serializedStrings);
+//    List<String> stringsLst = Arrays.asList(strings);
+//    List list = (List) allObjects
+//        .stream()
+//        .filter(obj -> stringsLst.contains(obj.toString()))
+//        .collect(Collectors.toList());
+//    return FXCollections.observableList(list);
   }
 
+  public Preferences getPreferences() {
+    return preferences;
+  }
 }
