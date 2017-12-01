@@ -138,7 +138,7 @@ public class CategoryTree extends TreeView {
         )
     );
   }
-  // ::compareMatches[]
+  // end::compareMatches[]
 
   private void markMatches() {
     if (settingMatches >= 1) {
