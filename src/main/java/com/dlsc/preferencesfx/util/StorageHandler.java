@@ -34,7 +34,7 @@ public class StorageHandler {
    *
    * @param categoryId the category id to be stored
    */
-  public void putSelectedCategory(int categoryId) {
+  public void saveSelectedCategory(int categoryId) {
     preferences.putInt(SELECTED_CATEGORY, categoryId);
   }
 
@@ -43,7 +43,7 @@ public class StorageHandler {
    *
    * @return the index of the selected category. 0 if none is found
    */
-  public int getSelectedCategory() {
+  public int loadSelectedCategory() {
     return preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY);
   }
 
@@ -52,7 +52,7 @@ public class StorageHandler {
    *
    * @param dividerPosition the divider position to be stored
    */
-  public void putDividerPosition(double dividerPosition) {
+  public void saveDividerPosition(double dividerPosition) {
     preferences.putDouble(DIVIDER_POSITION, dividerPosition);
   }
 
@@ -61,7 +61,7 @@ public class StorageHandler {
    *
    * @return the double value of the divider position. 0.2 if none is found
    */
-  public double getDividerPosition() {
+  public double loadDividerPosition() {
     return preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION);
   }
 
@@ -70,7 +70,7 @@ public class StorageHandler {
    *
    * @param windowWidth the width of the window to be stored
    */
-  public void putWindowWidth(double windowWidth) {
+  public void saveWindowWidth(double windowWidth) {
     preferences.putDouble(WINDOW_WIDTH, windowWidth);
   }
 
@@ -79,7 +79,7 @@ public class StorageHandler {
    *
    * @return the double value of the window width. 1000 if none is found
    */
-  public double getWindowWidth() {
+  public double loadWindowWidth() {
     return preferences.getDouble(WINDOW_WIDTH, DEFAULT_PREFERENCES_WIDTH);
   }
 
@@ -88,7 +88,7 @@ public class StorageHandler {
    *
    * @param windowHeight the height of the window to be stored
    */
-  public void putWindowHeight(double windowHeight) {
+  public void saveWindowHeight(double windowHeight) {
     preferences.putDouble(WINDOW_HEIGHT, windowHeight);
   }
 
@@ -97,7 +97,7 @@ public class StorageHandler {
    *
    * @return the double value of the window height. 700 if none is found
    */
-  public double getWindowHeight() {
+  public double loadWindowHeight() {
     return preferences.getDouble(WINDOW_HEIGHT, DEFAULT_PREFERENCES_HEIGHT);
   }
 
@@ -106,7 +106,7 @@ public class StorageHandler {
    *
    * @param windowPosX the double value of the window position in horizontal orientation
    */
-  public void putWindowPosX(double windowPosX) {
+  public void saveWindowPosX(double windowPosX) {
     preferences.putDouble(WINDOW_POS_X, windowPosX);
   }
 
@@ -115,7 +115,7 @@ public class StorageHandler {
    *
    * @return the double value of the horizontal window position
    */
-  public double getWindowPosX() {
+  public double loadWindowPosX() {
     return preferences.getDouble(WINDOW_POS_X, DEFAULT_PREFERENCES_POS_X);
   }
 
@@ -124,7 +124,7 @@ public class StorageHandler {
    *
    * @param windowPosY the double value of the window position in vertical orientation
    */
-  public void putWindowPosY(double windowPosY) {
+  public void saveWindowPosY(double windowPosY) {
     preferences.putDouble(WINDOW_POS_Y, windowPosY);
   }
 
@@ -133,7 +133,7 @@ public class StorageHandler {
    *
    * @return the double value of the vertical window position
    */
-  public double getWindowPosY() {
+  public double loadWindowPosY() {
     return preferences.getDouble(WINDOW_POS_Y, DEFAULT_PREFERENCES_POS_Y);
   }
 
@@ -155,7 +155,7 @@ public class StorageHandler {
    * @param defaultObject the Object which will be returned if nothing is found
    * @return the deserialized Object or the default Object if nothing is found
    */
-  public Object getObject(String breadcrumb, Object defaultObject) {
+  public Object loadObject(String breadcrumb, Object defaultObject) {
     String serializedDefault = gson.toJson(defaultObject);
     String json = preferences.get(breadcrumb, serializedDefault);
     return gson.fromJson(json, Object.class);
@@ -171,7 +171,7 @@ public class StorageHandler {
    *                              which will be returned if nothing is found
    * @return the deserialized ObservableList or the default ObservableList if nothing is found
    */
-  public ObservableList getObservableList(String breadcrumb, ObservableList defaultObservableList) {
+  public ObservableList loadObservableList(String breadcrumb, ObservableList defaultObservableList) {
     String serializedDefault = gson.toJson(defaultObservableList);
     String json = preferences.get(breadcrumb, serializedDefault);
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));

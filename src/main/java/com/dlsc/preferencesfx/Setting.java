@@ -124,17 +124,17 @@ public class Setting<F extends Field, P extends Property> {
     return field;
   }
 
-  public void saveSettingsPreferences(StorageHandler storageHandler) {
+  public void saveSettingValue(StorageHandler storageHandler) {
     storageHandler.saveObject(breadcrumb, value.getValue());
   }
 
-  public void updateFromPreferences(StorageHandler storageHandler) {
+  public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
-          storageHandler.getObservableList(breadcrumb, (ObservableList) value.getValue())
+          storageHandler.loadObservableList(breadcrumb, (ObservableList) value.getValue())
       );
     } else {
-      value.setValue(storageHandler.getObject(breadcrumb, value.getValue()));
+      value.setValue(storageHandler.loadObject(breadcrumb, value.getValue()));
     }
   }
 
