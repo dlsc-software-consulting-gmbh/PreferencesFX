@@ -65,7 +65,7 @@ public class PreferencesFx extends MasterDetailPane {
         category.getGroups().forEach(group -> group.addToBreadcrumb(category.getBreadcrumb()));
       }
       if (!Objects.equals(category.getChildren(), null)) {
-        category.updateBreadcrumbs(category.getChildren());
+        category.createBreadcrumbs(category.getChildren());
       }
     });
   }

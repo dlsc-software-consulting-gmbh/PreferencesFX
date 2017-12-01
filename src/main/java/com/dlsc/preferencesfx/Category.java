@@ -66,18 +66,17 @@ public class Category {
 
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
-//    updateBreadcrumbs(this.children);
     return this;
   }
 
-  public void updateBreadcrumbs(List<Category> categories) {
+  public void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
       breadcrumb = breadcrumb + PreferencesFx.BREADCRUMB_DELIMITER + category.getDescription();
       if (!Objects.equals(category.getGroups(), null)) {
         category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
       }
       if (!Objects.equals(category.getChildren(), null)) {
-        updateBreadcrumbs(category.getChildren());
+        createBreadcrumbs(category.getChildren());
       }
     });
   }
