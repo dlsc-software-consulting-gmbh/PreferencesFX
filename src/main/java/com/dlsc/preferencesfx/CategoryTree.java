@@ -122,7 +122,7 @@ public class CategoryTree extends TreeView {
     LOGGER.trace("Matched Groups: " + groupMatches);
   }
 
-  // tag::compareMatches[]
+  // asciidoctor Documentation - tag::compareMatches[]
   private void setSelectedCategoryByMatch() {
     // Strategy: Go from most specific match to most unspecific match
     Category firstFilteredSetting =
@@ -141,7 +141,7 @@ public class CategoryTree extends TreeView {
         )
     );
   }
-  // end::compareMatches[]
+  // asciidoctor Documentation - end::compareMatches[]
 
   private void markMatches() {
     if (settingMatches >= 1) {
