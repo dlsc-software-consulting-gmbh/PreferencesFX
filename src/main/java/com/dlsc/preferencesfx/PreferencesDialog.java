@@ -1,5 +1,8 @@
 package com.dlsc.preferencesfx;
 
+import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
+import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
+
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Collection;
 import java.util.Objects;
@@ -14,15 +17,22 @@ public class PreferencesDialog extends DialogPane {
   private PreferencesFx preferencesFx;
   private StorageHandler storageHandler;
   private Dialog dialog = new Dialog();
+  private boolean persistWindowState;
 
-  public PreferencesDialog(PreferencesFx preferencesFx) {
+  public PreferencesDialog(PreferencesFx preferencesFx, boolean persistWindowState) {
     this.preferencesFx = preferencesFx;
     storageHandler = preferencesFx.getStorageHandler();
+    this.persistWindowState = persistWindowState;
 
     layoutForm();
-    setupClose();
     savePreferencesOnCloseRequest();
+    loadLastState();
+    setupClose();
     dialog.show();
+  }
+
+  public PreferencesDialog(PreferencesFx preferencesFx) {
+    this(preferencesFx, false);
   }
 
   private void layoutForm() {
@@ -31,16 +41,21 @@ public class PreferencesDialog extends DialogPane {
 
     dialog.setDialogPane(this);
     setContent(preferencesFx);
-    loadLastState();
   }
 
   /**
    * Loads last saved size and position of the window.
    */
   private void loadLastState() {
-    setPrefSize(storageHandler.getWindowWidth(), storageHandler.getWindowHeight());
-    getScene().getWindow().setX(storageHandler.getWindowPosX());
-    getScene().getWindow().setY(storageHandler.getWindowPosY());
+    if (persistWindowState) {
+      setPrefSize(storageHandler.getWindowWidth(), storageHandler.getWindowHeight());
+      getScene().getWindow().setX(storageHandler.getWindowPosX());
+      getScene().getWindow().setY(storageHandler.getWindowPosY());
+    } else {
+      setPrefSize(DEFAULT_PREFERENCES_WIDTH, DEFAULT_PREFERENCES_HEIGHT);
+      getScene().getWindow().centerOnScreen();
+    }
+
   }
 
   /**
@@ -59,24 +74,26 @@ public class PreferencesDialog extends DialogPane {
   }
 
   private void savePreferencesOnCloseRequest() {
-    dialog.setOnCloseRequest(e -> {
-      storageHandler.putWindowWidth(widthProperty().get());
-      storageHandler.putWindowHeight(heightProperty().get());
-      storageHandler.putWindowPosX(getScene().getWindow().getX());
-      storageHandler.putWindowPosY(getScene().getWindow().getY());
-      preferencesFx.saveSelectedCategory();
+    if (persistWindowState) {
+      dialog.setOnCloseRequest(e -> {
+        storageHandler.putWindowWidth(widthProperty().get());
+        storageHandler.putWindowHeight(heightProperty().get());
+        storageHandler.putWindowPosX(getScene().getWindow().getX());
+        storageHandler.putWindowPosY(getScene().getWindow().getY());
+        preferencesFx.saveSelectedCategory();
 
-      preferencesFx.getCategoryTree()
-          .getAllCategoriesFlatAsList()
-          .stream()
-          .map(Category::getGroups)     // get groups from categories
-          .filter(Objects::nonNull)     // remove all null
-          .flatMap(Collection::stream)
-          .map(Group::getSettings)      // get settings from groups
-          .filter(Objects::nonNull)     // remove all null
-          .flatMap(Collection::stream)
-          .collect(Collectors.toList())
-          .forEach(setting -> setting.saveSettingsPreferences(storageHandler));
-    });
+        preferencesFx.getCategoryTree()
+            .getAllCategoriesFlatAsList()
+            .stream()
+            .map(Category::getGroups)     // get groups from categories
+            .filter(Objects::nonNull)     // remove all null
+            .flatMap(Collection::stream)
+            .map(Group::getSettings)      // get settings from groups
+            .filter(Objects::nonNull)     // remove all null
+            .flatMap(Collection::stream)
+            .collect(Collectors.toList())
+            .forEach(setting -> setting.saveSettingsPreferences(storageHandler));
+      });
+    }
   }
 }
