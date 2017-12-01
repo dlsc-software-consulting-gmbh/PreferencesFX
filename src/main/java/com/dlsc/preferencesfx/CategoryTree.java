@@ -126,11 +126,14 @@ public class CategoryTree extends TreeView {
   private void setSelectedCategoryByMatch() {
     // Strategy: Go from most specific match to most unspecific match
     Category firstFilteredSetting =
-        filteredSettingsLst.size() == 0 ? null : settingCategoryMap.get(filteredSettingsLst.get(0));
+        filteredSettingsLst.size() == 0 ? null :
+            settingCategoryMap.get(filteredSettingsLst.get(0));
     Category firstFilteredGroup =
-        filteredGroupsLst.size() == 0 ? null : groupCategoryMap.get(filteredGroupsLst.get(0));
+        filteredGroupsLst.size() == 0 ? null :
+            groupCategoryMap.get(filteredGroupsLst.get(0));
     Category firstFilteredCategory =
-        filteredCategoriesLst.size() == 0 ? null : filteredCategoriesLst.get(0);
+        filteredCategoriesLst.size() == 0 ? null :
+            filteredCategoriesLst.get(0);
     setSelectedItem(
         PreferencesFxUtils.compareMatches(
             firstFilteredSetting, firstFilteredGroup, firstFilteredCategory,
