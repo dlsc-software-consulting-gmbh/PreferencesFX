@@ -38,6 +38,7 @@ public class DemoView extends VBox {
     layoutParts();
     setupBindings();
     setupEventHandlers();
+    setupListeners();
   }
 
   private void initializeParts() {
@@ -102,6 +103,7 @@ public class DemoView extends VBox {
             valueBox
         )
     );
+
   }
 
   private void setupBindings() {
@@ -122,6 +124,19 @@ public class DemoView extends VBox {
 
   private void setupEventHandlers() {
     preferencesMenuItem.setOnAction(e -> preferencesFx.show());
-
   }
+
+  private void setupListeners() {
+    if(rootPane.nightMode.get()) {
+      getStylesheets().add (DemoView.class.getResource("demoStyle.css").toExternalForm());
+    }
+    rootPane.nightMode.addListener((observable, oldValue, newValue) -> {
+      if(newValue){
+        getStylesheets().add (DemoView.class.getResource("demoStyle.css").toExternalForm());
+      } else {
+        getStylesheets().remove (DemoView.class.getResource("demoStyle.css").toExternalForm());
+      }
+    });
+  }
+
 }
