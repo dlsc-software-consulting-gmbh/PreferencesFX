@@ -15,16 +15,11 @@ import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
 
 import com.google.gson.Gson;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.prefs.Preferences;
-import java.util.stream.Collectors;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.commons.lang3.SerializationUtils;
 
 public class StorageHandler {
 
@@ -145,178 +140,29 @@ public class StorageHandler {
   }
 
   /**
-   * Saves a String to the preferences using the given key.
+   * Serializes a given Object and saves it to the preferences.
    *
-   * @param breadcrumb the key to be used to store the String
-   * @param value      the String to be saved in the preferences
+   * @param breadcrumb
+   * @param object
    */
-  public void saveSetting(String breadcrumb, String value) {
-    preferences.put(breadcrumb, value);
+  public void saveObject(String breadcrumb, Object object) {
+    preferences.put(breadcrumb, gson.toJson(object));
   }
 
-  /**
-   * Saves a boolean to the preferences using the given key.
-   *
-   * @param breadcrumb the key to be used to store the boolean
-   * @param value      the boolean to be saved in the preferences
-   */
-  public void saveSetting(String breadcrumb, boolean value) {
-    preferences.putBoolean(breadcrumb, value);
-  }
-
-  /**
-   * Saves an int to the preferences using the given key.
-   *
-   * @param breadcrumb the key to be used to store the int
-   * @param value      the int to be saved in the preferences
-   */
-  public void saveSetting(String breadcrumb, int value) {
-    preferences.putInt(breadcrumb, value);
-  }
-
-  /**
-   * Saves a double to the preferences using the given key.
-   *
-   * @param breadcrumb the key to be used to store the double
-   * @param value      the double to be saved in the preferences
-   */
-  public void saveSetting(String breadcrumb, double value) {
-    preferences.putDouble(breadcrumb, value);
-  }
-
-  /**
-   * Saves an Object to the preferences using the given key.
-   *
-   * @param breadcrumb the key to be used to store the Object
-   * @param value      the ObjectProperty whose value is used to be saved in the preferences
-   */
-  public void saveSetting(String breadcrumb, ObjectProperty value) {
-    preferences.put(breadcrumb, gson.toJson(value.getValue()));
-//    preferences.put(breadcrumb, value.getValue().toString());
-  }
-
-  /**
-   * Saves an ObservableList to the preferences using the given key.
-   *
-   * @param breadcrumb the key to be used to store the ObservableList
-   * @param value      the ObservableList to be saved in the preferences
-   */
-  public void saveSetting(String breadcrumb, ObservableList value) {
-    preferences.put(breadcrumb, gson.toJson(value));
-//    String[] strings = new String[value.size()];
-//    for (int i = 0; i < strings.length; ++i) {
-//      strings[i] = value.get(i).toString();
-//    }
-//    byte[] serializedStrings = SerializationUtils.serialize(strings);
-//    preferences.putByteArray(breadcrumb, serializedStrings);
-  }
-
-  /**
-   * Finds a String which is stored in the preferences using the given key
-   * or a default value if no such is found.
-   *
-   * @param breadcrumb the key to be used to search the String
-   * @param value      the default String to be returned if nothing is found
-   * @return the String which is stored in the preferences or the default value
-   */
-  public String getValue(String breadcrumb, String value) {
-    return preferences.get(breadcrumb, value);
-  }
-
-  /**
-   * Finds a boolean which is stored in the preferences using the given key
-   * or a default value if no such is found.
-   *
-   * @param breadcrumb the key to be used to search the boolean
-   * @param value      the default boolean to be returned if nothing is found
-   * @return the boolean which is stored in the preferences or the default value
-   */
-  public boolean getValue(String breadcrumb, boolean value) {
-    return preferences.getBoolean(breadcrumb, value);
-  }
-
-  /**
-   * Finds an int which is stored in the preferences using the given key
-   * or a default value if no such is found.
-   *
-   * @param breadcrumb the key to be used to search the int
-   * @param value      the default int to be returned if nothing is found
-   * @return the int which is stored in the preferences or the default value
-   */
-  public int getValue(String breadcrumb, int value) {
-    return preferences.getInt(breadcrumb, value);
-  }
-
-  /**
-   * Finds a double which is stored in the preferences using the given key
-   * or a default value if no such is found.
-   *
-   * @param breadcrumb the key to be used to search the double
-   * @param value      the default double to be returned if nothing is found
-   * @return the double which is stored in the preferences or the default value
-   */
-  public double getValue(String breadcrumb, double value) {
-    return preferences.getDouble(breadcrumb, value);
-  }
-
-  /**
-   * Finds an Object which is stored in the preferences using the given key
-   * or a default value if no such is found.
-   *
-   * @param breadcrumb    the key to be used to search the Object
-   * @param defaultObject the default ObjectProperty whose value will be returned
-   *                      if nothing is found
-   * @param allObjects    all possible Objects which can possibly be selected
-   * @return the Object which is stored in the preferences or the default value
-   */
-  public Object getValue(
-      String breadcrumb, ObjectProperty defaultObject, ObservableList allObjects) {
-    String serializedDefault = gson.toJson(defaultObject.getValue());
+  public Object getObject(String breadcrumb, Object defaultObject) {
+    String serializedDefault = gson.toJson(defaultObject);
     String json = preferences.get(breadcrumb, serializedDefault);
     return gson.fromJson(json, Object.class);
-
-//    for (Object object : allObjects) {
-//      String toStringOfFoundObject = preferences.get(breadcrumb, null);
-//      if (object.toString().equals(toStringOfFoundObject)) {
-//        return object;
-//      }
-//    }
-//    return defaultObject.getValue();
   }
 
-  /**
-   * Finds an ObservableList which is stored in the preferences using the given key
-   * or a default value if no such is found.
-   *
-   * @param breadcrumb        the key to be used to search the ObservableList
-   * @param defaultSelections the default Objects which are returned if nothing is found
-   * @param allObjects        all possible Objects which can possibly be selected
-   * @return the selection which is stored in the preferences or the default value
-   */
-  public ObservableList getValue(
-      String breadcrumb, ListProperty defaultSelections, ObservableList allObjects) {
-
-    String serializedDefault = gson.toJson(defaultSelections.getValue());
+  public ObservableList getObservableList(String breadcrumb, Object defaultObject) {
+    String serializedDefault = gson.toJson(defaultObject);
     String json = preferences.get(breadcrumb, serializedDefault);
-    ArrayList arrayList = gson.fromJson(json, ArrayList.class);
-    return FXCollections.observableArrayList(arrayList);
-
-//    byte[] serializedStrings = preferences.getByteArray(breadcrumb, null);
-//
-//    if (Objects.equals(serializedStrings, null)) {
-//      return defaultSelections.getValue();
-//    }
-//
-//    String[] strings = SerializationUtils.deserialize(serializedStrings);
-//    List<String> stringsLst = Arrays.asList(strings);
-//    List list = (List) allObjects
-//        .stream()
-//        .filter(obj -> stringsLst.contains(obj.toString()))
-//        .collect(Collectors.toList());
-//    return FXCollections.observableList(list);
+    return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));
   }
 
   public Preferences getPreferences() {
     return preferences;
   }
+
 }

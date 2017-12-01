@@ -1,8 +1,6 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.model.structure.MultiSelectionField;
-import com.dlsc.formsfx.model.structure.SingleSelectionField;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.IntegerSliderControl;
@@ -127,52 +125,14 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public void saveSettingsPreferences(StorageHandler storageHandler) {
-    if (value instanceof StringProperty) {
-      storageHandler.saveSetting(breadcrumb, (String) value.getValue());
-    }
-    if (value instanceof BooleanProperty) {
-      storageHandler.saveSetting(breadcrumb, (Boolean) value.getValue());
-    }
-    if (value instanceof IntegerProperty) {
-      storageHandler.saveSetting(breadcrumb, (Integer) value.getValue());
-    }
-    if (value instanceof DoubleProperty) {
-      storageHandler.saveSetting(breadcrumb, (Double) value.getValue());
-    }
-    if (value instanceof ObjectProperty) {
-      storageHandler.saveSetting(breadcrumb, (ObjectProperty) value);
-    }
-    if (value instanceof ListProperty) {
-      storageHandler.saveSetting(breadcrumb, (ObservableList) value.getValue());
-    }
+    storageHandler.saveObject(breadcrumb, value.getValue());
   }
 
   public void updateFromPreferences(StorageHandler storageHandler) {
-    if (value instanceof StringProperty) {
-      value.setValue(storageHandler.getValue(breadcrumb, (String) value.getValue()));
-    }
-    if (value instanceof BooleanProperty) {
-      value.setValue(storageHandler.getValue(breadcrumb, (Boolean) value.getValue()));
-    }
-    if (value instanceof IntegerProperty) {
-      value.setValue(storageHandler.getValue(breadcrumb, (Integer) value.getValue())
-      );
-    }
-    if (value instanceof DoubleProperty) {
-      value.setValue(storageHandler.getValue(breadcrumb, (Double) value.getValue()));
-    }
-    if (value instanceof ObjectProperty) {
-      ObservableList allObjects = ((SingleSelectionField) field).getItems();
-      ObjectProperty defaultObject = (ObjectProperty) value;
-      Object selectedObject = storageHandler.getValue(breadcrumb, defaultObject, allObjects);
-      value.setValue(selectedObject);
-    }
     if (value instanceof ListProperty) {
-      ObservableList allObjects = ((MultiSelectionField) field).getItems();
-      ListProperty defaultSelections = (ListProperty) value;
-      ObservableList selectedObjects =
-          storageHandler.getValue(breadcrumb, defaultSelections, allObjects);
-      value.setValue(selectedObjects); // TODO: THE BAD GUY IS HERE!
+      ((ListProperty) value).setValue(storageHandler.getObservableList(breadcrumb, value.getValue()));
+    } else {
+      value.setValue(storageHandler.getObject(breadcrumb, value.getValue()));
     }
   }
 

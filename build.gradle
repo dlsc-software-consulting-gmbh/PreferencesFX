@@ -66,9 +66,6 @@ dependencies {
     // e(fx)clipse for FilterableTree
     compile 'at.bestsolution.efxclipse.rt:org.eclipse.fx.ui.controls:3.0.0'
 
-    // SerializationUtils from Apache Commons Lang
-    compile 'org.apache.commons:commons-lang3:3.7'
-
     // Serialization with gson
     compile 'com.google.code.gson:gson:2.8.2'
 }
