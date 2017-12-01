@@ -3,10 +3,8 @@ package com.dlsc.preferencesfx;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
 
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -76,23 +74,17 @@ public class PreferencesDialog extends DialogPane {
   private void savePreferencesOnCloseRequest() {
     dialog.setOnCloseRequest(e -> {
       if (persistWindowState) {
+        // Save window state
         storageHandler.saveWindowWidth(widthProperty().get());
         storageHandler.saveWindowHeight(heightProperty().get());
         storageHandler.saveWindowPosX(getScene().getWindow().getX());
         storageHandler.saveWindowPosY(getScene().getWindow().getY());
         preferencesFx.saveSelectedCategory();
       }
-      preferencesFx.getCategoryTree()
-          .getAllCategoriesFlatAsList()
-          .stream()
-          .map(Category::getGroups)     // get groups from categories
-          .filter(Objects::nonNull)     // remove all null
-          .flatMap(Collection::stream)
-          .map(Group::getSettings)      // get settings from groups
-          .filter(Objects::nonNull)     // remove all null
-          .flatMap(Collection::stream)
-          .collect(Collectors.toList())
-          .forEach(setting -> setting.saveSettingValue(storageHandler));
+      // Save setting values
+      PreferencesFxUtils.categoriesToSettings(
+          preferencesFx.getCategoryTree().getAllCategoriesFlatAsList()
+      ).forEach(setting -> setting.saveSettingValue(storageHandler));
     });
   }
 
