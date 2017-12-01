@@ -16,8 +16,6 @@ import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -140,23 +138,41 @@ public class StorageHandler {
   }
 
   /**
-   * Serializes a given Object and saves it to the preferences.
+   * Serializes a given Object and saves it to the preferences using the given key.
    *
-   * @param breadcrumb
-   * @param object
+   * @param breadcrumb the key which is used to save the serialized Object
+   * @param object     the Object which will be saved
    */
   public void saveObject(String breadcrumb, Object object) {
     preferences.put(breadcrumb, gson.toJson(object));
   }
 
+  /**
+   * Searches in the preferences after a serialized Object using the given key,
+   * deserializes and returns it. Returns a default Object if nothing is found.
+   *
+   * @param breadcrumb    the key which is used to search the serialized Object
+   * @param defaultObject the Object which will be returned if nothing is found
+   * @return the deserialized Object or the default Object if nothing is found
+   */
   public Object getObject(String breadcrumb, Object defaultObject) {
     String serializedDefault = gson.toJson(defaultObject);
     String json = preferences.get(breadcrumb, serializedDefault);
     return gson.fromJson(json, Object.class);
   }
 
-  public ObservableList getObservableList(String breadcrumb, Object defaultObject) {
-    String serializedDefault = gson.toJson(defaultObject);
+  /**
+   * Searches in the preferences after a serialized ArrayList using the given key,
+   * deserializes and returns it as ObservableArrayList.
+   * Returns a default Object if nothing is found.
+   *
+   * @param breadcrumb            the key which is used to search the serialized ArrayList
+   * @param defaultObservableList the default ObservableList
+   *                              which will be returned if nothing is found
+   * @return the deserialized ObservableList or the default ObservableList if nothing is found
+   */
+  public ObservableList getObservableList(String breadcrumb, ObservableList defaultObservableList) {
+    String serializedDefault = gson.toJson(defaultObservableList);
     String json = preferences.get(breadcrumb, serializedDefault);
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));
   }

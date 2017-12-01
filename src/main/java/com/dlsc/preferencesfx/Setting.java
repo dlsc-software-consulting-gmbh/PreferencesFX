@@ -130,7 +130,9 @@ public class Setting<F extends Field, P extends Property> {
 
   public void updateFromPreferences(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
-      ((ListProperty) value).setValue(storageHandler.getObservableList(breadcrumb, value.getValue()));
+      value.setValue(
+          storageHandler.getObservableList(breadcrumb, (ObservableList) value.getValue())
+      );
     } else {
       value.setValue(storageHandler.getObject(breadcrumb, value.getValue()));
     }
