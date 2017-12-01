@@ -131,7 +131,7 @@ public class CategoryTree extends TreeView {
     Category firstFilteredCategory =
         filteredCategoriesLst.size() == 0 ? null : filteredCategoriesLst.get(0);
     setSelectedItem(
-        PreferencesFxUtils.compareThree(
+        PreferencesFxUtils.compareMatches(
             firstFilteredSetting, firstFilteredGroup, firstFilteredCategory,
             settingMatches, groupMatches, settingMatches
         )

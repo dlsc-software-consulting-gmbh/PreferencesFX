@@ -52,7 +52,7 @@ public class PreferencesFxUtilsTest {
   }
 
   @Test
-  public void compareThree() throws Exception {
+  public void testCompareMatches() throws Exception {
     String setting = new String("setting");
     String group = new String("group");
     String category = new String("category");
@@ -64,7 +64,7 @@ public class PreferencesFxUtilsTest {
       assertSame(
           "match1: " + matches1[i] + ", match2: " + matches2[i] + ", match3: " + matches3[i],
           expected[i],
-          PreferencesFxUtils.compareThree(setting, group, category, matches1[i], matches2[i], matches3[i])
+          PreferencesFxUtils.compareMatches(setting, group, category, matches1[i], matches2[i], matches3[i])
       );
     }
   }
