@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util;
+package com.dlsc.preferencesfx.util.formsfx;
 
 /*-
  * ========================LICENSE_START=================================
@@ -44,6 +44,8 @@ public class PreferencesGroup extends Group {
    */
   private final StringProperty titleKey = new SimpleStringProperty("");
   private final StringProperty title = new SimpleStringProperty("");
+
+  private PreferencesGroupRenderer renderer;
 
   /**
    * {@inheritDoc}
@@ -113,4 +115,11 @@ public class PreferencesGroup extends Group {
     return title;
   }
 
+  public PreferencesGroupRenderer getRenderer() {
+    return renderer;
+  }
+
+  public void setRenderer(PreferencesGroupRenderer renderer) {
+    this.renderer = renderer;
+  }
 }

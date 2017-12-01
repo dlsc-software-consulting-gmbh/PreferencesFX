@@ -2,8 +2,8 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.util.BindingMode;
-import com.dlsc.preferencesfx.util.PreferencesFormRenderer;
-import com.dlsc.preferencesfx.util.PreferencesGroup;
+import com.dlsc.preferencesfx.util.formsfx.PreferencesFormRenderer;
+import com.dlsc.preferencesfx.util.formsfx.PreferencesGroup;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.StackPane;
@@ -31,12 +31,14 @@ public class CategoryPane extends StackPane {
     form = Form.of();
     List<com.dlsc.formsfx.model.structure.Group> formGroups = form.getGroups();
     for (int i = 0; i < groups.size(); i++) {
-      formGroups.add(PreferencesGroup.of().title(groups.get(i).getDescription()));
+      PreferencesGroup preferencesGroup =
+          (PreferencesGroup) PreferencesGroup.of().title(groups.get(i).getDescription());
+      groups.get(i).setPreferencesGroup(preferencesGroup);
+      formGroups.add(preferencesGroup);
       for (Setting setting : groups.get(i).getSettings()) {
         formGroups.get(i).getFields().add(setting.getField());
       }
     }
     form.binding(BindingMode.CONTINUOUS);
   }
-
 }

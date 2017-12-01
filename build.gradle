@@ -1,15 +1,11 @@
 group 'com.dlsc'
-version '0.3-SNAPSHOT'
+version '1.0-SNAPSHOT'
 
 allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
+        maven { url 'http://maven.bestsolution.at/efxclipse-releases/' }
     }
-}
-
-// Needed for Jitpack, so that changes to dependencies are automatically rebuilt
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 buildscript {
@@ -19,10 +15,12 @@ buildscript {
     }
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.6'
+        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     }
 }
 
-ext.checkstyleVersion    = '8.3'
+ext.checkstyleVersion = '8.3'
 
 apply plugin: 'java'
 apply plugin: 'org.asciidoctor.convert'
@@ -43,14 +41,14 @@ compileTestJava {
 }
 
 dependencies {
+    // include all local jar libraries in /lib, including FormsFX
+    compile fileTree(dir: 'lib', include: ['*.jar'])
+
     // JUnit 4
     testCompile("junit:junit:4.12")
 
     // Mockito
     testCompile("org.mockito:mockito-core:2.11.0")
-
-    // FormsFX
-    compile 'com.github.FHNW-IP5-IP6:formsfx:master-SNAPSHOT'
 
     // Log4j
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.1'
@@ -61,6 +59,12 @@ dependencies {
 
     // ControlsFX
     compile 'org.controlsfx:controlsfx:8.40.14'
+
+    // e(fx)clipse for FilterableTree
+    compile 'at.bestsolution.efxclipse.rt:org.eclipse.fx.ui.controls:3.0.0'
+
+    // Serialization with gson
+    compile 'com.google.code.gson:gson:2.8.2'
 }
 
 task wrapper(type: Wrapper) {
@@ -68,11 +72,40 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.2.1'
 }
 
+asciidoctorj {
+    version = '1.5.6'
+}
+
 asciidoctor {
+    requires = ['asciidoctor-diagram']
+
     sourceDir = file('doc')
     outputDir = file('build/doc')
+
+    backends = ['html5', 'pdf']
+
+    attributes 'source-highlighter' : 'coderay',
+            'coderay-linenums-mode' : 'table',
+            //toc : 'left',
+            icons : 'font',
+            linkattrs : true,
+            encoding : 'utf-8'
+}
+
+task('pdf', type: org.asciidoctor.gradle.AsciidoctorTask){
+    configure asciidoctor
+    backends = ['pdf']
+}
+
+task('html', type: org.asciidoctor.gradle.AsciidoctorTask){
+    configure asciidoctor
+    backends = ['html5']
+}
+
+asciidoctor {
+
 }
 
 checkstyle {
-    toolVersion ="${checkstyleVersion}"
+    toolVersion = "${checkstyleVersion}"
 }

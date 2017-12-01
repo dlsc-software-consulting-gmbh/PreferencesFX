@@ -1,4 +1,5 @@
 = PreferencesFX
 François Martin; Marco Sanfratello
+:toc: left
 
 Insert documentation here
