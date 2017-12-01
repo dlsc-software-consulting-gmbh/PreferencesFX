@@ -30,23 +30,29 @@ import org.apache.logging.log4j.Logger;
 public class RootPane extends StackPane {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
+
   // General
   StringProperty welcomeText = new SimpleStringProperty("Hello World");
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
+
   // Screen
   DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
+
   ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList(
       "1024x768", "1280x1024", "1440x900", "1920x1080")
   );
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
+
   ListProperty<String> orientationItems = new SimpleListProperty<>(
       FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal"))
   );
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
+
   IntegerProperty fontSize = new SimpleIntegerProperty(12);
   DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
+
   // Favorites
   ListProperty<String> favoritesItems = new SimpleListProperty<>(
       FXCollections.observableArrayList(Lists.newArrayList(
@@ -72,11 +78,7 @@ public class RootPane extends StackPane {
             ),
             Group.of("Display",
                 Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode),
-                Setting.of("Scaling", scaling),
-                Setting.of("Screen name", screenName),
-                Setting.of("Resolution", resolutionItems, resolutionSelection),
-                Setting.of("Orientation", orientationItems, orientationSelection)
+                Setting.of("Night mode", nightMode)
             )
         ),
         Category.of("Screen")
@@ -90,11 +92,7 @@ public class RootPane extends StackPane {
                     ).description("Screen Options"),
                     Group.of(
                         Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1),
-                        Setting.of("Scaling", scaling),
-                        Setting.of("Screen name", screenName),
-                        Setting.of("Resolution", resolutionItems, resolutionSelection),
-                        Setting.of("Orientation", orientationItems, orientationSelection)
+                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
                     )
                 )
             ),
