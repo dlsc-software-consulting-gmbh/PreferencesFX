@@ -92,6 +92,7 @@ public class PreferencesFxUtils {
   /**
    * Compares three objects with decreasing priority from the first to the last object.
    * {@see developer reference} for further information
+   *
    * @param o1
    * @param o2
    * @param o3

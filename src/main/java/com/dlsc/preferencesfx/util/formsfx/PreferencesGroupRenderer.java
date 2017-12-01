@@ -97,6 +97,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
 
   /**
    * Adds a style class to the control.
+   *
    * @param name of the style class to be added to the control
    */
   public void addStyleClass(String name) {
@@ -105,6 +106,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
 
   /**
    * Removes a style class from the control.
+   *
    * @param name of the class to be removed from the control
    */
   public void removeStyleClass(String name) {
