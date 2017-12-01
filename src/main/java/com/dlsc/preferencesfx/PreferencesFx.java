@@ -28,6 +28,7 @@ public class PreferencesFx extends MasterDetailPane {
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
   private Preferences preferences;
+  private Category displayedCategory;
 
   private boolean persistWindowState = false;
 
@@ -52,7 +53,7 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void setupParts() {
-    categoryTree = new CategoryTree(categories);
+    categoryTree = new CategoryTree(this, categories);
     categoryTreeBox = new CategoryTreeBox(categoryTree);
   }
 
@@ -62,7 +63,7 @@ public class PreferencesFx extends MasterDetailPane {
     // Load last selected category in TreeView.
     categoryTree.setSelectedCategoryById(preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY));
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
-    setSelectedCategory((Category) treeItem.getValue());
+    showCategory((Category) treeItem.getValue());
   }
 
   private void setupListeners() {
@@ -70,22 +71,17 @@ public class PreferencesFx extends MasterDetailPane {
     dividerPositionProperty().addListener((observable, oldValue, newValue) ->
         preferences.putDouble(DIVIDER_POSITION, getDividerPosition())
     );
-
-    categoryTree.getSelectionModel().selectedItemProperty().addListener(
-        (observable, oldValue, newValue) -> {
-          if (newValue != null) {
-            setSelectedCategory((Category) ((TreeItem) newValue).getValue());
-          }
-        }
-    );
   }
 
   /**
-   * @param category sets the selected Category to the MasterNode
+   * Shows the category as its CategoryPane in the master node.
+   *
+   * @param category the category to be shown
    */
-  private void setSelectedCategory(Category category) {
+  public void showCategory(Category category) {
+    displayedCategory = category;
     setMasterNode(category.getCategoryPane());
-    // Sets the saved divider position.
+    // Sets the saved divider position
     setDividerPosition(preferences.getDouble(DIVIDER_POSITION, DEFAULT_DIVIDER_POSITION));
   }
 
@@ -102,10 +98,18 @@ public class PreferencesFx extends MasterDetailPane {
     if (treeItem != null) {
       category = (Category) treeItem.getValue();
     } else {
-      category = categoryTree.findCategoryById(DEFAULT_CATEGORY);
+      category = categories.get(DEFAULT_CATEGORY);
     }
     preferences.putInt(SELECTED_CATEGORY, category.getId());
   }
+
+  /**
+   * Retrieves the category which has last been displayed in the CategoryPane.
+   */
+  public Category getDisplayedCategory() {
+    return displayedCategory;
+  }
+
 
   /**
    * Shows the PreferencesFX dialog.

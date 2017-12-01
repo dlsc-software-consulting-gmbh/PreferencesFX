@@ -1,0 +1,52 @@
+= Developer Reference
+François Martin; Marco Sanfratello
+:toc: left
+:source-highlighter: pygments
+
+This document contains information that may be valuable to a developer of PreferencesFX when trying to understand how it works.
+
+== PreferencesFxUtils
+=== compareMatches()
+This method is being used in `CategoryTree`:
+
+:sourcedir: ../src/main/java
+
+[source,java]
+----
+include::{sourcedir}/com/dlsc/preferencesfx/CategoryTree.java[tags=compareMatches]
+----
+
+Changing the search string will filter the categories, groups, and settings into their respective filtered lists, update the amount of matches from the filtered lists and ultimatively calls `setSelectedCategoryByMatch()`.
+
+`compareMatches()` decides from the amount of matches which category should be shown.
+ It does this in a way to most optimally reflect what the user, typing into the search field, was looking for.
+
+==== Selection Algorithm
+There are 3 types of values which are evaluated:
+
+- the amount of *matches* for *settings*
+- the amount of *matches* for *groups*
+- the amount of *matches* for *categories*
+
+All three values are compared. The idea behind the algorithm are a few rules:
+
+- a match count of 0 is the least valuable of all possible values
+  * if there is no match, it can't be used to show what the user was searching for
+- a match count of 1 is the most valuable option
+  * if there are 5 matches in categories but only 1 match in settings, it is more likely the user was looking for this exact setting than for one of the categories
+- all other values than 0 and 1 are directly compared to each other, while less being better
+  * the more specific a match is, the more likely it is what the user is looking for
+- if multiple values have the same value, priority will be applied from the most specific to the most general type
+  * if there are the same amount of matches for settings and groups, the setting will be chosen
+- the displayed category is always the one from the first object in the filtered list
+  * if the algorithm decides that *setting* is the most optimal match, it will show the category in which the first setting of the filtered list is in
+  * all other settings and groups which match are marked as well, and can be looked through from top to bottom by the user
+
+To visualize the choices, this table shows all possible permutations from 0-3 for each of the three values:
+
+.Permutations Table for compareMatches()
+[format="csv", options="header"]
+|===
+include::compareMatches.csv[]
+|===
+

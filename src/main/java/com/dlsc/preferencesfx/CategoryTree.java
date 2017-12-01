@@ -2,6 +2,8 @@ package com.dlsc.preferencesfx;
 
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.function.Predicate;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,34 +24,142 @@ public class CategoryTree extends TreeView {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryTree.class.getName());
 
+  private PreferencesFx preferencesFx;
+
+  private List<Category> categoriesLst;
+  private List<Setting> settingsLst;
+  private List<Group> groupsLst;
+  private List<Category> filteredCategoriesLst;
+  private List<Setting> filteredSettingsLst;
+  private List<Group> filteredGroupsLst;
+  private int categoryMatches;
+  private int settingMatches;
+  private int groupMatches;
+
+  private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
+  private HashMap<Setting, Category> settingCategoryMap;
+  private HashMap<Group, Category> groupCategoryMap;
+
   private List<Category> categories;
   private FilterableTreeItem<Category> rootItem;
   private StringProperty searchText = new SimpleStringProperty();
-  private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
+
+  /**
+   * Decides whether a TreeItem should be shown in the TreeView or not.
+   * If result is true, it will be shown, if the result is false, it will be hidden.
+   */
   private Predicate<Category> filterPredicate = category -> {
     // look in category description for matches
     boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText.get());
     boolean settingMatch = false;
+    boolean groupMatch = false;
     if (category.getGroups() != null) {
       // look in settings too
       settingMatch = category.getGroups().stream()
           .map(Group::getSettings)      // get settings from groups
           .flatMap(Collection::stream)  // flatten all lists of settings to settings
           .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText.get()));
+      // look in groups too
+      groupMatch = category.getGroups().stream()
+          .anyMatch(group -> containsIgnoreCase(group.getDescription(), searchText.get()));
     }
-    return categoryMatch || settingMatch;
+    return categoryMatch || settingMatch || groupMatch;
   };
 
-  public CategoryTree(List<Category> categories) {
+  public CategoryTree(PreferencesFx preferencesFx, List<Category> categories) {
     this.categories = categories;
+    this.preferencesFx = preferencesFx;
     setupParts();
     layoutParts();
     setupBindings();
+    setupListeners();
+  }
+
+  private void setupListeners() {
+    // Update category upon selection
+    getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          if (newValue != null) {
+            preferencesFx.showCategory((Category) ((TreeItem) newValue).getValue());
+          }
+        }
+    );
+
+    // Filter TreeView upon Search
+    searchText.addListener((observable, oldText, newText) -> {
+      if (newText.equals("")) { // empty search
+        // unmark all categories
+        unmarkEverything();
+      } else {
+        updateSearch(newText);
+      }
+    });
+  }
+
+  private void unmarkEverything() {
+    categoryTreeItemMap.keySet().forEach(Category::unmarkAll);
+  }
+
+  public void updateSearch(String searchText) {
+    updateFilteredLists(searchText);
+    setSelectedCategoryByMatch();
+    unmarkEverything();
+    markMatches();
+  }
+
+  private void updateFilteredLists(String searchText) {
+    filteredCategoriesLst =
+        PreferencesFxUtils.filterCategoriesByDescription(categoriesLst, searchText);
+    filteredSettingsLst =
+        PreferencesFxUtils.filterSettingsByDescription(settingsLst, searchText);
+    filteredGroupsLst =
+        PreferencesFxUtils.filterGroupsByDescription(groupsLst, searchText);
+    categoryMatches = filteredCategoriesLst.size();
+    settingMatches = filteredSettingsLst.size();
+    groupMatches = filteredGroupsLst.size();
+    LOGGER.trace("Matched Categories: " + categoryMatches);
+    LOGGER.trace("Matched Settings: " + settingMatches);
+    LOGGER.trace("Matched Groups: " + groupMatches);
+  }
+
+  // asciidoctor Documentation - tag::compareMatches[]
+  private void setSelectedCategoryByMatch() {
+    // Strategy: Go from most specific match to most unspecific match
+    Category firstFilteredSetting =
+        filteredSettingsLst.size() == 0 ? null :
+            settingCategoryMap.get(filteredSettingsLst.get(0));
+    Category firstFilteredGroup =
+        filteredGroupsLst.size() == 0 ? null :
+            groupCategoryMap.get(filteredGroupsLst.get(0));
+    Category firstFilteredCategory =
+        filteredCategoriesLst.size() == 0 ? null :
+            filteredCategoriesLst.get(0);
+    setSelectedItem(
+        PreferencesFxUtils.compareMatches(
+            firstFilteredSetting, firstFilteredGroup, firstFilteredCategory,
+            settingMatches, groupMatches, categoryMatches
+        )
+    );
+  }
+  // asciidoctor Documentation - end::compareMatches[]
+
+  private void markMatches() {
+    if (settingMatches >= 1) {
+      filteredSettingsLst.forEach(Setting::mark);
+    }
+    if (groupMatches >= 1) {
+      filteredGroupsLst.forEach(Group::mark);
+    }
   }
 
   private void setupParts() {
     rootItem = new FilterableTreeItem<>(Category.of("Root"));
     addRecursive(rootItem, categories);
+    categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
+    settingCategoryMap = PreferencesFxUtils.mapSettingsToCategories(categoriesLst);
+    groupCategoryMap = PreferencesFxUtils.mapGroupsToCategories(categoriesLst);
+    settingsLst = PreferencesFxUtils.categoriesToSettings(categoriesLst);
+    groupsLst = PreferencesFxUtils.categoriesToGroups(categoriesLst);
   }
 
   private void addRecursive(FilterableTreeItem treeItem, List<Category> categories) {
@@ -90,7 +201,6 @@ public class CategoryTree extends TreeView {
    * Sets the selected item in the TreeView to the category of the given categoryId.
    *
    * @param categoryId the id of the category to be found
-   * @return the category with categoryId or the first category in the TreeView if none is found
    */
   public void setSelectedCategoryById(int categoryId) {
     Category category = findCategoryById(categoryId);
@@ -116,6 +226,19 @@ public class CategoryTree extends TreeView {
    * @param category the category to be selected
    */
   public void setSelectedItem(Category category) {
+    LOGGER.trace("Selected: " + category.toString());
     getSelectionModel().select(categoryTreeItemMap.get(category));
+  }
+
+  /**
+   * Retrieves the currently selected category in the TreeView.
+   */
+  public Category getSelectedCategory() {
+    TreeItem<Category> selectedTreeItem =
+        (TreeItem<Category>) getSelectionModel().getSelectedItem();
+    if (selectedTreeItem != null) {
+      return ((TreeItem<Category>) getSelectionModel().getSelectedItem()).getValue();
+    }
+    return null;
   }
 }

@@ -1,16 +1,17 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.util.IncrementId;
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.Arrays;
 import java.util.List;
 
 public class Category {
 
+  private final int id = IncrementId.get();
   private String description;
   private List<Group> groups;
   private List<Category> children;
   private CategoryPane categoryPane;
-  private final int id = IncrementId.get();
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -64,6 +65,24 @@ public class Category {
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
     return this;
+  }
+
+  public void unmarkSettings() {
+    if (getGroups() != null) {
+      PreferencesFxUtils.groupsToSettings(getGroups())
+          .forEach(Setting::unmark);
+    }
+  }
+
+  public void unmarkGroups() {
+    if (getGroups() != null) {
+      getGroups().forEach(Group::unmark);
+    }
+  }
+
+  public void unmarkAll() {
+    unmarkGroups();
+    unmarkSettings();
   }
 
   public CategoryPane getCategoryPane() {
