@@ -131,10 +131,10 @@ public class Setting<F extends Field, P extends Property> {
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
-          storageHandler.getObservableList(breadcrumb, (ObservableList) value.getValue())
+          storageHandler.loadObservableList(breadcrumb, (ObservableList) value.getValue())
       );
     } else {
-      value.setValue(storageHandler.getObject(breadcrumb, value.getValue()));
+      value.setValue(storageHandler.loadObject(breadcrumb, value.getValue()));
     }
   }
 

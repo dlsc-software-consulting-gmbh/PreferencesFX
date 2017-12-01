@@ -48,9 +48,9 @@ public class PreferencesDialog extends DialogPane {
    */
   private void loadLastState() {
     if (persistWindowState) {
-      setPrefSize(storageHandler.getWindowWidth(), storageHandler.getWindowHeight());
-      getScene().getWindow().setX(storageHandler.getWindowPosX());
-      getScene().getWindow().setY(storageHandler.getWindowPosY());
+      setPrefSize(storageHandler.loadWindowWidth(), storageHandler.loadWindowHeight());
+      getScene().getWindow().setX(storageHandler.loadWindowPosX());
+      getScene().getWindow().setY(storageHandler.loadWindowPosY());
     } else {
       setPrefSize(DEFAULT_PREFERENCES_WIDTH, DEFAULT_PREFERENCES_HEIGHT);
       getScene().getWindow().centerOnScreen();
@@ -76,10 +76,10 @@ public class PreferencesDialog extends DialogPane {
   private void savePreferencesOnCloseRequest() {
     if (persistWindowState) {
       dialog.setOnCloseRequest(e -> {
-        storageHandler.putWindowWidth(widthProperty().get());
-        storageHandler.putWindowHeight(heightProperty().get());
-        storageHandler.putWindowPosX(getScene().getWindow().getX());
-        storageHandler.putWindowPosY(getScene().getWindow().getY());
+        storageHandler.saveWindowWidth(widthProperty().get());
+        storageHandler.saveWindowHeight(heightProperty().get());
+        storageHandler.saveWindowPosX(getScene().getWindow().getX());
+        storageHandler.saveWindowPosY(getScene().getWindow().getY());
         preferencesFx.saveSelectedCategory();
 
         preferencesFx.getCategoryTree()
