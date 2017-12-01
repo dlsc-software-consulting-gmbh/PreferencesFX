@@ -92,7 +92,7 @@ public class PreferencesDialog extends DialogPane {
             .filter(Objects::nonNull)     // remove all null
             .flatMap(Collection::stream)
             .collect(Collectors.toList())
-            .forEach(setting -> setting.saveSettingsPreferences(storageHandler));
+            .forEach(setting -> setting.saveSettingValue(storageHandler));
       });
     }
   }

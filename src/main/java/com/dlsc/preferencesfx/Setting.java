@@ -124,7 +124,7 @@ public class Setting<F extends Field, P extends Property> {
     return field;
   }
 
-  public void saveSettingsPreferences(StorageHandler storageHandler) {
+  public void saveSettingValue(StorageHandler storageHandler) {
     storageHandler.saveObject(breadcrumb, value.getValue());
   }
 
