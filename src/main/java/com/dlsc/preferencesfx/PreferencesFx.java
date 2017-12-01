@@ -39,12 +39,12 @@ public class PreferencesFx extends MasterDetailPane {
     storageHandler = new StorageHandler(saveClass);
     this.categories = Arrays.asList(categories);
     setupParts();
-    updateSettingsFromPreferences();
+    loadSettingValues();
     setupListeners();
     layoutParts();
   }
 
-  private void updateSettingsFromPreferences() {
+  private void loadSettingValues() {
     createBreadcrumbs(categories);
     categoryTree
         .getAllCategoriesFlatAsList()
@@ -56,7 +56,7 @@ public class PreferencesFx extends MasterDetailPane {
         .filter(Objects::nonNull)     // remove all null
         .flatMap(Collection::stream)
         .collect(Collectors.toList())
-        .forEach(setting -> setting.updateFromPreferences(storageHandler));
+        .forEach(setting -> setting.loadSettingValue(storageHandler));
   }
 
   private void createBreadcrumbs(List<Category> categories) {

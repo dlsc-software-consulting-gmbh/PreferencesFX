@@ -128,7 +128,7 @@ public class Setting<F extends Field, P extends Property> {
     storageHandler.saveObject(breadcrumb, value.getValue());
   }
 
-  public void updateFromPreferences(StorageHandler storageHandler) {
+  public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
           storageHandler.getObservableList(breadcrumb, (ObservableList) value.getValue())
