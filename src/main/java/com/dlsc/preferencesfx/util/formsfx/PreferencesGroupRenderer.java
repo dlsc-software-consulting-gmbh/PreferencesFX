@@ -33,6 +33,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
    */
   PreferencesGroupRenderer(PreferencesGroup preferencesGroup) {
     this.preferencesGroup = preferencesGroup;
+    preferencesGroup.setRenderer(this);
     init();
   }
 
@@ -94,4 +95,19 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
     titleLabel.textProperty().bind(preferencesGroup.titleProperty());
   }
 
+  /**
+   * Adds a style class to the control.
+   * @param name of the style class to be added to the control
+   */
+  public void addStyleClass(String name) {
+    getStyleClass().add(name);
+  }
+
+  /**
+   * Removes a style class from the control.
+   * @param name of the class to be removed from the control
+   */
+  public void removeStyleClass(String name) {
+    getStyleClass().remove(name);
+  }
 }

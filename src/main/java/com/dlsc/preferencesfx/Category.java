@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.util.IncrementId;
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -79,6 +80,24 @@ public class Category {
         createBreadcrumbs(category.getChildren());
       }
     });
+  }
+
+  public void unmarkSettings() {
+    if (getGroups() != null) {
+      PreferencesFxUtils.groupsToSettings(getGroups())
+          .forEach(Setting::unmark);
+    }
+  }
+
+  public void unmarkGroups() {
+    if (getGroups() != null) {
+      getGroups().forEach(Group::unmark);
+    }
+  }
+
+  public void unmarkAll() {
+    unmarkGroups();
+    unmarkSettings();
   }
 
   public CategoryPane getCategoryPane() {

@@ -32,6 +32,7 @@ public class PreferencesFx extends MasterDetailPane {
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
   private StorageHandler storageHandler;
+  private Category displayedCategory;
 
   private boolean persistWindowState = false;
 
@@ -83,23 +84,8 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void setupParts() {
-    categoryTree = new CategoryTree(categories);
+    categoryTree = new CategoryTree(this, categories);
     categoryTreeBox = new CategoryTreeBox(categoryTree);
-  }
-
-  private void setupListeners() {
-    // Whenever the divider position is changed, it's position is saved.
-    dividerPositionProperty().addListener((observable, oldValue, newValue) ->
-        storageHandler.saveDividerPosition(getDividerPosition())
-    );
-
-    categoryTree.getSelectionModel().selectedItemProperty().addListener(
-        (observable, oldValue, newValue) -> {
-          if (newValue != null) {
-            setSelectedCategory((Category) ((TreeItem) newValue).getValue());
-          }
-        }
-    );
   }
 
   private void layoutParts() {
@@ -108,13 +94,23 @@ public class PreferencesFx extends MasterDetailPane {
     // Load last selected category in TreeView.
     categoryTree.setSelectedCategoryById(storageHandler.loadSelectedCategory());
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
-    setSelectedCategory((Category) treeItem.getValue());
+    showCategory((Category) treeItem.getValue());
+  }
+
+  private void setupListeners() {
+    // Whenever the divider position is changed, it's position is saved.
+    dividerPositionProperty().addListener((observable, oldValue, newValue) ->
+        storageHandler.saveDividerPosition(getDividerPosition())
+    );
   }
 
   /**
-   * @param category sets the selected Category to the MasterNode
+   * Shows the category as its CategoryPane in the master node.
+   *
+   * @param category the category to be shown
    */
-  private void setSelectedCategory(Category category) {
+  public void showCategory(Category category) {
+    displayedCategory = category;
     setMasterNode(category.getCategoryPane());
     // Sets the saved divider position.
     setDividerPosition(storageHandler.loadDividerPosition());
@@ -129,10 +125,18 @@ public class PreferencesFx extends MasterDetailPane {
     if (treeItem != null) {
       category = (Category) treeItem.getValue();
     } else {
-      category = categoryTree.findCategoryById(DEFAULT_CATEGORY);
+      category = categories.get(DEFAULT_CATEGORY);
     }
     storageHandler.saveSelectedCategory(category.getId());
   }
+
+  /**
+   * Retrieves the category which has last been displayed in the CategoryPane.
+   */
+  public Category getDisplayedCategory() {
+    return displayedCategory;
+  }
+
 
   /**
    * Shows the PreferencesFX dialog.

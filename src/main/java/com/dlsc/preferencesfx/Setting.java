@@ -14,11 +14,16 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 public class Setting<F extends Field, P extends Property> {
+  public static final String MARKED_STYLE_CLASS = "simple-control-marked";
   private String description;
   private F field;
   private P value;
+  private boolean marked = false;
+  private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private String breadcrumb = "";
 
   private Setting(String description, F field, P value) {
@@ -110,6 +115,24 @@ public class Setting<F extends Field, P extends Property> {
         description,
         Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections).label(description),
         selections);
+  }
+
+  public void mark() {
+    // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
+    if (!marked) {
+      getField().getRenderer().addStyleClass(MARKED_STYLE_CLASS);
+      getField().getRenderer().setOnMouseExited(unmarker);
+      marked = !marked;
+    }
+  }
+
+  public void unmark() {
+    // check if it's marked before removing the style class
+    if (marked) {
+      getField().getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
+      getField().getRenderer().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
+      marked = !marked;
+    }
   }
 
   public String getDescription() {
