@@ -4,14 +4,16 @@ import com.dlsc.preferencesfx.util.IncrementId;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Category {
 
-  private final int id = IncrementId.get();
   private String description;
   private List<Group> groups;
   private List<Category> children;
   private CategoryPane categoryPane;
+  private final int id = IncrementId.get();
+  private String breadcrumb;
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -20,13 +22,14 @@ public class Category {
    */
   private Category(String description) {
     this.description = description;
-    this.categoryPane = new CategoryPane(null);
+    breadcrumb = description;
+    categoryPane = new CategoryPane(null);
   }
 
   private Category(String description, Group... groups) {
-    this.description = description;
+    this(description);
     this.groups = Arrays.asList(groups);
-    this.categoryPane = new CategoryPane(this.groups);
+    categoryPane = new CategoryPane(this.groups);
   }
 
   /**
@@ -65,6 +68,18 @@ public class Category {
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
     return this;
+  }
+
+  public void createBreadcrumbs(List<Category> categories) {
+    categories.forEach(category -> {
+      breadcrumb = breadcrumb + PreferencesFx.BREADCRUMB_DELIMITER + category.getDescription();
+      if (!Objects.equals(category.getGroups(), null)) {
+        category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
+      }
+      if (!Objects.equals(category.getChildren(), null)) {
+        createBreadcrumbs(category.getChildren());
+      }
+    });
   }
 
   public void unmarkSettings() {
@@ -109,4 +124,13 @@ public class Category {
   public int getId() {
     return id;
   }
+
+  public String getBreadcrumb() {
+    return breadcrumb;
+  }
+
+  public void setBreadcrumb(String breadcrumb) {
+    this.breadcrumb = breadcrumb;
+  }
+
 }

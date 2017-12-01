@@ -230,6 +230,10 @@ public class CategoryTree extends TreeView {
     getSelectionModel().select(categoryTreeItemMap.get(category));
   }
 
+  public ArrayList<Category> getAllCategoriesFlatAsList() {
+    return new ArrayList<>(categoryTreeItemMap.keySet());
+  }
+
   /**
    * Retrieves the currently selected category in the TreeView.
    */

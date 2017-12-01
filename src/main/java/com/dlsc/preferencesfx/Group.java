@@ -17,6 +17,7 @@ public class Group {
   private PreferencesGroup preferencesGroup;
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
+  private String breadcrumb = "";
 
   private Group(String description, Setting... settings) {
     this.description = description;
@@ -68,5 +69,14 @@ public class Group {
       preferencesGroup.getRenderer().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
       marked = !marked;
     }
+  }
+
+  public void addToBreadcrumb(String breadCrumb) {
+    this.breadcrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
+    settings.forEach(setting -> setting.addToBreadcrumb(this.breadcrumb));
+  }
+
+  public String getBreadcrumb() {
+    return breadcrumb;
   }
 }
