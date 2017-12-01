@@ -74,26 +74,26 @@ public class PreferencesDialog extends DialogPane {
   }
 
   private void savePreferencesOnCloseRequest() {
-    if (persistWindowState) {
-      dialog.setOnCloseRequest(e -> {
+    dialog.setOnCloseRequest(e -> {
+      if (persistWindowState) {
         storageHandler.saveWindowWidth(widthProperty().get());
         storageHandler.saveWindowHeight(heightProperty().get());
         storageHandler.saveWindowPosX(getScene().getWindow().getX());
         storageHandler.saveWindowPosY(getScene().getWindow().getY());
         preferencesFx.saveSelectedCategory();
-
-        preferencesFx.getCategoryTree()
-            .getAllCategoriesFlatAsList()
-            .stream()
-            .map(Category::getGroups)     // get groups from categories
-            .filter(Objects::nonNull)     // remove all null
-            .flatMap(Collection::stream)
-            .map(Group::getSettings)      // get settings from groups
-            .filter(Objects::nonNull)     // remove all null
-            .flatMap(Collection::stream)
-            .collect(Collectors.toList())
-            .forEach(setting -> setting.saveSettingValue(storageHandler));
-      });
-    }
+      }
+      preferencesFx.getCategoryTree()
+          .getAllCategoriesFlatAsList()
+          .stream()
+          .map(Category::getGroups)     // get groups from categories
+          .filter(Objects::nonNull)     // remove all null
+          .flatMap(Collection::stream)
+          .map(Group::getSettings)      // get settings from groups
+          .filter(Objects::nonNull)     // remove all null
+          .flatMap(Collection::stream)
+          .collect(Collectors.toList())
+          .forEach(setting -> setting.saveSettingValue(storageHandler));
+    });
   }
+
 }
