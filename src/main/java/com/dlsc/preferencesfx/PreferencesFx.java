@@ -30,6 +30,8 @@ public class PreferencesFx extends MasterDetailPane {
   private Preferences preferences;
   private Category displayedCategory;
 
+  private boolean persistWindowState = false;
+
   PreferencesFx(Class<?> saveClass, Category[] categories) {
     preferences = Preferences.userNodeForPackage(saveClass);
     this.categories = Arrays.asList(categories);
@@ -108,4 +110,23 @@ public class PreferencesFx extends MasterDetailPane {
     return displayedCategory;
   }
 
+
+  /**
+   * Shows the PreferencesFX dialog.
+   */
+  public void show() {
+    new PreferencesDialog(this, persistWindowState);
+  }
+
+  /**
+   * Defines whether the state of the dialog window should be persisted or not.
+   * @param persist if true, the size, position and last selected item in the TreeView are
+   *                being saved. When the dialog is showed again, it will be restored to
+   *                the last saved state. Defaults to false.
+   * @return this object for fluent API
+   */
+  public PreferencesFx persistWindowState(boolean persist){
+    this.persistWindowState = persist;
+    return this;
+  }
 }
