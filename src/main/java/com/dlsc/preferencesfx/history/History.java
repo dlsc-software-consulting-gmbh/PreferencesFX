@@ -31,12 +31,12 @@ public class History {
   }
 
   public void addChange(Change change) {
-    if (changes.get(position) != null) { // if there is already an element at the current position
-      changes.set(position, change);
+    if (changes.get(position.get()) != null) { // if there is already an element at the current position
+      changes.set(position.get(), change);
     } else {
-      changes.add(position, change);
+      changes.add(position.get(), change);
     }
-    validPosition = ++position;
+    validPosition.setValue(incrementPosition());
   }
 
   public boolean undo() {
