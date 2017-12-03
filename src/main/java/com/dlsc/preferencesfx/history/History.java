@@ -26,7 +26,9 @@ public class History {
 
   public void attachChangeListener(Setting setting) {
     setting.valueProperty().addListener((observable, oldValue, newValue) -> {
-      addChange(new Change(setting, oldValue, newValue));
+      if (oldValue != newValue) {
+        addChange(new Change(setting, oldValue, newValue));
+      }
     });
   }
 
