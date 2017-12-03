@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.history;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -31,6 +32,12 @@ public class HistoryTable extends TableView<Change> {
 
     setItems(this.changes);
     getColumns().addAll(timestamp, breadcrumb, oldValue, newValue);
+  }
+
+  public void addSelectionBinding(ReadOnlyObjectProperty<Change> currentChange) {
+    currentChange.addListener(
+        (observable, oldValue, newValue) -> getSelectionModel().select(newValue)
+    );
   }
 
 }

@@ -22,6 +22,7 @@ public class HistoryPane extends VBox {
   public HistoryPane(History history) {
     this.history = history;
     historyTable = new HistoryTable(history.getChanges());
+    historyTable.addSelectionBinding(history.currentChangeProperty());
     getChildren().addAll(btnBox, historyTable);
     setVgrow(historyTable, Priority.ALWAYS);
     undoBtn.setOnAction(event -> history.undo());

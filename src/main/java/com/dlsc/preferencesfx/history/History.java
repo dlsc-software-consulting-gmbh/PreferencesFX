@@ -2,10 +2,13 @@ package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
 import java.util.HashMap;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +24,7 @@ public class History {
       LogManager.getLogger(History.class.getName());
 
   private ObservableList<Change> changes = FXCollections.observableArrayList();
+  private SimpleObjectProperty<Change> currentChange = new SimpleObjectProperty<>();
   private IntegerProperty position = new SimpleIntegerProperty(-1);
   private IntegerProperty validPosition = new SimpleIntegerProperty(-1);
   private BooleanProperty undoAvailable = new SimpleBooleanProperty(false);
@@ -35,6 +39,12 @@ public class History {
   private void setupBindings() {
     undoAvailable.bind(position.greaterThanOrEqualTo(0));
     redoAvailable.bind(position.lessThan(validPosition));
+    currentChange.bind(Bindings.createObjectBinding(() -> {
+      if (position.get() >= 0) {
+       return changes.get(position.get());
+      }
+      return null;
+    }, position));
   }
 
   public void attachChangeListener(Setting setting) {
@@ -179,6 +189,10 @@ public class History {
     return positionValue;
   }
 
+  public void addListen() {
+    ;
+  }
+
   public boolean isUndoAvailable() {
     return undoAvailable.get();
   }
@@ -197,5 +211,9 @@ public class History {
 
   public ObservableList<Change> getChanges() {
     return changes;
+  }
+
+  public ReadOnlyObjectProperty<Change> currentChangeProperty() {
+    return currentChange;
   }
 }
