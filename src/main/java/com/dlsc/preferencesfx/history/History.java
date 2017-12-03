@@ -24,15 +24,15 @@ public class History {
       LogManager.getLogger(History.class.getName());
 
   private ObservableList<Change> changes = FXCollections.observableArrayList();
-  private IntegerProperty position = new SimpleIntegerProperty(0);
-  private IntegerProperty validPosition = new SimpleIntegerProperty(0);
+  private IntegerProperty position = new SimpleIntegerProperty(-1);
+  private IntegerProperty validPosition = new SimpleIntegerProperty(-1);
   private BooleanProperty undoAvailable = new SimpleBooleanProperty(false);
   private BooleanProperty redoAvailable = new SimpleBooleanProperty(false);
 
   private HashMap<Setting, ChangeListener> settingChangeListenerMap = new HashMap<>();
 
   public History() {
-    undoAvailable.bind(position.greaterThan(0));
+    undoAvailable.bind(position.greaterThanOrEqualTo(0));
     redoAvailable.bind(position.lessThan(validPosition));
   }
 
@@ -49,12 +49,14 @@ public class History {
 
   private void addChange(Change change) {
     LOGGER.trace("addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
-    if (position.get() < changes.size()) { // if there is already an element at the current position
-      changes.set(position.get(), change);
+    int lastIndex = changes.size() - 1;
+    if (position.get() < lastIndex) { // if there is already an element at the current position
+      changes.set(incrementPosition(), change);
     } else {
       changes.add(change);
+      incrementPosition();
     }
-    validPosition.setValue(incrementPosition());
+    validPosition.setValue(position.get());
     LOGGER.trace("addChange, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
   }
 
@@ -69,20 +71,22 @@ public class History {
   }
 
   public boolean undo() {
+    LOGGER.trace("undo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     Change lastChange = prev();
     if (lastChange != null) {
       doWithoutListeners(lastChange.setting, () -> lastChange.undo());
-      decrementPosition();
+      LOGGER.trace("undo, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
       return true;
     }
     return false;
   }
 
   public boolean redo() {
+    LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     Change nextChange = next();
     if (nextChange != null) {
       doWithoutListeners(nextChange.setting, () -> nextChange.redo());
-      incrementPosition();
+      LOGGER.trace("redo, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
       return true;
     }
     return false;
@@ -96,7 +100,7 @@ public class History {
   }
 
   private boolean hasNext() {
-    return position.get() < validPosition.get();
+    return redoAvailable.get();
   }
 
   private Change prev() {
@@ -107,31 +111,47 @@ public class History {
   }
 
   private boolean hasPrev() {
-    return position.get() > 0;
+    return undoAvailable.get();
   }
 
+  /**
+   * Equals to the same as: "return ++position" if position was an Integer.
+   * @return the position value before the incrementation
+   */
   private int incrementPosition() {
-    int nextPosition = position.get() + 1;
-    position.setValue(nextPosition);
-    return nextPosition;
+    int positionValue = position.get() + 1;
+    position.setValue(positionValue);
+    return positionValue;
   }
 
+  /**
+   * Equals to the same as: "return position--" if position was an Integer.
+   * @return the position value before the decrementation
+   */
   private int decrementPosition() {
-    int prevPosition = position.get() - 1;
-    position.setValue(prevPosition);
-    return prevPosition;
+    int positionValue = position.get();
+    position.setValue(positionValue - 1);
+    return positionValue;
   }
 
+  /**
+   * Equals to the same as: "return ++validPosition" if validPosition was an Integer.
+   * @return the last valid position value before the incrementation
+   */
   private int incrementValidPosition() {
-    int nextPosition = validPosition.get() + 1;
-    validPosition.setValue(nextPosition);
-    return nextPosition;
+    int positionValue = validPosition.get() + 1;
+    validPosition.setValue(positionValue);
+    return positionValue;
   }
 
+  /**
+   * Equals to the same as: "return validPosition--" if validPosition was an Integer.
+   * @return the last valid position value before the decrementation
+   */
   private int decrementValidPosition() {
-    int prevPosition = validPosition.get() - 1;
-    validPosition.setValue(prevPosition);
-    return prevPosition;
+    int positionValue = position.get();
+    validPosition.setValue(positionValue - 1);
+    return positionValue;
   }
 
   public boolean isUndoAvailable() {

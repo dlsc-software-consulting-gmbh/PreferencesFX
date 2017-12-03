@@ -11,9 +11,14 @@ import java.util.stream.Collectors;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.BorderPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesFx extends BorderPane {
+  private static final Logger LOGGER =
+      LogManager.getLogger(PreferencesFx.class.getName());
+
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
 
   public static final String DIVIDER_POSITION = "DIVIDER_POSITION";
@@ -65,6 +70,7 @@ public class PreferencesFx extends BorderPane {
         .flatMap(Collection::stream)
         .collect(Collectors.toList())
         .forEach(setting -> {
+          LOGGER.trace("Loading: " + setting.getBreadcrumb());
           setting.loadSettingValue(storageHandler);
           history.attachChangeListener(setting);
         });
