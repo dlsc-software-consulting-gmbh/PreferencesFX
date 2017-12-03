@@ -182,4 +182,8 @@ public class History {
   public BooleanProperty redoAvailableProperty() {
     return redoAvailable;
   }
+
+  public ObservableList<Change> getChanges() {
+    return FXCollections.observableArrayList(changes);
+  }
 }
