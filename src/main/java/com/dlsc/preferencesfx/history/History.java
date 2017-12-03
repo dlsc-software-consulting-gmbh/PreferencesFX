@@ -41,7 +41,7 @@ public class History {
     redoAvailable.bind(position.lessThan(validPosition));
     currentChange.bind(Bindings.createObjectBinding(() -> {
       int index = position.get();
-      if (index >= 0 && index < (changes.size()-1)) {
+      if (index >= 0 && index < (changes.size() - 1)) {
         return changes.get(index);
       }
       return null;
