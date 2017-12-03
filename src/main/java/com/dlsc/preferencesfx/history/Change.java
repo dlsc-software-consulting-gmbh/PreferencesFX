@@ -14,12 +14,12 @@ public class Change<P> {
   private static final Logger LOGGER =
       LogManager.getLogger(Change.class.getName());
 
-  final Setting setting;
+  private final Setting setting;
 
-  final P oldValue;
-  final P newValue;
+  private final P oldValue;
+  private P newValue; // can be changed, if compounded changes occur
 
-  final LocalDate timestamp;
+  private final LocalDate timestamp;
 
   public Change(Setting setting, P oldValue, P newValue) {
     this.setting = setting;
@@ -36,4 +36,15 @@ public class Change<P> {
     setting.valueProperty().setValue(newValue);
   }
 
+  public P getNewValue() {
+    return newValue;
+  }
+
+  public void setNewValue(P newValue) {
+    this.newValue = newValue;
+  }
+
+  public Setting getSetting() {
+    return setting;
+  }
 }

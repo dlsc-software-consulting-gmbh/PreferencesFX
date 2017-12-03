@@ -5,6 +5,7 @@ import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.IntegerSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.ToggleControl;
+import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -183,5 +184,22 @@ public class Setting<F extends Field, P extends Property> {
 
   public String getBreadcrumb() {
     return breadcrumb;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Setting<?, ?> setting = (Setting<?, ?>) o;
+    return Objects.equals(breadcrumb, setting.breadcrumb);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(breadcrumb);
   }
 }

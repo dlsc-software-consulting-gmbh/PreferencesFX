@@ -29,6 +29,10 @@ public class History {
   private HashMap<Setting, ChangeListener> settingChangeListenerMap = new HashMap<>();
 
   public History() {
+    setupBindings();
+  }
+
+  private void setupBindings() {
     undoAvailable.bind(position.greaterThanOrEqualTo(0));
     redoAvailable.bind(position.lessThan(validPosition));
   }
@@ -46,14 +50,22 @@ public class History {
 
   private void addChange(Change change) {
     LOGGER.trace("addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
-    int lastIndex = changes.size() - 1;
-    if (position.get() < lastIndex) { // if there is already an element at the current position
-      changes.set(incrementPosition(), change);
+    // check if change is on same setting as the last change => compounded change
+    if (changes.size() > 0 &&
+        changes.get(position.get()).getSetting().equals(change.getSetting())) {
+      LOGGER.trace("Compounded change");
+      changes.get(position.get()).setNewValue(change.getNewValue());
     } else {
-      changes.add(change);
-      incrementPosition();
+      LOGGER.trace("New change");
+      int lastIndex = changes.size() - 1;
+      if (position.get() < lastIndex) { // if there is already an element at the current position
+        changes.set(incrementPosition(), change);
+      } else {
+        changes.add(change);
+        incrementPosition();
+      }
+      validPosition.setValue(position.get());
     }
-    validPosition.setValue(position.get());
     LOGGER.trace("addChange, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
   }
 
@@ -71,7 +83,7 @@ public class History {
     LOGGER.trace("undo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     Change lastChange = prev();
     if (lastChange != null) {
-      doWithoutListeners(lastChange.setting, () -> lastChange.undo());
+      doWithoutListeners(lastChange.getSetting(), () -> lastChange.undo());
       LOGGER.trace("undo, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
       return true;
     }
@@ -82,7 +94,7 @@ public class History {
     LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     Change nextChange = next();
     if (nextChange != null) {
-      doWithoutListeners(nextChange.setting, () -> nextChange.redo());
+      doWithoutListeners(nextChange.getSetting(), () -> nextChange.redo());
       LOGGER.trace("redo, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
       return true;
     }
