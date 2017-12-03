@@ -30,7 +30,7 @@ public class History {
     });
   }
 
-  public void addChange(Change change) {
+  private void addChange(Change change) {
     if (changes.get(position.get()) != null) { // if there is already an element at the current position
       changes.set(position.get(), change);
     } else {
@@ -57,49 +57,65 @@ public class History {
     return false;
   }
 
-  public Change next() {
+  private Change next() {
     if (hasNext()) {
       return changes.get(incrementPosition());
     }
     return null;
   }
 
-  public boolean hasNext() {
+  private boolean hasNext() {
     return position.get() < validPosition.get();
   }
 
-  public Change prev() {
+  private Change prev() {
     if (hasPrev()) {
       return changes.get(decrementPosition());
     }
     return null;
   }
 
-  public boolean hasPrev() {
+  private boolean hasPrev() {
     return position.get() > 0;
   }
 
-  public int incrementPosition() {
+  private int incrementPosition() {
     int nextPosition = position.get() + 1;
     position.setValue(nextPosition);
     return nextPosition;
   }
 
-  public int decrementPosition() {
+  private int decrementPosition() {
     int prevPosition = position.get() - 1;
     position.setValue(prevPosition);
     return prevPosition;
   }
 
-  public int incrementValidPosition() {
+  private int incrementValidPosition() {
     int nextPosition = validPosition.get() + 1;
     validPosition.setValue(nextPosition);
     return nextPosition;
   }
 
-  public int decrementValidPosition() {
+  private int decrementValidPosition() {
     int prevPosition = validPosition.get() - 1;
     validPosition.setValue(prevPosition);
     return prevPosition;
+  }
+
+  public boolean isUndoAvailable() {
+    return undoAvailable.get();
+  }
+
+  public BooleanProperty undoAvailableProperty() {
+    return undoAvailable;
+  }
+
+  public boolean isRedoAvailable() {
+    return redoAvailable.get();
+  }
+
+  public BooleanProperty redoAvailableProperty() {
+    return redoAvailable;
   }
 }
