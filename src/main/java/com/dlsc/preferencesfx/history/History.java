@@ -67,9 +67,11 @@ public class History {
     // check if change is on same setting as the last change => compounded change
     boolean compounded = changes.size() > 0 && position.get() != -1 &&
         changes.get(position.get()).getSetting().equals(change.getSetting());
+
     // check if the last added change has the same new and old value
     boolean redundant = changes.size() > 0 && position.get() != -1 &&
         changes.get(position.get()).isRedundant();
+
     // if there is an element in the next position already => overwrite it instead of adding
     boolean elementExists = position.get() < lastIndex;
 
