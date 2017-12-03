@@ -51,7 +51,7 @@ public class History {
   private void addChange(Change change) {
     LOGGER.trace("addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     // check if change is on same setting as the last change => compounded change
-    if (changes.size() > 0 &&
+    if (changes.size() > 0 && position.get() != -1 &&
         changes.get(position.get()).getSetting().equals(change.getSetting())) {
       LOGGER.trace("Compounded change");
       changes.get(position.get()).setNewValue(change.getNewValue());
