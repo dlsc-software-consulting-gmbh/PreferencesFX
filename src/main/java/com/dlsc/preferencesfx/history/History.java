@@ -118,7 +118,7 @@ public class History {
     LOGGER.trace("undo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     Change lastChange = prev();
     if (lastChange != null) {
-      doWithoutListeners(lastChange.getSetting(), () -> lastChange.undo());
+      doWithoutListeners(lastChange.getSetting(), lastChange::undo);
       LOGGER.trace("undo, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
       return true;
     }
@@ -129,7 +129,7 @@ public class History {
     LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     Change nextChange = next();
     if (nextChange != null) {
-      doWithoutListeners(nextChange.getSetting(), () -> nextChange.redo());
+      doWithoutListeners(nextChange.getSetting(), nextChange::redo);
       LOGGER.trace("redo, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
       return true;
     }
@@ -178,32 +178,6 @@ public class History {
     int positionValue = position.get();
     position.setValue(positionValue - 1);
     return positionValue;
-  }
-
-  /**
-   * Equals to the same as: "return ++validPosition" if validPosition was an Integer.
-   *
-   * @return the last valid position value before the incrementation
-   */
-  private int incrementValidPosition() {
-    int positionValue = validPosition.get() + 1;
-    validPosition.setValue(positionValue);
-    return positionValue;
-  }
-
-  /**
-   * Equals to the same as: "return validPosition--" if validPosition was an Integer.
-   *
-   * @return the last valid position value before the decrementation
-   */
-  private int decrementValidPosition() {
-    int positionValue = position.get();
-    validPosition.setValue(positionValue - 1);
-    return positionValue;
-  }
-
-  public void addListen() {
-    ;
   }
 
   public boolean isUndoAvailable() {
