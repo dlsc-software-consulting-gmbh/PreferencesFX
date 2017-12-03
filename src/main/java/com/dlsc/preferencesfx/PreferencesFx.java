@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.HistoryPane;
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
 import java.util.Collection;
@@ -59,16 +60,7 @@ public class PreferencesFx extends BorderPane {
 
   private void loadSettingValues() {
     createBreadcrumbs(categories);
-    categoryTree
-        .getAllCategoriesFlatAsList()
-        .stream()
-        .map(Category::getGroups)     // get groups from categories
-        .filter(Objects::nonNull)     // remove all null
-        .flatMap(Collection::stream)
-        .map(Group::getSettings)      // get settings from groups
-        .filter(Objects::nonNull)     // remove all null
-        .flatMap(Collection::stream)
-        .collect(Collectors.toList())
+    PreferencesFxUtils.categoriesToSettings(categoryTree.getAllCategoriesFlatAsList())
         .forEach(setting -> {
           LOGGER.trace("Loading: " + setting.getBreadcrumb());
           setting.loadSettingValue(storageHandler);

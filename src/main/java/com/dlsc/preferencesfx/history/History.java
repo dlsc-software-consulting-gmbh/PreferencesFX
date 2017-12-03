@@ -1,10 +1,7 @@
 package com.dlsc.preferencesfx.history;
 
-import com.dlsc.preferencesfx.CategoryTree;
 import com.dlsc.preferencesfx.Setting;
 import java.util.HashMap;
-import java.util.function.BooleanSupplier;
-import java.util.function.Supplier;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -116,6 +113,7 @@ public class History {
 
   /**
    * Equals to the same as: "return ++position" if position was an Integer.
+   *
    * @return the position value before the incrementation
    */
   private int incrementPosition() {
@@ -126,6 +124,7 @@ public class History {
 
   /**
    * Equals to the same as: "return position--" if position was an Integer.
+   *
    * @return the position value before the decrementation
    */
   private int decrementPosition() {
@@ -136,6 +135,7 @@ public class History {
 
   /**
    * Equals to the same as: "return ++validPosition" if validPosition was an Integer.
+   *
    * @return the last valid position value before the incrementation
    */
   private int incrementValidPosition() {
@@ -146,6 +146,7 @@ public class History {
 
   /**
    * Equals to the same as: "return validPosition--" if validPosition was an Integer.
+   *
    * @return the last valid position value before the decrementation
    */
   private int decrementValidPosition() {
