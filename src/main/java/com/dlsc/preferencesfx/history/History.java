@@ -19,6 +19,10 @@ import org.apache.logging.log4j.Logger;
  * Created by François Martin on 02.12.17.
  */
 public class History {
+  // TODO: MultiSelection doesn't fire change events?
+  // TODO: Create tags, ability to save tags and return to them
+  // TODO: Represent tags in TableView
+  // TODO: Make it possible to click in the History table to a specific point and have it undo/redo until that point
 
   private static final Logger LOGGER =
       LogManager.getLogger(History.class.getName());
@@ -41,7 +45,8 @@ public class History {
     redoAvailable.bind(position.lessThan(validPosition));
     currentChange.bind(Bindings.createObjectBinding(() -> {
       int index = position.get();
-      if (index >= 0 && index < (changes.size() - 1)) {
+      if (index >= 0 && index < changes.size()) {
+        LOGGER.trace("Set item");
         return changes.get(index);
       }
       return null;
