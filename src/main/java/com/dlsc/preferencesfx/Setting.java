@@ -202,4 +202,9 @@ public class Setting<F extends Field, P extends Property> {
   public int hashCode() {
     return Objects.hash(breadcrumb);
   }
+
+  @Override
+  public String toString() {
+    return breadcrumb;
+  }
 }

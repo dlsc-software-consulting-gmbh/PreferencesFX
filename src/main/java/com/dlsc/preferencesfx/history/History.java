@@ -50,16 +50,28 @@ public class History {
 
   private void addChange(Change change) {
     LOGGER.trace("addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+    // check if the last added change has the same new and old value
+    if (changes.size() > 0 && position.get() != -1 &&
+        changes.get(position.get()).isRedundant()) {
+      // the current change is redundant and can be overwritten
+      decrementPosition();
+    }
     // check if change is on same setting as the last change => compounded change
     if (changes.size() > 0 && position.get() != -1 &&
         changes.get(position.get()).getSetting().equals(change.getSetting())) {
       LOGGER.trace("Compounded change");
       changes.get(position.get()).setNewValue(change.getNewValue());
+      if (position.get() != changes.size()) {
+        // invalidate all further changes in the list
+        changes.remove(position.get()+1, changes.size());
+      }
     } else {
       LOGGER.trace("New change");
       int lastIndex = changes.size() - 1;
       if (position.get() < lastIndex) { // if there is already an element at the current position
         changes.set(incrementPosition(), change);
+        // invalidate all further changes in the list
+        changes.remove(position.get()+1, changes.size());
       } else {
         changes.add(change);
         incrementPosition();
@@ -184,6 +196,6 @@ public class History {
   }
 
   public ObservableList<Change> getChanges() {
-    return FXCollections.observableArrayList(changes);
+    return changes;
   }
 }
