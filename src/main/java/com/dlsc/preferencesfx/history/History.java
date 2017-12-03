@@ -1,17 +1,27 @@
 package com.dlsc.preferencesfx.history;
 
+import com.dlsc.preferencesfx.CategoryTree;
 import com.dlsc.preferencesfx.Setting;
+import java.util.HashMap;
+import java.util.function.BooleanSupplier;
+import java.util.function.Supplier;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 02.12.17.
  */
 public class History {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(History.class.getName());
 
   private ObservableList<Change> changes = FXCollections.observableArrayList();
   private IntegerProperty position = new SimpleIntegerProperty(0);
@@ -19,32 +29,50 @@ public class History {
   private BooleanProperty undoAvailable = new SimpleBooleanProperty(false);
   private BooleanProperty redoAvailable = new SimpleBooleanProperty(false);
 
+  private HashMap<Setting, ChangeListener> settingChangeListenerMap = new HashMap<>();
+
   public History() {
     undoAvailable.bind(position.greaterThan(0));
     redoAvailable.bind(position.lessThan(validPosition));
   }
 
   public void attachChangeListener(Setting setting) {
-    setting.valueProperty().addListener((observable, oldValue, newValue) -> {
+    ChangeListener changeEvent = (observable, oldValue, newValue) -> {
       if (oldValue != newValue) {
+        LOGGER.trace("Change detected, old: " + oldValue + " new: " + newValue);
         addChange(new Change(setting, oldValue, newValue));
       }
-    });
+    };
+    settingChangeListenerMap.put(setting, changeEvent);
+    setting.valueProperty().addListener(changeEvent);
   }
 
   private void addChange(Change change) {
-    if (changes.get(position.get()) != null) { // if there is already an element at the current position
+    LOGGER.trace("addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+    if (position.get() < changes.size()) { // if there is already an element at the current position
       changes.set(position.get(), change);
     } else {
-      changes.add(position.get(), change);
+      changes.add(change);
     }
     validPosition.setValue(incrementPosition());
+    LOGGER.trace("addChange, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+  }
+
+  public void doWithoutListeners(Setting setting, Runnable action) {
+    setting.valueProperty().removeListener(
+        settingChangeListenerMap.get(setting)
+    );
+    action.run();
+    setting.valueProperty().addListener(
+        settingChangeListenerMap.get(setting)
+    );
   }
 
   public boolean undo() {
     Change lastChange = prev();
     if (lastChange != null) {
-      lastChange.undo();
+      doWithoutListeners(lastChange.setting, () -> lastChange.undo());
+      decrementPosition();
       return true;
     }
     return false;
@@ -53,7 +81,8 @@ public class History {
   public boolean redo() {
     Change nextChange = next();
     if (nextChange != null) {
-      nextChange.redo();
+      doWithoutListeners(nextChange.setting, () -> nextChange.redo());
+      incrementPosition();
       return true;
     }
     return false;

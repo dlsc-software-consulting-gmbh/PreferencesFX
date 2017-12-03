@@ -16,6 +16,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javax.swing.event.ChangeListener;
 
 public class Setting<F extends Field, P extends Property> {
   public static final String MARKED_STYLE_CLASS = "simple-control-marked";

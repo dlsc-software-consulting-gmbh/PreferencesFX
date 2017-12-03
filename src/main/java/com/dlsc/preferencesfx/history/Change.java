@@ -1,12 +1,18 @@
 package com.dlsc.preferencesfx.history;
 
+import com.dlsc.preferencesfx.CategoryTree;
 import com.dlsc.preferencesfx.Setting;
 import java.time.LocalDate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 02.12.17.
  */
 public class Change<P> {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(Change.class.getName());
 
   final Setting setting;
 
