@@ -1,5 +1,7 @@
 package com.dlsc.preferencesfx;
 
+import com.dlsc.preferencesfx.history.History;
+import com.dlsc.preferencesfx.history.HistoryPane;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,9 +10,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
+import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.MasterDetailPane;
 
-public class PreferencesFx extends MasterDetailPane {
+public class PreferencesFx extends BorderPane {
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
 
   public static final String DIVIDER_POSITION = "DIVIDER_POSITION";
@@ -29,15 +32,19 @@ public class PreferencesFx extends MasterDetailPane {
   public static final String WINDOW_POS_Y = "WINDOW_POS_Y";
 
   private List<Category> categories;
+  private MasterDetailPane preferencesPane;
+  private HistoryPane historyPane;
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
   private StorageHandler storageHandler;
+  private History history;
   private Category displayedCategory;
 
   private boolean persistWindowState = false;
 
   PreferencesFx(Class<?> saveClass, Category[] categories) {
     storageHandler = new StorageHandler(saveClass);
+    history = new History();
     this.categories = Arrays.asList(categories);
     setupParts();
     loadSettingValues();
@@ -57,7 +64,10 @@ public class PreferencesFx extends MasterDetailPane {
         .filter(Objects::nonNull)     // remove all null
         .flatMap(Collection::stream)
         .collect(Collectors.toList())
-        .forEach(setting -> setting.loadSettingValue(storageHandler));
+        .forEach(setting -> {
+          setting.loadSettingValue(storageHandler);
+          history.attachChangeListener(setting);
+        });
   }
 
   private void createBreadcrumbs(List<Category> categories) {
@@ -84,13 +94,17 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void setupParts() {
+    preferencesPane = new MasterDetailPane();
     categoryTree = new CategoryTree(this, categories);
     categoryTreeBox = new CategoryTreeBox(categoryTree);
+    historyPane = new HistoryPane(history);
   }
 
   private void layoutParts() {
-    setDetailSide(Side.LEFT);
-    setDetailNode(categoryTreeBox);
+    setCenter(preferencesPane);
+    setBottom(historyPane);
+    preferencesPane.setDetailSide(Side.LEFT);
+    preferencesPane.setDetailNode(categoryTreeBox);
     // Load last selected category in TreeView.
     categoryTree.setSelectedCategoryById(storageHandler.loadSelectedCategory());
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
@@ -99,8 +113,8 @@ public class PreferencesFx extends MasterDetailPane {
 
   private void setupListeners() {
     // Whenever the divider position is changed, it's position is saved.
-    dividerPositionProperty().addListener((observable, oldValue, newValue) ->
-        storageHandler.saveDividerPosition(getDividerPosition())
+    preferencesPane.dividerPositionProperty().addListener((observable, oldValue, newValue) ->
+        storageHandler.saveDividerPosition(preferencesPane.getDividerPosition())
     );
   }
 
@@ -111,9 +125,9 @@ public class PreferencesFx extends MasterDetailPane {
    */
   public void showCategory(Category category) {
     displayedCategory = category;
-    setMasterNode(category.getCategoryPane());
+    preferencesPane.setMasterNode(category.getCategoryPane());
     // Sets the saved divider position.
-    setDividerPosition(storageHandler.loadDividerPosition());
+    preferencesPane.setDividerPosition(storageHandler.loadDividerPosition());
   }
 
   /**
