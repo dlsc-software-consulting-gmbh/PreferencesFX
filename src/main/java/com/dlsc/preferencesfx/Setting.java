@@ -117,6 +117,21 @@ public class Setting<F extends Field, P extends Property> {
         selections);
   }
 
+  /**
+   * Creates a setting of a custom defined field.
+   * @param description title of the setting
+   * @param field custom Field object from FormsFX
+   * @param property property with relevant value to be bound and saved
+   * @return constructed setting
+   */
+  public static <F extends Field<F>, P extends Property> Setting of(
+      String description, F field, P property) {
+    return new Setting<>(
+        description,
+        field.label(description),
+        property);
+  }
+
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {

@@ -86,7 +86,7 @@ asciidoctor {
 
     attributes 'source-highlighter' : 'coderay',
             'coderay-linenums-mode' : 'table',
-            //toc : 'left',
+            toc : 'left',
             icons : 'font',
             linkattrs : true,
             encoding : 'utf-8'
