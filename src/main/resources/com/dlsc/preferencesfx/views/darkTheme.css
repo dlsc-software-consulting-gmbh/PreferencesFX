@@ -1,22 +1,40 @@
 * {
-    -fx-background-color: #4e4e4e;
-    -fx-text-fill: #e6e6e6;
+    -fx-bg-color: #505050;
+    -fx-text-color: #f5f5f5;
+
+    /*border*/
+    -fx-color: #8e8e8e;
+    -fx-outer-border: #8e8e8e;
+
+    -fx-base: #6d6d6d;
+    /*bg hovering*/
+    -fx-selection-bar: #ffe155;
+    /*text hover on menu*/
+    -fx-text-background-color: #505050;
+    /*text hover on menuitem*/
+    -fx-text-base-color: #505050;
+    -fx-focused-text-base-color: #505050;
 }
 
-.menu-bar {
-    -fx-border-color: #bababa;
+.demo-view {
+    -fx-background-color: -fx-bg-color;
 }
 
-/*.menu:hover {*/
-    /*-fx-background-color: #e4e520;*/
-/*}*/
+.demo-view .label {
+    -fx-text-fill: -fx-text-color;
+}
 
-/*.root {*/
-    /*-fx-base: #ececec;*/
-    /*-fx-background: derive(-fx-base, 26.4%);*/
-    /*-fx-outer-border: derive(-fx-color,-23%);*/
-    /*-fx-color: -fx-base;*/
-/*}*/
+/*******************************************************************************
+ *                                                                             *
+ * Menu                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+.menu-up-arrow {
+    -fx-background-color: derive(-fx-color,-2%);
+}
+.menu-down-arrow {
+    -fx-background-color: derive(-fx-color,-2%);
+}
 
 /*******************************************************************************
  *                                                                             *
@@ -24,20 +42,14 @@
  *                                                                             *
  ******************************************************************************/
 .menu-bar {
-    -fx-background-color: #e6e6e6;
-            /*linear-gradient(to bottom, derive(-fx-base,75%) 0%, -fx-outer-border 90%),*/
-            /*linear-gradient(to bottom, derive(-fx-base,46.9%) 2%, derive(-fx-base,-2.1%) 95%);*/
-}
-/* Hide the down arrow for a menu placed in a menubar */
-.menu-bar > .container > .menu-button > .arrow-button > .arrow {
-    -fx-background-color: transparent;
+    -fx-background-color:
+            linear-gradient(to bottom, derive(-fx-base,75%) 0%, -fx-outer-border 90%),
+            linear-gradient(to bottom, derive(-fx-base,46.9%) 2%, derive(-fx-base,-2.1%) 95%);
 }
 .menu-bar > .container > .menu-button:hover,
 .menu-bar > .container > .menu-button:focused,
 .menu-bar > .container > .menu-button:showing {
     -fx-background: -fx-selection-bar;
-    -fx-background-color: #e4e520;
-            /*-fx-background;*/
 }
 .menu-bar > .container > .menu-button:hover > .label,
 .menu-bar > .container > .menu-button:focused > .label,
@@ -50,15 +62,11 @@
  * MenuItem                                                                    *
  *                                                                             *
  ******************************************************************************/
-.menu-item {
-    -fx-background-color: transparent;
-}
 .menu-item >.label {
     -fx-text-fill: -fx-text-base-color;
 }
 .menu-item:focused {
     -fx-background: -fx-selection-bar;
-    -fx-background-color: -fx-background;
     -fx-text-fill:  -fx-text-background-color;
 }
 .menu-item:focused > .label {

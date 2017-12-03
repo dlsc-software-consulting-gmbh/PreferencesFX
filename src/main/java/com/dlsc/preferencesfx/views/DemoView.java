@@ -104,6 +104,11 @@ public class DemoView extends VBox {
         )
     );
 
+    // Styling
+    getStyleClass().add("demo-view");
+    if (rootPane.nightMode.get()) {
+      getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());
+    }
   }
 
   private void setupBindings() {
@@ -127,14 +132,11 @@ public class DemoView extends VBox {
   }
 
   private void setupListeners() {
-    if(rootPane.nightMode.get()) {
-      getStylesheets().add (DemoView.class.getResource("demoStyle.css").toExternalForm());
-    }
     rootPane.nightMode.addListener((observable, oldValue, newValue) -> {
-      if(newValue){
-        getStylesheets().add (DemoView.class.getResource("demoStyle.css").toExternalForm());
+      if (newValue) {
+        getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());
       } else {
-        getStylesheets().remove (DemoView.class.getResource("demoStyle.css").toExternalForm());
+        getStylesheets().remove(getClass().getResource("darkTheme.css").toExternalForm());
       }
     });
   }
