@@ -40,8 +40,9 @@ public class History {
     undoAvailable.bind(position.greaterThanOrEqualTo(0));
     redoAvailable.bind(position.lessThan(validPosition));
     currentChange.bind(Bindings.createObjectBinding(() -> {
-      if (position.get() >= 0) {
-       return changes.get(position.get());
+      int index = position.get();
+      if (index >= 0 && index < (changes.size()-1)) {
+        return changes.get(index);
       }
       return null;
     }, position));
@@ -60,34 +61,44 @@ public class History {
 
   private void addChange(Change change) {
     LOGGER.trace("addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
-    // check if the last added change has the same new and old value
-    if (changes.size() > 0 && position.get() != -1 &&
-        changes.get(position.get()).isRedundant()) {
-      // the current change is redundant and can be overwritten
-      decrementPosition();
-    }
+
+    int lastIndex = changes.size() - 1;
+
     // check if change is on same setting as the last change => compounded change
-    if (changes.size() > 0 && position.get() != -1 &&
-        changes.get(position.get()).getSetting().equals(change.getSetting())) {
+    boolean compounded = changes.size() > 0 && position.get() != -1 &&
+        changes.get(position.get()).getSetting().equals(change.getSetting());
+    // check if the last added change has the same new and old value
+    boolean redundant = changes.size() > 0 && position.get() != -1 &&
+        changes.get(position.get()).isRedundant();
+    // if there is an element in the next position already => overwrite it instead of adding
+    boolean elementExists = position.get() < lastIndex;
+
+    if (compounded) {
       LOGGER.trace("Compounded change");
       changes.get(position.get()).setNewValue(change.getNewValue());
-      if (position.get() != changes.size()) {
-        // invalidate all further changes in the list
-        changes.remove(position.get()+1, changes.size());
-      }
+    } else if (redundant) {
+      LOGGER.trace("Redundant");
+      changes.set(position.get(), change);
+    } else if (elementExists) {
+      LOGGER.trace("Element exists");
+      changes.set(incrementPosition(), change);
     } else {
-      LOGGER.trace("New change");
-      int lastIndex = changes.size() - 1;
-      if (position.get() < lastIndex) { // if there is already an element at the current position
-        changes.set(incrementPosition(), change);
-        // invalidate all further changes in the list
-        changes.remove(position.get()+1, changes.size());
-      } else {
-        changes.add(change);
-        incrementPosition();
-      }
-      validPosition.setValue(position.get());
+      LOGGER.trace("Add new");
+      changes.add(change);
+      incrementPosition();
     }
+
+    lastIndex = changes.size() - 1;
+    // if there are changes after the currently added item
+    if (position.get() != lastIndex) {
+      // invalidate all further changes in the list
+      LOGGER.trace("Invalidate rest");
+      changes.remove(position.get() + 1, changes.size());
+    }
+
+    // the last valid position is now equal to the current position
+    validPosition.setValue(position.get());
+
     LOGGER.trace("addChange, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
   }
 
