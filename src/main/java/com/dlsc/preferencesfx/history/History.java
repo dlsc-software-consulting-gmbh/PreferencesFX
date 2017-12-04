@@ -25,6 +25,7 @@ public class History {
   // TODO: Make it possible to click in the History table to a specific point and have it undo/redo until that point
   // TODO: add documentation
   // TODO: add tests
+  // TODO: Persist history into Preferences
 
   private static final Logger LOGGER =
       LogManager.getLogger(History.class.getName());
