@@ -25,13 +25,10 @@ import com.dlsc.formsfx.view.util.ViewMixin;
 import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 
 /**
  * This class provides a base for general purpose FormsFX controls.
@@ -178,7 +175,8 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
    *              Determines whether the CSS class should be applied.
    */
   protected void updateStyle(PseudoClass pseudo, boolean newValue) {
-    pseudoClassStateChanged(pseudo, newValue);
+    node.pseudoClassStateChanged(pseudo, newValue);
+    fieldLabel.pseudoClassStateChanged(pseudo, newValue);
   }
 
   /**
