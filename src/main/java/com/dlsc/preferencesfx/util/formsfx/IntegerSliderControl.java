@@ -1,16 +1,16 @@
 package com.dlsc.preferencesfx.util.formsfx;
 
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.formsfx.view.controls.SimpleControl;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
  * Created by François Martin on 24.11.17.
  */
-public class IntegerSliderControl extends SimpleControl<IntegerField> {
+public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
   /**
    * - fieldLabel is the container that displays the label property of the
    * field.
@@ -20,7 +20,6 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   private Label fieldLabel;
   private Slider slider;
   private Label valueLabel;
-  private VBox container;
   private int min;
   private int max;
 
@@ -43,7 +42,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   public void initializeParts() {
     super.initializeParts();
 
-    getStyleClass().add("integer-slider-control");
+    node.getStyleClass().add("integer-slider-control");
 
     fieldLabel = new Label(field.labelProperty().getValue());
 
@@ -55,7 +54,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
     slider.setShowTickLabels(true);
     slider.setShowTickMarks(true);
 
-    container = new VBox();
+    node = new HBox();
     slider.setValue(field.getValue());
   }
 
@@ -64,13 +63,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
    */
   @Override
   public void layoutParts() {
-    super.layoutParts();
-
-    container.getChildren().add(slider);
-
-    add(fieldLabel, 0, 0, 2, 1);
-    add(container, 2, 0, field.getSpan() - 4, 1);
-    add(valueLabel, 2 + field.getSpan() - 3, 0, 2, 1);
+    node.getChildren().addAll(slider, valueLabel);
     valueLabel.setAlignment(Pos.CENTER);
   }
 
@@ -111,9 +104,6 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
    */
   @Override
   public void setupEventHandlers() {
-    setOnMouseEntered(event -> toggleTooltip(slider));
-    setOnMouseExited(event -> toggleTooltip(slider));
-
     slider.valueProperty().addListener((observable, oldValue, newValue) -> {
       field.userInputProperty().setValue(String.valueOf(newValue.intValue()));
     });

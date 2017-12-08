@@ -180,6 +180,15 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
   }
 
   /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+    node.setOnMouseEntered(event -> toggleTooltip(node));
+    fieldLabel.setOnMouseExited(event -> toggleTooltip(fieldLabel));
+  }
+
+  /**
    * Adds a style class to the control.
    * @param name of the style class to be added to the control
    */

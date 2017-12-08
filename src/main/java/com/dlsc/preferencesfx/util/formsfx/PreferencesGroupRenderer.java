@@ -1,9 +1,9 @@
 package com.dlsc.preferencesfx.util.formsfx;
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.view.controls.SimpleControl;
 import com.dlsc.formsfx.view.util.ViewMixin;
 import java.util.Iterator;
+import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
@@ -51,17 +51,18 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
    */
   @Override
   public void layoutParts() {
-    int currentRow;
-    for (currentRow = 0; currentRow < COLUMN_COUNT; ++currentRow) {
-      ColumnConstraints colConst = new ColumnConstraints();
-      colConst.setPercentWidth(SPACING * 10 / (double) COLUMN_COUNT);
-      grid.getColumnConstraints().add(colConst);
+    grid.setGridLinesVisible(true);
+
+    List<Field> fields = preferencesGroup.getFields();
+    for (int i = 0; i < fields.size(); i++) {
+      Field field = fields.get(i);
+      SimpleControl c = field.getRenderer();
+      c.setField(field);
+      grid.add(c.get, 0, i, 1, 1);
+
     }
 
-    currentRow = 0;
-    int currentColumnCount = 0;
 
-    int span;
     for (Iterator var4 = preferencesGroup.getFields().iterator(); var4.hasNext();
          currentColumnCount += span) {
       Field f = (Field) var4.next();
@@ -72,9 +73,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
         currentColumnCount = 0;
       }
 
-      SimpleControl c = f.getRenderer();
-      c.setField(f);
-      grid.add(c, currentColumnCount, currentRow, span, 1);
+
     }
 
     // Styling
