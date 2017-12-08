@@ -2,7 +2,6 @@ package com.dlsc.preferencesfx.util.formsfx;
 
 import com.dlsc.formsfx.model.structure.BooleanField;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import org.controlsfx.control.ToggleSwitch;
 
 /**

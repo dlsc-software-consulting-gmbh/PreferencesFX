@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 

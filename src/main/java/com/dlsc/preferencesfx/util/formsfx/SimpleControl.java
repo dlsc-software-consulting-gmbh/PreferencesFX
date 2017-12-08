@@ -129,8 +129,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
    * Sets the error message as tooltip for the matching control and shows
    * them below the same control.
    *
-   * @param reference
-   *          The control which gets the tooltip.
+   * @param reference The control which gets the tooltip.
    */
   protected void toggleTooltip(Node reference) {
     this.toggleTooltip(reference, (Control) reference);
@@ -139,10 +138,8 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
   /**
    * Sets the error message as tooltip for the matching control.
    *
-   * @param below
-   *          The control needed for positioning the tooltip.
-   * @param reference
-   *          The control which gets the tooltip.
+   * @param below     The control needed for positioning the tooltip.
+   * @param reference The control which gets the tooltip.
    */
   protected void toggleTooltip(Node reference, Control below) {
     String fieldTooltip = field.getTooltip();
@@ -169,10 +166,8 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
   /**
    * Sets the css style for the defined properties.
    *
-   * @param pseudo
-   *              The CSS pseudo class to toggle.
-   * @param newValue
-   *              Determines whether the CSS class should be applied.
+   * @param pseudo   The CSS pseudo class to toggle.
+   * @param newValue Determines whether the CSS class should be applied.
    */
   protected void updateStyle(PseudoClass pseudo, boolean newValue) {
     node.pseudoClassStateChanged(pseudo, newValue);
@@ -190,6 +185,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
 
   /**
    * Adds a style class to the control.
+   *
    * @param name of the style class to be added to the control
    */
   public void addStyleClass(String name) {
@@ -198,6 +194,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
 
   /**
    * Removes a style class from the control.
+   *
    * @param name of the class to be removed from the control
    */
   public void removeStyleClass(String name) {

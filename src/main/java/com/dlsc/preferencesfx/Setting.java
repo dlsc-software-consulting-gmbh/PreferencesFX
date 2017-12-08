@@ -119,9 +119,10 @@ public class Setting<F extends Field, P extends Property> {
 
   /**
    * Creates a setting of a custom defined field.
+   *
    * @param description title of the setting
-   * @param field custom Field object from FormsFX
-   * @param property property with relevant value to be bound and saved
+   * @param field       custom Field object from FormsFX
+   * @param property    property with relevant value to be bound and saved
    * @return constructed setting
    */
   public static <F extends Field<F>, P extends Property> Setting of(
