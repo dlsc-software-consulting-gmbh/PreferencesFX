@@ -136,7 +136,9 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
    */
   @Override
   protected void toggleTooltip(Node reference) {
-    this.toggleTooltip(reference, (Control) reference);
+    if (reference instanceof Control) {
+      this.toggleTooltip(reference, (Control) reference);
+    }
   }
 
   /**
