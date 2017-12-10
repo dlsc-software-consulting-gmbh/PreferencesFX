@@ -45,6 +45,5 @@ public class PreferencesFormRenderer extends GridPane implements ViewMixin {
   public void layoutParts() {
     // Outer Padding of Category Pane
     setPadding(new Insets(10));
-    getChildren().addAll(groups);
   }
 }
