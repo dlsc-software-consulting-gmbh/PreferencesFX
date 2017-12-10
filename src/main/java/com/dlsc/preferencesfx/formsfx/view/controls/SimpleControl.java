@@ -87,6 +87,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
     tooltip = new Tooltip();
     tooltip.getStyleClass().add("simple-tooltip");
 
+    fieldLabel = new Label();
     fieldLabel.getStyleClass().addAll(field.getStyleClass());
 
     updateStyle(INVALID_CLASS, !field.isValid());
@@ -101,6 +102,8 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
   @Override
   public void setupBindings() {
     node.idProperty().bind(field.idProperty());
+    node.disableProperty().bind(field.editableProperty().not());
+    fieldLabel.textProperty().bind(field.labelProperty());
   }
 
   @Override

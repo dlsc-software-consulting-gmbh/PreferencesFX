@@ -85,9 +85,6 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
   @Override
   public void setupBindings() {
     super.setupBindings();
-
-    slider.disableProperty().bind(field.editableProperty().not());
-    fieldLabel.textProperty().bind(field.labelProperty());
   }
 
   /**

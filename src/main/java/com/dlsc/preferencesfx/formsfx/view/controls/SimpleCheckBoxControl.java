@@ -74,8 +74,6 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
   @Override
   public void setupBindings() {
     super.setupBindings();
-
-    fieldLabel.textProperty().bind(field.labelProperty());
     setupCheckboxBindings();
   }
 

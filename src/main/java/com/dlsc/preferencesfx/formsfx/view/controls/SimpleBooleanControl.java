@@ -68,9 +68,6 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> 
   @Override
   public void setupBindings() {
     super.setupBindings();
-
-    node.disableProperty().bind(field.editableProperty().not());
-    fieldLabel.textProperty().bind(field.labelProperty());
   }
 
   /**

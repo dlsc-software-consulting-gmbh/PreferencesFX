@@ -78,8 +78,6 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
   @Override
   public void setupBindings() {
     super.setupBindings();
-
-    fieldLabel.textProperty().bind(field.labelProperty());
     setupRadioButtonBindings();
   }
 

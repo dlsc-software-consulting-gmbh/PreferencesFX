@@ -90,7 +90,6 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
 
     editableSpinner.getEditor().textProperty().bindBidirectional(field.userInputProperty());
     readOnlyLabel.textProperty().bind(field.userInputProperty());
-    fieldLabel.textProperty().bind(field.labelProperty());
   }
 
   /**

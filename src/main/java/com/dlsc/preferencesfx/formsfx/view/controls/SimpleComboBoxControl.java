@@ -86,7 +86,6 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
   public void setupBindings() {
     super.setupBindings();
 
-    fieldLabel.textProperty().bind(field.labelProperty());
     comboBox.visibleProperty().bind(field.editableProperty());
     readOnlyLabel.visibleProperty().bind(field.editableProperty().not());
     readOnlyLabel.textProperty().bind(comboBox.valueProperty().asString());

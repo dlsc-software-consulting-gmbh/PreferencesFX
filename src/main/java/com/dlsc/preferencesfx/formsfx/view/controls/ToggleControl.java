@@ -47,9 +47,6 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   @Override
   public void setupBindings() {
     super.setupBindings();
-
-    node.disableProperty().bind(field.editableProperty().not());
-    fieldLabel.textProperty().bind(field.labelProperty());
   }
 
   /**

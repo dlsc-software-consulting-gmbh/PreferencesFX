@@ -113,7 +113,6 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
     editableField.textProperty().bindBidirectional(field.userInputProperty());
     editableArea.textProperty().bindBidirectional(field.userInputProperty());
     readOnlyLabel.textProperty().bind(field.userInputProperty());
-    fieldLabel.textProperty().bind(field.labelProperty());
     editableField.promptTextProperty().bind(field.placeholderProperty());
     editableArea.promptTextProperty().bind(field.placeholderProperty());
 

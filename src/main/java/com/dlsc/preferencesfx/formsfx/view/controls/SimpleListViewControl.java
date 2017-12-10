@@ -86,9 +86,6 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
   @Override
   public void setupBindings() {
     super.setupBindings();
-
-    fieldLabel.textProperty().bind(field.labelProperty());
-    node.disableProperty().bind(field.editableProperty().not());
   }
 
   /**
