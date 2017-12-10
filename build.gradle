@@ -65,6 +65,9 @@ dependencies {
 
     // Serialization with gson
     compile 'com.google.code.gson:gson:2.8.2'
+
+    // CollectionUtils to compare collections
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
 }
 
 task wrapper(type: Wrapper) {

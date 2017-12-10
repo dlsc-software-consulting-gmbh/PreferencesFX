@@ -2,8 +2,13 @@ package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,18 +20,59 @@ public class Change<P> {
   private static final Logger LOGGER =
       LogManager.getLogger(Change.class.getName());
 
-  private final Setting setting;
+  protected final Setting setting;
 
-  private final SimpleObjectProperty<P> oldValue;
-  private final SimpleObjectProperty<P> newValue; // can be changed, if compounded changes occur
+  private final SimpleObjectProperty<P> oldValue = new SimpleObjectProperty<>();
+  private final SimpleObjectProperty<P> newValue = new SimpleObjectProperty<>(); // can be changed, if compounded changes occur
 
   private final LocalDate timestamp;
 
-  public Change(Setting setting, P oldValue, P newValue) {
+  /**
+   * Constructs a generalized change.
+   * @param setting the setting that was changed
+   */
+  protected Change(Setting setting) {
     this.setting = setting;
-    this.oldValue = new SimpleObjectProperty<>(oldValue);
-    this.newValue = new SimpleObjectProperty<>(newValue);
     timestamp = LocalDate.now();
+  }
+
+  /**
+   * Constructs a regular change.
+   * @param setting the setting that was changed
+   * @param oldValue the "before" value of the change
+   * @param newValue the "after" value of the change
+   */
+  public Change(Setting setting, P oldValue, P newValue) {
+    this(setting);
+    this.oldValue.set(oldValue);
+    this.newValue.set(newValue);
+  }
+
+  public Change(Setting setting, ListChangeListener.Change change, SimpleListProperty property) {
+    this(setting);
+    boolean added = false;
+    List elements = new ArrayList();
+    List collection = change.getList();
+
+    change.next();
+    if (change.wasAdded()) {
+      added = true;
+      elements = new ArrayList<>(change.getAddedSubList());
+    } else if (change.wasRemoved()) {
+      added = false;
+      elements = new ArrayList<>(change.getRemoved());
+    }
+
+    ArrayList oldList = new ArrayList(collection);
+    if (added) {
+      collection.addAll(elements);
+    } else {
+      collection.removeAll(elements);
+    }
+    ArrayList newList = new ArrayList(collection);
+
+    oldValue.set((P)FXCollections.observableArrayList(oldList));
+
   }
 
   /**
