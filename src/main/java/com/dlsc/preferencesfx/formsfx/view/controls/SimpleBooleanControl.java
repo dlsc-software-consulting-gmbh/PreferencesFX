@@ -101,9 +101,6 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> 
      */
     @Override
     public void setupEventHandlers() {
-        setOnMouseEntered(event -> toggleTooltip(node));
-        setOnMouseExited(event -> toggleTooltip(node));
-
         node.selectedProperty().addListener((observable, oldValue, newValue) -> field.userInputProperty().setValue(String.valueOf(newValue)));
     }
 

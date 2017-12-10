@@ -126,9 +126,6 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
      */
     @Override
     public void setupEventHandlers() {
-        comboBox.setOnMouseEntered(event -> toggleTooltip(comboBox));
-        comboBox.setOnMouseExited(event -> toggleTooltip(comboBox));
-
         comboBox.valueProperty().addListener((observable, oldValue, newValue) -> field.select(comboBox.getSelectionModel().getSelectedIndex()));
     }
 

@@ -136,9 +136,6 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
      */
     @Override
     public void setupEventHandlers() {
-        node.setOnMouseEntered(event -> toggleTooltip(node));
-        node.setOnMouseExited(event -> toggleTooltip(node));
-
         node.getSelectionModel().getSelectedIndices().addListener((ListChangeListener<Integer>) c -> {
             if (preventUpdate) {
                 return;
