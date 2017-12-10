@@ -52,27 +52,28 @@ public class PreferencesGroupRenderer {
   }
 
   public void layoutParts() {
+
+    // Only when the preferencesGroup has a title
+    if (preferencesGroup.getTitle() != null) {
+      grid.add(titleLabel, grid.getRowConstraints().size(), 0, 1, 1);
+      grid.getStyleClass().add("category-content");
+    }
+
     List<Field> fields = preferencesGroup.getFields();
+
     for (int i = 0; i < fields.size(); i++) {
       Field field = fields.get(i);
       SimpleControl c = (SimpleControl) field.getRenderer();
       c.setField(field);
-      grid.add(c.getFieldLabel(), grid.getColumnConstraints().size(), i, 1, 1);
-      grid.add(c.getNode(), grid.getColumnConstraints().size()+1, i, 1, 1);
+      grid.add(c.getFieldLabel(), grid.getRowConstraints().size(), i, 1, 1);
+      grid.add(c.getNode(), grid.getRowConstraints().size()+1, i, 1, 1);
     }
 
     // Styling
     grid.setHgap(SPACING);
     grid.setVgap(SPACING);
-    setPadding(new Insets(SPACING * 1.5));
+    //setPadding(new Insets(SPACING * 1.5));
     titleLabel.getStyleClass().add("category-title");
-
-    // Only when the preferencesGroup has a title
-    if (preferencesGroup.getTitle() != null) {
-      getChildren().add(titleLabel);
-      grid.getStyleClass().add("category-content");
-    }
-    getChildren().add(grid);
   }
 
   public void setupBindings() {
@@ -80,18 +81,18 @@ public class PreferencesGroupRenderer {
   }
 
   /**
-   * Adds a style class to the control.
+   * Adds a style class to the group.
    *
-   * @param name of the style class to be added to the control
+   * @param name of the style class to be added to the group
    */
   public void addStyleClass(String name) {
     getStyleClass().add(name);
   }
 
   /**
-   * Removes a style class from the control.
+   * Removes a style class from the group.
    *
-   * @param name of the class to be removed from the control
+   * @param name of the class to be removed from the group
    */
   public void removeStyleClass(String name) {
     getStyleClass().remove(name);
