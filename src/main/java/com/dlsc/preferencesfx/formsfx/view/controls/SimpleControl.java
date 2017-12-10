@@ -178,8 +178,8 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
    */
   @Override
   protected void updateStyle(PseudoClass pseudo, boolean newValue) {
-//    node.pseudoClassStateChanged(pseudo, newValue);
-//    fieldLabel.pseudoClassStateChanged(pseudo, newValue);
+//    node.pseudoClassStateChanged(pseudo, newValue);           // TODO: Fix Exception
+//    fieldLabel.pseudoClassStateChanged(pseudo, newValue);     // TODO: Fix Exception
   }
 
   @Override
