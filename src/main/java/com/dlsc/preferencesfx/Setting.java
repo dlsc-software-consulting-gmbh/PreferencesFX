@@ -13,6 +13,8 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -158,8 +160,10 @@ public class Setting<F extends Field, P extends Property> {
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
-      getField().getRenderer().addStyleClass(MARKED_STYLE_CLASS);
-      getField().getRenderer().setOnMouseExited(unmarker);
+      SimpleControl renderer = (SimpleControl) getField().getRenderer();
+      Node markNode = renderer.getFieldLabel();
+      markNode.getStyleClass().add(MARKED_STYLE_CLASS);
+      markNode.setOnMouseExited(unmarker);
       marked = !marked;
     }
   }
@@ -167,8 +171,10 @@ public class Setting<F extends Field, P extends Property> {
   public void unmark() {
     // check if it's marked before removing the style class
     if (marked) {
-      getField().getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
-      getField().getRenderer().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
+      SimpleControl renderer = (SimpleControl) getField().getRenderer();
+      Node markNode = renderer.getFieldLabel();
+      markNode.getStyleClass().remove(MARKED_STYLE_CLASS);
+      markNode.removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
       marked = !marked;
     }
   }

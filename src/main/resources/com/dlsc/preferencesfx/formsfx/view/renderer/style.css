@@ -223,8 +223,6 @@
  * SPECIAL STYLING *
  *******************/
 .simple-control-marked, .group-marked {
-    -fx-border-color: rgba(255, 255, 0, 0.4);
-    -fx-border-width: 5px;
-    -fx-border-radius: 10px;
-    -fx-padding: 2px;
+    -fx-background-color: rgba(255, 255, 0, 0.2);
+    -fx-background-insets: -0.5em -999999em -0.5em -0.5em;
 }
