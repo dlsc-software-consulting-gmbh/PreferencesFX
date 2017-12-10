@@ -51,8 +51,6 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
    */
   @Override
   public void layoutParts() {
-    grid.setGridLinesVisible(true);
-
     List<Field> fields = preferencesGroup.getFields();
     for (int i = 0; i < fields.size(); i++) {
       Field field = fields.get(i);
