@@ -2,8 +2,8 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.util.BindingMode;
-import com.dlsc.preferencesfx.util.formsfx.PreferencesFormRenderer;
-import com.dlsc.preferencesfx.util.formsfx.PreferencesGroup;
+import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFormRenderer;
+import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesGroup;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.StackPane;

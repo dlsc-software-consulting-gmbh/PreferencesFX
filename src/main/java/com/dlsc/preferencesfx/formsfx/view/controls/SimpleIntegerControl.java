@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.controls;
 
 /*-
  * ========================LICENSE_START=================================
@@ -20,17 +20,17 @@ package com.dlsc.preferencesfx.util.formsfx;
  * =========================LICENSE_END==================================
  */
 
-import com.dlsc.formsfx.model.structure.DoubleField;
+import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.view.controls.SimpleNumberControl;
 import javafx.scene.control.SpinnerValueFactory;
 
 /**
- * This class provides a specific implementation to edit double values.
+ * This class provides a specific implementation to edit integer values.
  *
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Double> {
+public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Integer> {
 
     /**
      * {@inheritDoc}
@@ -39,8 +39,8 @@ public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Double
     public void initializeParts() {
         super.initializeParts();
 
-        getStyleClass().add("simple-double-control");
-        editableSpinner.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(-Double.MAX_VALUE, Double.MAX_VALUE, field.getValue()));
+        getStyleClass().addAll("simple-integer-control");
+        editableSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(Integer.MIN_VALUE, Integer.MAX_VALUE, field.getValue()));
     }
 
     /**
@@ -50,7 +50,8 @@ public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Double
     public void setupValueChangedListeners() {
         super.setupValueChangedListeners();
 
-        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(editableSpinner));
         field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(editableSpinner));
+        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(editableSpinner));
     }
+
 }

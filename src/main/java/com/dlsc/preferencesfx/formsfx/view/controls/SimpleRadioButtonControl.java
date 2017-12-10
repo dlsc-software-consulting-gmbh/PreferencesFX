@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.controls;
 
 /*-
  * ========================LICENSE_START=================================
@@ -21,7 +21,7 @@ package com.dlsc.preferencesfx.util.formsfx;
  */
 
 import com.dlsc.formsfx.model.structure.SingleSelectionField;
-import com.dlsc.formsfx.view.controls.SimpleControl;
+
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Label;
@@ -36,19 +36,18 @@ import javafx.scene.layout.VBox;
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionField<V>> {
+public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionField<V>, VBox> {
 
     /**
      * - The fieldLabel is the container that displays the label property of
      *   the field.
      * - The radioButtons is the list of radio buttons to display.
      * - The toggleGroup defines the group for the radio buttons.
-     * - The box is a VBox holding all radio buttons.
+     * - The node is a VBox holding all radio buttons.
      */
     private Label fieldLabel;
     private final List<RadioButton> radioButtons = new ArrayList<>();
     private ToggleGroup toggleGroup;
-    private VBox box;
 
     /**
      * {@inheritDoc}
@@ -61,7 +60,7 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
 
         fieldLabel = new Label(field.labelProperty().getValue());
         toggleGroup = new ToggleGroup();
-        box = new VBox();
+        node = new VBox();
 
         createRadioButtons();
     }
@@ -75,10 +74,10 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
 
         int columns = field.getSpan();
 
-        box.setSpacing(5);
+        node.setSpacing(5);
 
         add(fieldLabel, 0,0,2,1);
-        add(box, 2, 0, columns - 2,1);
+        add(node, 2, 0, columns - 2,1);
     }
 
     /**
@@ -113,8 +112,8 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
             }
         });
 
-        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(box, radioButtons.get(radioButtons.size() - 1)));
-        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(box, radioButtons.get(radioButtons.size() - 1)));
+        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
     }
 
     /**
@@ -122,8 +121,8 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
      */
     @Override
     public void setupEventHandlers() {
-        setOnMouseEntered(event -> toggleTooltip(box, radioButtons.get(radioButtons.size() - 1)));
-        setOnMouseExited(event -> toggleTooltip(box, radioButtons.get(radioButtons.size() - 1)));
+        setOnMouseEntered(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+        setOnMouseExited(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
         setupRadioButtonEventHandlers();
     }
 
@@ -132,7 +131,7 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
      * and is used when the itemsProperty on the field changes.
      */
     private void createRadioButtons() {
-        box.getChildren().clear();
+        node.getChildren().clear();
         radioButtons.clear();
 
         for (int i = 0; i < field.getItems().size(); i++) {
@@ -148,7 +147,7 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
             radioButtons.get(field.getItems().indexOf(field.getSelection())).setSelected(true);
         }
 
-        box.getChildren().addAll(radioButtons);
+        node.getChildren().addAll(radioButtons);
     }
 
     /**

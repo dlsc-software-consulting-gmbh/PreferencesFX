@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.controls;
 
 /*-
  * ========================LICENSE_START=================================
@@ -21,7 +21,7 @@ package com.dlsc.preferencesfx.util.formsfx;
  */
 
 import com.dlsc.formsfx.model.structure.BooleanField;
-import com.dlsc.formsfx.view.controls.SimpleControl;
+
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -33,17 +33,15 @@ import javafx.scene.layout.VBox;
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public class SimpleBooleanControl extends SimpleControl<BooleanField> {
+public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> {
 
     /**
      * - fieldLabel is the container that displays the label property of the
      *   field.
-     * - checkBox is the editable checkbox to set user input.
+     * - node is the editable checkbox to set user input.
      * - container holds the checkbox so that it can be styled properly.
      */
     private Label fieldLabel;
-    private CheckBox checkBox;
-    private VBox container;
 
     /**
      * {@inheritDoc}
@@ -55,9 +53,9 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField> {
         getStyleClass().add("simple-boolean-control");
 
         fieldLabel = new Label(field.labelProperty().getValue());
-        checkBox = new CheckBox();
+        node = new CheckBox();
         container = new VBox();
-        checkBox.setSelected(field.getValue());
+        node.setSelected(field.getValue());
     }
 
     /**
@@ -67,7 +65,7 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField> {
     public void layoutParts() {
         super.layoutParts();
 
-        container.getChildren().add(checkBox);
+        container.getChildren().add(node);
 
         add(fieldLabel, 0,0,2,1);
         add(container, 2, 0, field.getSpan() - 2,1);
@@ -80,7 +78,7 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField> {
     public void setupBindings() {
         super.setupBindings();
 
-        checkBox.disableProperty().bind(field.editableProperty().not());
+        node.disableProperty().bind(field.editableProperty().not());
         fieldLabel.textProperty().bind(field.labelProperty());
     }
 
@@ -90,12 +88,12 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField> {
     @Override
     public void setupValueChangedListeners() {
         super.setupValueChangedListeners();
-        field.userInputProperty().addListener((observable, oldValue, newValue) -> checkBox.setSelected(Boolean.parseBoolean(field.getUserInput())));
+        field.userInputProperty().addListener((observable, oldValue, newValue) -> node.setSelected(Boolean.parseBoolean(field.getUserInput())));
 
-        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(checkBox));
-        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(checkBox));
+        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
 
-        checkBox.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(checkBox));
+        node.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
     }
 
     /**
@@ -103,10 +101,10 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField> {
      */
     @Override
     public void setupEventHandlers() {
-        setOnMouseEntered(event -> toggleTooltip(checkBox));
-        setOnMouseExited(event -> toggleTooltip(checkBox));
+        setOnMouseEntered(event -> toggleTooltip(node));
+        setOnMouseExited(event -> toggleTooltip(node));
 
-        checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> field.userInputProperty().setValue(String.valueOf(newValue)));
+        node.selectedProperty().addListener((observable, oldValue, newValue) -> field.userInputProperty().setValue(String.valueOf(newValue)));
     }
 
 }

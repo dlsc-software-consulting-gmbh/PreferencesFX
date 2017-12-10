@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.util.formsfx.PreferencesGroup;
+import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesGroup;
 import java.util.Arrays;
 import java.util.List;
 import javafx.event.EventHandler;

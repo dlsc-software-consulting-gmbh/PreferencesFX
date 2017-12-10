@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.controls;
 
 /*-
  * ========================LICENSE_START=================================
@@ -21,7 +21,7 @@ package com.dlsc.preferencesfx.util.formsfx;
  */
 
 import com.dlsc.formsfx.model.structure.DataField;
-import com.dlsc.formsfx.view.controls.SimpleControl;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -34,14 +34,13 @@ import javafx.scene.layout.StackPane;
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public abstract class SimpleNumberControl<F extends DataField, D extends Number> extends SimpleControl<F> {
+public abstract class SimpleNumberControl<F extends DataField, D extends Number> extends SimpleControl<F, StackPane> {
 
     /**
      * This StackPane is needed for achieving the readonly effect by putting
      * the {@code readOnlyLabel} over the {@code editableSpinner} on the change
      * of the {@code visibleProperty}.
      */
-    private StackPane stack;
 
     /**
      * - The fieldLabel is the container that displays the label property of
@@ -60,7 +59,7 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
     public void initializeParts() {
         super.initializeParts();
 
-        stack = new StackPane();
+        node = new StackPane();
 
         fieldLabel = new Label();
         readOnlyLabel = new Label();
@@ -76,8 +75,8 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
         super.layoutParts();
 
         readOnlyLabel.getStyleClass().add("read-only-label");
-        stack.getChildren().addAll(editableSpinner, readOnlyLabel);
-        stack.setAlignment(Pos.CENTER_LEFT);
+        node.getChildren().addAll(editableSpinner, readOnlyLabel);
+        node.setAlignment(Pos.CENTER_LEFT);
 
         editableSpinner.setMaxWidth(Double.MAX_VALUE);
 
@@ -85,10 +84,10 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
 
         if (columns < 3) {
             add(fieldLabel, 0, 0, columns, 0);
-            add(stack, 0, 1, columns, 1);
+            add(node, 0, 1, columns, 1);
         } else {
             add(fieldLabel, 0, 0, 2, 1);
-            add(stack, 2, 0, columns - 2, 1);
+            add(node, 2, 0, columns - 2, 1);
         }
     }
 

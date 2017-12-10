@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.renderer;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.util.ViewMixin;

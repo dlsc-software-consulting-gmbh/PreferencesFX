@@ -1,7 +1,8 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.renderer;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.view.util.ViewMixin;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import java.util.Iterator;
 import java.util.List;
 import javafx.geometry.Insets;

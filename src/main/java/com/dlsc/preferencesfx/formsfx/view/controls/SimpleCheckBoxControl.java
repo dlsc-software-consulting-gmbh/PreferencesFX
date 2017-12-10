@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.controls;
 
 /*-
  * ========================LICENSE_START=================================
@@ -21,7 +21,7 @@ package com.dlsc.preferencesfx.util.formsfx;
  */
 
 import com.dlsc.formsfx.model.structure.MultiSelectionField;
-import com.dlsc.formsfx.view.controls.SimpleControl;
+
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.CheckBox;
@@ -35,17 +35,16 @@ import javafx.scene.layout.VBox;
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<V>> {
+public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<V>, VBox> {
 
     /**
      * - The fieldLabel is the container that displays the label property of
      *   the field.
      * - The checkboxes list contains all the checkboxes to display.
-     * - The box is a VBox holding all box.
+     * - The node is a VBox holding all node.
      */
     private Label fieldLabel;
     private final List<CheckBox> checkboxes = new ArrayList<>();
-    private VBox box;
 
     /**
      * {@inheritDoc}
@@ -57,7 +56,7 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
         getStyleClass().add("simple-checkbox-control");
 
         fieldLabel = new Label(field.labelProperty().getValue());
-        box = new VBox();
+        node = new VBox();
 
         createCheckboxes();
     }
@@ -71,10 +70,10 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
 
         int columns = field.getSpan();
 
-        box.setSpacing(5);
+        node.setSpacing(5);
 
         add(fieldLabel, 0,0,2,1);
-        add(box, 2, 0, columns - 2,1);
+        add(node, 2, 0, columns - 2,1);
     }
 
     /**
@@ -107,11 +106,11 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
             }
         });
 
-        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(box, checkboxes.get(checkboxes.size() - 1)));
-        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(box, checkboxes.get(checkboxes.size() - 1)));
+        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, checkboxes.get(checkboxes.size() - 1)));
+        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, checkboxes.get(checkboxes.size() - 1)));
 
         for (int i = 0; i < checkboxes.size(); i++) {
-            checkboxes.get(i).focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(box, checkboxes.get(checkboxes.size() - 1)));
+            checkboxes.get(i).focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, checkboxes.get(checkboxes.size() - 1)));
         }
     }
 
@@ -120,17 +119,17 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
      */
     @Override
     public void setupEventHandlers() {
-        box.setOnMouseEntered(event -> toggleTooltip(box, checkboxes.get(checkboxes.size() - 1)));
-        box.setOnMouseExited(event -> toggleTooltip(box, checkboxes.get(checkboxes.size() - 1)));
+        node.setOnMouseEntered(event -> toggleTooltip(node, checkboxes.get(checkboxes.size() - 1)));
+        node.setOnMouseExited(event -> toggleTooltip(node, checkboxes.get(checkboxes.size() - 1)));
         setupCheckboxEventHandlers();
     }
 
     /**
-     * This method creates box and adds them to checkboxes and is
+     * This method creates node and adds them to checkboxes and is
      * used when the itemsProperty on the field changes.
      */
     private void createCheckboxes() {
-        box.getChildren().clear();
+        node.getChildren().clear();
         checkboxes.clear();
 
         for (int i = 0; i < field.getItems().size(); i++) {
@@ -142,7 +141,7 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
             checkboxes.add(cb);
         }
 
-        box.getChildren().addAll(checkboxes);
+        node.getChildren().addAll(checkboxes);
     }
 
     /**

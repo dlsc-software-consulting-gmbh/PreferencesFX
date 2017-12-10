@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.controls;
 
 /*-
  * ========================LICENSE_START=================================
@@ -21,7 +21,7 @@ package com.dlsc.preferencesfx.util.formsfx;
  */
 
 import com.dlsc.formsfx.model.structure.SingleSelectionField;
-import com.dlsc.formsfx.view.controls.SimpleControl;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -34,7 +34,7 @@ import javafx.scene.layout.StackPane;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField<V>> {
+public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField<V>, StackPane> {
 
     /**
      * - The fieldLabel is the container that displays the label property of
@@ -42,12 +42,11 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
      * - The comboBox is the container that displays the values in the
      *   ComboBox.
      * - The readOnlyLabel is used to show the current selection in read only.
-     * - The stack is a StackPane to hold the field and read only label.
+     * - The node is a StackPane to hold the field and read only label.
      */
     private Label fieldLabel;
     private ComboBox<V> comboBox;
     private Label readOnlyLabel;
-    private StackPane stack;
 
     /**
      * {@inheritDoc}
@@ -60,7 +59,7 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
 
         fieldLabel = new Label(field.labelProperty().getValue());
         readOnlyLabel = new Label();
-        stack = new StackPane();
+        node = new StackPane();
 
         comboBox = new ComboBox<>(field.getItems());
 
@@ -80,11 +79,11 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
         comboBox.setMaxWidth(Double.MAX_VALUE);
         comboBox.setVisibleRowCount(4);
 
-        stack.setAlignment(Pos.CENTER_LEFT);
-        stack.getChildren().addAll(comboBox, readOnlyLabel);
+        node.setAlignment(Pos.CENTER_LEFT);
+        node.getChildren().addAll(comboBox, readOnlyLabel);
 
         add(fieldLabel, 0,0,2,1);
-        add(stack, 2, 0, columns - 2, 1);
+        add(node, 2, 0, columns - 2, 1);
     }
 
     /**

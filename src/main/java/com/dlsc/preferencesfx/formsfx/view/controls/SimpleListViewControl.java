@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.controls;
 
 /*-
  * ========================LICENSE_START=================================
@@ -21,7 +21,7 @@ package com.dlsc.preferencesfx.util.formsfx;
  */
 
 import com.dlsc.formsfx.model.structure.MultiSelectionField;
-import com.dlsc.formsfx.view.controls.SimpleControl;
+
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -34,15 +34,14 @@ import javafx.scene.control.SelectionMode;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<V>> {
+public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<V>, ListView<String>> {
 
     /**
      * - The fieldLabel is the container that displays the label property of
      *   the field.
-     * - The listView is the container that displays list values.
+     * - The node is the container that displays list values.
      */
     private Label fieldLabel;
-    private ListView<String> listView = new ListView<>();
 
     /**
      * The flag used for setting the selection properly.
@@ -58,16 +57,18 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
 
         getStyleClass().add("simple-listview-control");
 
+        node = new ListView<>();
+
         fieldLabel = new Label(field.labelProperty().getValue());
 
-        listView.setItems(field.getItems());
-        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        node.setItems(field.getItems());
+        node.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         for (int i = 0; i < field.getItems().size(); i++) {
             if (field.getSelection().contains(field.getItems().get(i))) {
-                listView.getSelectionModel().select(i);
+                node.getSelectionModel().select(i);
             } else {
-                listView.getSelectionModel().clearSelection(i);
+                node.getSelectionModel().clearSelection(i);
             }
         }
     }
@@ -81,10 +82,10 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
 
         int columns = field.getSpan();
 
-        listView.setPrefHeight(200);
+        node.setPrefHeight(200);
 
         add(fieldLabel, 0,0,2,1);
-        add(listView, 2, 0, columns - 2, 1);
+        add(node, 2, 0, columns - 2, 1);
     }
 
     /**
@@ -95,7 +96,7 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
         super.setupBindings();
 
         fieldLabel.textProperty().bind(field.labelProperty());
-        listView.disableProperty().bind(field.editableProperty().not());
+        node.disableProperty().bind(field.editableProperty().not());
     }
 
     /**
@@ -105,7 +106,7 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
     public void setupValueChangedListeners() {
         super.setupValueChangedListeners();
 
-        field.itemsProperty().addListener((observable, oldValue, newValue) -> listView.setItems(field.getItems()));
+        field.itemsProperty().addListener((observable, oldValue, newValue) -> node.setItems(field.getItems()));
 
         field.selectionProperty().addListener((observable, oldValue, newValue) -> {
             if (preventUpdate) {
@@ -116,18 +117,18 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
 
             for (int i = 0; i < field.getItems().size(); i++) {
                 if (field.getSelection().contains(field.getItems().get(i))) {
-                    listView.getSelectionModel().select(i);
+                    node.getSelectionModel().select(i);
                 } else {
-                    listView.getSelectionModel().clearSelection(i);
+                    node.getSelectionModel().clearSelection(i);
                 }
             }
 
             preventUpdate = false;
         });
 
-        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(listView));
-        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(listView));
-        listView.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(listView));
+        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+        node.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
     }
 
     /**
@@ -135,18 +136,18 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
      */
     @Override
     public void setupEventHandlers() {
-        listView.setOnMouseEntered(event -> toggleTooltip(listView));
-        listView.setOnMouseExited(event -> toggleTooltip(listView));
+        node.setOnMouseEntered(event -> toggleTooltip(node));
+        node.setOnMouseExited(event -> toggleTooltip(node));
 
-        listView.getSelectionModel().getSelectedIndices().addListener((ListChangeListener<Integer>) c -> {
+        node.getSelectionModel().getSelectedIndices().addListener((ListChangeListener<Integer>) c -> {
             if (preventUpdate) {
                 return;
             }
 
             preventUpdate = true;
 
-            for (int i = 0; i < listView.getItems().size(); i++) {
-                if (listView.getSelectionModel().getSelectedIndices().contains(i)) {
+            for (int i = 0; i < node.getItems().size(); i++) {
+                if (node.getSelectionModel().getSelectedIndices().contains(i)) {
                     field.select(i);
                 } else {
                     field.deselect(i);

@@ -7,7 +7,7 @@ import com.dlsc.preferencesfx.Category;
 import com.dlsc.preferencesfx.Group;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.Setting;
-import com.dlsc.preferencesfx.util.formsfx.IntegerSliderControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.google.common.collect.Lists;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
