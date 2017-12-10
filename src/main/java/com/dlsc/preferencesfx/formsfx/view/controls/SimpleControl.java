@@ -178,8 +178,12 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
    */
   @Override
   protected void updateStyle(PseudoClass pseudo, boolean newValue) {
-//    node.pseudoClassStateChanged(pseudo, newValue);           // TODO: Fix Exception
-//    fieldLabel.pseudoClassStateChanged(pseudo, newValue);     // TODO: Fix Exception
+    if (node != null) {
+      node.pseudoClassStateChanged(pseudo, newValue);
+    }
+    if (fieldLabel != null) {
+      fieldLabel.pseudoClassStateChanged(pseudo, newValue);
+    }
   }
 
   @Override
@@ -195,7 +199,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
    */
   @Override
   public void addStyleClass(String name) {
-    field.getStyleClass().add(name);
+    node.getStyleClass().add(name);
   }
 
   /**
@@ -205,7 +209,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
    */
   @Override
   public void removeStyleClass(String name) {
-    field.getStyleClass().remove(name);
+    node.getStyleClass().remove(name);
   }
 
   public F getField() {
