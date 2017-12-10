@@ -21,7 +21,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.DataField;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -36,87 +35,87 @@ import javafx.scene.layout.StackPane;
  */
 public abstract class SimpleNumberControl<F extends DataField, D extends Number> extends SimpleControl<F, StackPane> {
 
-    /**
-     * This StackPane is needed for achieving the readonly effect by putting
-     * the {@code readOnlyLabel} over the {@code editableSpinner} on the change
-     * of the {@code visibleProperty}.
-     */
+  /**
+   * This StackPane is needed for achieving the readonly effect by putting
+   * the {@code readOnlyLabel} over the {@code editableSpinner} on the change
+   * of the {@code visibleProperty}.
+   */
 
-    /**
-     * - The fieldLabel is the container that displays the label property of
-     *   the field.
-     * - The editableSpinner is a Spinner for setting numerical values.
-     * - The readOnlyLabel is the label to put over editableSpinner.
-     */
-    private Label fieldLabel;
-    protected Spinner<D> editableSpinner;
-    private Label readOnlyLabel;
+  protected Spinner<D> editableSpinner;
+  /**
+   * - The fieldLabel is the container that displays the label property of
+   * the field.
+   * - The editableSpinner is a Spinner for setting numerical values.
+   * - The readOnlyLabel is the label to put over editableSpinner.
+   */
+  private Label fieldLabel;
+  private Label readOnlyLabel;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initializeParts() {
-        super.initializeParts();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    super.initializeParts();
 
-        node = new StackPane();
+    node = new StackPane();
 
-        fieldLabel = new Label();
-        readOnlyLabel = new Label();
-        editableSpinner = new Spinner<>();
-        editableSpinner.setEditable(true);
-    }
+    fieldLabel = new Label();
+    readOnlyLabel = new Label();
+    editableSpinner = new Spinner<>();
+    editableSpinner.setEditable(true);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void layoutParts() {
-        readOnlyLabel.getStyleClass().add("read-only-label");
-        node.getChildren().addAll(editableSpinner, readOnlyLabel);
-        node.setAlignment(Pos.CENTER_LEFT);
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+    readOnlyLabel.getStyleClass().add("read-only-label");
+    node.getChildren().addAll(editableSpinner, readOnlyLabel);
+    node.setAlignment(Pos.CENTER_LEFT);
 
-        editableSpinner.setMaxWidth(Double.MAX_VALUE);
-    }
+    editableSpinner.setMaxWidth(Double.MAX_VALUE);
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupBindings() {
-        super.setupBindings();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+    super.setupBindings();
 
-        editableSpinner.visibleProperty().bind(field.editableProperty());
-        readOnlyLabel.visibleProperty().bind(field.editableProperty().not());
+    editableSpinner.visibleProperty().bind(field.editableProperty());
+    readOnlyLabel.visibleProperty().bind(field.editableProperty().not());
 
-        editableSpinner.getEditor().textProperty().bindBidirectional(field.userInputProperty());
-        readOnlyLabel.textProperty().bind(field.userInputProperty());
-        fieldLabel.textProperty().bind(field.labelProperty());
-    }
+    editableSpinner.getEditor().textProperty().bindBidirectional(field.userInputProperty());
+    readOnlyLabel.textProperty().bind(field.userInputProperty());
+    fieldLabel.textProperty().bind(field.labelProperty());
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupEventHandlers() {
-        editableSpinner.getEditor().setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case UP:
-                    editableSpinner.increment(1);
-                    break;
-                case DOWN:
-                    editableSpinner.decrement(1);
-                    break;
-            }
-        });
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+    editableSpinner.getEditor().setOnKeyPressed(event -> {
+      switch (event.getCode()) {
+        case UP:
+          editableSpinner.increment(1);
+          break;
+        case DOWN:
+          editableSpinner.decrement(1);
+          break;
+      }
+    });
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupValueChangedListeners() {
-        super.setupValueChangedListeners();
-        editableSpinner.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(editableSpinner));
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+    super.setupValueChangedListeners();
+    editableSpinner.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(editableSpinner));
+  }
 }

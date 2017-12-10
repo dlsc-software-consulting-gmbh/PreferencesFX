@@ -45,6 +45,18 @@ public class PreferencesFx extends MasterDetailPane {
     layoutParts();
   }
 
+  /**
+   * Creates the Preferences window.
+   *
+   * @param saveClass  the class which the preferences are saved as
+   *                   Must be unique to the application using the preferences
+   * @param categories the items to be displayed in the TreeView
+   * @return the preferences window
+   */
+  public static PreferencesFx of(Class<?> saveClass, Category... categories) {
+    return new PreferencesFx(saveClass, categories);
+  }
+
   private void loadSettingValues() {
     createBreadcrumbs(categories);
     categoryTree
@@ -69,18 +81,6 @@ public class PreferencesFx extends MasterDetailPane {
         category.createBreadcrumbs(category.getChildren());
       }
     });
-  }
-
-  /**
-   * Creates the Preferences window.
-   *
-   * @param saveClass  the class which the preferences are saved as
-   *                   Must be unique to the application using the preferences
-   * @param categories the items to be displayed in the TreeView
-   * @return the preferences window
-   */
-  public static PreferencesFx of(Class<?> saveClass, Category... categories) {
-    return new PreferencesFx(saveClass, categories);
   }
 
   private void setupParts() {

@@ -21,16 +21,14 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
      */
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.view.util.ViewMixin;
 import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.ColumnConstraints;
+
 /**
  * This class provides a base for general purpose FormsFX controls.
  *
@@ -40,32 +38,28 @@ import javafx.scene.layout.ColumnConstraints;
 public abstract class SimpleControl<F extends Field, N extends Node> extends com.dlsc.formsfx.view.controls.SimpleControl<F> {
 
   /**
-   * This is the Field that is used for binding and update styling changes.
-   */
-  protected F field;
-
-  /**
-   * The label which gets rendered on the left of the node
-   */
-  protected Label fieldLabel;
-
-  /**
-   * The control which gets rendered
-   */
-  protected N node;
-
-  /**
-   * Tooltip to hold the error message.
-   */
-  Tooltip tooltip;
-
-  /**
    * Pseudo classes for state changes.
    */
   protected static final PseudoClass REQUIRED_CLASS = PseudoClass.getPseudoClass("required");
   protected static final PseudoClass INVALID_CLASS = PseudoClass.getPseudoClass("invalid");
   protected static final PseudoClass CHANGED_CLASS = PseudoClass.getPseudoClass("changed");
   protected static final PseudoClass DISABLED_CLASS = PseudoClass.getPseudoClass("disabled");
+  /**
+   * This is the Field that is used for binding and update styling changes.
+   */
+  protected F field;
+  /**
+   * The label which gets rendered on the left of the node
+   */
+  protected Label fieldLabel;
+  /**
+   * The control which gets rendered
+   */
+  protected N node;
+  /**
+   * Tooltip to hold the error message.
+   */
+  Tooltip tooltip;
 
   @Override
   public void setField(F field) {

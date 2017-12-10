@@ -21,10 +21,8 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.BooleanField;
-
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 /**
  * This class provides the base implementation for a simple control to edit
@@ -35,66 +33,66 @@ import javafx.scene.layout.VBox;
  */
 public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> {
 
-    /**
-     * - fieldLabel is the container that displays the label property of the
-     *   field.
-     * - node is the editable checkbox to set user input.
-     * - container holds the checkbox so that it can be styled properly.
-     */
-    private Label fieldLabel;
+  /**
+   * - fieldLabel is the container that displays the label property of the
+   * field.
+   * - node is the editable checkbox to set user input.
+   * - container holds the checkbox so that it can be styled properly.
+   */
+  private Label fieldLabel;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initializeParts() {
-        super.initializeParts();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    super.initializeParts();
 
-        node.getStyleClass().add("simple-boolean-control");
+    node.getStyleClass().add("simple-boolean-control");
 
-        fieldLabel = new Label(field.labelProperty().getValue());
-        node = new CheckBox();
-        node.setSelected(field.getValue());
-    }
+    fieldLabel = new Label(field.labelProperty().getValue());
+    node = new CheckBox();
+    node.setSelected(field.getValue());
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void layoutParts() {
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupBindings() {
-        super.setupBindings();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+    super.setupBindings();
 
-        node.disableProperty().bind(field.editableProperty().not());
-        fieldLabel.textProperty().bind(field.labelProperty());
-    }
+    node.disableProperty().bind(field.editableProperty().not());
+    fieldLabel.textProperty().bind(field.labelProperty());
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupValueChangedListeners() {
-        super.setupValueChangedListeners();
-        field.userInputProperty().addListener((observable, oldValue, newValue) -> node.setSelected(Boolean.parseBoolean(field.getUserInput())));
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+    super.setupValueChangedListeners();
+    field.userInputProperty().addListener((observable, oldValue, newValue) -> node.setSelected(Boolean.parseBoolean(field.getUserInput())));
 
-        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
-        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+    field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+    field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
 
-        node.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
-    }
+    node.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupEventHandlers() {
-        node.selectedProperty().addListener((observable, oldValue, newValue) -> field.userInputProperty().setValue(String.valueOf(newValue)));
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+    node.selectedProperty().addListener((observable, oldValue, newValue) -> field.userInputProperty().setValue(String.valueOf(newValue)));
+  }
 
 }

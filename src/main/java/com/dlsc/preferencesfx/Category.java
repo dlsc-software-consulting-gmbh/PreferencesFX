@@ -8,11 +8,11 @@ import java.util.Objects;
 
 public class Category {
 
+  private final int id = IncrementId.get();
   private String description;
   private List<Group> groups;
   private List<Category> children;
   private CategoryPane categoryPane;
-  private final int id = IncrementId.get();
   private String breadcrumb;
 
   /**

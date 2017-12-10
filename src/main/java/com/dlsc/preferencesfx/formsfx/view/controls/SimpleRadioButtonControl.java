@@ -21,7 +21,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.SingleSelectionField;
-
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Label;
@@ -38,128 +37,128 @@ import javafx.scene.layout.VBox;
  */
 public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionField<V>, VBox> {
 
-    /**
-     * - The fieldLabel is the container that displays the label property of
-     *   the field.
-     * - The radioButtons is the list of radio buttons to display.
-     * - The toggleGroup defines the group for the radio buttons.
-     * - The node is a VBox holding all radio buttons.
-     */
-    private Label fieldLabel;
-    private final List<RadioButton> radioButtons = new ArrayList<>();
-    private ToggleGroup toggleGroup;
+  private final List<RadioButton> radioButtons = new ArrayList<>();
+  /**
+   * - The fieldLabel is the container that displays the label property of
+   * the field.
+   * - The radioButtons is the list of radio buttons to display.
+   * - The toggleGroup defines the group for the radio buttons.
+   * - The node is a VBox holding all radio buttons.
+   */
+  private Label fieldLabel;
+  private ToggleGroup toggleGroup;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initializeParts() {
-        super.initializeParts();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    super.initializeParts();
 
-        node.getStyleClass().add("simple-radio-control");
+    node.getStyleClass().add("simple-radio-control");
 
-        fieldLabel = new Label(field.labelProperty().getValue());
-        toggleGroup = new ToggleGroup();
-        node = new VBox();
+    fieldLabel = new Label(field.labelProperty().getValue());
+    toggleGroup = new ToggleGroup();
+    node = new VBox();
 
-        createRadioButtons();
+    createRadioButtons();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+    node.setSpacing(5);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+    super.setupBindings();
+
+    fieldLabel.textProperty().bind(field.labelProperty());
+    setupRadioButtonBindings();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+    super.setupValueChangedListeners();
+
+    field.itemsProperty().addListener((observable, oldValue, newValue) -> {
+      createRadioButtons();
+      setupRadioButtonBindings();
+      setupRadioButtonEventHandlers();
+    });
+
+    field.selectionProperty().addListener((observable, oldValue, newValue) -> {
+      if (field.getSelection() != null) {
+        radioButtons.get(field.getItems().indexOf(field.getSelection())).setSelected(true);
+      } else {
+        toggleGroup.getSelectedToggle().setSelected(false);
+      }
+    });
+
+    field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+    field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+    node.setOnMouseEntered(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+    node.setOnMouseExited(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+    setupRadioButtonEventHandlers();
+  }
+
+  /**
+   * This method creates radio buttons and adds them to radioButtons
+   * and is used when the itemsProperty on the field changes.
+   */
+  private void createRadioButtons() {
+    node.getChildren().clear();
+    radioButtons.clear();
+
+    for (int i = 0; i < field.getItems().size(); i++) {
+      RadioButton rb = new RadioButton();
+
+      rb.setText(field.getItems().get(i).toString());
+      rb.setToggleGroup(toggleGroup);
+
+      radioButtons.add(rb);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void layoutParts() {
-        node.setSpacing(5);
+    if (field.getSelection() != null) {
+      radioButtons.get(field.getItems().indexOf(field.getSelection())).setSelected(true);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupBindings() {
-        super.setupBindings();
+    node.getChildren().addAll(radioButtons);
+  }
 
-        fieldLabel.textProperty().bind(field.labelProperty());
-        setupRadioButtonBindings();
+  /**
+   * Sets up bindings for all radio buttons.
+   */
+  private void setupRadioButtonBindings() {
+    for (RadioButton radio : radioButtons) {
+      radio.disableProperty().bind(field.editableProperty().not());
     }
+  }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupValueChangedListeners() {
-        super.setupValueChangedListeners();
-
-        field.itemsProperty().addListener((observable, oldValue, newValue) -> {
-            createRadioButtons();
-            setupRadioButtonBindings();
-            setupRadioButtonEventHandlers();
-        });
-
-        field.selectionProperty().addListener((observable, oldValue, newValue) -> {
-            if (field.getSelection() != null) {
-                radioButtons.get(field.getItems().indexOf(field.getSelection())).setSelected(true);
-            } else {
-                toggleGroup.getSelectedToggle().setSelected(false);
-            }
-        });
-
-        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
-        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+  /**
+   * Sets up bindings for all radio buttons.
+   */
+  private void setupRadioButtonEventHandlers() {
+    for (int i = 0; i < radioButtons.size(); i++) {
+      final int j = i;
+      radioButtons.get(j).setOnAction(event -> field.select(j));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupEventHandlers() {
-        node.setOnMouseEntered(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
-        node.setOnMouseExited(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
-        setupRadioButtonEventHandlers();
-    }
-
-    /**
-     * This method creates radio buttons and adds them to radioButtons
-     * and is used when the itemsProperty on the field changes.
-     */
-    private void createRadioButtons() {
-        node.getChildren().clear();
-        radioButtons.clear();
-
-        for (int i = 0; i < field.getItems().size(); i++) {
-            RadioButton rb = new RadioButton();
-
-            rb.setText(field.getItems().get(i).toString());
-            rb.setToggleGroup(toggleGroup);
-
-            radioButtons.add(rb);
-        }
-
-        if (field.getSelection() != null) {
-            radioButtons.get(field.getItems().indexOf(field.getSelection())).setSelected(true);
-        }
-
-        node.getChildren().addAll(radioButtons);
-    }
-
-    /**
-     * Sets up bindings for all radio buttons.
-     */
-    private void setupRadioButtonBindings() {
-        for (RadioButton radio : radioButtons) {
-            radio.disableProperty().bind(field.editableProperty().not());
-        }
-    }
-
-    /**
-     * Sets up bindings for all radio buttons.
-     */
-    private void setupRadioButtonEventHandlers() {
-        for (int i = 0; i < radioButtons.size(); i++) {
-            final int j = i;
-            radioButtons.get(j).setOnAction(event -> field.select(j));
-        }
-    }
+  }
 
 }

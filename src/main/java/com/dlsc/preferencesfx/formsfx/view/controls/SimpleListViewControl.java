@@ -21,7 +21,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.MultiSelectionField;
-
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -36,116 +35,116 @@ import javafx.scene.control.SelectionMode;
  */
 public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<V>, ListView<String>> {
 
-    /**
-     * - The fieldLabel is the container that displays the label property of
-     *   the field.
-     * - The node is the container that displays list values.
-     */
-    private Label fieldLabel;
+  /**
+   * - The fieldLabel is the container that displays the label property of
+   * the field.
+   * - The node is the container that displays list values.
+   */
+  private Label fieldLabel;
 
-    /**
-     * The flag used for setting the selection properly.
-     */
-    private boolean preventUpdate;
+  /**
+   * The flag used for setting the selection properly.
+   */
+  private boolean preventUpdate;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initializeParts() {
-        super.initializeParts();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+    super.initializeParts();
 
-        node.getStyleClass().add("simple-listview-control");
+    node.getStyleClass().add("simple-listview-control");
 
-        node = new ListView<>();
+    node = new ListView<>();
 
-        fieldLabel = new Label(field.labelProperty().getValue());
+    fieldLabel = new Label(field.labelProperty().getValue());
 
-        node.setItems(field.getItems());
-        node.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    node.setItems(field.getItems());
+    node.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        for (int i = 0; i < field.getItems().size(); i++) {
-            if (field.getSelection().contains(field.getItems().get(i))) {
-                node.getSelectionModel().select(i);
-            } else {
-                node.getSelectionModel().clearSelection(i);
-            }
+    for (int i = 0; i < field.getItems().size(); i++) {
+      if (field.getSelection().contains(field.getItems().get(i))) {
+        node.getSelectionModel().select(i);
+      } else {
+        node.getSelectionModel().clearSelection(i);
+      }
+    }
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+    node.setPrefHeight(200);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+    super.setupBindings();
+
+    fieldLabel.textProperty().bind(field.labelProperty());
+    node.disableProperty().bind(field.editableProperty().not());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+    super.setupValueChangedListeners();
+
+    field.itemsProperty().addListener((observable, oldValue, newValue) -> node.setItems(field.getItems()));
+
+    field.selectionProperty().addListener((observable, oldValue, newValue) -> {
+      if (preventUpdate) {
+        return;
+      }
+
+      preventUpdate = true;
+
+      for (int i = 0; i < field.getItems().size(); i++) {
+        if (field.getSelection().contains(field.getItems().get(i))) {
+          node.getSelectionModel().select(i);
+        } else {
+          node.getSelectionModel().clearSelection(i);
         }
-    }
+      }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void layoutParts() {
-        node.setPrefHeight(200);
-    }
+      preventUpdate = false;
+    });
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupBindings() {
-        super.setupBindings();
+    field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+    field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+    node.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
+  }
 
-        fieldLabel.textProperty().bind(field.labelProperty());
-        node.disableProperty().bind(field.editableProperty().not());
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+    node.getSelectionModel().getSelectedIndices().addListener((ListChangeListener<Integer>) c -> {
+      if (preventUpdate) {
+        return;
+      }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupValueChangedListeners() {
-        super.setupValueChangedListeners();
+      preventUpdate = true;
 
-        field.itemsProperty().addListener((observable, oldValue, newValue) -> node.setItems(field.getItems()));
+      for (int i = 0; i < node.getItems().size(); i++) {
+        if (node.getSelectionModel().getSelectedIndices().contains(i)) {
+          field.select(i);
+        } else {
+          field.deselect(i);
+        }
+      }
 
-        field.selectionProperty().addListener((observable, oldValue, newValue) -> {
-            if (preventUpdate) {
-                return;
-            }
-
-            preventUpdate = true;
-
-            for (int i = 0; i < field.getItems().size(); i++) {
-                if (field.getSelection().contains(field.getItems().get(i))) {
-                    node.getSelectionModel().select(i);
-                } else {
-                    node.getSelectionModel().clearSelection(i);
-                }
-            }
-
-            preventUpdate = false;
-        });
-
-        field.errorMessagesProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
-        field.tooltipProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
-        node.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(node));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setupEventHandlers() {
-        node.getSelectionModel().getSelectedIndices().addListener((ListChangeListener<Integer>) c -> {
-            if (preventUpdate) {
-                return;
-            }
-
-            preventUpdate = true;
-
-            for (int i = 0; i < node.getItems().size(); i++) {
-                if (node.getSelectionModel().getSelectedIndices().contains(i)) {
-                    field.select(i);
-                } else {
-                    field.deselect(i);
-                }
-            }
-
-            preventUpdate = false;
-        });
-    }
+      preventUpdate = false;
+    });
+  }
 
 }
