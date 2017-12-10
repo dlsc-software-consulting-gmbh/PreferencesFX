@@ -37,7 +37,7 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
    * {@inheritDoc}
    */
   @Override
-  void layoutParts() {
+  public void layoutParts() {
 
   }
 

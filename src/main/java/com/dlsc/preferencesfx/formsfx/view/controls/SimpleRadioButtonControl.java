@@ -37,7 +37,6 @@ import javafx.scene.layout.VBox;
  */
 public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionField<V>, VBox> {
 
-  private final List<RadioButton> radioButtons = new ArrayList<>();
   /**
    * - The fieldLabel is the container that displays the label property of
    * the field.
@@ -46,6 +45,7 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
    * - The node is a VBox holding all radio buttons.
    */
   private Label fieldLabel;
+  private final List<RadioButton> radioButtons = new ArrayList<>();
   private ToggleGroup toggleGroup;
 
   /**

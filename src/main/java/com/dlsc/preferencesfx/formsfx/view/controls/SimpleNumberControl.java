@@ -41,7 +41,6 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
    * of the {@code visibleProperty}.
    */
 
-  protected Spinner<D> editableSpinner;
   /**
    * - The fieldLabel is the container that displays the label property of
    * the field.
@@ -49,6 +48,7 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
    * - The readOnlyLabel is the label to put over editableSpinner.
    */
   private Label fieldLabel;
+  protected Spinner<D> editableSpinner;
   private Label readOnlyLabel;
 
   /**

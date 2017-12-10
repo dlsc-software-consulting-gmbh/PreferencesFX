@@ -36,7 +36,6 @@ import javafx.scene.layout.VBox;
  */
 public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<V>, VBox> {
 
-  private final List<CheckBox> checkboxes = new ArrayList<>();
   /**
    * - The fieldLabel is the container that displays the label property of
    * the field.
@@ -44,6 +43,7 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
    * - The node is a VBox holding all node.
    */
   private Label fieldLabel;
+  private final List<CheckBox> checkboxes = new ArrayList<>();
 
   /**
    * {@inheritDoc}
