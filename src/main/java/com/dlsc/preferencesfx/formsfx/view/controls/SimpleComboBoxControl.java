@@ -54,11 +54,11 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
   public void initializeParts() {
     super.initializeParts();
 
-    node.getStyleClass().add("simple-select-control");
-
     fieldLabel = new Label(field.labelProperty().getValue());
     readOnlyLabel = new Label();
+
     node = new StackPane();
+    node.getStyleClass().add("simple-select-control");
 
     comboBox = new ComboBox<>(field.getItems());
 

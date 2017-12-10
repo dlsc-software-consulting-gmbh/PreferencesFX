@@ -41,8 +41,6 @@ public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
   public void initializeParts() {
     super.initializeParts();
 
-    node.getStyleClass().add("integer-slider-control");
-
     fieldLabel = new Label(field.labelProperty().getValue());
 
     valueLabel = new Label(String.valueOf(field.getValue().intValue()));
@@ -52,9 +50,10 @@ public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
     slider.setMax(max);
     slider.setShowTickLabels(true);
     slider.setShowTickMarks(true);
+    slider.setValue(field.getValue());
 
     node = new HBox();
-    slider.setValue(field.getValue());
+    node.getStyleClass().add("integer-slider-control");
   }
 
   /**

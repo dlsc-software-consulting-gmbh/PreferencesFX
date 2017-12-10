@@ -58,8 +58,6 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
   public void initializeParts() {
     super.initializeParts();
 
-    node.getStyleClass().add("double-slider-control");
-
     fieldLabel = new Label(field.labelProperty().getValue());
 
     valueLabel = new Label(String.valueOf(field.getValue().doubleValue()));
@@ -69,9 +67,10 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
     slider.setMax(max);
     slider.setShowTickLabels(true);
     slider.setShowTickMarks(true);
+    slider.setValue(field.getValue());
 
     node = new HBox();
-    slider.setValue(field.getValue());
+    node.getStyleClass().add("double-slider-control");
   }
 
   public void layoutParts() {

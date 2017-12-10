@@ -54,9 +54,8 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
   public void initializeParts() {
     super.initializeParts();
 
-    node.getStyleClass().add("simple-listview-control");
-
     node = new ListView<>();
+    node.getStyleClass().add("simple-listview-control");
 
     fieldLabel = new Label(field.labelProperty().getValue());
 
