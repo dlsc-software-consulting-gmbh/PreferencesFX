@@ -72,23 +72,11 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
      */
     @Override
     public void layoutParts() {
-        super.layoutParts();
-
         readOnlyLabel.getStyleClass().add("read-only-label");
         node.getChildren().addAll(editableSpinner, readOnlyLabel);
         node.setAlignment(Pos.CENTER_LEFT);
 
         editableSpinner.setMaxWidth(Double.MAX_VALUE);
-
-        int columns = field.getSpan();
-
-        if (columns < 3) {
-            add(fieldLabel, 0, 0, columns, 0);
-            add(node, 0, 1, columns, 1);
-        } else {
-            add(fieldLabel, 0, 0, 2, 1);
-            add(node, 2, 0, columns - 2, 1);
-        }
     }
 
     /**

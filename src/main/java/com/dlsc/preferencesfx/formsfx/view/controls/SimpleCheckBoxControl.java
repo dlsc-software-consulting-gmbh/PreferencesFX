@@ -53,7 +53,7 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
     public void initializeParts() {
         super.initializeParts();
 
-        getStyleClass().add("simple-checkbox-control");
+        node.getStyleClass().add("simple-checkbox-control");
 
         fieldLabel = new Label(field.labelProperty().getValue());
         node = new VBox();
@@ -66,14 +66,7 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
      */
     @Override
     public void layoutParts() {
-        super.layoutParts();
-
-        int columns = field.getSpan();
-
         node.setSpacing(5);
-
-        add(fieldLabel, 0,0,2,1);
-        add(node, 2, 0, columns - 2,1);
     }
 
     /**

@@ -55,7 +55,7 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
     public void initializeParts() {
         super.initializeParts();
 
-        getStyleClass().add("simple-listview-control");
+        node.getStyleClass().add("simple-listview-control");
 
         node = new ListView<>();
 
@@ -78,14 +78,7 @@ public class SimpleListViewControl<V> extends SimpleControl<MultiSelectionField<
      */
     @Override
     public void layoutParts() {
-        super.layoutParts();
-
-        int columns = field.getSpan();
-
         node.setPrefHeight(200);
-
-        add(fieldLabel, 0,0,2,1);
-        add(node, 2, 0, columns - 2, 1);
     }
 
     /**

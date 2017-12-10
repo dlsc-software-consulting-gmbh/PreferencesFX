@@ -50,11 +50,10 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> 
     public void initializeParts() {
         super.initializeParts();
 
-        getStyleClass().add("simple-boolean-control");
+        node.getStyleClass().add("simple-boolean-control");
 
         fieldLabel = new Label(field.labelProperty().getValue());
         node = new CheckBox();
-        container = new VBox();
         node.setSelected(field.getValue());
     }
 
@@ -63,12 +62,6 @@ public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> 
      */
     @Override
     public void layoutParts() {
-        super.layoutParts();
-
-        container.getChildren().add(node);
-
-        add(fieldLabel, 0,0,2,1);
-        add(container, 2, 0, field.getSpan() - 2,1);
     }
 
     /**

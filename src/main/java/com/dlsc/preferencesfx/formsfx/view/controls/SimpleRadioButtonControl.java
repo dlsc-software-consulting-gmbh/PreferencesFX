@@ -56,7 +56,7 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
     public void initializeParts() {
         super.initializeParts();
 
-        getStyleClass().add("simple-radio-control");
+        node.getStyleClass().add("simple-radio-control");
 
         fieldLabel = new Label(field.labelProperty().getValue());
         toggleGroup = new ToggleGroup();
@@ -70,14 +70,7 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
      */
     @Override
     public void layoutParts() {
-        super.layoutParts();
-
-        int columns = field.getSpan();
-
         node.setSpacing(5);
-
-        add(fieldLabel, 0,0,2,1);
-        add(node, 2, 0, columns - 2,1);
     }
 
     /**
@@ -121,8 +114,8 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
      */
     @Override
     public void setupEventHandlers() {
-        setOnMouseEntered(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
-        setOnMouseExited(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+        node.setOnMouseEntered(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
+        node.setOnMouseExited(event -> toggleTooltip(node, radioButtons.get(radioButtons.size() - 1)));
         setupRadioButtonEventHandlers();
     }
 

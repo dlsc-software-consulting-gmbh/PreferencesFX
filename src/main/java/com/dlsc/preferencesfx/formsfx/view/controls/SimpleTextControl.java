@@ -62,7 +62,7 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
     public void initializeParts() {
         super.initializeParts();
 
-        getStyleClass().add("simple-text-control");
+        node.getStyleClass().add("simple-text-control");
 
         node = new StackPane();
 
@@ -79,8 +79,6 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
      */
     @Override
     public void layoutParts() {
-        super.layoutParts();
-
         readOnlyLabel.getStyleClass().add("read-only-label");
 
         readOnlyLabel.setPrefHeight(26);
@@ -98,16 +96,6 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
         node.getChildren().addAll(editableField, editableArea, readOnlyLabel);
 
         node.setAlignment(Pos.CENTER_LEFT);
-
-        int columns = field.getSpan();
-
-        if (columns < 3) {
-            add(fieldLabel, 0, 0, columns, 1);
-            add(node, 0, 1, columns, 1);
-        } else {
-            add(fieldLabel, 0, 0, 2, 1);
-            add(node, 2, 0, columns - 2, 1);
-        }
     }
 
     /**

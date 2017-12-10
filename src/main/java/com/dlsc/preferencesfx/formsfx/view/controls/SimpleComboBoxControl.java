@@ -55,7 +55,7 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
     public void initializeParts() {
         super.initializeParts();
 
-        getStyleClass().add("simple-select-control");
+        node.getStyleClass().add("simple-select-control");
 
         fieldLabel = new Label(field.labelProperty().getValue());
         readOnlyLabel = new Label();
@@ -71,9 +71,6 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
      */
     @Override
     public void layoutParts() {
-        super.layoutParts();
-
-        int columns = field.getSpan();
         readOnlyLabel.getStyleClass().add("read-only-label");
 
         comboBox.setMaxWidth(Double.MAX_VALUE);
@@ -81,9 +78,6 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
 
         node.setAlignment(Pos.CENTER_LEFT);
         node.getChildren().addAll(comboBox, readOnlyLabel);
-
-        add(fieldLabel, 0,0,2,1);
-        add(node, 2, 0, columns - 2, 1);
     }
 
     /**
