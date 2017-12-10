@@ -57,7 +57,7 @@ public class Group {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
       preferencesGroup.getRenderer().addStyleClass(MARKED_STYLE_CLASS);
-      preferencesGroup.getRenderer().setOnMouseExited(unmarker);
+      preferencesGroup.getRenderer().getTitleLabel().setOnMouseExited(unmarker);
       marked = !marked;
     }
   }
@@ -66,7 +66,7 @@ public class Group {
     // check if it's marked before removing the style class
     if (marked) {
       preferencesGroup.getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
-      preferencesGroup.getRenderer().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
+      preferencesGroup.getRenderer().getTitleLabel().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
       marked = !marked;
     }
   }

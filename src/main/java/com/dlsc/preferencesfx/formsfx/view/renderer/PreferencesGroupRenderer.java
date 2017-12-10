@@ -97,4 +97,8 @@ public class PreferencesGroupRenderer {
   public void removeStyleClass(String name) {
     titleLabel.getStyleClass().remove(name);
   }
+
+  public Label getTitleLabel() {
+    return titleLabel;
+  }
 }
