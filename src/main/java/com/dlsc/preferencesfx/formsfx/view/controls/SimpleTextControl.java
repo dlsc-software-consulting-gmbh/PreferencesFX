@@ -61,9 +61,8 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
   public void initializeParts() {
     super.initializeParts();
 
-    node.getStyleClass().add("simple-text-control");
-
     node = new StackPane();
+    node.getStyleClass().add("simple-text-control");
 
     editableField = new TextField(field.getValue());
     editableArea = new TextArea(field.getValue());
