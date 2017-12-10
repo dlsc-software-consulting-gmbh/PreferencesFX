@@ -5,8 +5,13 @@ import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Category {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(Category.class.getName());
 
   private final int id = IncrementId.get();
   private String description;

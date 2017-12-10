@@ -7,8 +7,13 @@ import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesGroup;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.layout.StackPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CategoryPane extends StackPane {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(CategoryPane.class.getName());
 
   private List<Group> groups = new ArrayList<>();
   private Form form;

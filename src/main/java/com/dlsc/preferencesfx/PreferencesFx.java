@@ -8,9 +8,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesFx extends MasterDetailPane {
+  private static final Logger LOGGER =
+      LogManager.getLogger(PreferencesFx.class.getName());
+
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
 
   public static final String DIVIDER_POSITION = "DIVIDER_POSITION";

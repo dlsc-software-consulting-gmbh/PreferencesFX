@@ -5,11 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 07.11.17.
  */
 public class Group {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(Group.class.getName());
 
   private static final String MARKED_STYLE_CLASS = "group-marked";
   private String description;

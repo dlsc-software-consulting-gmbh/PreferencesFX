@@ -14,8 +14,13 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Setting<F extends Field, P extends Property> {
+  private static final Logger LOGGER =
+      LogManager.getLogger(Setting.class.getName());
+
   public static final String MARKED_STYLE_CLASS = "simple-control-marked";
   private String description;
   private F field;
