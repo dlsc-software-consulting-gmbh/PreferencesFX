@@ -37,7 +37,7 @@ import javafx.scene.layout.ColumnConstraints;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public abstract class SimpleControl<F extends Field, N extends Node> {
+public abstract class SimpleControl<F extends Field, N extends Node> extends com.dlsc.formsfx.view.controls.SimpleControl<F> {
 
   /**
    * This is the Field that is used for binding and update styling changes.
@@ -67,6 +67,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
   protected static final PseudoClass CHANGED_CLASS = PseudoClass.getPseudoClass("changed");
   protected static final PseudoClass DISABLED_CLASS = PseudoClass.getPseudoClass("disabled");
 
+  @Override
   public void setField(F field) {
     if (this.field != null) {
       throw new IllegalStateException("Cannot change a control's field once set.");
@@ -76,7 +77,8 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
     init();
   }
 
-  void init() {
+  @Override
+  public void init() {
     this.initializeParts();
     this.layoutParts();
     this.setupEventHandlers();
@@ -84,6 +86,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
     this.setupBindings();
   }
 
+  @Override
   public void initializeParts() {
     field.getStyleClass().add("simple-control");
 
@@ -98,12 +101,15 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
     updateStyle(DISABLED_CLASS, !field.isEditable());
   }
 
-  abstract void layoutParts();
+  @Override
+  public abstract void layoutParts();
 
+  @Override
   public void setupBindings() {
     node.idProperty().bind(field.idProperty());
   }
 
+  @Override
   public void setupValueChangedListeners() {
     field.validProperty().addListener((observable, oldValue, newValue) -> updateStyle(INVALID_CLASS, !newValue));
     field.requiredProperty().addListener((observable, oldValue, newValue) -> updateStyle(REQUIRED_CLASS, newValue));
@@ -131,6 +137,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
    *
    * @param reference The control which gets the tooltip.
    */
+  @Override
   protected void toggleTooltip(Node reference) {
     this.toggleTooltip(reference, (Control) reference);
   }
@@ -141,6 +148,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
    * @param below     The control needed for positioning the tooltip.
    * @param reference The control which gets the tooltip.
    */
+  @Override
   protected void toggleTooltip(Node reference, Control below) {
     String fieldTooltip = field.getTooltip();
 
@@ -169,11 +177,13 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
    * @param pseudo   The CSS pseudo class to toggle.
    * @param newValue Determines whether the CSS class should be applied.
    */
+  @Override
   protected void updateStyle(PseudoClass pseudo, boolean newValue) {
     node.pseudoClassStateChanged(pseudo, newValue);
     fieldLabel.pseudoClassStateChanged(pseudo, newValue);
   }
 
+  @Override
   public void setupEventHandlers() {
     node.setOnMouseEntered(event -> toggleTooltip(node));
     fieldLabel.setOnMouseExited(event -> toggleTooltip(fieldLabel));
@@ -184,6 +194,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
    *
    * @param name of the style class to be added to the control
    */
+  @Override
   public void addStyleClass(String name) {
     field.getStyleClass().add(name);
   }
@@ -193,6 +204,7 @@ public abstract class SimpleControl<F extends Field, N extends Node> {
    *
    * @param name of the class to be removed from the control
    */
+  @Override
   public void removeStyleClass(String name) {
     field.getStyleClass().remove(name);
   }
