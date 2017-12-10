@@ -1,8 +1,13 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.view.controls.SimpleComboBoxControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.DoubleSliderControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleDoubleControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleIntegerControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleListViewControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import javafx.beans.property.BooleanProperty;
@@ -35,7 +40,9 @@ public class Setting<F extends Field, P extends Property> {
   public static Setting of(String description, BooleanProperty property) {
     return new Setting<>(
         description,
-        Field.ofBooleanType(property).label(description).render(new ToggleControl()),
+        Field.ofBooleanType(property)
+            .label(description)
+            .render(new ToggleControl()),
         property
     );
   }
@@ -43,14 +50,18 @@ public class Setting<F extends Field, P extends Property> {
   public static Setting of(String description, IntegerProperty property) {
     return new Setting<>(
         description,
-        Field.ofIntegerType(property).label(description),
+        Field.ofIntegerType(property)
+            .label(description)
+            .render(new SimpleIntegerControl()),
         property);
   }
 
   public static Setting of(String description, DoubleProperty property) {
     return new Setting<>(
         description,
-        Field.ofDoubleType(property).label(description),
+        Field.ofDoubleType(property)
+            .label(description)
+            .render(new SimpleDoubleControl()),
         property);
   }
 
@@ -58,22 +69,27 @@ public class Setting<F extends Field, P extends Property> {
       String description, DoubleProperty property, double min, double max, int precision) {
     return new Setting<>(
         description,
-        Field.ofDoubleType(property).label(description).render(
-            new DoubleSliderControl(min, max, precision)),
+        Field.ofDoubleType(property)
+            .label(description)
+            .render(new DoubleSliderControl(min, max, precision)),
         property);
   }
 
   public static Setting of(String description, IntegerProperty property, int min, int max) {
     return new Setting<>(
         description,
-        Field.ofIntegerType(property).label(description).render(new IntegerSliderControl(min, max)),
+        Field.ofIntegerType(property)
+            .label(description)
+            .render(new IntegerSliderControl(min, max)),
         property);
   }
 
   public static Setting of(String description, StringProperty property) {
     return new Setting<>(
         description,
-        Field.ofStringType(property).label(description),
+        Field.ofStringType(property)
+            .label(description)
+            .render(new SimpleTextControl()),
         property);
   }
 
@@ -81,7 +97,9 @@ public class Setting<F extends Field, P extends Property> {
       String description, ListProperty<P> items, ObjectProperty<P> selection) {
     return new Setting<>(
         description,
-        Field.ofSingleSelectionType(items, selection).label(description),
+        Field.ofSingleSelectionType(items, selection)
+            .label(description)
+            .render(new SimpleComboBoxControl<>()),
         selection);
   }
 
@@ -89,7 +107,9 @@ public class Setting<F extends Field, P extends Property> {
       String description, ObservableList<P> items, ObjectProperty<P> selection) {
     return new Setting<>(
         description,
-        Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection).label(description),
+        Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection)
+            .label(description)
+            .render(new SimpleComboBoxControl<>()),
         selection);
   }
 
@@ -101,7 +121,9 @@ public class Setting<F extends Field, P extends Property> {
       String description, ListProperty<P> items, ListProperty<P> selections) {
     return new Setting<>(
         description,
-        Field.ofMultiSelectionType(items, selections).label(description),
+        Field.ofMultiSelectionType(items, selections)
+            .label(description)
+            .render(new SimpleListViewControl<>()),
         selections);
   }
 
@@ -113,7 +135,9 @@ public class Setting<F extends Field, P extends Property> {
       String description, ObservableList<P> items, ListProperty<P> selections) {
     return new Setting<>(
         description,
-        Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections).label(description),
+        Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections)
+            .label(description)
+            .render(new SimpleListViewControl<>()),
         selections);
   }
 
