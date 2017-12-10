@@ -25,18 +25,19 @@ import com.dlsc.formsfx.view.util.ViewMixin;
 import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-
+import javafx.scene.layout.ColumnConstraints;
 /**
  * This class provides a base for general purpose FormsFX controls.
  *
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public abstract class SimpleControl<F extends Field, N extends Node> implements ViewMixin {
+public abstract class SimpleControl<F extends Field, N extends Node> {
 
   /**
    * This is the Field that is used for binding and update styling changes.
@@ -75,10 +76,14 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
     init();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
+  void init() {
+    this.initializeParts();
+    this.layoutParts();
+    this.setupEventHandlers();
+    this.setupValueChangedListeners();
+    this.setupBindings();
+  }
+
   public void initializeParts() {
     field.getStyleClass().add("simple-control");
 
@@ -93,17 +98,12 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
     updateStyle(DISABLED_CLASS, !field.isEditable());
   }
 
-  /**
-   * {@inheritDoc}
-   */
+  abstract void layoutParts();
+
   public void setupBindings() {
     node.idProperty().bind(field.idProperty());
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public void setupValueChangedListeners() {
     field.validProperty().addListener((observable, oldValue, newValue) -> updateStyle(INVALID_CLASS, !newValue));
     field.requiredProperty().addListener((observable, oldValue, newValue) -> updateStyle(REQUIRED_CLASS, newValue));
@@ -174,10 +174,6 @@ public abstract class SimpleControl<F extends Field, N extends Node> implements 
     fieldLabel.pseudoClassStateChanged(pseudo, newValue);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public void setupEventHandlers() {
     node.setOnMouseEntered(event -> toggleTooltip(node));
     fieldLabel.setOnMouseExited(event -> toggleTooltip(fieldLabel));

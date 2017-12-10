@@ -37,6 +37,14 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
    * {@inheritDoc}
    */
   @Override
+  void layoutParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void setupBindings() {
     super.setupBindings();
 

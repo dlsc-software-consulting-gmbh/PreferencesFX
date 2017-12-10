@@ -74,10 +74,6 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
     slider.setValue(field.getValue());
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public void layoutParts() {
     node.getChildren().addAll(slider, valueLabel);
     valueLabel.setAlignment(Pos.CENTER);
