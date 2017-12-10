@@ -1,15 +1,18 @@
 package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.IntegerField;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /**
  * Created by François Martin on 24.11.17.
  */
 public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
+  public static final int VALUE_LABEL_PADDING = 25;
   /**
    * - fieldLabel is the container that displays the label property of the
    * field.
@@ -48,8 +51,8 @@ public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
     slider = new Slider();
     slider.setMin(min);
     slider.setMax(max);
-    slider.setShowTickLabels(true);
-    slider.setShowTickMarks(true);
+    slider.setShowTickLabels(false);
+    slider.setShowTickMarks(false);
     slider.setValue(field.getValue());
 
     node = new HBox();
@@ -62,7 +65,11 @@ public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
   @Override
   public void layoutParts() {
     node.getChildren().addAll(slider, valueLabel);
+    HBox.setHgrow(slider, Priority.ALWAYS);
     valueLabel.setAlignment(Pos.CENTER);
+    valueLabel.setMinWidth(VALUE_LABEL_PADDING);
+    node.setSpacing(VALUE_LABEL_PADDING);
+    HBox.setMargin(valueLabel, new Insets(0,VALUE_LABEL_PADDING, 0,0));
   }
 
   /**

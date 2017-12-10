@@ -1,27 +1,26 @@
 package com.dlsc.preferencesfx.formsfx.view.renderer;
 
+import static com.dlsc.preferencesfx.util.PreferencesFxUtils.getRowCount;
+
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.formsfx.view.util.ViewMixin;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
-import com.dlsc.preferencesfx.formsfx.view.controls.SimpleNumberControl;
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.List;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Priority;
 
 public class PreferencesGroupRenderer {
 
-  /**
-   * SPACING is used to set the spacing of the group as well as the
-   * spacing for vertical/horizontal gaps between controls.
-   */
-  private static final double SPACING = 10;
   /**
    * Add the controls in the GridPane in a 12-column layout. If a control
    * takes up too much horizontal space, wrap it to the next row.
    */
   private static final int COLUMN_COUNT = 12;
+  public static final int GRID_MARGIN = 10;
   private Label titleLabel;
   private GridPane grid;
   private PreferencesGroup preferencesGroup;
@@ -43,8 +42,8 @@ public class PreferencesGroupRenderer {
     this.initializeParts();
     this.layoutParts();
     //this.setupEventHandlers();
-    //this.setupValueChangedListeners();
     this.setupBindings();
+    //this.setupValueChangedListeners();
   }
 
   public void initializeParts() {
@@ -52,28 +51,45 @@ public class PreferencesGroupRenderer {
   }
 
   public void layoutParts() {
+    StringBuilder styleClass = new StringBuilder("group");
+
+    // if there are no rows yet, getRowCount returns -1, in this case the next row is 0
+    int nextRow = getRowCount(grid)+1;
 
     // Only when the preferencesGroup has a title
     if (preferencesGroup.getTitle() != null) {
-      grid.add(titleLabel, grid.getRowConstraints().size(), 0, 1, 1);
-      grid.getStyleClass().add("category-content");
+      grid.add(titleLabel, 0, nextRow++, 1, 1);
+      styleClass.append("-title");
+      titleLabel.getStyleClass().add("group-title");
     }
 
     List<Field> fields = preferencesGroup.getFields();
+    styleClass.append("-setting");
 
+    int rowAmount = nextRow;
     for (int i = 0; i < fields.size(); i++) {
+      // add to GridPane
       Field field = fields.get(i);
       SimpleControl c = (SimpleControl) field.getRenderer();
       c.setField(field);
-      grid.add(c.getFieldLabel(), grid.getRowConstraints().size(), i, 1, 1);
-      grid.add(c.getNode(), grid.getRowConstraints().size()+1, i, 1, 1);
-    }
+      grid.add(c.getFieldLabel(), 0, i+rowAmount, 1, 1);
+      grid.add(c.getNode(), 1, i+rowAmount, 1, 1);
 
-    // Styling
-    grid.setHgap(SPACING);
-    grid.setVgap(SPACING);
-    //setPadding(new Insets(SPACING * 1.5));
-    titleLabel.getStyleClass().add("category-title");
+      // Styling
+      GridPane.setHgrow(c.getNode(), Priority.SOMETIMES);
+      GridPane.setValignment(c.getNode(), VPos.CENTER);
+      GridPane.setValignment(c.getFieldLabel(), VPos.CENTER);
+
+      // additional styling for the last setting
+      if (i == fields.size() - 1) {
+        styleClass.append("-last");
+        GridPane.setMargin(c.getNode(), new Insets(0,0,PreferencesFormRenderer.SPACING*4,0));
+        GridPane.setMargin(c.getFieldLabel(), new Insets(0,0,PreferencesFormRenderer.SPACING*4,0));
+      }
+
+      c.getFieldLabel().getStyleClass().add(styleClass.toString() + "-label");
+      c.getNode().getStyleClass().add(styleClass.toString() + "-node");
+    }
   }
 
   public void setupBindings() {

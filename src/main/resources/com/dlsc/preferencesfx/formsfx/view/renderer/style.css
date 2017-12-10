@@ -2,12 +2,12 @@
  * GENERAL STYLING *
  *******************/
 
-.category-title {
+.group-title {
     -fx-font-size: 1.5em;
-    -fx-padding: 0 0 0.5em 0;
+    -fx-padding: 0 0 0.25em 0;
 }
 
-.category-content {
+.group-title-setting-label, .group-title-setting-last-label {
     -fx-padding: 0 0 0 1.5em;
 }
 

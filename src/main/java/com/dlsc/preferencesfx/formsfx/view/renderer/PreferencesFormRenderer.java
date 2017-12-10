@@ -11,6 +11,12 @@ import javafx.scene.layout.VBox;
 
 public class PreferencesFormRenderer extends GridPane implements ViewMixin {
 
+  /**
+   * SPACING is used to set the spacing of the group as well as the
+   * spacing for vertical/horizontal gaps between controls.
+   */
+  public static final double SPACING = 5;
+
   private Form form;
   private List<PreferencesGroupRenderer> groups = new ArrayList<>();
 
@@ -44,6 +50,8 @@ public class PreferencesFormRenderer extends GridPane implements ViewMixin {
   @Override
   public void layoutParts() {
     // Outer Padding of Category Pane
-    setPadding(new Insets(10));
+    setPadding(new Insets(SPACING*3));
+    setHgap(SPACING);
+    setVgap(SPACING*2);
   }
 }
