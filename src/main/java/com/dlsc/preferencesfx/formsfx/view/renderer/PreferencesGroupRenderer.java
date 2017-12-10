@@ -3,7 +3,7 @@ package com.dlsc.preferencesfx.formsfx.view.renderer;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.view.util.ViewMixin;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
-import java.util.Iterator;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleNumberControl;
 import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;

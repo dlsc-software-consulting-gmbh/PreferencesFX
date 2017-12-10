@@ -21,7 +21,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.formsfx.view.controls.SimpleNumberControl;
 import javafx.scene.control.SpinnerValueFactory;
 
 /**
