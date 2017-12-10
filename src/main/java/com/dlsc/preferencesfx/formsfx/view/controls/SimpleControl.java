@@ -202,4 +202,16 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
   public void removeStyleClass(String name) {
     field.getStyleClass().remove(name);
   }
+
+  public F getField() {
+    return field;
+  }
+
+  public Label getFieldLabel() {
+    return fieldLabel;
+  }
+
+  public N getNode() {
+    return node;
+  }
 }
