@@ -56,24 +56,10 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
     List<Field> fields = preferencesGroup.getFields();
     for (int i = 0; i < fields.size(); i++) {
       Field field = fields.get(i);
-      SimpleControl c = field.getRenderer();
+      SimpleControl c = (SimpleControl) field.getRenderer();
       c.setField(field);
-      grid.add(c.get, 0, i, 1, 1);
-
-    }
-
-
-    for (Iterator var4 = preferencesGroup.getFields().iterator(); var4.hasNext();
-         currentColumnCount += span) {
-      Field f = (Field) var4.next();
-      span = f.getSpan();
-
-      if (currentColumnCount + span > COLUMN_COUNT) {
-        ++currentRow;
-        currentColumnCount = 0;
-      }
-
-
+      grid.add(c.getFieldLabel(), 0, i, 1, 1);
+      grid.add(c.getNode(), 0, i, 1, 1);
     }
 
     // Styling
