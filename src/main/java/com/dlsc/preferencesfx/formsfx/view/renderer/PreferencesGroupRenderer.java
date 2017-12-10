@@ -59,7 +59,7 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
       SimpleControl c = (SimpleControl) field.getRenderer();
       c.setField(field);
       grid.add(c.getFieldLabel(), 0, i, 1, 1);
-      grid.add(c.getNode(), 0, i, 1, 1);
+      grid.add(c.getNode(), 1, i, 1, 1);
     }
 
     // Styling
