@@ -86,7 +86,7 @@ public class PreferencesGroupRenderer {
    * @param name of the style class to be added to the group
    */
   public void addStyleClass(String name) {
-    getStyleClass().add(name);
+    titleLabel.getStyleClass().add(name);
   }
 
   /**
@@ -95,6 +95,6 @@ public class PreferencesGroupRenderer {
    * @param name of the class to be removed from the group
    */
   public void removeStyleClass(String name) {
-    getStyleClass().remove(name);
+    titleLabel.getStyleClass().remove(name);
   }
 }
