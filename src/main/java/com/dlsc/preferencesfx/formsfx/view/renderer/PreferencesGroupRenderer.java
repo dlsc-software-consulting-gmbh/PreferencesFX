@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class PreferencesGroupRenderer extends VBox implements ViewMixin {
+public class PreferencesGroupRenderer {
 
   /**
    * SPACING is used to set the spacing of the group as well as the
@@ -31,33 +31,34 @@ public class PreferencesGroupRenderer extends VBox implements ViewMixin {
    *
    * @param preferencesGroup The PreferencesGroup which gets rendered.
    */
-  PreferencesGroupRenderer(PreferencesGroup preferencesGroup) {
+  PreferencesGroupRenderer(PreferencesGroup preferencesGroup, GridPane grid) {
     this.preferencesGroup = preferencesGroup;
+    this.grid = grid;
     preferencesGroup.setRenderer(this);
     init();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
+  public void init() {
+    //this.initializeSelf();
+    this.initializeParts();
+    this.layoutParts();
+    //this.setupEventHandlers();
+    //this.setupValueChangedListeners();
+    this.setupBindings();
+  }
+
   public void initializeParts() {
-    grid = new GridPane();
     titleLabel = new Label();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
   public void layoutParts() {
     List<Field> fields = preferencesGroup.getFields();
     for (int i = 0; i < fields.size(); i++) {
       Field field = fields.get(i);
       SimpleControl c = (SimpleControl) field.getRenderer();
       c.setField(field);
-      grid.add(c.getFieldLabel(), 0, i, 1, 1);
-      grid.add(c.getNode(), 1, i, 1, 1);
+      grid.add(c.getFieldLabel(), grid.getColumnConstraints().size(), i, 1, 1);
+      grid.add(c.getNode(), grid.getColumnConstraints().size()+1, i, 1, 1);
     }
 
     // Styling

@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.geometry.Insets;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class PreferencesFormRenderer extends VBox implements ViewMixin {
+public class PreferencesFormRenderer extends GridPane implements ViewMixin {
 
   private Form form;
   private List<PreferencesGroupRenderer> groups = new ArrayList<>();
@@ -34,7 +35,7 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
   @Override
   public void initializeParts() {
     groups = form.getGroups().stream().map(
-        g -> new PreferencesGroupRenderer((PreferencesGroup) g)).collect(Collectors.toList());
+        g -> new PreferencesGroupRenderer((PreferencesGroup) g, this)).collect(Collectors.toList());
   }
 
   /**
