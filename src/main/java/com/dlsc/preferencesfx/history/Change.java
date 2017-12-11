@@ -51,9 +51,9 @@ public class Change<P> {
 
   private void setupBindings() {
     // oldValue will represent the object contained in oldList, if this is not a listChange
-    oldValue.bind(Bindings.createObjectBinding(createListToObjectBinding(oldList), oldList));
+    oldValue.bind(Bindings.createObjectBinding(createListToObjectBinding(oldList), oldList, listChange));
     // newValue will represent the object contained in newList, if this is not a listChange
-    newValue.bind(Bindings.createObjectBinding(createListToObjectBinding(newList), newList));
+    newValue.bind(Bindings.createObjectBinding(createListToObjectBinding(newList), newList, listChange));
   }
 
   /**
