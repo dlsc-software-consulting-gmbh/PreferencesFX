@@ -5,6 +5,7 @@ import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.formsfx.DoubleSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.IntegerSliderControl;
 import com.dlsc.preferencesfx.util.formsfx.ToggleControl;
+import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -119,9 +120,10 @@ public class Setting<F extends Field, P extends Property> {
 
   /**
    * Creates a setting of a custom defined field.
+   *
    * @param description title of the setting
-   * @param field custom Field object from FormsFX
-   * @param property property with relevant value to be bound and saved
+   * @param field       custom Field object from FormsFX
+   * @param property    property with relevant value to be bound and saved
    * @return constructed setting
    */
   public static <F extends Field<F>, P extends Property> Setting of(
@@ -181,6 +183,28 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public String getBreadcrumb() {
+    return breadcrumb;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Setting<?, ?> setting = (Setting<?, ?>) o;
+    return Objects.equals(breadcrumb, setting.breadcrumb);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(breadcrumb);
+  }
+
+  @Override
+  public String toString() {
     return breadcrumb;
   }
 }
