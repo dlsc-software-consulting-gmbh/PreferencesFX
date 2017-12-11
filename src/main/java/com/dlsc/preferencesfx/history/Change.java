@@ -2,7 +2,6 @@ package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.concurrent.Callable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -40,9 +39,11 @@ public class Change<P> {
    * Constructs a generalized change.
    *
    * @param setting the setting that was changed
+   * @param listChange true if this is a list change
    */
-  protected Change(Setting setting) {
+  protected Change(Setting setting, boolean listChange) {
     this.setting = setting;
+    this.listChange.set(listChange);
     timestamp = LocalDate.now();
     setupBindings();
 
@@ -53,14 +54,6 @@ public class Change<P> {
     oldValue.bind(Bindings.createObjectBinding(createListToObjectBinding(oldList), oldList));
     // newValue will represent the object contained in newList, if this is not a listChange
     newValue.bind(Bindings.createObjectBinding(createListToObjectBinding(newList), newList));
-
-    // if both one of both lists has multiple values, it's a list change
-    listChange.bind(Bindings.createBooleanBinding(
-        () -> (
-            (!Objects.equals(null, getOldValue())) ||
-                (!Objects.equals(null, getOldValue()))
-        )
-    ));
   }
 
   /**
@@ -76,7 +69,7 @@ public class Change<P> {
    */
   private Callable createListToObjectBinding(ListProperty<P> listProperty) {
     return () -> {
-      if (listProperty.get().size() == 1) {
+      if (!isListChange()) {
         return listProperty.get().get(0);
       }
       return null;
@@ -92,8 +85,8 @@ public class Change<P> {
    * @param oldList the "before" value(s) of the change
    * @param newList the "after" value(s) of the change
    */
-  public Change(Setting setting, ObservableList<P> oldList, ObservableList<P> newList) {
-    this(setting);
+  public Change(Setting setting, ObservableList<P> oldList, ObservableList<P> newList, boolean listChange) {
+    this(setting, listChange);
     this.oldList.set(oldList);
     this.newList.set(newList);
   }
