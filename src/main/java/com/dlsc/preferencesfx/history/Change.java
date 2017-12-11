@@ -8,6 +8,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -108,18 +110,26 @@ public class Change<P> {
   }
 
   public void undo() {
-    setting.valueProperty().setValue(oldValue.get());
+    if (isListChange()) {
+      setting.valueProperty().setValue(oldList.get());
+    } else {
+      setting.valueProperty().setValue(oldValue.get());
+    }
   }
 
   public void redo() {
-    setting.valueProperty().setValue(newValue.get());
+    if (isListChange()) {
+      setting.valueProperty().setValue(newList.get());
+    } else {
+      setting.valueProperty().setValue(newValue.get());
+    }
   }
 
   public boolean isListChange() {
     return listChange.get();
   }
 
-  public BooleanProperty listChangeProperty() {
+  public ReadOnlyBooleanProperty listChangeProperty() {
     return listChange;
   }
 
@@ -149,5 +159,13 @@ public class Change<P> {
 
   public ReadOnlyObjectProperty<P> newValueProperty() {
     return newValue;
+  }
+
+  public ReadOnlyListProperty<P> oldListProperty() {
+    return oldList;
+  }
+
+  public ReadOnlyListProperty<P> newListProperty() {
+    return newList;
   }
 }
