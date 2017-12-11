@@ -84,6 +84,7 @@ public class Change<P> {
    * @param setting  the setting that was changed
    * @param oldList the "before" value(s) of the change
    * @param newList the "after" value(s) of the change
+   * @param listChange true if this is a list change
    */
   public Change(Setting setting, ObservableList<P> oldList, ObservableList<P> newList, boolean listChange) {
     this(setting, listChange);
