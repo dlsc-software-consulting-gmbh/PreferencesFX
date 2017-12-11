@@ -3,7 +3,6 @@ package com.dlsc.preferencesfx.history;
 import com.dlsc.preferencesfx.Setting;
 import com.google.common.collect.Lists;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.concurrent.Callable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -42,7 +41,7 @@ public class Change<P> {
   /**
    * Constructs a generalized change.
    *
-   * @param setting the setting that was changed
+   * @param setting    the setting that was changed
    * @param listChange true if this is a list change
    */
   protected Change(Setting setting, boolean listChange) {
@@ -86,7 +85,7 @@ public class Change<P> {
   /**
    * Constructs a list change.
    *
-   * @param setting  the setting that was changed
+   * @param setting the setting that was changed
    * @param oldList the "before" value(s) of the change
    * @param newList the "after" value(s) of the change
    */

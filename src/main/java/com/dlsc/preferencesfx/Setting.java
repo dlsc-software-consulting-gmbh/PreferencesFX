@@ -17,7 +17,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javax.swing.event.ChangeListener;
 
 public class Setting<F extends Field, P extends Property> {
   public static final String MARKED_STYLE_CLASS = "simple-control-marked";
@@ -121,9 +120,10 @@ public class Setting<F extends Field, P extends Property> {
 
   /**
    * Creates a setting of a custom defined field.
+   *
    * @param description title of the setting
-   * @param field custom Field object from FormsFX
-   * @param property property with relevant value to be bound and saved
+   * @param field       custom Field object from FormsFX
+   * @param property    property with relevant value to be bound and saved
    * @return constructed setting
    */
   public static <F extends Field<F>, P extends Property> Setting of(

@@ -59,7 +59,7 @@ public class History {
     };
     ChangeListener listChangeEvent = (observable, oldValue, newValue) -> {
       LOGGER.trace("List Change detected: " + oldValue);
-      addChange(new Change(setting, (ObservableList)oldValue, (ObservableList)newValue));
+      addChange(new Change(setting, (ObservableList) oldValue, (ObservableList) newValue));
     };
 
     if (setting.valueProperty() instanceof SimpleListProperty) {
