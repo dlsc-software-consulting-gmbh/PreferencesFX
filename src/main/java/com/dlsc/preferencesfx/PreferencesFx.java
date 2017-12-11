@@ -11,38 +11,58 @@ import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
+import com.dlsc.preferencesfx.history.History;
+import com.dlsc.preferencesfx.history.HistoryButtonBox;
+import com.dlsc.preferencesfx.history.HistoryDialog;
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx.util.StorageHandler;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import javafx.geometry.Side;
+import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.controlsfx.control.MasterDetailPane;
+import org.controlsfx.control.MasterDetailPane;
 
-public class PreferencesFx extends MasterDetailPane {
+public class PreferencesFx extends BorderPane {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFx.class.getName());
 
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
-
   public static final String DIVIDER_POSITION = "DIVIDER_POSITION";
   public static final String BREADCRUMB_DELIMITER = "_";
   public static final double DEFAULT_DIVIDER_POSITION = 0.2;
   public static final int DEFAULT_CATEGORY = 0;
-
   public static final int DEFAULT_PREFERENCES_WIDTH = 1000;
   public static final int DEFAULT_PREFERENCES_HEIGHT = 700;
   public static final int DEFAULT_PREFERENCES_POS_X = 700;
   public static final int DEFAULT_PREFERENCES_POS_Y = 500;
-
   public static final String WINDOW_WIDTH = "WINDOW_WIDTH";
   public static final String WINDOW_HEIGHT = "WINDOW_HEIGHT";
   public static final String WINDOW_POS_X = "WINDOW_POS_X";
   public static final String WINDOW_POS_Y = "WINDOW_POS_Y";
 
   private List<Category> categories;
+  private MasterDetailPane preferencesPane;
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
   private StorageHandler storageHandler;
+  private History history;
   private Category displayedCategory;
 
   private boolean persistWindowState = false;
+  private boolean historyDebugState = false;
 
   PreferencesFx(Class<?> saveClass, Category[] categories) {
     storageHandler = new StorageHandler(saveClass);
+    history = new History();
     this.categories = Arrays.asList(categories);
     setupParts();
     loadSettingValues();
@@ -64,17 +84,12 @@ public class PreferencesFx extends MasterDetailPane {
 
   private void loadSettingValues() {
     createBreadcrumbs(categories);
-    categoryTree
-        .getAllCategoriesFlatAsList()
-        .stream()
-        .map(Category::getGroups)     // get groups from categories
-        .filter(Objects::nonNull)     // remove all null
-        .flatMap(Collection::stream)
-        .map(Group::getSettings)      // get settings from groups
-        .filter(Objects::nonNull)     // remove all null
-        .flatMap(Collection::stream)
-        .collect(Collectors.toList())
-        .forEach(setting -> setting.loadSettingValue(storageHandler));
+    PreferencesFxUtils.categoriesToSettings(categoryTree.getAllCategoriesFlatAsList())
+        .forEach(setting -> {
+          LOGGER.trace("Loading: " + setting.getBreadcrumb());
+          setting.loadSettingValue(storageHandler);
+          history.attachChangeListener(setting);
+        });
   }
 
   private void createBreadcrumbs(List<Category> categories) {
@@ -89,13 +104,16 @@ public class PreferencesFx extends MasterDetailPane {
   }
 
   private void setupParts() {
+    preferencesPane = new MasterDetailPane();
     categoryTree = new CategoryTree(this, categories);
     categoryTreeBox = new CategoryTreeBox(categoryTree);
   }
 
   private void layoutParts() {
-    setDetailSide(Side.LEFT);
-    setDetailNode(categoryTreeBox);
+    setCenter(preferencesPane);
+    setBottom(new HistoryButtonBox(history));
+    preferencesPane.setDetailSide(Side.LEFT);
+    preferencesPane.setDetailNode(categoryTreeBox);
     // Load last selected category in TreeView.
     categoryTree.setSelectedCategoryById(storageHandler.loadSelectedCategory());
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
@@ -104,8 +122,8 @@ public class PreferencesFx extends MasterDetailPane {
 
   private void setupListeners() {
     // Whenever the divider position is changed, it's position is saved.
-    dividerPositionProperty().addListener((observable, oldValue, newValue) ->
-        storageHandler.saveDividerPosition(getDividerPosition())
+    preferencesPane.dividerPositionProperty().addListener((observable, oldValue, newValue) ->
+        storageHandler.saveDividerPosition(preferencesPane.getDividerPosition())
     );
   }
 
@@ -116,9 +134,9 @@ public class PreferencesFx extends MasterDetailPane {
    */
   public void showCategory(Category category) {
     displayedCategory = category;
-    setMasterNode(category.getCategoryPane());
+    preferencesPane.setMasterNode(category.getCategoryPane());
     // Sets the saved divider position.
-    setDividerPosition(storageHandler.loadDividerPosition());
+    preferencesPane.setDividerPosition(storageHandler.loadDividerPosition());
   }
 
   /**
@@ -148,6 +166,9 @@ public class PreferencesFx extends MasterDetailPane {
    */
   public void show() {
     new PreferencesDialog(this, persistWindowState);
+    if (historyDebugState) {
+      setupDebugHistoryTable();
+    }
   }
 
   /**
@@ -161,6 +182,33 @@ public class PreferencesFx extends MasterDetailPane {
   public PreferencesFx persistWindowState(boolean persist) {
     this.persistWindowState = persist;
     return this;
+  }
+
+  /**
+   * Defines whether the table to debug the undo / redo history should be shown in a dialog
+   * when pressing a key combination or not.
+   * <p>
+   * Pressing Ctrl + H (Windows) or CMD + H (Mac) opens a dialog with the undo / redo history,
+   * shown in a table.
+   *
+   * @param debugState if true, pressing the key combination will open the dialog
+   * @return this object for fluent API
+   */
+  public PreferencesFx debugHistoryMode(boolean debugState) {
+    this.historyDebugState = debugState;
+    return this;
+  }
+
+  public void setupDebugHistoryTable() {
+    final KeyCombination keyCombination = new KeyCodeCombination(KeyCode.H,
+        KeyCombination.SHORTCUT_DOWN);
+    getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+          if (keyCombination.match(event)) {
+            LOGGER.trace("Opened History Debug View");
+            new HistoryDialog(history);
+          }
+        }
+    );
   }
 
   public StorageHandler getStorageHandler() {
