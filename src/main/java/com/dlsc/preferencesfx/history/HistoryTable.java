@@ -23,10 +23,10 @@ public class HistoryTable extends TableView<Change> {
     breadcrumb.setCellValueFactory(change -> new ReadOnlyStringWrapper(change.getValue().getSetting().toString()));
 
     TableColumn<Change, Object> oldValue = new TableColumn<>("Old Value");
-    oldValue.setCellValueFactory(change -> change.getValue().oldValueProperty());
+    oldValue.setCellValueFactory(change -> change.getValue().oldListProperty());
 
     TableColumn<Change, Object> newValue = new TableColumn<>("New Value");
-    newValue.setCellValueFactory(change -> change.getValue().newValueProperty());
+    newValue.setCellValueFactory(change -> change.getValue().newListProperty());
 
     setItems(this.changes);
     getColumns().addAll(timestamp, breadcrumb, oldValue, newValue);
