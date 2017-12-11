@@ -91,10 +91,8 @@ public class Change<P> {
   /**
    * Creates a function, which handles binding between a ListProperty and an ObjectProperty.
    * <p>
-   * In case there is only one element in a List of a ListProperty, this is not a change which has
-   * been performed on a list, but a single object.
-   * The object property will in case of an object change be the object which was changed,
-   * in case of a list change it will be null.
+   * If this change isn't a list change, oldValue and newValue properties will have the single
+   * element inside of the list, for easier usage.
    *
    * @param listProperty to be bound to the object property
    * @return Callable function, which binds a list to an object property.
