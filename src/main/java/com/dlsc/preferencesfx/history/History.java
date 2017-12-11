@@ -14,7 +14,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -55,23 +54,21 @@ public class History {
   }
 
   public void attachChangeListener(Setting setting) {
-    if (setting.valueProperty() instanceof SimpleListProperty) {
-      ListChangeListener listChangeEvent = c -> {
-        LOGGER.trace("New List Change");
-          addChange(new ListChange(setting, c));
-      };
-      ((SimpleListProperty) setting.valueProperty()).addListener(listChangeEvent);
-      settingListChangeListenerMap.put(setting, listChangeEvent);
-    } else {
-      ChangeListener changeEvent = (observable, oldValue, newValue) -> {
-        if (oldValue != newValue) {
-          LOGGER.trace("Change detected, old: " + oldValue + " new: " + newValue);
-          addChange(new Change(setting, oldValue, newValue));
-        }
-      };
-      setting.valueProperty().addListener(changeEvent);
-      settingChangeListenerMap.put(setting, changeEvent);
-    }
+    ChangeListener changeEvent = (observable, oldValue, newValue) -> {
+      if (oldValue != newValue) {
+        LOGGER.trace("Change detected, old: " + oldValue + " new: " + newValue);
+        addChange(new Change(setting, oldValue, newValue));
+      }
+    };
+    ChangeListener listChangeEvent = (observable, oldValue, newValue) -> {
+        LOGGER.trace("List Change detected: " + oldValue);
+        addChange(new Change(setting, oldValue));
+      }
+    };
+    setting.valueProperty() instanceof SimpleListProperty
+
+    setting.valueProperty().addListener(changeEvent);
+    settingChangeListenerMap.put(setting, changeEvent);
   }
 
   private void addChange(Change change) {
@@ -122,9 +119,9 @@ public class History {
   private void addChange(ListChange change) {
     LOGGER.trace("List addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
 
-      LOGGER.trace("Add new");
-      changes.add(change);
-      incrementPosition();
+    LOGGER.trace("Add new");
+    changes.add(change);
+    incrementPosition();
 
     int lastIndex = changes.size() - 1;
     // if there are changes after the currently added item

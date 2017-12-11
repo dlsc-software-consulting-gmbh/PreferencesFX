@@ -2,13 +2,8 @@ package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,33 +41,6 @@ public class Change<P> {
     this(setting);
     this.oldValue.set(oldValue);
     this.newValue.set(newValue);
-  }
-
-  public Change(Setting setting, ListChangeListener.Change change, SimpleListProperty property) {
-    this(setting);
-    boolean added = false;
-    List elements = new ArrayList();
-    List collection = change.getList();
-
-    change.next();
-    if (change.wasAdded()) {
-      added = true;
-      elements = new ArrayList<>(change.getAddedSubList());
-    } else if (change.wasRemoved()) {
-      added = false;
-      elements = new ArrayList<>(change.getRemoved());
-    }
-
-    ArrayList oldList = new ArrayList(collection);
-    if (added) {
-      collection.addAll(elements);
-    } else {
-      collection.removeAll(elements);
-    }
-    ArrayList newList = new ArrayList(collection);
-
-    oldValue.set((P)FXCollections.observableArrayList(oldList));
-
   }
 
   /**
