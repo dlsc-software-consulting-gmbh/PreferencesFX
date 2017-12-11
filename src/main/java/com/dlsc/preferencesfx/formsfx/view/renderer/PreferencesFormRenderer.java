@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.renderer;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.util.ViewMixin;
@@ -6,9 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.geometry.Insets;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class PreferencesFormRenderer extends VBox implements ViewMixin {
+public class PreferencesFormRenderer extends GridPane implements ViewMixin {
+
+  /**
+   * SPACING is used to set the spacing of the group as well as the
+   * spacing for vertical/horizontal gaps between controls.
+   */
+  public static final double SPACING = 5;
 
   private Form form;
   private List<PreferencesGroupRenderer> groups = new ArrayList<>();
@@ -34,7 +41,7 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
   @Override
   public void initializeParts() {
     groups = form.getGroups().stream().map(
-        g -> new PreferencesGroupRenderer((PreferencesGroup) g)).collect(Collectors.toList());
+        g -> new PreferencesGroupRenderer((PreferencesGroup) g, this)).collect(Collectors.toList());
   }
 
   /**
@@ -43,7 +50,8 @@ public class PreferencesFormRenderer extends VBox implements ViewMixin {
   @Override
   public void layoutParts() {
     // Outer Padding of Category Pane
-    setPadding(new Insets(10));
-    getChildren().addAll(groups);
+    setPadding(new Insets(SPACING*3));
+    setHgap(SPACING);
+    setVgap(SPACING*2);
   }
 }
