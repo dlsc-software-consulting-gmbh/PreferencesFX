@@ -2,7 +2,9 @@ package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
 import com.google.common.collect.Lists;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.concurrent.Callable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -36,7 +38,7 @@ public class Change<P> {
   private final ObjectProperty<P> newValue = new SimpleObjectProperty<>();
   private final BooleanProperty listChange = new SimpleBooleanProperty();
 
-  private final LocalDate timestamp;
+  private final LocalDateTime timestamp;
 
   /**
    * Constructs a generalized change.
@@ -47,7 +49,7 @@ public class Change<P> {
   protected Change(Setting setting, boolean listChange) {
     this.setting = setting;
     this.listChange.set(listChange);
-    timestamp = LocalDate.now();
+    timestamp = LocalDateTime.now();
     setupBindings();
   }
 
@@ -176,7 +178,8 @@ public class Change<P> {
   }
 
   public String getTimestamp() {
-    return timestamp.toString();
+    DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
+    return timestamp.format(formatter);
   }
 
   public ReadOnlyObjectProperty<P> oldValueProperty() {
