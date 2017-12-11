@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by François Martin on 02.12.17.
  */
-public class ListChange<P> extends Change<P> {
+public class ListChange<P> extends Change<P<V>> {
 
   private static final Logger LOGGER =
       LogManager.getLogger(ListChange.class.getName());

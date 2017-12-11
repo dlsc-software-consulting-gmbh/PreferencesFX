@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
 import java.time.LocalDate;
+import javafx.beans.property.Property;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by François Martin on 02.12.17.
  */
-public class Change<P> {
+public class Change<P extends Property<V>, V> {
 
   private static final Logger LOGGER =
       LogManager.getLogger(Change.class.getName());
