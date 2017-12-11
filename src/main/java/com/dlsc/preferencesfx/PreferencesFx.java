@@ -1,45 +1,42 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.history.HistoryPane;
+import com.dlsc.preferencesfx.history.HistoryDialog;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesFx extends BorderPane {
-  private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesFx.class.getName());
-
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
-
   public static final String DIVIDER_POSITION = "DIVIDER_POSITION";
   public static final String BREADCRUMB_DELIMITER = "_";
   public static final double DEFAULT_DIVIDER_POSITION = 0.2;
   public static final int DEFAULT_CATEGORY = 0;
-
   public static final int DEFAULT_PREFERENCES_WIDTH = 1000;
   public static final int DEFAULT_PREFERENCES_HEIGHT = 700;
   public static final int DEFAULT_PREFERENCES_POS_X = 700;
   public static final int DEFAULT_PREFERENCES_POS_Y = 500;
-
   public static final String WINDOW_WIDTH = "WINDOW_WIDTH";
   public static final String WINDOW_HEIGHT = "WINDOW_HEIGHT";
   public static final String WINDOW_POS_X = "WINDOW_POS_X";
   public static final String WINDOW_POS_Y = "WINDOW_POS_Y";
-
+  private static final Logger LOGGER =
+      LogManager.getLogger(PreferencesFx.class.getName());
   private List<Category> categories;
   private MasterDetailPane preferencesPane;
-  private HistoryPane historyPane;
+  private HistoryDialog historyDialog;
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
   private StorageHandler storageHandler;
@@ -47,6 +44,7 @@ public class PreferencesFx extends BorderPane {
   private Category displayedCategory;
 
   private boolean persistWindowState = false;
+  private boolean historyDebugState = false;
 
   PreferencesFx(Class<?> saveClass, Category[] categories) {
     storageHandler = new StorageHandler(saveClass);
@@ -56,6 +54,18 @@ public class PreferencesFx extends BorderPane {
     loadSettingValues();
     setupListeners();
     layoutParts();
+  }
+
+  /**
+   * Creates the Preferences window.
+   *
+   * @param saveClass  the class which the preferences are saved as
+   *                   Must be unique to the application using the preferences
+   * @param categories the items to be displayed in the TreeView
+   * @return the preferences window
+   */
+  public static PreferencesFx of(Class<?> saveClass, Category... categories) {
+    return new PreferencesFx(saveClass, categories);
   }
 
   private void loadSettingValues() {
@@ -79,28 +89,15 @@ public class PreferencesFx extends BorderPane {
     });
   }
 
-  /**
-   * Creates the Preferences window.
-   *
-   * @param saveClass  the class which the preferences are saved as
-   *                   Must be unique to the application using the preferences
-   * @param categories the items to be displayed in the TreeView
-   * @return the preferences window
-   */
-  public static PreferencesFx of(Class<?> saveClass, Category... categories) {
-    return new PreferencesFx(saveClass, categories);
-  }
-
   private void setupParts() {
     preferencesPane = new MasterDetailPane();
     categoryTree = new CategoryTree(this, categories);
     categoryTreeBox = new CategoryTreeBox(categoryTree);
-    historyPane = new HistoryPane(history);
   }
 
   private void layoutParts() {
     setCenter(preferencesPane);
-    setBottom(historyPane);
+    setBottom(historyDialog);
     preferencesPane.setDetailSide(Side.LEFT);
     preferencesPane.setDetailNode(categoryTreeBox);
     // Load last selected category in TreeView.
@@ -155,6 +152,9 @@ public class PreferencesFx extends BorderPane {
    */
   public void show() {
     new PreferencesDialog(this, persistWindowState);
+    if (historyDebugState) {
+      setupDebugHistoryTable();
+    }
   }
 
   /**
@@ -168,6 +168,33 @@ public class PreferencesFx extends BorderPane {
   public PreferencesFx persistWindowState(boolean persist) {
     this.persistWindowState = persist;
     return this;
+  }
+
+  /**
+   * Defines whether the table to debug the undo / redo history should be shown in a dialog
+   * when pressing a key combination or not.
+   * <p>
+   * Pressing Ctrl + H (Windows) or CMD + H (Mac) opens a dialog with the undo / redo history,
+   * shown in a table.
+   *
+   * @param debugState if true, pressing the key combination will open the dialog
+   * @return this object for fluent API
+   */
+  public PreferencesFx debugHistoryMode(boolean debugState) {
+    this.historyDebugState = debugState;
+    return this;
+  }
+
+  public void setupDebugHistoryTable() {
+    final KeyCombination keyCombination = new KeyCodeCombination(KeyCode.H,
+        KeyCombination.SHORTCUT_DOWN);
+    getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+          if (keyCombination.match(event)) {
+            LOGGER.trace("Opened History Debug View");
+            new HistoryDialog(history);
+          }
+        }
+    );
   }
 
   public StorageHandler getStorageHandler() {

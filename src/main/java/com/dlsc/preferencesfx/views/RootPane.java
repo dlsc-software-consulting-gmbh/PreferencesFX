@@ -23,6 +23,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +37,8 @@ import org.apache.logging.log4j.Logger;
 public class RootPane extends StackPane {
   private static final Logger LOGGER =
       LogManager.getLogger(RootPane.class.getName());
+
+  public PreferencesFx preferencesFx;
 
   // General
   StringProperty welcomeText = new SimpleStringProperty("Hello World");
@@ -74,12 +80,13 @@ public class RootPane extends StackPane {
   IntegerField customControl = setupCustomControl();
 
   public RootPane() {
-    getChildren().add(new DemoView(createPreferences(), this));
+    preferencesFx = createPreferences();
+    getChildren().add(new DemoView(preferencesFx, this));
   }
 
   private IntegerField setupCustomControl() {
     return Field.ofIntegerType(customControlProperty).render(
-        new IntegerSliderControl(0,  42));
+        new IntegerSliderControl(0, 42));
   }
 
   private PreferencesFx createPreferences() {
@@ -112,6 +119,6 @@ public class RootPane extends StackPane {
             Setting.of("Favorites", favoritesItems, favoritesSelection),
             Setting.of("Favorite Number", customControl, customControlProperty)
         )
-    );
+    ).persistWindowState(true).debugHistoryMode(true);
   }
 }

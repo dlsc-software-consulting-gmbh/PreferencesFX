@@ -50,7 +50,6 @@ public class Change<P> {
     this.listChange.set(listChange);
     timestamp = LocalDate.now();
     setupBindings();
-
   }
 
   private void setupBindings() {

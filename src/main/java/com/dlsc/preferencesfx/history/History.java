@@ -20,7 +20,6 @@ import org.apache.logging.log4j.Logger;
  * Created by François Martin on 02.12.17.
  */
 public class History {
-  // TODO: MultiSelection doesn't fire change events?
 
   private static final Logger LOGGER =
       LogManager.getLogger(History.class.getName());
