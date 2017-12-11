@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import javafx.scene.layout.GridPane;
 
 /**
  * Created by François Martin on 29.11.17.
@@ -143,5 +144,17 @@ public class PreferencesFxUtils {
       return o2;
     }
     return o3;
+  }
+
+  /**
+   * Gets the amount of rows of a given GridPane.
+   * @return the amount of rows, if present, -1 else
+   */
+  public static int getRowCount(GridPane grid) {
+    return grid.getChildren().stream().mapToInt(n -> {
+      Integer row = GridPane.getRowIndex(n);      // default: 0
+      Integer rowSpan = GridPane.getRowSpan(n);   // default: 1
+      return (row == null ? 0 : row) + (rowSpan == null ? 0 : rowSpan - 1);
+    }).max().orElse(-1);
   }
 }

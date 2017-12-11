@@ -1,5 +1,16 @@
 package com.dlsc.preferencesfx;
 
+import com.dlsc.preferencesfx.util.StorageHandler;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import javafx.geometry.Side;
+import javafx.scene.control.TreeItem;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.controlsfx.control.MasterDetailPane;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.HistoryButtonBox;
 import com.dlsc.preferencesfx.history.HistoryDialog;
@@ -18,8 +29,12 @@ import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
+import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesFx extends BorderPane {
+  private static final Logger LOGGER =
+      LogManager.getLogger(PreferencesFx.class.getName());
+
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
   public static final String DIVIDER_POSITION = "DIVIDER_POSITION";
   public static final String BREADCRUMB_DELIMITER = "_";
@@ -33,8 +48,7 @@ public class PreferencesFx extends BorderPane {
   public static final String WINDOW_HEIGHT = "WINDOW_HEIGHT";
   public static final String WINDOW_POS_X = "WINDOW_POS_X";
   public static final String WINDOW_POS_Y = "WINDOW_POS_Y";
-  private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesFx.class.getName());
+
   private List<Category> categories;
   private MasterDetailPane preferencesPane;
   private CategoryTree categoryTree;

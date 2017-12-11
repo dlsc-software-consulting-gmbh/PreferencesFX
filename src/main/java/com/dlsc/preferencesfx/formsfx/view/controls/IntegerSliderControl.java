@@ -1,16 +1,18 @@
-package com.dlsc.preferencesfx.util.formsfx;
+package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.formsfx.view.controls.SimpleControl;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /**
  * Created by François Martin on 24.11.17.
  */
-public class IntegerSliderControl extends SimpleControl<IntegerField> {
+public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
+  public static final int VALUE_LABEL_PADDING = 25;
   /**
    * - fieldLabel is the container that displays the label property of the
    * field.
@@ -20,7 +22,6 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   private Label fieldLabel;
   private Slider slider;
   private Label valueLabel;
-  private VBox container;
   private int min;
   private int max;
 
@@ -43,8 +44,6 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   public void initializeParts() {
     super.initializeParts();
 
-    getStyleClass().add("integer-slider-control");
-
     fieldLabel = new Label(field.labelProperty().getValue());
 
     valueLabel = new Label(String.valueOf(field.getValue().intValue()));
@@ -52,11 +51,12 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
     slider = new Slider();
     slider.setMin(min);
     slider.setMax(max);
-    slider.setShowTickLabels(true);
-    slider.setShowTickMarks(true);
-
-    container = new VBox();
+    slider.setShowTickLabels(false);
+    slider.setShowTickMarks(false);
     slider.setValue(field.getValue());
+
+    node = new HBox();
+    node.getStyleClass().add("integer-slider-control");
   }
 
   /**
@@ -64,14 +64,12 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
    */
   @Override
   public void layoutParts() {
-    super.layoutParts();
-
-    container.getChildren().add(slider);
-
-    add(fieldLabel, 0, 0, 2, 1);
-    add(container, 2, 0, field.getSpan() - 4, 1);
-    add(valueLabel, 2 + field.getSpan() - 3, 0, 2, 1);
+    node.getChildren().addAll(slider, valueLabel);
+    HBox.setHgrow(slider, Priority.ALWAYS);
     valueLabel.setAlignment(Pos.CENTER);
+    valueLabel.setMinWidth(VALUE_LABEL_PADDING);
+    node.setSpacing(VALUE_LABEL_PADDING);
+    HBox.setMargin(valueLabel, new Insets(0,VALUE_LABEL_PADDING, 0,0));
   }
 
   /**
@@ -80,9 +78,6 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
   @Override
   public void setupBindings() {
     super.setupBindings();
-
-    slider.disableProperty().bind(field.editableProperty().not());
-    fieldLabel.textProperty().bind(field.labelProperty());
   }
 
   /**
@@ -111,9 +106,6 @@ public class IntegerSliderControl extends SimpleControl<IntegerField> {
    */
   @Override
   public void setupEventHandlers() {
-    setOnMouseEntered(event -> toggleTooltip(slider));
-    setOnMouseExited(event -> toggleTooltip(slider));
-
     slider.valueProperty().addListener((observable, oldValue, newValue) -> {
       field.userInputProperty().setValue(String.valueOf(newValue.intValue()));
     });
