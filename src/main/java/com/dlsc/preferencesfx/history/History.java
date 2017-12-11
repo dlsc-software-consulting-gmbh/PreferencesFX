@@ -1,8 +1,6 @@
 package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
-import com.google.common.collect.Lists;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -14,7 +12,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +33,6 @@ public class History {
   private BooleanProperty redoAvailable = new SimpleBooleanProperty(false);
 
   private HashMap<Setting, ChangeListener> settingChangeListenerMap = new HashMap<>();
-  private HashMap<Setting, ListChangeListener> settingListChangeListenerMap = new HashMap<>();
 
   public History() {
     setupBindings();
@@ -59,18 +55,20 @@ public class History {
     ChangeListener changeEvent = (observable, oldValue, newValue) -> {
       if (oldValue != newValue) {
         LOGGER.trace("Change detected, old: " + oldValue + " new: " + newValue);
-        addChange(new Change(setting, FXCollections.observableArrayList(Lists.newArrayList(oldValue)), FXCollections.observableArrayList(Lists.newArrayList(newValue)), false));
+        addChange(new Change(setting, oldValue, newValue));
       }
     };
     ChangeListener listChangeEvent = (observable, oldValue, newValue) -> {
-        LOGGER.trace("List Change detected: " + oldValue);
-        addChange(new Change(setting, oldValue));
-      }
+      LOGGER.trace("List Change detected: " + oldValue);
+      addChange(new Change(setting, oldValue, null));
     };
-    setting.valueProperty() instanceof SimpleListProperty
-
-    setting.valueProperty().addListener(changeEvent);
-    settingChangeListenerMap.put(setting, changeEvent);
+    if (setting.valueProperty() instanceof SimpleListProperty) {
+      setting.valueProperty().addListener(listChangeEvent);
+      settingChangeListenerMap.put(setting, listChangeEvent);
+    } else {
+      setting.valueProperty().addListener(changeEvent);
+      settingChangeListenerMap.put(setting, changeEvent);
+    }
   }
 
   private void addChange(Change change) {
@@ -118,41 +116,11 @@ public class History {
     LOGGER.trace("addChange, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
   }
 
-  private void addChange(ListChange change) {
-    LOGGER.trace("List addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
-
-    LOGGER.trace("Add new");
-    changes.add(change);
-    incrementPosition();
-
-    int lastIndex = changes.size() - 1;
-    // if there are changes after the currently added item
-    if (position.get() != lastIndex) {
-      // invalidate all further changes in the list
-      LOGGER.trace("Invalidate rest");
-      changes.remove(position.get() + 1, changes.size());
-    }
-
-    // the last valid position is now equal to the current position
-    validPosition.setValue(position.get());
-
-    LOGGER.trace("List addChange, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
-  }
-
   public void doWithoutListeners(Setting setting, Runnable action) {
-    ListChangeListener listChangeListener = settingListChangeListenerMap.get(setting);
     ChangeListener changeListener = settingChangeListenerMap.get(setting);
-    if (listChangeListener != null) {
-      ((SimpleListProperty) setting.valueProperty()).removeListener(listChangeListener);
-    } else if (changeListener != null) {
-      setting.valueProperty().removeListener(changeListener);
-    }
+    setting.valueProperty().removeListener(changeListener);
     action.run();
-    if (listChangeListener != null) {
-      ((SimpleListProperty) setting.valueProperty()).addListener(listChangeListener);
-    } else if (changeListener != null) {
-      setting.valueProperty().addListener(changeListener);
-    }
+    setting.valueProperty().addListener(changeListener);
   }
 
   public boolean undo() {
