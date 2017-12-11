@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
+import com.google.common.collect.Lists;
 import java.time.LocalDate;
 import java.util.concurrent.Callable;
 import javafx.beans.binding.Bindings;
@@ -13,6 +14,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,9 +53,13 @@ public class Change<P> {
 
   private void setupBindings() {
     // oldValue will represent the object contained in oldList, if this is not a listChange
-    oldValue.bind(Bindings.createObjectBinding(createListToObjectBinding(oldList), oldList, listChange));
+    oldValue.bind(
+        Bindings.createObjectBinding(createListToObjectBinding(oldList), oldList, listChange)
+    );
     // newValue will represent the object contained in newList, if this is not a listChange
-    newValue.bind(Bindings.createObjectBinding(createListToObjectBinding(newList), newList, listChange));
+    newValue.bind(
+        Bindings.createObjectBinding(createListToObjectBinding(newList), newList, listChange)
+    );
   }
 
   /**
@@ -77,19 +83,29 @@ public class Change<P> {
   }
 
   /**
-   * Constructs a change.
-   * If both lists only contain one element, it is a regular change.
-   * If both lists contain one or multiple elements, it is a list change.
+   * Constructs a list change.
    *
    * @param setting  the setting that was changed
    * @param oldList the "before" value(s) of the change
    * @param newList the "after" value(s) of the change
-   * @param listChange true if this is a list change
    */
-  public Change(Setting setting, ObservableList<P> oldList, ObservableList<P> newList, boolean listChange) {
-    this(setting, listChange);
+  public Change(Setting setting, ObservableList<P> oldList, ObservableList<P> newList) {
+    this(setting, true);
     this.oldList.set(oldList);
     this.newList.set(newList);
+  }
+
+  /**
+   * Constructs a regular object change.
+   *
+   * @param setting  the setting that was changed
+   * @param oldValue the "before" value of the change
+   * @param newValue the "after" value of the change
+   */
+  public Change(Setting setting, P oldValue, P newValue) {
+    this(setting, false);
+    this.oldList.set(FXCollections.observableArrayList(Lists.newArrayList(oldValue)));
+    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
   }
 
   /**
@@ -119,6 +135,22 @@ public class Change<P> {
     }
   }
 
+  public void setNewList(ObservableList<P> newList) {
+    this.newList.set(newList);
+  }
+
+  public void setNewValue(P newValue) {
+    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
+  }
+
+  public ObservableList<P> getOldList() {
+    return oldList.get();
+  }
+
+  public ObservableList<P> getNewList() {
+    return newList.get();
+  }
+
   public boolean isListChange() {
     return listChange.get();
   }
@@ -133,10 +165,6 @@ public class Change<P> {
 
   public P getNewValue() {
     return newValue.get();
-  }
-
-  public void setNewValue(P newValue) {
-    this.newValue.set(newValue);
   }
 
   public Setting getSetting() {

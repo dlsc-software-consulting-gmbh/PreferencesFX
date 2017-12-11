@@ -1,6 +1,8 @@
 package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.Setting;
+import com.google.common.collect.Lists;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -57,7 +59,7 @@ public class History {
     ChangeListener changeEvent = (observable, oldValue, newValue) -> {
       if (oldValue != newValue) {
         LOGGER.trace("Change detected, old: " + oldValue + " new: " + newValue);
-        addChange(new Change(setting, oldValue, newValue));
+        addChange(new Change(setting, FXCollections.observableArrayList(Lists.newArrayList(oldValue)), FXCollections.observableArrayList(Lists.newArrayList(newValue)), false));
       }
     };
     ChangeListener listChangeEvent = (observable, oldValue, newValue) -> {
