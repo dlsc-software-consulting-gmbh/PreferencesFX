@@ -51,6 +51,32 @@ public class Change<P> {
     setupBindings();
   }
 
+  /**
+   * Constructs a list change.
+   *
+   * @param setting the setting that was changed
+   * @param oldList the "before" value(s) of the change
+   * @param newList the "after" value(s) of the change
+   */
+  public Change(Setting setting, ObservableList<P> oldList, ObservableList<P> newList) {
+    this(setting, true);
+    this.oldList.set(FXCollections.observableArrayList(oldList));
+    this.newList.set(FXCollections.observableArrayList(newList));
+  }
+
+  /**
+   * Constructs a regular object change.
+   *
+   * @param setting  the setting that was changed
+   * @param oldValue the "before" value of the change
+   * @param newValue the "after" value of the change
+   */
+  public Change(Setting setting, P oldValue, P newValue) {
+    this(setting, false);
+    this.oldList.set(FXCollections.observableArrayList(Lists.newArrayList(oldValue)));
+    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
+  }
+
   private void setupBindings() {
     // oldValue will represent the object contained in oldList, if this is not a listChange
     oldValue.bind(
@@ -80,32 +106,6 @@ public class Change<P> {
       }
       return null;
     };
-  }
-
-  /**
-   * Constructs a list change.
-   *
-   * @param setting the setting that was changed
-   * @param oldList the "before" value(s) of the change
-   * @param newList the "after" value(s) of the change
-   */
-  public Change(Setting setting, ObservableList<P> oldList, ObservableList<P> newList) {
-    this(setting, true);
-    this.oldList.set(FXCollections.observableArrayList(oldList));
-    this.newList.set(FXCollections.observableArrayList(newList));
-  }
-
-  /**
-   * Constructs a regular object change.
-   *
-   * @param setting  the setting that was changed
-   * @param oldValue the "before" value of the change
-   * @param newValue the "after" value of the change
-   */
-  public Change(Setting setting, P oldValue, P newValue) {
-    this(setting, false);
-    this.oldList.set(FXCollections.observableArrayList(Lists.newArrayList(oldValue)));
-    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
   }
 
   /**
@@ -140,21 +140,17 @@ public class Change<P> {
     }
   }
 
-  public void setNewList(ObservableList<P> newList) {
-    LOGGER.trace("Setting new List, old: " + oldList.toString() + " new: " + newList.toString());
-    this.newList.set(FXCollections.observableArrayList(newList));
-  }
-
-  public void setNewValue(P newValue) {
-    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
-  }
-
   public ObservableList<P> getOldList() {
     return oldList.get();
   }
 
   public ObservableList<P> getNewList() {
     return newList.get();
+  }
+
+  public void setNewList(ObservableList<P> newList) {
+    LOGGER.trace("Setting new List, old: " + oldList.toString() + " new: " + newList.toString());
+    this.newList.set(FXCollections.observableArrayList(newList));
   }
 
   public boolean isListChange() {
@@ -171,6 +167,10 @@ public class Change<P> {
 
   public P getNewValue() {
     return newValue.get();
+  }
+
+  public void setNewValue(P newValue) {
+    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
   }
 
   public Setting getSetting() {
