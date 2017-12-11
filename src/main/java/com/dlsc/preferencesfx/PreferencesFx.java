@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.history.History;
+import com.dlsc.preferencesfx.history.HistoryButtonBox;
 import com.dlsc.preferencesfx.history.HistoryDialog;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
@@ -36,7 +37,6 @@ public class PreferencesFx extends BorderPane {
       LogManager.getLogger(PreferencesFx.class.getName());
   private List<Category> categories;
   private MasterDetailPane preferencesPane;
-  private HistoryDialog historyDialog;
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
   private StorageHandler storageHandler;
@@ -97,7 +97,7 @@ public class PreferencesFx extends BorderPane {
 
   private void layoutParts() {
     setCenter(preferencesPane);
-    setBottom(historyDialog);
+    setBottom(new HistoryButtonBox(history));
     preferencesPane.setDetailSide(Side.LEFT);
     preferencesPane.setDetailNode(categoryTreeBox);
     // Load last selected category in TreeView.

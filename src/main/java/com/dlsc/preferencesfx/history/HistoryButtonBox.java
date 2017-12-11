@@ -3,6 +3,9 @@ package com.dlsc.preferencesfx.history;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.controlsfx.glyphfont.FontAwesome;
+import org.controlsfx.glyphfont.GlyphFont;
+import org.controlsfx.glyphfont.GlyphFontRegistry;
 
 /**
  * Created by François Martin on 11.12.2017.
@@ -10,8 +13,10 @@ import javafx.scene.layout.Priority;
 public class HistoryButtonBox extends HBox {
   private History history;
 
-  Button undoBtn = new Button("Undo");
-  Button redoBtn = new Button("Redo");
+  GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
+
+  Button undoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.UNDO));
+  Button redoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.REPEAT));
 
   public HistoryButtonBox(History history) {
     this.history = history;
