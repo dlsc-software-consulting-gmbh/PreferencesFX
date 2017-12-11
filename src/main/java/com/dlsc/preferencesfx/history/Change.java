@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.history;
 import com.dlsc.preferencesfx.Setting;
 import com.google.common.collect.Lists;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.concurrent.Callable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -16,6 +17,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -75,7 +77,7 @@ public class Change<P> {
    */
   private Callable createListToObjectBinding(ListProperty<P> listProperty) {
     return () -> {
-      if (!isListChange()) {
+      if (!isListChange() && listProperty.get() != null && listProperty.get().size() != 0) {
         return listProperty.get().get(0);
       }
       return null;
@@ -91,8 +93,8 @@ public class Change<P> {
    */
   public Change(Setting setting, ObservableList<P> oldList, ObservableList<P> newList) {
     this(setting, true);
-    this.oldList.set(oldList);
-    this.newList.set(newList);
+    this.oldList.set(FXCollections.observableArrayList(oldList));
+    this.newList.set(FXCollections.observableArrayList(newList));
   }
 
   /**
@@ -116,11 +118,15 @@ public class Change<P> {
    * @return true if redundant, else if otherwise.
    */
   public boolean isRedundant() {
+    if (isListChange()) {
+      return CollectionUtils.isEqualCollection(oldList.get(), newList.get());
+    }
     return oldValue.get().equals(newValue.get());
   }
 
   public void undo() {
     if (isListChange()) {
+      LOGGER.trace("Undoing list change: " + oldList.get().toString());
       setting.valueProperty().setValue(oldList.get());
     } else {
       setting.valueProperty().setValue(oldValue.get());
@@ -129,6 +135,7 @@ public class Change<P> {
 
   public void redo() {
     if (isListChange()) {
+      LOGGER.trace("Redoing list change: " + newList.get().toString());
       setting.valueProperty().setValue(newList.get());
     } else {
       setting.valueProperty().setValue(newValue.get());
@@ -136,7 +143,8 @@ public class Change<P> {
   }
 
   public void setNewList(ObservableList<P> newList) {
-    this.newList.set(newList);
+    LOGGER.trace("Setting new List, old: " + oldList.toString() + " new: " + newList.toString());
+    this.newList.set(FXCollections.observableArrayList(newList));
   }
 
   public void setNewValue(P newValue) {

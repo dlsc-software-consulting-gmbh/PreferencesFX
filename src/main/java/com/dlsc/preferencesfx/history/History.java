@@ -60,8 +60,9 @@ public class History {
     };
     ChangeListener listChangeEvent = (observable, oldValue, newValue) -> {
       LOGGER.trace("List Change detected: " + oldValue);
-      addChange(new Change(setting, oldValue, null));
+      addChange(new Change(setting, (ObservableList)oldValue, (ObservableList)newValue));
     };
+
     if (setting.valueProperty() instanceof SimpleListProperty) {
       setting.valueProperty().addListener(listChangeEvent);
       settingChangeListenerMap.put(setting, listChangeEvent);
@@ -89,7 +90,11 @@ public class History {
 
     if (compounded) {
       LOGGER.trace("Compounded change");
-      changes.get(position.get()).setNewValue(change.getNewValue());
+      if (change.isListChange()) {
+        changes.get(position.get()).setNewList(change.getNewList());
+      } else {
+        changes.get(position.get()).setNewValue(change.getNewValue());
+      }
     } else if (redundant) {
       LOGGER.trace("Redundant");
       changes.set(position.get(), change);
