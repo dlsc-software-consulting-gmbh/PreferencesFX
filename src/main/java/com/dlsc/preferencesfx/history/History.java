@@ -123,8 +123,9 @@ public class History {
   /**
    * Enables to perform an action, without firing the attached ChangeListener of a Setting.
    * This is used by undo and redo, since those shouldn't cause a new change to be added.
+   *
    * @param setting the setting, whose ChangeListener should be ignored
-   * @param action the action to be performed
+   * @param action  the action to be performed
    */
   public void doWithoutListeners(Setting setting, Runnable action) {
     ChangeListener changeListener = settingChangeListenerMap.get(setting);
