@@ -5,6 +5,7 @@ import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
 
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx2.view.PreferenceView;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;

@@ -1,78 +1,24 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx2.view;
 
-import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
-
+import com.dlsc.preferencesfx.Category;
+import com.dlsc.preferencesfx.Group;
+import com.dlsc.preferencesfx.Setting;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx2.model.PreferencesModel;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
-import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
-public class CategoryTree extends TreeView {
-
+public class CategoryTreePresenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(CategoryTree.class.getName());
+      LogManager.getLogger(CategoryTreePresenter.class.getName());
 
-  private PreferencesFx preferencesFx;
-
-  private List<Category> categoriesLst;
-  private List<Setting> settingsLst;
-  private List<Group> groupsLst;
-  private List<Category> filteredCategoriesLst;
-  private List<Setting> filteredSettingsLst;
-  private List<Group> filteredGroupsLst;
-  private int categoryMatches;
-  private int settingMatches;
-  private int groupMatches;
-
-  private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
-  private HashMap<Setting, Category> settingCategoryMap;
-  private HashMap<Group, Category> groupCategoryMap;
-
-  private List<Category> categories;
-  private FilterableTreeItem<Category> rootItem;
-  private StringProperty searchText = new SimpleStringProperty();
-
-  /**
-   * Decides whether a TreeItem should be shown in the CategoryTreeView or not.
-   * If result is true, it will be shown, if the result is false, it will be hidden.
-   */
-  private Predicate<Category> filterPredicate = category -> {
-    // look in category description for matches
-    boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText.get());
-    boolean settingMatch = false;
-    boolean groupMatch = false;
-    if (category.getGroups() != null) {
-      // look in settings too
-      settingMatch = category.getGroups().stream()
-          .map(Group::getSettings)      // get settings from groups
-          .flatMap(Collection::stream)  // flatten all lists of settings to settings
-          .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText.get()));
-      // look in groups too
-      groupMatch = category.getGroups().stream()
-          .anyMatch(group -> containsIgnoreCase(group.getDescription(), searchText.get()));
-    }
-    return categoryMatch || settingMatch || groupMatch;
-  };
-
-  public CategoryTree(PreferencesFx preferencesFx, List<Category> categories) {
-    this.categories = categories;
-    this.preferencesFx = preferencesFx;
-    setupParts();
-    layoutParts();
-    setupBindings();
-    setupListeners();
+  private PreferencesModel preferencesModel;
+  private CategoryTreeView categoryTreeView;
+  public CategoryTreePresenter(PreferencesModel preferencesModel, CategoryTreeView categoryTreeView) {
+    this.preferencesModel = preferencesModel;
+    this.categoryTreeView = categoryTreeView;
   }
 
   private void setupListeners() {
@@ -149,51 +95,6 @@ public class CategoryTree extends TreeView {
     }
   }
 
-  private void setupParts() {
-    rootItem = new FilterableTreeItem<>(Category.of("Root"));
-    addRecursive(rootItem, categories);
-    categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
-    settingCategoryMap = PreferencesFxUtils.mapSettingsToCategories(categoriesLst);
-    groupCategoryMap = PreferencesFxUtils.mapGroupsToCategories(categoriesLst);
-    settingsLst = PreferencesFxUtils.categoriesToSettings(categoriesLst);
-    groupsLst = PreferencesFxUtils.categoriesToGroups(categoriesLst);
-  }
-
-  private void addRecursive(FilterableTreeItem treeItem, List<Category> categories) {
-    for (Category category : categories) {
-      FilterableTreeItem<Category> item = new FilterableTreeItem<>(category);
-      // If there are subcategries, add them recursively.
-      if (!Objects.equals(category.getChildren(), null)) {
-        addRecursive(item, category.getChildren());
-      }
-      treeItem.getInternalChildren().add(item);
-      categoryTreeItemMap.put(category, item);
-    }
-  }
-
-  private void layoutParts() {
-    setRoot(rootItem);
-    // CategoryTreeView requires a RootItem, but in this case it's not desired to have it visible.
-    setShowRoot(false);
-    getRoot().setExpanded(true);
-    // Set initial selected category.
-    getSelectionModel().select(PreferencesFx.DEFAULT_CATEGORY);
-  }
-
-  private void setupBindings() {
-    // Make CategoryTreeView filterable by implementing the necessary binding
-    rootItem.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-      if (searchText.get() == null || searchText.get().isEmpty()) {
-        return null;
-      }
-      return TreeItemPredicate.create(filterPredicate);
-    }, searchText));
-  }
-
-  public StringProperty searchTextProperty() {
-    return searchText;
-  }
-
   /**
    * Sets the selected item in the CategoryTreeView to the category of the given categoryId.
    *
@@ -244,4 +145,15 @@ public class CategoryTree extends TreeView {
     }
     return null;
   }
+
+  private void loadSettingValues() {
+    createBreadcrumbs(categories);
+    PreferencesFxUtils.categoriesToSettings(categoryTree.getAllCategoriesFlatAsList())
+        .forEach(setting -> {
+          LOGGER.trace("Loading: " + setting.getBreadcrumb());
+          setting.loadSettingValue(preferencesModel.getStorageHandler());
+          preferencesModel.getHistory().attachChangeListener(setting);
+        });
+  }
+
 }

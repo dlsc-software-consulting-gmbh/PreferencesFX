@@ -30,7 +30,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the last selected category in TreeView.
+   * Stores the last selected category in CategoryTreeView.
    *
    * @param categoryId the category id to be stored
    */
@@ -39,7 +39,7 @@ public class StorageHandler {
   }
 
   /**
-   * Gets the last selected category in TreeView.
+   * Gets the last selected category in CategoryTreeView.
    *
    * @return the index of the selected category. 0 if none is found
    */
