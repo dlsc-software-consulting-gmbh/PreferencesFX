@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 
 public class PreferencesFormRenderer extends GridPane implements ViewMixin {
 
@@ -50,8 +49,8 @@ public class PreferencesFormRenderer extends GridPane implements ViewMixin {
   @Override
   public void layoutParts() {
     // Outer Padding of Category Pane
-    setPadding(new Insets(SPACING*3));
-    setHgap(SPACING);
-    setVgap(SPACING*2);
+    setPadding(new Insets(SPACING * 3));
+    setHgap(SPACING * 3);
+    setVgap(SPACING * 2);
   }
 }

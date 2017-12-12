@@ -58,7 +58,7 @@ public class PreferencesGroupRenderer {
 
     // Only when the preferencesGroup has a title
     if (preferencesGroup.getTitle() != null) {
-      grid.add(titleLabel, 0, nextRow++, 1, 1);
+      grid.add(titleLabel, 0, nextRow++, 2, 1);
       styleClass.append("-title");
       titleLabel.getStyleClass().add("group-title");
     }
