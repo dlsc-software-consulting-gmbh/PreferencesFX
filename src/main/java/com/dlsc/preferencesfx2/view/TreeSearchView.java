@@ -1,8 +1,13 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx2.view;
 
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
+import com.dlsc.preferencesfx.Category;
+import com.dlsc.preferencesfx.Group;
+import com.dlsc.preferencesfx.PreferencesFx;
+import com.dlsc.preferencesfx.Setting;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx2.model.PreferencesModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,19 +17,23 @@ import java.util.function.Predicate;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
-public class CategoryTree extends TreeView {
+public class TreeSearchView extends VBox {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(CategoryTree.class.getName());
-
-  private PreferencesFx preferencesFx;
+      LogManager.getLogger(TreeSearchView.class.getName());
+  private PreferencesModel preferencesModel;
+  private TextField searchFld;
+  private TreeView treeView;
 
   private List<Category> categoriesLst;
   private List<Setting> settingsLst;
@@ -66,21 +75,20 @@ public class CategoryTree extends TreeView {
     return categoryMatch || settingMatch || groupMatch;
   };
 
-  public CategoryTree(PreferencesFx preferencesFx, List<Category> categories) {
-    this.categories = categories;
-    this.preferencesFx = preferencesFx;
+  public TreeSearchView(PreferencesModel preferencesModel) {
+    this.preferencesModel = preferencesModel;
+    treeView = new TreeView();
     setupParts();
     layoutParts();
     setupBindings();
-    setupListeners();
   }
 
   private void setupListeners() {
     // Update category upon selection
-    getSelectionModel().selectedItemProperty().addListener(
+    treeView.getSelectionModel().selectedItemProperty().addListener(
         (observable, oldValue, newValue) -> {
           if (newValue != null) {
-            preferencesFx.showCategory((Category) ((TreeItem) newValue).getValue());
+            preferencesModel.showCategory((Category) ((TreeItem) newValue).getValue());
           }
         }
     );
@@ -150,6 +158,9 @@ public class CategoryTree extends TreeView {
   }
 
   private void setupParts() {
+    searchFld = new TextField();
+    searchFld.setPromptText("Search..."); // TODO: make this i18n
+
     rootItem = new FilterableTreeItem<>(Category.of("Root"));
     addRecursive(rootItem, categories);
     categoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
@@ -172,15 +183,20 @@ public class CategoryTree extends TreeView {
   }
 
   private void layoutParts() {
-    setRoot(rootItem);
+    setVgrow(treeView, Priority.ALWAYS);
+    getChildren().addAll(searchFld, treeView);
+
+    treeView.setRoot(rootItem);
     // TreeSearchView requires a RootItem, but in this case it's not desired to have it visible.
-    setShowRoot(false);
-    getRoot().setExpanded(true);
+    treeView.setShowRoot(false);
+    treeView.getRoot().setExpanded(true);
     // Set initial selected category.
-    getSelectionModel().select(PreferencesFx.DEFAULT_CATEGORY);
+    treeView.getSelectionModel().select(PreferencesFx.DEFAULT_CATEGORY);
   }
 
   private void setupBindings() {
+    searchTextProperty().bind(searchFld.textProperty());
+
     // Make TreeSearchView filterable by implementing the necessary binding
     rootItem.predicateProperty().bind(Bindings.createObjectBinding(() -> {
       if (searchText.get() == null || searchText.get().isEmpty()) {
@@ -225,7 +241,7 @@ public class CategoryTree extends TreeView {
   public void setSelectedItem(Category category) {
     if (category != null) {
       LOGGER.trace("Selected: " + category.toString());
-      getSelectionModel().select(categoryTreeItemMap.get(category));
+      treeView.getSelectionModel().select(categoryTreeItemMap.get(category));
     }
   }
 
@@ -238,10 +254,14 @@ public class CategoryTree extends TreeView {
    */
   public Category getSelectedCategory() {
     TreeItem<Category> selectedTreeItem =
-        (TreeItem<Category>) getSelectionModel().getSelectedItem();
+        (TreeItem<Category>) treeView.getSelectionModel().getSelectedItem();
     if (selectedTreeItem != null) {
-      return ((TreeItem<Category>) getSelectionModel().getSelectedItem()).getValue();
+      return ((TreeItem<Category>) treeView.getSelectionModel().getSelectedItem()).getValue();
     }
     return null;
+  }
+
+  public TreeView getCategoryTreeView() {
+    return treeView;
   }
 }

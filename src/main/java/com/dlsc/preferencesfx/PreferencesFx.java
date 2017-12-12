@@ -75,7 +75,7 @@ public class PreferencesFx extends BorderPane {
    *
    * @param saveClass  the class which the preferences are saved as
    *                   Must be unique to the application using the preferences
-   * @param categories the items to be displayed in the CategoryTreeView
+   * @param categories the items to be displayed in the TreeSearchView
    * @return the preferences window
    */
   public static PreferencesFx of(Class<?> saveClass, Category... categories) {
@@ -114,7 +114,7 @@ public class PreferencesFx extends BorderPane {
     setBottom(new HistoryButtonBox(history));
     preferencesPane.setDetailSide(Side.LEFT);
     preferencesPane.setDetailNode(categoryTreeBox);
-    // Load last selected category in CategoryTreeView.
+    // Load last selected category in TreeSearchView.
     categoryTree.setSelectedCategoryById(storageHandler.loadSelectedCategory());
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
     showCategory((Category) treeItem.getValue());
@@ -174,7 +174,7 @@ public class PreferencesFx extends BorderPane {
   /**
    * Defines whether the state of the dialog window should be persisted or not.
    *
-   * @param persist if true, the size, position and last selected item in the CategoryTreeView are
+   * @param persist if true, the size, position and last selected item in the TreeSearchView are
    *                being saved. When the dialog is showed again, it will be restored to
    *                the last saved state. Defaults to false.
    * @return this object for fluent API

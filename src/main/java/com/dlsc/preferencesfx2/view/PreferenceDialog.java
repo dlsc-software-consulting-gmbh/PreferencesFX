@@ -51,7 +51,6 @@ public class PreferenceDialog extends DialogPane {
       setPrefSize(DEFAULT_PREFERENCES_WIDTH, DEFAULT_PREFERENCES_HEIGHT);
       getScene().getWindow().centerOnScreen();
     }
-
   }
 
   /**

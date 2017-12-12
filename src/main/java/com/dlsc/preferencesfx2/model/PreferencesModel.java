@@ -81,10 +81,6 @@ public class PreferencesModel {
     this.persistWindowState = persistWindowState;
   }
 
-  public StorageHandler getStorageHandler() {
-    return storageHandler;
-  }
-
   /**
    * Saves the current selected Category.
    */
@@ -101,5 +97,17 @@ public class PreferencesModel {
 
   public History getHistory() {
     return history;
+  }
+
+  public StorageHandler getStorageHandler() {
+    return storageHandler;
+  }
+
+  public void setHistoryDebugState(boolean historyDebugState) {
+    this.historyDebugState = historyDebugState;
+  }
+
+  public boolean getHistoryDebugState() {
+    return historyDebugState;
   }
 }
