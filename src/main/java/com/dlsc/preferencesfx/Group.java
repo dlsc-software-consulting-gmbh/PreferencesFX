@@ -1,15 +1,20 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.util.formsfx.PreferencesGroup;
+import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesGroup;
 import java.util.Arrays;
 import java.util.List;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 07.11.17.
  */
 public class Group {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(Group.class.getName());
 
   private static final String MARKED_STYLE_CLASS = "group-marked";
   private String description;
@@ -57,7 +62,7 @@ public class Group {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
       preferencesGroup.getRenderer().addStyleClass(MARKED_STYLE_CLASS);
-      preferencesGroup.getRenderer().setOnMouseExited(unmarker);
+      preferencesGroup.getRenderer().getTitleLabel().setOnMouseExited(unmarker);
       marked = !marked;
     }
   }
@@ -66,7 +71,7 @@ public class Group {
     // check if it's marked before removing the style class
     if (marked) {
       preferencesGroup.getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
-      preferencesGroup.getRenderer().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
+      preferencesGroup.getRenderer().getTitleLabel().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
       marked = !marked;
     }
   }

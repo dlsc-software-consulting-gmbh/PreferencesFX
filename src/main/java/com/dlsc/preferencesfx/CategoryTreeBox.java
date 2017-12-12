@@ -3,11 +3,16 @@ package com.dlsc.preferencesfx;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 27.11.17.
  */
 public class CategoryTreeBox extends VBox {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(CategoryTreeBox.class.getName());
 
   TextField searchFld;
   CategoryTree tree;

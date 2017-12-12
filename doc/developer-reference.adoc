@@ -1,7 +1,5 @@
 = Developer Reference
 François Martin; Marco Sanfratello
-:toc: left
-:source-highlighter: pygments
 
 This document contains information that may be valuable to a developer of PreferencesFX when trying to understand how it works.
 

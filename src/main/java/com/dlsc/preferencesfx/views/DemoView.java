@@ -28,7 +28,7 @@ public class DemoView extends VBox {
   private Label favoritesLbl;
   private Label fontSizeLbl;
   private Label lineSpacingLbl;
-
+  private Label favoriteNumberLbl;
 
   public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
     this.preferencesFx = preferencesFx;
@@ -38,6 +38,7 @@ public class DemoView extends VBox {
     layoutParts();
     setupBindings();
     setupEventHandlers();
+    setupListeners();
   }
 
   private void initializeParts() {
@@ -55,6 +56,7 @@ public class DemoView extends VBox {
     favoritesLbl = new Label();
     fontSizeLbl = new Label();
     lineSpacingLbl = new Label();
+    favoriteNumberLbl = new Label();
   }
 
   private void layoutParts() {
@@ -73,7 +75,8 @@ public class DemoView extends VBox {
         orientationLbl,
         favoritesLbl,
         fontSizeLbl,
-        lineSpacingLbl
+        lineSpacingLbl,
+        favoriteNumberLbl
     );
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
@@ -89,7 +92,8 @@ public class DemoView extends VBox {
         new Label("Orientation:"),
         new Label("Favorites:"),
         new Label("Font Size:"),
-        new Label("Line Spacing:")
+        new Label("Line Spacing:"),
+        new Label("Favorite Number:")
     );
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
@@ -102,6 +106,12 @@ public class DemoView extends VBox {
             valueBox
         )
     );
+
+    // Styling
+    getStyleClass().add("demo-view");
+    if (rootPane.nightMode.get()) {
+      getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());
+    }
   }
 
   private void setupBindings() {
@@ -118,10 +128,21 @@ public class DemoView extends VBox {
     ));
     fontSizeLbl.textProperty().bind(rootPane.fontSize.asString());
     lineSpacingLbl.textProperty().bind(rootPane.lineSpacing.asString());
+    favoriteNumberLbl.textProperty().bind(rootPane.customControlProperty.asString());
   }
 
   private void setupEventHandlers() {
     preferencesMenuItem.setOnAction(e -> preferencesFx.show());
-
   }
+
+  private void setupListeners() {
+    rootPane.nightMode.addListener((observable, oldValue, newValue) -> {
+      if (newValue) {
+        getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());
+      } else {
+        getStylesheets().remove(getClass().getResource("darkTheme.css").toExternalForm());
+      }
+    });
+  }
+
 }

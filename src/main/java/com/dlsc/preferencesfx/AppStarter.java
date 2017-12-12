@@ -14,7 +14,6 @@ public class AppStarter extends Application {
   @Override
   public void start(Stage primaryStage) {
     RootPane rootPane = new RootPane();
-
     Scene myScene = new Scene(rootPane);
 
     primaryStage.setTitle("PreferencesFx Demo");
