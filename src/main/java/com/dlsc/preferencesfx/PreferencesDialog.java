@@ -5,7 +5,7 @@ import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
 
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -16,6 +16,9 @@ public class PreferencesDialog extends DialogPane {
   private StorageHandler storageHandler;
   private Dialog dialog = new Dialog();
   private boolean persistWindowState;
+  private ButtonType closeWindowBtnType = ButtonType.CLOSE;
+  private ButtonType cancelBtnType = ButtonType.CANCEL;
+
 
   public PreferencesDialog(PreferencesFx preferencesFx, boolean persistWindowState) {
     this.preferencesFx = preferencesFx;
@@ -25,7 +28,7 @@ public class PreferencesDialog extends DialogPane {
     layoutForm();
     savePreferencesOnCloseRequest();
     loadLastState();
-    setupClose();
+    setupEventHandler();
     dialog.show();
   }
 
@@ -36,7 +39,7 @@ public class PreferencesDialog extends DialogPane {
   private void layoutForm() {
     dialog.setTitle("PreferencesFx");
     dialog.setResizable(true);
-
+    getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     dialog.setDialogPane(this);
     setContent(preferencesFx);
   }
@@ -56,21 +59,6 @@ public class PreferencesDialog extends DialogPane {
 
   }
 
-  /**
-   * Instantiates a close button and makes it invisible.
-   * Dialog requires at least one button to close the dialog window.
-   *
-   * @see <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Dialog.html">
-   * javafx.scene.control.Dialog</a>
-   * Chapter: Dialog Closing Rules
-   */
-  private void setupClose() {
-    this.getButtonTypes().add(ButtonType.CLOSE);
-    Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
-    closeButton.managedProperty().bind(closeButton.visibleProperty());
-    closeButton.setVisible(false);
-  }
-
   private void savePreferencesOnCloseRequest() {
     dialog.setOnCloseRequest(e -> {
       if (persistWindowState) {
@@ -86,6 +74,12 @@ public class PreferencesDialog extends DialogPane {
           preferencesFx.getCategoryTree().getAllCategoriesFlatAsList()
       ).forEach(setting -> setting.saveSettingValue(storageHandler));
     });
+
+  }
+
+  private void setupEventHandler() {
+    final Button cancelBtn = (Button) lookupButton(cancelBtnType);
+    cancelBtn.setOnAction(event -> preferencesFx.getHistory().undoAll());
   }
 
 }

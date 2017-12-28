@@ -1,16 +1,5 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.util.StorageHandler;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import javafx.geometry.Side;
-import javafx.scene.control.TreeItem;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.controlsfx.control.MasterDetailPane;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.HistoryButtonBox;
 import com.dlsc.preferencesfx.history.HistoryDialog;
@@ -28,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.controlsfx.control.MasterDetailPane;
 import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesFx extends BorderPane {
@@ -217,5 +205,9 @@ public class PreferencesFx extends BorderPane {
 
   public CategoryTree getCategoryTree() {
     return categoryTree;
+  }
+
+  public History getHistory() {
+    return history;
   }
 }
