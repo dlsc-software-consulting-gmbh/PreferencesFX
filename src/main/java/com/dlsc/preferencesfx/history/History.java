@@ -145,6 +145,10 @@ public class History {
     return false;
   }
 
+  public void undoAll() {
+    while(undo()){}
+  }
+
   public boolean redo() {
     LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     Change nextChange = next();
@@ -154,6 +158,10 @@ public class History {
       return true;
     }
     return false;
+  }
+
+  public void redoAll() {
+    while(redo()){}
   }
 
   private Change next() {
