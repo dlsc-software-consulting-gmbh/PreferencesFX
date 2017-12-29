@@ -1,0 +1,74 @@
+* {
+    -fx-bg-color: #505050;
+    -fx-text-color: #f5f5f5;
+
+    /*border*/
+    -fx-color: #8e8e8e;
+    -fx-outer-border: #8e8e8e;
+
+    -fx-base: #6d6d6d;
+    /*bg hovering*/
+    -fx-selection-bar: #ffe155;
+    /*text hover on menu*/
+    -fx-text-background-color: #505050;
+    /*text hover on menuitem*/
+    -fx-text-base-color: #505050;
+    -fx-focused-text-base-color: #505050;
+}
+
+.demo-view {
+    -fx-background-color: -fx-bg-color;
+}
+
+.demo-view .label {
+    -fx-text-fill: -fx-text-color;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Menu                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+.menu-up-arrow {
+    -fx-background-color: derive(-fx-color,-2%);
+}
+.menu-down-arrow {
+    -fx-background-color: derive(-fx-color,-2%);
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * MenuBar                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+.menu-bar {
+    -fx-background-color:
+            linear-gradient(to bottom, derive(-fx-base,75%) 0%, -fx-outer-border 90%),
+            linear-gradient(to bottom, derive(-fx-base,46.9%) 2%, derive(-fx-base,-2.1%) 95%);
+}
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background: -fx-selection-bar;
+}
+.menu-bar > .container > .menu-button:hover > .label,
+.menu-bar > .container > .menu-button:focused > .label,
+.menu-bar > .container > .menu-button:showing  > .label {
+    -fx-text-fill: -fx-text-background-color;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * MenuItem                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+.menu-item >.label {
+    -fx-text-fill: -fx-text-base-color;
+}
+.menu-item:focused {
+    -fx-background: -fx-selection-bar;
+    -fx-text-fill:  -fx-text-background-color;
+}
+.menu-item:focused > .label {
+    -fx-text-fill: -fx-focused-text-base-color;
+}
