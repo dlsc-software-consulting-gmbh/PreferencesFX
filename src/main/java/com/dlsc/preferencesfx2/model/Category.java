@@ -21,7 +21,7 @@ public class Category {
   /**
    * Creates a category without groups, for top-level categories without any settings.
    *
-   * @param description Category name, for display in {@link CategoryTree}
+   * @param description Category name, for display in {@link }
    */
   private Category(String description) {
     this.description = description;
@@ -37,7 +37,7 @@ public class Category {
    * Creates an empty category.
    * Can be used for top-level categories without {@link Setting}.
    *
-   * @param description Category name, for display in {@link CategoryTree}
+   * @param description Category name, for display in {@link }
    * @return initialized Category object
    */
   public static Category of(String description) {
@@ -47,8 +47,8 @@ public class Category {
   /**
    * Creates a new category from groups.
    *
-   * @param description Category name, for display in {@link CategoryTree}
-   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link CategoryPane}
+   * @param description Category name, for display in {@link }
+   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link }
    * @return initialized Category object
    */
   public static Category of(String description, Group... groups) {
@@ -58,8 +58,8 @@ public class Category {
   /**
    * Creates a new category from settings, if the settings shouldn't be individually grouped.
    *
-   * @param description Category name, for display in {@link CategoryTree}
-   * @param settings    {@link Setting} to be shown in the {@link CategoryPane}
+   * @param description Category name, for display in {@link }
+   * @param settings    {@link Setting} to be shown in the {@link }
    * @return initialized Category object
    */
   public static Category of(String description, Setting... settings) {
@@ -116,10 +116,6 @@ public class Category {
   @Override
   public String toString() {
     return description;
-  }
-
-  public int getId() {
-    return id;
   }
 
   public String getBreadcrumb() {

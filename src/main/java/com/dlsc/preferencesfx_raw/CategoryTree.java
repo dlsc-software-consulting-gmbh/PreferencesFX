@@ -48,7 +48,7 @@ public class CategoryTree extends TreeView {
   private StringProperty searchText = new SimpleStringProperty();
 
   /**
-   * Decides whether a TreeItem should be shown in the TreeSearchView or not.
+   * Decides whether a TreeItem should be shown in the NavigationView or not.
    * If result is true, it will be shown, if the result is false, it will be hidden.
    */
   private Predicate<Category> filterPredicate = category -> {
@@ -88,7 +88,7 @@ public class CategoryTree extends TreeView {
         }
     );
 
-    // Filter TreeSearchView upon Search
+    // Filter NavigationView upon Search
     searchText.addListener((observable, oldText, newText) -> {
       if (newText.equals("")) { // empty search
         // unmark all categories
@@ -176,7 +176,7 @@ public class CategoryTree extends TreeView {
 
   private void layoutParts() {
     setRoot(rootItem);
-    // TreeSearchView requires a RootItem, but in this case it's not desired to have it visible.
+    // NavigationView requires a RootItem, but in this case it's not desired to have it visible.
     setShowRoot(false);
     getRoot().setExpanded(true);
     // Set initial selected category.
@@ -184,7 +184,7 @@ public class CategoryTree extends TreeView {
   }
 
   private void setupBindings() {
-    // Make TreeSearchView filterable by implementing the necessary binding
+    // Make NavigationView filterable by implementing the necessary binding
     rootItem.predicateProperty().bind(Bindings.createObjectBinding(() -> {
       if (searchText.get() == null || searchText.get().isEmpty()) {
         return null;
@@ -198,7 +198,7 @@ public class CategoryTree extends TreeView {
   }
 
   /**
-   * Sets the selected item in the TreeSearchView to the category of the given categoryId.
+   * Sets the selected item in the NavigationView to the category of the given categoryId.
    *
    * @param categoryId the id of the category to be found
    */
@@ -211,7 +211,7 @@ public class CategoryTree extends TreeView {
    * Finds the category with the matching id.
    *
    * @param categoryId the id of the category to be found
-   * @return the category with categoryId or the first category in the TreeSearchView if none is found
+   * @return the category with categoryId or the first category in the NavigationView if none is found
    */
   public Category findCategoryById(int categoryId) {
     Category selectedCategory = categoryTreeItemMap.keySet().stream().filter(
@@ -221,7 +221,7 @@ public class CategoryTree extends TreeView {
   }
 
   /**
-   * Selects the given category in the TreeSearchView.
+   * Selects the given category in the NavigationView.
    *
    * @param category the category to be selected
    */
@@ -237,7 +237,7 @@ public class CategoryTree extends TreeView {
   }
 
   /**
-   * Retrieves the currently selected category in the TreeSearchView.
+   * Retrieves the currently selected category in the NavigationView.
    */
   public Category getSelectedCategory() {
     TreeItem<Category> selectedTreeItem =

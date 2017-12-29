@@ -18,13 +18,13 @@ public class PreferencesFx extends BorderPane {
   private CategoryTreeBox categoryTreeBox;
 
   private void setupParts() {
-    categoryTree = new CategoryTree(this, categories);
+    //categoryTree = new CategoryTree(this, categories);
     categoryTreeBox = new CategoryTreeBox(categoryTree);
   }
 
   private void layoutParts() {
-    // Load last selected category in TreeSearchView.
-    categoryTree.setSelectedCategoryById(storageHandler.loadSelectedCategory()); // loading done in model!
+    // Load last selected category in NavigationView.
+    //categoryTree.setSelectedCategoryById(storageHandler.loadSelectedCategory()); // loading done in model!
     TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
     showCategory((Category) treeItem.getValue());
   }
@@ -35,10 +35,10 @@ public class PreferencesFx extends BorderPane {
    * @param category the category to be shown
    */
   public void showCategory(Category category) {
-    displayedCategory = category;
-    preferencesPane.setMasterNode(new CategoryPane(category.getGroups())); // Replaced this, due to refactoring of CategoryPane in Categories
+    //displayedCategory = category;
+    //preferencesPane.setMasterNode(new CategoryPane(category.getGroups())); // Replaced this, due to refactoring of CategoryPane in Categories
     // Sets the saved divider position.
-    preferencesPane.setDividerPosition(storageHandler.loadDividerPosition());// loading done in model!
+    //preferencesPane.setDividerPosition(storageHandler.loadDividerPosition());// loading done in model!
   }
 
   /**
@@ -76,7 +76,7 @@ public class PreferencesFx extends BorderPane {
   /**
    * Defines whether the state of the dialog window should be persisted or not.
    *
-   * @param persist if true, the size, position and last selected item in the TreeSearchView are
+   * @param persist if true, the size, position and last selected item in the NavigationView are
    *                being saved. When the dialog is showed again, it will be restored to
    *                the last saved state. Defaults to false.
    * @return this object for fluent API

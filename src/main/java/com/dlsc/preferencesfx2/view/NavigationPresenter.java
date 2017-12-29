@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx2.view;
 
-import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
+import static com.dlsc.preferencesfx2.util.StringUtils.containsIgnoreCase;
 
 import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.Group;

@@ -25,7 +25,7 @@ public class PreferencesPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-// Whenever the divider position is changed, it's position is saved.
+    // Whenever the divider position is changed, it's position is saved.
     preferenceView.preferencesPane.dividerPositionProperty().addListener(
         (observable, oldValue, newValue) ->
             model.saveDividerPosition(

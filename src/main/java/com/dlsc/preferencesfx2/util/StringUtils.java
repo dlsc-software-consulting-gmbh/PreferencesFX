@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx_raw.util;
+package com.dlsc.preferencesfx2.util;
 
 import com.google.common.base.Strings;
 
