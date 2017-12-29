@@ -14,12 +14,12 @@ public interface Presenter {
   }
 
   /**
-   * This method is used to set up event handlers.
+   * Sets up event handlers of the view.
    */
   default void setupEventHandlers() {}
 
   /**
-   * This method is used to set up value change listeners.
+   * Adds all listeners to view elements and model properties.
    */
   default void setupValueChangedListeners() {}
 
