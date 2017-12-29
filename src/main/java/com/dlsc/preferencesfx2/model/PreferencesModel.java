@@ -110,7 +110,7 @@ public class PreferencesModel {
   public Category loadSelectedCategory() {
     String breadcrumb = storageHandler.loadSelectedCategory();
     if (breadcrumb == null) {
-      getCategories().get(DEFAULT_CATEGORY);
+      return getCategories().get(DEFAULT_CATEGORY);
     }
     return breadcrumb;
   }
