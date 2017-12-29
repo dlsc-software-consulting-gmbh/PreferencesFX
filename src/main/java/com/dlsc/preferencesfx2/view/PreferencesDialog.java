@@ -4,7 +4,7 @@ import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
 
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
-import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx2.util.StorageHandler;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;

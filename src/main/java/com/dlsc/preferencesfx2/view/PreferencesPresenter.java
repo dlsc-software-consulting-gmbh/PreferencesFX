@@ -2,7 +2,7 @@ package com.dlsc.preferencesfx2.view;
 
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 
-public class PreferencesPresenter implements Presenter{
+public class PreferencesPresenter implements Presenter {
   private PreferencesModel preferencesModel;
   private PreferencesView preferenceView;
 
@@ -10,16 +10,6 @@ public class PreferencesPresenter implements Presenter{
     this.preferencesModel = preferencesModel;
     this.preferenceView = preferenceView;
     init();
-  }
-
-  private void setupListeners() {
-    // Whenever the divider position is changed, it's position is saved.
-    preferenceView.preferencesPane.dividerPositionProperty().addListener(
-        (observable, oldValue, newValue) ->
-            preferencesModel.saveDividerPosition(
-                preferenceView.preferencesPane.getDividerPosition()
-            )
-    );
   }
 
   /**
@@ -35,7 +25,13 @@ public class PreferencesPresenter implements Presenter{
    */
   @Override
   public void setupValueChangedListeners() {
-
+// Whenever the divider position is changed, it's position is saved.
+    preferenceView.preferencesPane.dividerPositionProperty().addListener(
+        (observable, oldValue, newValue) ->
+            preferencesModel.saveDividerPosition(
+                preferenceView.preferencesPane.getDividerPosition()
+            )
+    );
   }
 
   /**

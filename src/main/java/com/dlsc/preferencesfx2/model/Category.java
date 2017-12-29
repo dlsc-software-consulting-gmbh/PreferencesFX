@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx2.model;
 
+import com.dlsc.preferencesfx2.Constants;
 import com.dlsc.preferencesfx_raw.CategoryTree;
-import com.dlsc.preferencesfx_raw.PreferencesFx;
 import com.dlsc.preferencesfx_raw.util.IncrementId;
 import com.dlsc.preferencesfx_raw.util.PreferencesFxUtils;
 import java.util.Arrays;
@@ -76,7 +76,7 @@ public class Category {
 
   public void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
-      breadcrumb = breadcrumb + PreferencesFx.BREADCRUMB_DELIMITER + category.getDescription();
+      breadcrumb = breadcrumb + Constants.BREADCRUMB_DELIMITER + category.getDescription();
       if (!Objects.equals(category.getGroups(), null)) {
         category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
       }

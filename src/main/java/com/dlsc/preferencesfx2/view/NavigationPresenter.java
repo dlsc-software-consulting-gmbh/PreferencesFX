@@ -67,7 +67,6 @@ public class NavigationPresenter implements Presenter {
     this.preferencesModel = preferencesModel;
     this.navigationView = navigationView;
     init();
-    setupBindings();
     initializeTreeItems();
     initializeSearch();
   }
