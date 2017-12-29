@@ -93,12 +93,12 @@ public class PreferencesModel {
     return storageHandler;
   }
 
-  public void setHistoryDebugState(boolean historyDebugState) {
-    this.historyDebugState = historyDebugState;
-  }
-
   public boolean getHistoryDebugState() {
     return historyDebugState;
+  }
+
+  public void setHistoryDebugState(boolean historyDebugState) {
+    this.historyDebugState = historyDebugState;
   }
 
 
@@ -139,25 +139,25 @@ public class PreferencesModel {
     return displayedCategory.get();
   }
 
-  public ReadOnlyObjectProperty<Category> displayedCategoryProperty() {
-    return displayedCategory;
-  }
-
   public void setDisplayedCategory(Category displayedCategory) {
     LOGGER.trace("Change displayed category to: " + displayedCategory);
     this.displayedCategory.set(displayedCategory);
+  }
+
+  public ReadOnlyObjectProperty<Category> displayedCategoryProperty() {
+    return displayedCategory;
   }
 
   public String getSearchText() {
     return searchText.get();
   }
 
-  public StringProperty searchTextProperty() {
-    return searchText;
-  }
-
   public void setSearchText(String searchText) {
     this.searchText.set(searchText);
+  }
+
+  public StringProperty searchTextProperty() {
+    return searchText;
   }
 
   public List<Category> getFlatCategoriesLst() {

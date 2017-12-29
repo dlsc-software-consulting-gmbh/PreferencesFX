@@ -7,9 +7,9 @@ import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.scene.layout.StackPane;
 
 public class CategoryView extends StackPane implements View {
+  Form form;
   private PreferencesModel model;
   private Category categoryModel;
-  Form form;
   private PreferencesFormRenderer preferencesFormRenderer;
 
   /**

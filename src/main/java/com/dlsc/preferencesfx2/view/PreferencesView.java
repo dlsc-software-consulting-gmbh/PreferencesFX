@@ -7,10 +7,10 @@ import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesView extends BorderPane implements View {
-  private PreferencesModel model;
-  private NavigationView navigationView;
   CategoryController categoryController;
   MasterDetailPane preferencesPane;
+  private PreferencesModel model;
+  private NavigationView navigationView;
 
   public PreferencesView(PreferencesModel model, NavigationView navigationView, CategoryController categoryController) {
     this.model = model;

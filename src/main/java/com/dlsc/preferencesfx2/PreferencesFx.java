@@ -44,18 +44,6 @@ public class PreferencesFx {
   }
 
   /**
-   * Prepares the CategoryController by creating CategoryView / CategoryPresenter pairs from
-   * all Categories and loading them into the CategoryController.
-   */
-  private void initializeCategoryViews() {
-    preferencesModel.getFlatCategoriesLst().forEach(category -> {
-      CategoryView categoryView = new CategoryView(preferencesModel, category);
-      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesModel, category, categoryView);
-      categoryController.addView(category, categoryView, categoryPresenter);
-    });
-  }
-
-  /**
    * Creates the Preferences window.
    *
    * @param saveClass  the class which the preferences are saved as
@@ -65,6 +53,18 @@ public class PreferencesFx {
    */
   public static PreferencesFx of(Class<?> saveClass, Category... categories) {
     return new PreferencesFx(saveClass, categories);
+  }
+
+  /**
+   * Prepares the CategoryController by creating CategoryView / CategoryPresenter pairs from
+   * all Categories and loading them into the CategoryController.
+   */
+  private void initializeCategoryViews() {
+    preferencesModel.getFlatCategoriesLst().forEach(category -> {
+      CategoryView categoryView = new CategoryView(preferencesModel, category);
+      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesModel, category, categoryView);
+      categoryController.addView(category, categoryView, categoryPresenter);
+    });
   }
 
   /**

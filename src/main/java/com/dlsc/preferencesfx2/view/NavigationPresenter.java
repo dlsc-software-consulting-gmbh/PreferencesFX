@@ -207,15 +207,6 @@ public class NavigationPresenter implements Presenter {
   }
 
   /**
-   * Selects the given category in the NavigationView.
-   *
-   * @param category to be selected
-   */
-  public void setSelectedCategory(Category category) {
-    navigationView.setSelectedItem(categoryTreeItemMap.get(category));
-  }
-
-  /**
    * Retrieves the currently selected category in the TreeSearchView.
    */
   public Category getSelectedCategory() {
@@ -225,6 +216,15 @@ public class NavigationPresenter implements Presenter {
       return navigationView.treeView.getSelectionModel().getSelectedItem().getValue();
     }
     return null;
+  }
+
+  /**
+   * Selects the given category in the NavigationView.
+   *
+   * @param category to be selected
+   */
+  public void setSelectedCategory(Category category) {
+    navigationView.setSelectedItem(categoryTreeItemMap.get(category));
   }
 
 }

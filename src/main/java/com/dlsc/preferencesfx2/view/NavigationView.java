@@ -14,11 +14,10 @@ public class NavigationView extends VBox implements View {
 
   private static final Logger LOGGER =
       LogManager.getLogger(NavigationView.class.getName());
-  private PreferencesModel model;
   TextField searchFld;
   TreeView<Category> treeView;
-
   FilterableTreeItem<Category> rootItem;
+  private PreferencesModel model;
 
   public NavigationView(PreferencesModel model) {
     this.model = model;
