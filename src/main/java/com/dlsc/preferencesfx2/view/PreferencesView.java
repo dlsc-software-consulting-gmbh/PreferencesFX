@@ -45,7 +45,6 @@ public class PreferencesView extends BorderPane implements View {
     preferencesPane.setDetailNode(navigationView);
     preferencesPane.setMasterNode(categoryController);
 
-
     setCenter(preferencesPane);
     setBottom(new HistoryButtonBox(model.getHistory()));
   }
@@ -55,6 +54,6 @@ public class PreferencesView extends BorderPane implements View {
    */
   @Override
   public void bindFieldsToModel() {
-    categoryController.addListener(model.displayedCategoryProperty());
+
   }
 }

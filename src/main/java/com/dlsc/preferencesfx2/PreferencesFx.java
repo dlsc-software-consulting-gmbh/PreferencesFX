@@ -6,6 +6,8 @@ import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import com.dlsc.preferencesfx2.util.StorageHandler;
 import com.dlsc.preferencesfx2.view.CategoryController;
+import com.dlsc.preferencesfx2.view.CategoryPresenter;
+import com.dlsc.preferencesfx2.view.CategoryView;
 import com.dlsc.preferencesfx2.view.NavigationPresenter;
 import com.dlsc.preferencesfx2.view.NavigationView;
 import com.dlsc.preferencesfx2.view.PreferencesDialog;
@@ -35,15 +37,28 @@ public class PreferencesFx {
   private PreferencesFx(Class<?> saveClass, Category... categories) {
     preferencesModel = new PreferencesModel(new StorageHandler(saveClass), new History(), categories);
 
-    // TODO: load all categories??
+    categoryController = new CategoryController();
+    initializeCategoryViews();
+    categoryController.setView(preferencesModel.getDisplayedCategory()); // display initial category
 
     navigationView = new NavigationView(preferencesModel);
     navigationPresenter = new NavigationPresenter(preferencesModel, navigationView);
 
-    categoryController = new CategoryController();
-
     preferenceView = new PreferencesView(preferencesModel, navigationView, categoryController);
     preferencePresenter = new PreferencesPresenter(preferencesModel, preferenceView);
+  }
+
+  /**
+   * Prepares the CategoryController by creating CategoryView / CategoryPresenter pairs from
+   * all Categories and loading them into the CategoryController.
+   */
+  private void initializeCategoryViews() {
+    preferencesModel.getFlatCategoriesLst().stream()
+        .forEach(category -> {
+          CategoryView categoryView = new CategoryView(preferencesModel, category);
+          CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesModel, category, categoryView);
+          categoryController.addView(category, categoryView, categoryPresenter);
+        });
   }
 
   /**

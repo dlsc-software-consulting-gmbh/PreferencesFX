@@ -51,6 +51,7 @@ public class CategoryController extends StackPane {
    * @return true if successfully loaded, false if view is nonexistent
    */
   public boolean setView(final Category category) {
+    LOGGER.trace("CategoryController, setView: " + category);
     CategoryView categoryView = views.get(category);
     if (categoryView != null) { // view is loaded
       // If at least one view is already being displayed

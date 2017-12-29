@@ -48,7 +48,7 @@ public class PreferencesModel {
     } else {
       displayCategory = getCategories().get(DEFAULT_CATEGORY);
     }
-    displayedCategory.setValue(displayCategory);
+    setDisplayedCategory(displayCategory);
   }
 
   private void loadSettingValues() {
@@ -143,6 +143,7 @@ public class PreferencesModel {
   }
 
   public void setDisplayedCategory(Category displayedCategory) {
+    LOGGER.trace("Change displayed category to: " + displayedCategory);
     this.displayedCategory.set(displayedCategory);
   }
 

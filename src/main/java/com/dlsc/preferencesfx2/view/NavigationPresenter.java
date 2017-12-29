@@ -77,6 +77,7 @@ public class NavigationPresenter implements Presenter {
   @Override
   public void initializeViewParts() {
     initializeTreeItems();
+    setSelectedCategory(model.getDisplayedCategory());
     initializeSearch();
   }
 

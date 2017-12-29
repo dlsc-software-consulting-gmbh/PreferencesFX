@@ -17,7 +17,7 @@ public class PreferencesPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-
+    loadDividerPosition();
   }
 
   /**
@@ -39,6 +39,21 @@ public class PreferencesPresenter implements Presenter {
             model.saveDividerPosition(
                 preferenceView.preferencesPane.getDividerPosition()
             )
+    );
+
+    // When the displayed category is changed, load the divider position again
+    model.displayedCategoryProperty().addListener(
+        (observable, oldCategory, newCategory) ->
+            loadDividerPosition()
+    );
+
+    // When the displayedCategory in the model changes, set the view in the CategoryController
+    preferenceView.categoryController.addListener(model.displayedCategoryProperty());
+  }
+
+  private void loadDividerPosition() {
+    preferenceView.preferencesPane.setDividerPosition(
+        model.getStorageHandler().loadDividerPosition()
     );
   }
 

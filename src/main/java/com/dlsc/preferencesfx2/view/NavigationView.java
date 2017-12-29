@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx2.view;
 
-import com.dlsc.preferencesfx2.Constants;
 import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.scene.control.TextField;
@@ -57,8 +56,6 @@ public class NavigationView extends VBox implements View {
     // TreeSearchView requires a RootItem, but in this case it's not desired to have it visible.
     treeView.setShowRoot(false);
     treeView.getRoot().setExpanded(true);
-    // Set initial selected category
-    treeView.getSelectionModel().select(Constants.DEFAULT_CATEGORY);
   }
 
   /**
