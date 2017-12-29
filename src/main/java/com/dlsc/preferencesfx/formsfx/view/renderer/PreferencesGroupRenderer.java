@@ -1,12 +1,9 @@
 package com.dlsc.preferencesfx.formsfx.view.renderer;
 
-import static com.dlsc.preferencesfx.util.PreferencesFxUtils.getRowCount;
-
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.List;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
@@ -54,7 +51,7 @@ public class PreferencesGroupRenderer {
     StringBuilder styleClass = new StringBuilder("group");
 
     // if there are no rows yet, getRowCount returns -1, in this case the next row is 0
-    int nextRow = getRowCount(grid)+1;
+    int nextRow = PreferencesFxUtils.getRowCount(grid) + 1;
 
     // Only when the preferencesGroup has a title
     if (preferencesGroup.getTitle() != null) {
@@ -72,8 +69,8 @@ public class PreferencesGroupRenderer {
       Field field = fields.get(i);
       SimpleControl c = (SimpleControl) field.getRenderer();
       c.setField(field);
-      grid.add(c.getFieldLabel(), 0, i+rowAmount, 1, 1);
-      grid.add(c.getNode(), 1, i+rowAmount, 1, 1);
+      grid.add(c.getFieldLabel(), 0, i + rowAmount, 1, 1);
+      grid.add(c.getNode(), 1, i + rowAmount, 1, 1);
 
       // Styling
       GridPane.setHgrow(c.getNode(), Priority.SOMETIMES);
@@ -83,8 +80,8 @@ public class PreferencesGroupRenderer {
       // additional styling for the last setting
       if (i == fields.size() - 1) {
         styleClass.append("-last");
-        GridPane.setMargin(c.getNode(), new Insets(0,0,PreferencesFormRenderer.SPACING*4,0));
-        GridPane.setMargin(c.getFieldLabel(), new Insets(0,0,PreferencesFormRenderer.SPACING*4,0));
+        GridPane.setMargin(c.getNode(), new Insets(0, 0, PreferencesFormRenderer.SPACING * 4, 0));
+        GridPane.setMargin(c.getFieldLabel(), new Insets(0, 0, PreferencesFormRenderer.SPACING * 4, 0));
       }
 
       c.getFieldLabel().getStyleClass().add(styleClass.toString() + "-label");

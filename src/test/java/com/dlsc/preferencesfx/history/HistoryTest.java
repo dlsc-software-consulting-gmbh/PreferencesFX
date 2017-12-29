@@ -1,17 +1,16 @@
 package com.dlsc.preferencesfx.history;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.preferencesfx.Setting;
+import com.dlsc.preferencesfx_old.Setting;
+import com.dlsc.preferencesfx_old.history.History;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

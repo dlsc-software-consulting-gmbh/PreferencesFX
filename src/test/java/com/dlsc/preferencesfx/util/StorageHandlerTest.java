@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.util;
 
-import com.dlsc.preferencesfx.AppStarter;
+import com.dlsc.preferencesfx_old.AppStarter;
+import com.dlsc.preferencesfx_old.util.StorageHandler;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import org.junit.After;

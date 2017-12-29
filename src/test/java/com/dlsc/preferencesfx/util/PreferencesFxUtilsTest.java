@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.util;
 
 import static org.junit.Assert.assertSame;
 
+import com.dlsc.preferencesfx_old.util.PreferencesFxUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 

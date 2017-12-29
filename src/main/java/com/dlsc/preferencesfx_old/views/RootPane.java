@@ -1,12 +1,13 @@
-package com.dlsc.preferencesfx2.demo;
+package com.dlsc.preferencesfx_old.views;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.preferencesfx2.PreferencesFx;
-import com.dlsc.preferencesfx2.formsfx.view.controls.IntegerSliderControl;
-import com.dlsc.preferencesfx2.model.Category;
-import com.dlsc.preferencesfx2.model.Group;
-import com.dlsc.preferencesfx2.model.Setting;
+import com.dlsc.preferencesfx_old.AppStarter;
+import com.dlsc.preferencesfx_old.Category;
+import com.dlsc.preferencesfx_old.Group;
+import com.dlsc.preferencesfx_old.PreferencesFx;
+import com.dlsc.preferencesfx_old.Setting;
+import com.dlsc.preferencesfx_old.formsfx.view.controls.IntegerSliderControl;
 import com.google.common.collect.Lists;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -23,11 +24,15 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 30.10.17.
  */
 public class RootPane extends StackPane {
+  private static final Logger LOGGER =
+      LogManager.getLogger(RootPane.class.getName());
 
   public PreferencesFx preferencesFx;
 

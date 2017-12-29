@@ -1,0 +1,28 @@
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+apply plugin: 'java'
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/java", "src/main/resources"]
+        }
+    }
+}
+
+compileTestJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    options.compilerArgs += '-parameters'
+}
+
+dependencies {
+    // Root project
+    compile rootProject
+}
