@@ -76,11 +76,11 @@ public class PreferencesDialog extends DialogPane {
         storageHandler.saveWindowHeight(heightProperty().get());
         storageHandler.saveWindowPosX(getScene().getWindow().getX());
         storageHandler.saveWindowPosY(getScene().getWindow().getY());
-        model.saveSelectedCategory(preferenceView.getCategoryTree());
+        model.saveSelectedCategory();
       }
       // Save setting values
       PreferencesFxUtils.categoriesToSettings(
-          preferenceView.getCategoryTree().getAllCategoriesFlatAsList()
+          model.getFlatCategoriesLst()
       ).forEach(setting -> setting.saveSettingValue(storageHandler));
     });
   }

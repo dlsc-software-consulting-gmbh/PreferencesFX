@@ -157,4 +157,8 @@ public class PreferencesModel {
   public void setSearchText(String searchText) {
     this.searchText.set(searchText);
   }
+
+  public List<Category> getFlatCategoriesLst() {
+    return flatCategoriesLst;
+  }
 }
