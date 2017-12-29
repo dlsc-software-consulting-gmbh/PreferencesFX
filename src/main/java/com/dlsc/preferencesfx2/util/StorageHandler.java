@@ -32,19 +32,19 @@ public class StorageHandler {
   /**
    * Stores the last selected category in TreeSearchView.
    *
-   * @param categoryId the category id to be stored
+   * @param breadcrumb the category path as a breadcrumb string
    */
-  public void saveSelectedCategory(int categoryId) {
-    preferences.putInt(SELECTED_CATEGORY, categoryId);
+  public void saveSelectedCategory(String breadcrumb) {
+    preferences.put(SELECTED_CATEGORY, breadcrumb);
   }
 
   /**
    * Gets the last selected category in TreeSearchView.
    *
-   * @return the index of the selected category. 0 if none is found
+   * @return the breadcrumb string of the selected category. null if none is found
    */
-  public int loadSelectedCategory() {
-    return preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY);
+  public String loadSelectedCategory() {
+    return preferences.get(SELECTED_CATEGORY, null);
   }
 
   /**
