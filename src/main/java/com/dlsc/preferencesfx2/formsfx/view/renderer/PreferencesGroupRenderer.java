@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx2.formsfx.view.renderer;
 
-import static com.dlsc.preferencesfx.util.PreferencesFxUtils.getRowCount;
+import static com.dlsc.preferencesfx2.util.PreferencesFxUtils.getRowCount;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx2.formsfx.view.controls.SimpleControl;

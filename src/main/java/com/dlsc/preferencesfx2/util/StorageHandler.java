@@ -1,17 +1,16 @@
 package com.dlsc.preferencesfx2.util;
 
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_CATEGORY;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_DIVIDER_POSITION;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_POS_X;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_POS_Y;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
-import static com.dlsc.preferencesfx.PreferencesFx.DIVIDER_POSITION;
-import static com.dlsc.preferencesfx.PreferencesFx.SELECTED_CATEGORY;
-import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_HEIGHT;
-import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_X;
-import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_Y;
-import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
+import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_DIVIDER_POSITION;
+import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_PREFERENCES_HEIGHT;
+import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_PREFERENCES_POS_X;
+import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_PREFERENCES_POS_Y;
+import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_PREFERENCES_WIDTH;
+import static com.dlsc.preferencesfx2.util.Constants.DIVIDER_POSITION;
+import static com.dlsc.preferencesfx2.util.Constants.SELECTED_CATEGORY;
+import static com.dlsc.preferencesfx2.util.Constants.WINDOW_HEIGHT;
+import static com.dlsc.preferencesfx2.util.Constants.WINDOW_POS_X;
+import static com.dlsc.preferencesfx2.util.Constants.WINDOW_POS_Y;
+import static com.dlsc.preferencesfx2.util.Constants.WINDOW_WIDTH;
 
 import com.google.gson.Gson;
 import java.util.ArrayList;

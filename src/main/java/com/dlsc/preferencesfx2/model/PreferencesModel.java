@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx2.model;
 
-import static com.dlsc.preferencesfx2.Constants.DEFAULT_CATEGORY;
+import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_CATEGORY;
 
 import com.dlsc.preferencesfx2.history.History;
 import com.dlsc.preferencesfx2.util.PreferencesFxUtils;
@@ -113,6 +113,7 @@ public class PreferencesModel {
 
   /**
    * Loads the last selected Category before exiting the Preferences window.
+   *
    * @return last selected Category
    */
   public Category loadSelectedCategory() {

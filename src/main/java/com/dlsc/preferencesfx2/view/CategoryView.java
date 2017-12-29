@@ -16,7 +16,7 @@ public class CategoryView extends StackPane implements View {
    * Initializes a new view of a Category.
    *
    * @param model
-   * @param categoryModel    is the category that will be displayed in this view
+   * @param categoryModel is the category that will be displayed in this view
    */
   public CategoryView(PreferencesModel model, Category categoryModel) {
     this.model = model;

@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx2;
+package com.dlsc.preferencesfx2.util;
 
 public class Constants {
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
@@ -12,8 +12,6 @@ public class Constants {
   public static final int DEFAULT_PREFERENCES_HEIGHT = 700;
   public static final int DEFAULT_PREFERENCES_POS_X = 700;
   public static final int DEFAULT_PREFERENCES_POS_Y = 500;
-
-  public static final int DEFAULT_CATEGORY_INDEX = 0;
 
   public static final String WINDOW_WIDTH = "WINDOW_WIDTH";
   public static final String WINDOW_HEIGHT = "WINDOW_HEIGHT";

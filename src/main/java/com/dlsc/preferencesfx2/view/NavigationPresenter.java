@@ -211,7 +211,7 @@ public class NavigationPresenter implements Presenter {
    *
    * @param category to be selected
    */
-  public void setSelectedCategory(Category category){
+  public void setSelectedCategory(Category category) {
     navigationView.setSelectedItem(categoryTreeItemMap.get(category));
   }
 

@@ -33,6 +33,7 @@ public class CategoryPresenter implements Presenter {
 
   /**
    * Fills the {@link Form} with {@link Group} and {@link Setting} of this {@link Category}.
+   *
    * @param form the form to be initialized
    */
   private void initializeForm(Form form) {

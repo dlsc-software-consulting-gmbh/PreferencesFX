@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx2.view;
 
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
+import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_PREFERENCES_HEIGHT;
+import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_PREFERENCES_WIDTH;
 
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import com.dlsc.preferencesfx2.util.PreferencesFxUtils;

@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx2.model;
 
-import com.dlsc.preferencesfx2.Constants;
 import com.dlsc.preferencesfx2.formsfx.view.renderer.PreferencesGroup;
+import com.dlsc.preferencesfx2.util.Constants;
 import java.util.Arrays;
 import java.util.List;
 import javafx.event.EventHandler;
