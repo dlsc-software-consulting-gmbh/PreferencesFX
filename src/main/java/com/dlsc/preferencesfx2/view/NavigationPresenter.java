@@ -68,9 +68,16 @@ public class NavigationPresenter implements Presenter {
   public NavigationPresenter(PreferencesModel model, NavigationView navigationView) {
     this.model = model;
     this.navigationView = navigationView;
+    init();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeViewParts() {
     initializeTreeItems();
     initializeSearch();
-    init();
   }
 
   private void initializeSearch() {

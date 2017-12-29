@@ -1,5 +1,7 @@
 package com.dlsc.preferencesfx2.view;
 
+import com.dlsc.formsfx.model.structure.Form;
+import com.dlsc.preferencesfx2.formsfx.view.renderer.PreferencesFormRenderer;
 import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.scene.layout.StackPane;
@@ -7,6 +9,8 @@ import javafx.scene.layout.StackPane;
 public class CategoryView extends StackPane implements View {
   private PreferencesModel model;
   private Category categoryModel;
+  Form form;
+  private PreferencesFormRenderer preferencesFormRenderer;
 
   /**
    * Initializes a new view of a Category.
@@ -18,6 +22,12 @@ public class CategoryView extends StackPane implements View {
     this.model = model;
     this.categoryModel = categoryModel;
     init();
+  }
+
+  void initializeFormRenderer() {
+    getChildren().clear();
+    preferencesFormRenderer = new PreferencesFormRenderer(form);
+    getChildren().add(preferencesFormRenderer);
   }
 
   /**
@@ -33,7 +43,7 @@ public class CategoryView extends StackPane implements View {
    */
   @Override
   public void initializeParts() {
-
+    form = Form.of();
   }
 
   /**

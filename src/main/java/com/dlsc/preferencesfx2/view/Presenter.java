@@ -9,9 +9,16 @@ public interface Presenter {
    * Calls all the other methods for easier initialization.
    */
   default void init() {
+    initializeViewParts();
     setupEventHandlers();
     setupValueChangedListeners();
     setupBindings();
+  }
+
+  /**
+   * Initializes parts of the view which require more logic.
+   */
+  default void initializeViewParts() {
   }
 
   /**
