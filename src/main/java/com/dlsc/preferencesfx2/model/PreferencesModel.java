@@ -38,6 +38,7 @@ public class PreferencesModel {
     this.storageHandler = storageHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
+    flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeDisplayedCategory();
     loadSettingValues();
   }
@@ -48,7 +49,7 @@ public class PreferencesModel {
 
   private void loadSettingValues() {
     createBreadcrumbs(categories);
-    PreferencesFxUtils.categoriesToSettings(categoryTree.getAllCategoriesFlatAsList())
+    PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
         .forEach(setting -> {
           LOGGER.trace("Loading: " + setting.getBreadcrumb());
           setting.loadSettingValue(storageHandler);

@@ -158,4 +158,10 @@ public class PreferencesFxUtils {
       return (row == null ? 0 : row) + (rowSpan == null ? 0 : rowSpan - 1);
     }).max().orElse(-1);
   }
+
+  public static List<Category> flattenCategories(List<Category> categoryLst){
+    return categoryLst.stream()
+        .flatMap(category -> category.getChildren().stream())
+        .collect(Collectors.toList());
+  }
 }
