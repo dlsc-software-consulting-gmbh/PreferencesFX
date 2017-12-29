@@ -3,10 +3,7 @@ package com.dlsc.preferencesfx2.view;
 import com.dlsc.preferencesfx2.Constants;
 import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
-import java.util.ArrayList;
-import java.util.HashMap;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -21,8 +18,6 @@ public class NavigationView extends VBox implements View {
   private PreferencesModel model;
   TextField searchFld;
   TreeView<Category> treeView;
-
-  HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
 
   FilterableTreeItem<Category> rootItem;
 
@@ -62,7 +57,7 @@ public class NavigationView extends VBox implements View {
     // TreeSearchView requires a RootItem, but in this case it's not desired to have it visible.
     treeView.setShowRoot(false);
     treeView.getRoot().setExpanded(true);
-    // Set initial selected category.
+    // Set initial selected category
     treeView.getSelectionModel().select(Constants.DEFAULT_CATEGORY);
   }
 
@@ -75,57 +70,13 @@ public class NavigationView extends VBox implements View {
   }
 
   /**
-   * Sets the selected item in the TreeSearchView to the category of the given categoryId.
+   * Selects the given category TreeItem in the NavigationView.
    *
-   * @param categoryId the id of the category to be found
+   * @param categoryTreeItem the category TreeItem to be selected
    */
-  public void setSelectedCategoryById(int categoryId) {
-    Category category = findCategoryById(categoryId);
-    setSelectedItem(category);
-  }
-
-  /**
-   * Finds the category with the matching id.
-   *
-   * @param categoryId the id of the category to be found
-   * @return the category with categoryId or the first category in the TreeSearchView if none is found
-   */
-  public Category findCategoryById(int categoryId) {
-    Category selectedCategory = categoryTreeItemMap.keySet().stream().filter(
-        category -> category.getId() == categoryId).findFirst()
-        .orElse(rootItem.getChildren().get(0).getValue());
-    return selectedCategory;
-  }
-
-  /**
-   * Selects the given category in the TreeSearchView.
-   *
-   * @param category the category to be selected
-   */
-  public void setSelectedItem(Category category) {
-    if (category != null) {
-      LOGGER.trace("Selected: " + category.toString());
-      treeView.getSelectionModel().select(categoryTreeItemMap.get(category));
+  protected void setSelectedItem(FilterableTreeItem categoryTreeItem) {
+    if (categoryTreeItem != null) {
+      treeView.getSelectionModel().select(categoryTreeItem);
     }
-  }
-
-  public ArrayList<Category> getAllCategoriesFlatAsList() {
-    return new ArrayList<>(categoryTreeItemMap.keySet());
-  }
-
-  /**
-   * Retrieves the currently selected category in the TreeSearchView.
-   */
-  public Category getSelectedCategory() {
-    TreeItem<Category> selectedTreeItem =
-        (TreeItem<Category>) treeView.getSelectionModel().getSelectedItem();
-    if (selectedTreeItem != null) {
-      return ((TreeItem<Category>) treeView.getSelectionModel().getSelectedItem()).getValue();
-    }
-    return null;
-  }
-
-  public TreeView getCategoryTreeView() {
-    return treeView;
   }
 }

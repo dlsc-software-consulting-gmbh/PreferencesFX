@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
@@ -27,18 +28,19 @@ public class NavigationPresenter implements Presenter {
   private PreferencesModel model;
   private NavigationView navigationView;
 
-  private HashMap<Setting, Category> settingCategoryMap;
-  private HashMap<Group, Category> groupCategoryMap;
-
+  // Search related
   private List<Category> flatCategoriesLst;
-  private List<Setting> settingsLst;
-  private List<Group> groupsLst;
+  private List<Setting> flatSettingsLst;
+  private List<Group> flatGroupsLst;
   private List<Category> filteredCategoriesLst;
   private List<Setting> filteredSettingsLst;
   private List<Group> filteredGroupsLst;
   private int categoryMatches;
   private int settingMatches;
   private int groupMatches;
+  private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
+  private HashMap<Group, Category> groupCategoryMap;
+  private HashMap<Setting, Category> settingCategoryMap;
 
   /**
    * Decides whether a TreeItem should be shown in the TreeSearchView or not.
@@ -66,17 +68,17 @@ public class NavigationPresenter implements Presenter {
   public NavigationPresenter(PreferencesModel model, NavigationView navigationView) {
     this.model = model;
     this.navigationView = navigationView;
-    init();
     initializeTreeItems();
     initializeSearch();
+    init();
   }
 
   private void initializeSearch() {
-    flatCategoriesLst = new ArrayList<>(navigationView.categoryTreeItemMap.keySet());
+    flatCategoriesLst = new ArrayList<>(categoryTreeItemMap.keySet());
     settingCategoryMap = PreferencesFxUtils.mapSettingsToCategories(flatCategoriesLst);
     groupCategoryMap = PreferencesFxUtils.mapGroupsToCategories(flatCategoriesLst);
-    settingsLst = PreferencesFxUtils.categoriesToSettings(flatCategoriesLst);
-    groupsLst = PreferencesFxUtils.categoriesToGroups(flatCategoriesLst);
+    flatSettingsLst = PreferencesFxUtils.categoriesToSettings(flatCategoriesLst);
+    flatGroupsLst = PreferencesFxUtils.categoriesToGroups(flatCategoriesLst);
   }
 
   private void initializeTreeItems() {
@@ -142,9 +144,9 @@ public class NavigationPresenter implements Presenter {
     filteredCategoriesLst =
         PreferencesFxUtils.filterCategoriesByDescription(flatCategoriesLst, searchText);
     filteredSettingsLst =
-        PreferencesFxUtils.filterSettingsByDescription(settingsLst, searchText);
+        PreferencesFxUtils.filterSettingsByDescription(flatSettingsLst, searchText);
     filteredGroupsLst =
-        PreferencesFxUtils.filterGroupsByDescription(groupsLst, searchText);
+        PreferencesFxUtils.filterGroupsByDescription(flatGroupsLst, searchText);
     categoryMatches = filteredCategoriesLst.size();
     settingMatches = filteredSettingsLst.size();
     groupMatches = filteredGroupsLst.size();
@@ -162,7 +164,7 @@ public class NavigationPresenter implements Presenter {
         filteredGroupsLst.size() == 0 ? null : groupCategoryMap.get(filteredGroupsLst.get(0));
     Category firstFilteredCategory =
         filteredCategoriesLst.size() == 0 ? null : filteredCategoriesLst.get(0);
-    setSelectedItem(
+    setSelectedCategory(
         PreferencesFxUtils.compareMatches(
             firstFilteredSetting, firstFilteredGroup, firstFilteredCategory,
             settingMatches, groupMatches, categoryMatches
@@ -194,6 +196,27 @@ public class NavigationPresenter implements Presenter {
       treeItem.getInternalChildren().add(item);
       categoryTreeItemMap.put(category, item);
     }
+  }
+
+  /**
+   * Selects the given category in the NavigationView.
+   *
+   * @param category to be selected
+   */
+  public void setSelectedCategory(Category category){
+    navigationView.setSelectedItem(categoryTreeItemMap.get(category));
+  }
+
+  /**
+   * Retrieves the currently selected category in the TreeSearchView.
+   */
+  public Category getSelectedCategory() {
+    TreeItem<Category> selectedTreeItem =
+        navigationView.treeView.getSelectionModel().getSelectedItem();
+    if (selectedTreeItem != null) {
+      return navigationView.treeView.getSelectionModel().getSelectedItem().getValue();
+    }
+    return null;
   }
 
 }
