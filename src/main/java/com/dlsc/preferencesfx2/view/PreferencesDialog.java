@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.stage.Modality;
 
 public class PreferencesDialog extends DialogPane {
   private PreferencesModel model;
@@ -28,6 +29,7 @@ public class PreferencesDialog extends DialogPane {
     savePreferencesOnCloseRequest();
     loadLastState();
     setupClose();
+    dialog.initModality(Modality.NONE);
     dialog.show();
   }
 

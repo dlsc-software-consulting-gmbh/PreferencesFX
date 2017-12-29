@@ -1,5 +1,6 @@
-package com.dlsc.preferencesfx2.history;
+package com.dlsc.preferencesfx2.history.view;
 
+import com.dlsc.preferencesfx2.history.History;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -47,7 +48,6 @@ public class HistoryDialog extends DialogPane {
    * Chapter: Dialog Closing Rules
    */
   private void setupClose() {
-    // TODO: refactor this into utils
     this.getButtonTypes().add(ButtonType.CLOSE);
     Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
     closeButton.managedProperty().bind(closeButton.visibleProperty());

@@ -1,5 +1,6 @@
-package com.dlsc.preferencesfx2.history;
+package com.dlsc.preferencesfx2.history.view;
 
+import com.dlsc.preferencesfx2.history.Change;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;

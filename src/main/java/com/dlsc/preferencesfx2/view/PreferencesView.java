@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx2.view;
 
-import com.dlsc.preferencesfx2.history.HistoryButtonBox;
+import com.dlsc.preferencesfx2.history.view.HistoryButtonBox;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;

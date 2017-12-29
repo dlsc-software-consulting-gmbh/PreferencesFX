@@ -1,5 +1,6 @@
-package com.dlsc.preferencesfx2.history;
+package com.dlsc.preferencesfx2.history.view;
 
+import com.dlsc.preferencesfx2.history.History;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import org.controlsfx.glyphfont.FontAwesome;
@@ -24,7 +25,6 @@ public class HistoryButtonBox extends HBox {
     undoBtn.disableProperty().bind(history.undoAvailableProperty().not());
     redoBtn.setOnAction(event -> history.redo());
     redoBtn.disableProperty().bind(history.redoAvailableProperty().not());
-
   }
 
 }

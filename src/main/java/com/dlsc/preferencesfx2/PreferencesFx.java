@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx2;
 
 import com.dlsc.preferencesfx2.history.History;
-import com.dlsc.preferencesfx2.history.HistoryDialog;
+import com.dlsc.preferencesfx2.history.view.HistoryDialog;
 import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import com.dlsc.preferencesfx2.util.StorageHandler;
