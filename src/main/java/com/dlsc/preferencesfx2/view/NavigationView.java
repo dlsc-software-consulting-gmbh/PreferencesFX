@@ -11,9 +11,9 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
 public class NavigationView extends VBox implements View {
-
   private static final Logger LOGGER =
       LogManager.getLogger(NavigationView.class.getName());
+
   TextField searchFld;
   TreeView<Category> treeView;
   FilterableTreeItem<Category> rootItem;

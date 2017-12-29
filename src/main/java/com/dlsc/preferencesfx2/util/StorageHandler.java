@@ -17,8 +17,13 @@ import java.util.ArrayList;
 import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class StorageHandler {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(StorageHandler.class.getName());
 
   private Preferences preferences;
   private Gson gson;

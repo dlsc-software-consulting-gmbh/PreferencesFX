@@ -1,8 +1,13 @@
 package com.dlsc.preferencesfx2.view;
 
 import com.dlsc.preferencesfx2.model.PreferencesModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PreferencesPresenter implements Presenter {
+  private static final Logger LOGGER =
+      LogManager.getLogger(PreferencesPresenter.class.getName());
+
   private PreferencesModel model;
   private PreferencesView preferenceView;
 

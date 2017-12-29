@@ -4,9 +4,14 @@ import com.dlsc.preferencesfx2.history.view.HistoryButtonBox;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesView extends BorderPane implements View {
+  private static final Logger LOGGER =
+      LogManager.getLogger(PreferencesView.class.getName());
+
   CategoryController categoryController;
   MasterDetailPane preferencesPane;
   private PreferencesModel model;

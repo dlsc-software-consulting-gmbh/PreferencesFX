@@ -5,8 +5,13 @@ import com.dlsc.preferencesfx2.formsfx.view.renderer.PreferencesFormRenderer;
 import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.scene.layout.StackPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CategoryView extends StackPane implements View {
+  private static final Logger LOGGER =
+      LogManager.getLogger(CategoryView.class.getName());
+
   Form form;
   private PreferencesModel model;
   private Category categoryModel;

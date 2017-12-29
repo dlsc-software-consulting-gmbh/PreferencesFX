@@ -9,8 +9,13 @@ import com.dlsc.preferencesfx2.model.PreferencesModel;
 import com.dlsc.preferencesfx2.model.Setting;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CategoryPresenter implements Presenter {
+  private static final Logger LOGGER =
+      LogManager.getLogger(CategoryPresenter.class.getName());
+
   private PreferencesModel model;
   private Category categoryModel;
   private CategoryView categoryView;

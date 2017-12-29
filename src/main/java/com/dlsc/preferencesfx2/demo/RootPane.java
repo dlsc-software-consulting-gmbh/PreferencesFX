@@ -23,15 +23,11 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 30.10.17.
  */
 public class RootPane extends StackPane {
-  private static final Logger LOGGER =
-      LogManager.getLogger(RootPane.class.getName());
 
   public PreferencesFx preferencesFx;
 
