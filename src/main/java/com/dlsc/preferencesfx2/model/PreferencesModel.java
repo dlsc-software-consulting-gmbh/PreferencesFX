@@ -27,6 +27,7 @@ public class PreferencesModel {
   private StringProperty searchText = new SimpleStringProperty();
 
   private List<Category> categories;
+  private List<Category> flatCategoriesLst;
   private StorageHandler storageHandler;
   private History history;
 
@@ -101,19 +102,16 @@ public class PreferencesModel {
   /**
    * Saves the current selected Category.
    */
-  public void saveSelectedCategory(CategoryTree categoryTree) {
-    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
-    Category category;
-    if (treeItem != null) {
-      category = (Category) treeItem.getValue();
-    } else {
-      category = categories.get(DEFAULT_CATEGORY);
-    }
-    storageHandler.saveSelectedCategory(category.getId());
+  public void saveSelectedCategory() {
+    storageHandler.saveSelectedCategory(displayedCategory.get().getBreadcrumb());
   }
 
-  public int loadSelectedCategory() {
-    return storageHandler.loadSelectedCategory();
+  public Category loadSelectedCategory() {
+    String breadcrumb = storageHandler.loadSelectedCategory();
+    if (breadcrumb == null) {
+      getCategories().get(DEFAULT_CATEGORY);
+    }
+    return breadcrumb;
   }
 
   public void saveDividerPosition(double dividerPosition) {
