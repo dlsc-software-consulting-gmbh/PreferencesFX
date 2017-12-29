@@ -4,12 +4,14 @@ import static com.dlsc.preferencesfx2.Constants.DEFAULT_CATEGORY;
 
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx2.Constants;
 import com.dlsc.preferencesfx2.util.StorageHandler;
-import com.dlsc.preferencesfx2.view.CategoryView;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,10 +20,10 @@ public class PreferencesModel {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesModel.class.getName());
 
+  private ObjectProperty<Category> displayedCategory = new SimpleObjectProperty<>();
+
   private List<Category> categories;
   private StorageHandler storageHandler;
-  private ObjectProperty<Category> displayedCategory;
-  private ObjectProperty<CategoryView> displayedCategoryPane;
   private History history;
 
   private boolean persistWindowState = false;
@@ -31,7 +33,12 @@ public class PreferencesModel {
     this.storageHandler = storageHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
+    initializeDisplayedCategory();
     loadSettingValues();
+  }
+
+  private void initializeDisplayedCategory() {
+    displayedCategory.setValue(categories.get(Constants.DEFAULT_CATEGORY_INDEX));
   }
 
   private void loadSettingValues() {
@@ -111,5 +118,13 @@ public class PreferencesModel {
 
   public double loadDividerPosition() {
     return storageHandler.loadDividerPosition();
+  }
+
+  public Category getDisplayedCategory() {
+    return displayedCategory.get();
+  }
+
+  public ReadOnlyObjectProperty<Category> displayedCategoryProperty() {
+    return displayedCategory;
   }
 }

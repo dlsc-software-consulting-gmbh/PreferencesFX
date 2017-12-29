@@ -35,6 +35,8 @@ public class PreferencesFx {
   private PreferencesFx(Class<?> saveClass, Category... categories) {
     preferencesModel = new PreferencesModel(new StorageHandler(saveClass), new History(), categories);
 
+    // TODO: load all categories??
+
     navigationView = new NavigationView(preferencesModel);
     navigationPresenter = new NavigationPresenter(preferencesModel, navigationView);
 

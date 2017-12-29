@@ -22,7 +22,6 @@ public class PreferencesPresenter implements Presenter{
     );
   }
 
-
   /**
    * {@inheritDoc}
    */

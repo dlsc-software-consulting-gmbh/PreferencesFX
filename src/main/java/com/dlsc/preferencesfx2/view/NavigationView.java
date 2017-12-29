@@ -113,7 +113,6 @@ public class NavigationView extends VBox implements View {
 
   }
 
-
   private void setupListeners() {
     // Update category upon selection
     treeView.getSelectionModel().selectedItemProperty().addListener(

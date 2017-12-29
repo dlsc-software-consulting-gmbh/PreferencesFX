@@ -88,6 +88,17 @@ public class CategoryController extends StackPane {
     }
   }
 
+  /**
+   * Sets the view according to the current category in categoryProperty.
+   * Must ensure that the category is already loaded, else it will fail.
+   * @param categoryProperty with category to be listened for
+   */
+  public void addListener(ReadOnlyObjectProperty<Category> categoryProperty){
+    categoryProperty.addListener((observable, oldCategory, newCategory) -> {
+      setView(newCategory);
+    });
+  }
+
   public CategoryView getDisplayedCategoryView() {
     return displayedCategoryView.get();
   }
