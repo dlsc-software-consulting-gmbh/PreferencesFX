@@ -48,8 +48,7 @@ public class PreferencesFx {
    * all Categories and loading them into the CategoryController.
    */
   private void initializeCategoryViews() {
-    preferencesModel.getFlatCategoriesLst().stream()
-        .forEach(category -> {
+    preferencesModel.getFlatCategoriesLst().forEach(category -> {
           CategoryView categoryView = new CategoryView(preferencesModel, category);
           CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesModel, category, categoryView);
           categoryController.addView(category, categoryView, categoryPresenter);
