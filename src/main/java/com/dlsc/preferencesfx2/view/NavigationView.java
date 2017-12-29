@@ -78,10 +78,41 @@ public class NavigationView extends VBox implements View {
   public NavigationView(PreferencesModel preferencesModel) {
     this.preferencesModel = preferencesModel;
     treeView = new TreeView();
-    setupParts();
-    layoutParts();
-    setupBindings();
+    init();
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeSelf() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void bindFieldsToModel() {
+
+  }
+
 
   private void setupListeners() {
     // Update category upon selection

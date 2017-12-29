@@ -1,14 +1,18 @@
 package com.dlsc.preferencesfx2.view;
 
 import com.dlsc.preferencesfx2.model.PreferencesModel;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 
-public class CategoryView extends StackPane implements View {
+/**
+ * Created by François Martin on 29.12.17.
+ */
+public class TemplateView extends Pane implements View {
+
   private PreferencesModel preferencesModel;
-  public CategoryView(PreferencesModel preferencesModel) {
+
+  public TemplateView(PreferencesModel preferencesModel) {
     this.preferencesModel = preferencesModel;
     init();
-    getChildren().add(preferencesModel.getCategories().get(0).getCategoryPane());
   }
 
   /**
@@ -42,4 +46,5 @@ public class CategoryView extends StackPane implements View {
   public void bindFieldsToModel() {
 
   }
+
 }

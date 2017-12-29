@@ -17,7 +17,39 @@ public class PreferencesView extends BorderPane implements View {
     this.preferencesModel = preferencesModel;
     this.treeSearchView = treeSearchView;
     this.categoryView = categoryView;
-    layoutParts();
+    init();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeSelf() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void initializeParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void layoutParts() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void bindFieldsToModel() {
+
   }
 
   private void layoutParts() {

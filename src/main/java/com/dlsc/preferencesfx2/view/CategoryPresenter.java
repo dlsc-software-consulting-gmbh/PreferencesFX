@@ -9,5 +9,23 @@ public class CategoryPresenter implements Presenter {
   public CategoryPresenter(PreferencesModel preferencesModel, CategoryView categoryView) {
       this.preferencesModel = preferencesModel;
       this.categoryView = categoryView;
-    }
+      init();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+
+  }
+
 }

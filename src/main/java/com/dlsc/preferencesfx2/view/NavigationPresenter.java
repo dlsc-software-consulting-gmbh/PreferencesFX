@@ -15,6 +15,23 @@ public class NavigationPresenter implements Presenter {
     this.preferencesModel = preferencesModel;
     this.treeSearchView = treeSearchView;
     this.treeSearchView = treeSearchView.getCategoryTreeView();
+    init();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+
   }
 
 }

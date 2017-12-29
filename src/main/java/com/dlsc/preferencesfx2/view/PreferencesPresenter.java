@@ -9,7 +9,7 @@ public class PreferencesPresenter implements Presenter{
   public PreferencesPresenter(PreferencesModel preferencesModel, PreferencesView preferenceView) {
     this.preferencesModel = preferencesModel;
     this.preferenceView = preferenceView;
-    setupListeners();
+    init();
   }
 
   private void setupListeners() {
@@ -20,5 +20,22 @@ public class PreferencesPresenter implements Presenter{
                 preferenceView.masterDetailPane.getDividerPosition()
             )
     );
+  }
+
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupEventHandlers() {
+
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupValueChangedListeners() {
+
   }
 }
