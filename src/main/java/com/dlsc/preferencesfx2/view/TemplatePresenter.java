@@ -32,4 +32,12 @@ public class TemplatePresenter implements Presenter {
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+
+  }
+
 }

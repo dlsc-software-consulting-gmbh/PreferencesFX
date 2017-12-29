@@ -11,6 +11,7 @@ public interface Presenter {
   default void init() {
     setupEventHandlers();
     setupValueChangedListeners();
+    setupBindings();
   }
 
   /**
@@ -23,5 +24,9 @@ public interface Presenter {
    */
   default void setupValueChangedListeners() {}
 
+  /**
+   * Sets up bindings of the view.
+   */
+  default void setupBindings() {}
 
 }

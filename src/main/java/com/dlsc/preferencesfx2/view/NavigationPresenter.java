@@ -117,6 +117,10 @@ public class NavigationPresenter implements Presenter {
     });
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void setupBindings(){
     StringProperty searchText = preferencesModel.searchTextProperty();
     // Make TreeSearchView filterable by implementing the necessary binding
