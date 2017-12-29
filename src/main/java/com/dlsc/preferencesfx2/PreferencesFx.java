@@ -49,10 +49,10 @@ public class PreferencesFx {
    */
   private void initializeCategoryViews() {
     preferencesModel.getFlatCategoriesLst().forEach(category -> {
-          CategoryView categoryView = new CategoryView(preferencesModel, category);
-          CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesModel, category, categoryView);
-          categoryController.addView(category, categoryView, categoryPresenter);
-        });
+      CategoryView categoryView = new CategoryView(preferencesModel, category);
+      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesModel, category, categoryView);
+      categoryController.addView(category, categoryView, categoryPresenter);
+    });
   }
 
   /**
