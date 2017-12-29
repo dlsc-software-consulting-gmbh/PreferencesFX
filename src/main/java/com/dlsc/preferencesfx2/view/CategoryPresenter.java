@@ -31,4 +31,12 @@ public class CategoryPresenter implements Presenter {
 
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+
+  }
+
 }

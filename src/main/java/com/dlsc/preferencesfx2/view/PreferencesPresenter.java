@@ -37,4 +37,12 @@ public class PreferencesPresenter implements Presenter{
   public void setupValueChangedListeners() {
 
   }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+
+  }
 }
