@@ -7,13 +7,13 @@ import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.MasterDetailPane;
 
-public class PreferenceView extends BorderPane {
+public class PreferencesView extends BorderPane implements View {
   private PreferencesModel preferencesModel;
   private CategoryView categoryView;
-  private TreeSearchView treeSearchView;
+  private NavigationView treeSearchView;
   MasterDetailPane masterDetailPane;
 
-  public PreferenceView(PreferencesModel preferencesModel, TreeSearchView treeSearchView, CategoryView categoryView) {
+  public PreferencesView(PreferencesModel preferencesModel, NavigationView treeSearchView, CategoryView categoryView) {
     this.preferencesModel = preferencesModel;
     this.treeSearchView = treeSearchView;
     this.categoryView = categoryView;

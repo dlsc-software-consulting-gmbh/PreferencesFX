@@ -2,11 +2,11 @@ package com.dlsc.preferencesfx2.view;
 
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 
-public class PreferencePresenter {
+public class PreferencesPresenter implements Presenter{
   private PreferencesModel preferencesModel;
-  private PreferenceView preferenceView;
+  private PreferencesView preferenceView;
 
-  public PreferencePresenter(PreferencesModel preferencesModel, PreferenceView preferenceView) {
+  public PreferencesPresenter(PreferencesModel preferencesModel, PreferencesView preferenceView) {
     this.preferencesModel = preferencesModel;
     this.preferenceView = preferenceView;
     setupListeners();

@@ -27,10 +27,10 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
-public class TreeSearchView extends VBox {
+public class NavigationView extends VBox implements View {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(TreeSearchView.class.getName());
+      LogManager.getLogger(NavigationView.class.getName());
   private PreferencesModel preferencesModel;
   private TextField searchFld;
   private TreeView treeView;
@@ -75,7 +75,7 @@ public class TreeSearchView extends VBox {
     return categoryMatch || settingMatch || groupMatch;
   };
 
-  public TreeSearchView(PreferencesModel preferencesModel) {
+  public NavigationView(PreferencesModel preferencesModel) {
     this.preferencesModel = preferencesModel;
     treeView = new TreeView();
     setupParts();

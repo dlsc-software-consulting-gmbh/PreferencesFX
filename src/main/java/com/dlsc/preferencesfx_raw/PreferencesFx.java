@@ -17,7 +17,6 @@ public class PreferencesFx extends BorderPane {
   private CategoryTree categoryTree;
   private CategoryTreeBox categoryTreeBox;
 
-
   private void setupParts() {
     categoryTree = new CategoryTree(this, categories);
     categoryTreeBox = new CategoryTreeBox(categoryTree);

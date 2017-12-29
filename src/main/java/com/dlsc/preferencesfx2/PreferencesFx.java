@@ -5,11 +5,11 @@ import com.dlsc.preferencesfx.history.HistoryDialog;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import com.dlsc.preferencesfx2.view.CategoryPresenter;
 import com.dlsc.preferencesfx2.view.CategoryView;
-import com.dlsc.preferencesfx2.view.PreferenceDialog;
-import com.dlsc.preferencesfx2.view.PreferencePresenter;
-import com.dlsc.preferencesfx2.view.PreferenceView;
-import com.dlsc.preferencesfx2.view.TreeSearchPresenter;
-import com.dlsc.preferencesfx2.view.TreeSearchView;
+import com.dlsc.preferencesfx2.view.PreferencesDialog;
+import com.dlsc.preferencesfx2.view.PreferencesPresenter;
+import com.dlsc.preferencesfx2.view.PreferencesView;
+import com.dlsc.preferencesfx2.view.NavigationPresenter;
+import com.dlsc.preferencesfx2.view.NavigationView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -23,26 +23,26 @@ public class PreferencesFx {
 
   private PreferencesModel preferencesModel;
 
-  private TreeSearchView treeSearchView;
-  private TreeSearchPresenter treeSearchPresenter;
+  private NavigationView treeSearchView;
+  private NavigationPresenter treeSearchPresenter;
 
   private CategoryView categoryView;
   private CategoryPresenter categoryPresenter;
 
-  private PreferenceView preferenceView;
-  private PreferencePresenter preferencePresenter;
+  private PreferencesView preferenceView;
+  private PreferencesPresenter preferencePresenter;
 
   private PreferencesFx(Class<?> saveClass, Category[] categories) {
     preferencesModel = new PreferencesModel(saveClass, categories);
 
-    treeSearchView = new TreeSearchView(preferencesModel);
-    treeSearchPresenter = new TreeSearchPresenter(preferencesModel, treeSearchView);
+    treeSearchView = new NavigationView(preferencesModel);
+    treeSearchPresenter = new NavigationPresenter(preferencesModel, treeSearchView);
 
     categoryView = new CategoryView(preferencesModel);
     categoryPresenter = new CategoryPresenter(preferencesModel, categoryView);
 
-    preferenceView = new PreferenceView(preferencesModel, treeSearchView, categoryView);
-    preferencePresenter = new PreferencePresenter(preferencesModel, preferenceView);
+    preferenceView = new PreferencesView(preferencesModel, treeSearchView, categoryView);
+    preferencePresenter = new PreferencesPresenter(preferencesModel, preferenceView);
   }
 
   /**
@@ -61,7 +61,7 @@ public class PreferencesFx {
    * Shows the PreferencesFX dialog.
    */
   public void show() {
-    new PreferenceDialog(preferencesModel, preferenceView);
+    new PreferencesDialog(preferencesModel, preferenceView);
     if (preferencesModel.getHistoryDebugState()) {
       setupDebugHistoryTable();
     }

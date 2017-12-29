@@ -2,8 +2,8 @@ package com.dlsc.preferencesfx2.model;
 
 import static com.dlsc.preferencesfx2.Constants.DEFAULT_CATEGORY;
 
-import com.dlsc.preferencesfx.Category;
-import com.dlsc.preferencesfx.CategoryTree;
+import com.dlsc.preferencesfx2.model.Category;
+import com.dlsc.preferencesfx2.CategoryTree;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
@@ -26,14 +26,11 @@ public class PreferencesModel {
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
 
-  public PreferencesModel(Class<?> saveClass, Category[] categories) {
+  public PreferencesModel(Class<?> saveClass, Category[] categories, StorageHandler) {
     storageHandler = new StorageHandler(saveClass);
     history = new History();
     this.categories = Arrays.asList(categories);
-    setupParts();
     loadSettingValues();
-    setupListeners();
-    layoutParts();
   }
 
   private void loadSettingValues() {

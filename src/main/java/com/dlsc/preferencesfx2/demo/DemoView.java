@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx2.view;
+package com.dlsc.preferencesfx2.demo;
 
 import com.dlsc.preferencesfx2.PreferencesFx;
 import java.util.stream.Collectors;

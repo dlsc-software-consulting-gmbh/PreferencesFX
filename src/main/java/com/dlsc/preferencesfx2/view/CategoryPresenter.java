@@ -2,7 +2,7 @@ package com.dlsc.preferencesfx2.view;
 
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 
-public class CategoryPresenter {
+public class CategoryPresenter implements Presenter {
   private PreferencesModel preferencesModel;
   private CategoryView categoryView;
 

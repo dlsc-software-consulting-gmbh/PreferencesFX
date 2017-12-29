@@ -4,14 +4,14 @@ import com.dlsc.preferencesfx2.model.PreferencesModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TreeSearchPresenter {
+public class NavigationPresenter implements Presenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(TreeSearchPresenter.class.getName());
+      LogManager.getLogger(NavigationPresenter.class.getName());
 
   private PreferencesModel preferencesModel;
-  private TreeSearchView treeSearchView;
-  private TreeSearchView treeSearchView;
-  public TreeSearchPresenter(PreferencesModel preferencesModel, TreeSearchView treeSearchView) {
+  private NavigationView treeSearchView;
+  private NavigationView treeSearchView;
+  public NavigationPresenter(PreferencesModel preferencesModel, NavigationView treeSearchView) {
     this.preferencesModel = preferencesModel;
     this.treeSearchView = treeSearchView;
     this.treeSearchView = treeSearchView.getCategoryTreeView();

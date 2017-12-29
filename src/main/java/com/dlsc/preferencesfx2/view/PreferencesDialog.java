@@ -11,15 +11,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 
-public class PreferenceDialog extends DialogPane {
+public class PreferencesDialog extends DialogPane {
   private PreferencesModel preferencesModel;
-  private PreferenceView preferenceView;
+  private PreferencesView preferenceView;
 
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
   private boolean persistWindowState;
 
-  public PreferenceDialog(PreferencesModel preferencesModel, PreferenceView preferenceView) {
+  public PreferencesDialog(PreferencesModel preferencesModel, PreferencesView preferenceView) {
     this.preferencesModel = preferencesModel;
     this.preferenceView = preferenceView;
     persistWindowState = preferencesModel.isPersistWindowState();
