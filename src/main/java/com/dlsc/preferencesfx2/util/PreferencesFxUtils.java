@@ -160,8 +160,17 @@ public class PreferencesFxUtils {
   }
 
   public static List<Category> flattenCategories(List<Category> categoryLst){
+    if (categoryLst == null) {
+      return null;
+    }
     return categoryLst.stream()
-        .flatMap(category -> category.getChildren().stream())
+        .flatMap(category -> {
+          List<Category> children = category.getChildren();
+          if (children != null) {
+            return children.stream();
+          }
+          return null;
+        })
         .collect(Collectors.toList());
   }
 }
