@@ -32,7 +32,7 @@ public class PreferencesFx {
   private PreferenceView preferenceView;
   private PreferencePresenter preferencePresenter;
 
-  public PreferencesFx(Class<?> saveClass, Category[] categories) {
+  private PreferencesFx(Class<?> saveClass, Category[] categories) {
     preferencesModel = new PreferencesModel(saveClass, categories);
 
     treeSearchView = new TreeSearchView(preferencesModel);

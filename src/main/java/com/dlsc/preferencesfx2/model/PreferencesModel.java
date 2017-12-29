@@ -4,8 +4,6 @@ import static com.dlsc.preferencesfx2.Constants.DEFAULT_CATEGORY;
 
 import com.dlsc.preferencesfx.Category;
 import com.dlsc.preferencesfx.CategoryTree;
-import com.dlsc.preferencesfx.CategoryTreeBox;
-import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
@@ -15,7 +13,6 @@ import java.util.Objects;
 import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesModel {
   private static final Logger LOGGER =
@@ -61,14 +58,6 @@ public class PreferencesModel {
   }
 
 
-
-
-
-
-
-
-
-
   public List<Category> getCategories() {
     return categories;
   }
@@ -79,20 +68,6 @@ public class PreferencesModel {
 
   public void setPersistWindowState(boolean persistWindowState) {
     this.persistWindowState = persistWindowState;
-  }
-
-  /**
-   * Saves the current selected Category.
-   */
-  public void saveSelectedCategory(CategoryTree categoryTree) {
-    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
-    Category category;
-    if (treeItem != null) {
-      category = (Category) treeItem.getValue();
-    } else {
-      category = categories.get(DEFAULT_CATEGORY);
-    }
-    storageHandler.saveSelectedCategory(category.getId());
   }
 
   public History getHistory() {
@@ -109,5 +84,34 @@ public class PreferencesModel {
 
   public boolean getHistoryDebugState() {
     return historyDebugState;
+  }
+
+
+  // ------ StorageHandler work -------------
+
+  /**
+   * Saves the current selected Category.
+   */
+  public void saveSelectedCategory(CategoryTree categoryTree) {
+    TreeItem treeItem = (TreeItem) categoryTree.getSelectionModel().getSelectedItem();
+    Category category;
+    if (treeItem != null) {
+      category = (Category) treeItem.getValue();
+    } else {
+      category = categories.get(DEFAULT_CATEGORY);
+    }
+    storageHandler.saveSelectedCategory(category.getId());
+  }
+
+  public int loadSelectedCategory() {
+    return storageHandler.loadSelectedCategory();
+  }
+
+  public void saveDividerPosition(double dividerPosition) {
+    storageHandler.saveDividerPosition(dividerPosition);
+  }
+
+  public double loadDividerPosition() {
+    return storageHandler.loadDividerPosition();
   }
 }

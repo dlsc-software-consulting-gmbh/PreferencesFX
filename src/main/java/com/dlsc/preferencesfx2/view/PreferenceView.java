@@ -11,7 +11,7 @@ public class PreferenceView extends BorderPane {
   private PreferencesModel preferencesModel;
   private CategoryView categoryView;
   private TreeSearchView treeSearchView;
-  private MasterDetailPane masterDetailPane;
+  MasterDetailPane masterDetailPane;
 
   public PreferenceView(PreferencesModel preferencesModel, TreeSearchView treeSearchView, CategoryView categoryView) {
     this.preferencesModel = preferencesModel;

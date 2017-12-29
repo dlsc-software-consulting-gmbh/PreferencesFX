@@ -1,12 +1,9 @@
 package com.dlsc.preferencesfx2.model;
 
-import com.dlsc.preferencesfx.CategoryPane;
-import com.dlsc.preferencesfx.CategoryTree;
-import com.dlsc.preferencesfx.Group;
-import com.dlsc.preferencesfx.PreferencesFx;
-import com.dlsc.preferencesfx.Setting;
-import com.dlsc.preferencesfx.util.IncrementId;
-import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx_raw.CategoryTree;
+import com.dlsc.preferencesfx_raw.PreferencesFx;
+import com.dlsc.preferencesfx_raw.util.IncrementId;
+import com.dlsc.preferencesfx_raw.util.PreferencesFxUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +19,6 @@ public class Category {
   private String description;
   private List<Group> groups;
   private List<Category> children;
-  private CategoryPane categoryPane;
   private String breadcrumb;
 
   /**
@@ -33,13 +29,11 @@ public class Category {
   private Category(String description) {
     this.description = description;
     breadcrumb = description;
-    categoryPane = new CategoryPane(null);
   }
 
   private Category(String description, Group... groups) {
     this(description);
     this.groups = Arrays.asList(groups);
-    categoryPane = new CategoryPane(this.groups);
   }
 
   /**
@@ -108,10 +102,6 @@ public class Category {
   public void unmarkAll() {
     unmarkGroups();
     unmarkSettings();
-  }
-
-  public CategoryPane getCategoryPane() {
-    return categoryPane;
   }
 
   public String getDescription() {
