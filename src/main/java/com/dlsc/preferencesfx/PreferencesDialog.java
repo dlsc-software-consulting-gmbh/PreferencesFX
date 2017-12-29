@@ -19,7 +19,6 @@ public class PreferencesDialog extends DialogPane {
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
   private ButtonType cancelBtnType = ButtonType.CANCEL;
 
-
   public PreferencesDialog(PreferencesFx preferencesFx, boolean persistWindowState) {
     this.preferencesFx = preferencesFx;
     storageHandler = preferencesFx.getStorageHandler();
@@ -28,7 +27,7 @@ public class PreferencesDialog extends DialogPane {
     layoutForm();
     savePreferencesOnCloseRequest();
     loadLastState();
-    setupEventHandler();
+    setupButtons();
     dialog.show();
   }
 
@@ -74,12 +73,15 @@ public class PreferencesDialog extends DialogPane {
           preferencesFx.getCategoryTree().getAllCategoriesFlatAsList()
       ).forEach(setting -> setting.saveSettingValue(storageHandler));
     });
-
   }
 
-  private void setupEventHandler() {
+  private void setupButtons() {
+    final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
-    cancelBtn.setOnAction(event -> preferencesFx.getHistory().undoAll());
-  }
 
+    cancelBtn.setOnAction(event -> preferencesFx.getHistory().undoAll());
+
+    cancelBtn.visibleProperty().bind(preferencesFx.buttonsVisibleProperty());
+    closeBtn.visibleProperty().bind(preferencesFx.buttonsVisibleProperty());
+  }
 }

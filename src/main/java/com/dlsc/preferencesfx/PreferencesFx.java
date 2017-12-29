@@ -8,6 +8,9 @@ import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Side;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.KeyCode;
@@ -45,6 +48,7 @@ public class PreferencesFx extends BorderPane {
   private History history;
   private Category displayedCategory;
 
+  private final BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
 
@@ -187,6 +191,11 @@ public class PreferencesFx extends BorderPane {
     return this;
   }
 
+  public PreferencesFx buttonVisibility (boolean isVisible) {
+    setButtonsVisible(isVisible);
+    return this;
+  }
+
   public void setupDebugHistoryTable() {
     final KeyCombination keyCombination = new KeyCodeCombination(KeyCode.H,
         KeyCombination.SHORTCUT_DOWN);
@@ -209,5 +218,17 @@ public class PreferencesFx extends BorderPane {
 
   public History getHistory() {
     return history;
+  }
+
+  public boolean isButtonsVisible() {
+    return buttonsVisible.get();
+  }
+
+  public BooleanProperty buttonsVisibleProperty() {
+    return buttonsVisible;
+  }
+
+  public void setButtonsVisible(boolean buttonsVisible) {
+    this.buttonsVisible.set(buttonsVisible);
   }
 }
