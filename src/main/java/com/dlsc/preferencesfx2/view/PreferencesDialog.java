@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx2.view;
 import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_PREFERENCES_HEIGHT;
 import static com.dlsc.preferencesfx2.util.Constants.DEFAULT_PREFERENCES_WIDTH;
 
+import com.dlsc.preferencesfx2.history.view.HistoryDialog;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import com.dlsc.preferencesfx2.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx2.util.StorageHandler;
@@ -10,9 +11,18 @@ import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PreferencesDialog extends DialogPane {
+  private static final Logger LOGGER =
+      LogManager.getLogger(PreferencesDialog.class.getName());
+
   private PreferencesModel model;
   private PreferencesView preferenceView;
 
@@ -29,16 +39,35 @@ public class PreferencesDialog extends DialogPane {
     savePreferencesOnCloseRequest();
     loadLastState();
     setupClose();
-    dialog.initModality(Modality.NONE);
     dialog.show();
+    if (model.getHistoryDebugState()) {
+      setupDebugHistoryTable();
+    }
   }
 
   private void layoutForm() {
     dialog.setTitle("PreferencesFx");
     dialog.setResizable(true);
-
+    dialog.initModality(Modality.NONE);
     dialog.setDialogPane(this);
     setContent(preferenceView);
+  }
+
+  private void savePreferencesOnCloseRequest() {
+    dialog.setOnCloseRequest(e -> {
+      if (persistWindowState) {
+        // Save window state
+        storageHandler.saveWindowWidth(widthProperty().get());
+        storageHandler.saveWindowHeight(heightProperty().get());
+        storageHandler.saveWindowPosX(getScene().getWindow().getX());
+        storageHandler.saveWindowPosY(getScene().getWindow().getY());
+        model.saveSelectedCategory();
+      }
+      // Save setting values
+      PreferencesFxUtils.categoriesToSettings(
+          model.getFlatCategoriesLst()
+      ).forEach(setting -> setting.saveSettingValue(storageHandler));
+    });
   }
 
   /**
@@ -70,21 +99,16 @@ public class PreferencesDialog extends DialogPane {
     closeButton.setVisible(false);
   }
 
-  private void savePreferencesOnCloseRequest() {
-    dialog.setOnCloseRequest(e -> {
-      if (persistWindowState) {
-        // Save window state
-        storageHandler.saveWindowWidth(widthProperty().get());
-        storageHandler.saveWindowHeight(heightProperty().get());
-        storageHandler.saveWindowPosX(getScene().getWindow().getX());
-        storageHandler.saveWindowPosY(getScene().getWindow().getY());
-        model.saveSelectedCategory();
-      }
-      // Save setting values
-      PreferencesFxUtils.categoriesToSettings(
-          model.getFlatCategoriesLst()
-      ).forEach(setting -> setting.saveSettingValue(storageHandler));
-    });
-  }
 
+  private void setupDebugHistoryTable() {
+    final KeyCombination keyCombination =
+        new KeyCodeCombination(KeyCode.H, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN);
+    preferenceView.getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+          if (keyCombination.match(event)) {
+            LOGGER.trace("Opened History Debug View");
+            new HistoryDialog(model.getHistory());
+          }
+        }
+    );
+  }
 }

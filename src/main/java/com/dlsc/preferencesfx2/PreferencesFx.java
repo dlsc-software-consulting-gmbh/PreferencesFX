@@ -1,7 +1,6 @@
 package com.dlsc.preferencesfx2;
 
 import com.dlsc.preferencesfx2.history.History;
-import com.dlsc.preferencesfx2.history.view.HistoryDialog;
 import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import com.dlsc.preferencesfx2.util.StorageHandler;
@@ -13,10 +12,6 @@ import com.dlsc.preferencesfx2.view.NavigationView;
 import com.dlsc.preferencesfx2.view.PreferencesDialog;
 import com.dlsc.preferencesfx2.view.PreferencesPresenter;
 import com.dlsc.preferencesfx2.view.PreferencesView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -78,21 +73,6 @@ public class PreferencesFx {
    */
   public void show() {
     new PreferencesDialog(preferencesModel, preferenceView);
-    if (preferencesModel.getHistoryDebugState()) {
-      setupDebugHistoryTable();
-    }
-  }
-
-  private void setupDebugHistoryTable() {
-    final KeyCombination keyCombination = new KeyCodeCombination(KeyCode.H,
-        KeyCombination.SHORTCUT_DOWN);
-    preferenceView.getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
-          if (keyCombination.match(event)) {
-            LOGGER.trace("Opened History Debug View");
-            new HistoryDialog(preferencesModel.getHistory());
-          }
-        }
-    );
   }
 
   /**
@@ -112,8 +92,8 @@ public class PreferencesFx {
    * Defines whether the table to debug the undo / redo history should be shown in a dialog
    * when pressing a key combination or not.
    * <p>
-   * Pressing Ctrl + H (Windows) or CMD + H (Mac) opens a dialog with the undo / redo history,
-   * shown in a table.
+   * Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the
+   * undo / redo history, shown in a table.
    *
    * @param debugState if true, pressing the key combination will open the dialog
    * @return this object for fluent API
