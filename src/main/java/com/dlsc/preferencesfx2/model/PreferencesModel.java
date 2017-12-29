@@ -12,6 +12,8 @@ import java.util.Objects;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,6 +23,8 @@ public class PreferencesModel {
       LogManager.getLogger(PreferencesModel.class.getName());
 
   private ObjectProperty<Category> displayedCategory = new SimpleObjectProperty<>();
+
+  private StringProperty searchText = new SimpleStringProperty();
 
   private List<Category> categories;
   private StorageHandler storageHandler;
@@ -126,5 +130,21 @@ public class PreferencesModel {
 
   public ReadOnlyObjectProperty<Category> displayedCategoryProperty() {
     return displayedCategory;
+  }
+
+  public void setDisplayedCategory(Category displayedCategory) {
+    this.displayedCategory.set(displayedCategory);
+  }
+
+  public String getSearchText() {
+    return searchText.get();
+  }
+
+  public StringProperty searchTextProperty() {
+    return searchText;
+  }
+
+  public void setSearchText(String searchText) {
+    this.searchText.set(searchText);
   }
 }
