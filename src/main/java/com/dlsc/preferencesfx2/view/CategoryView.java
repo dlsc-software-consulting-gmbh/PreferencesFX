@@ -5,16 +5,17 @@ import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.scene.layout.StackPane;
 
 public class CategoryView extends StackPane implements View {
-  private PreferencesModel preferencesModel;
+  private PreferencesModel model;
   private Category categoryModel;
 
   /**
    * Initializes a new view of a Category.
-   * @param preferencesModel
-   * @param categoryModel is the category that will be displayed in this view
+   *
+   * @param model
+   * @param categoryModel    is the category that will be displayed in this view
    */
-  public CategoryView(PreferencesModel preferencesModel, Category categoryModel) {
-    this.preferencesModel = preferencesModel;
+  public CategoryView(PreferencesModel model, Category categoryModel) {
+    this.model = model;
     this.categoryModel = categoryModel;
     init();
   }
@@ -40,7 +41,7 @@ public class CategoryView extends StackPane implements View {
    */
   @Override
   public void layoutParts() {
-    getChildren().add(preferencesModel.getCategories().get(0).getCategoryPane());
+
   }
 
   /**

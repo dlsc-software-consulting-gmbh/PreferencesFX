@@ -27,7 +27,8 @@ public interface View {
   /**
    * Initializes the view.
    */
-  default void initializeSelf() {}
+  default void initializeSelf() {
+  }
 
   /**
    * Initializes all parts of the view.
@@ -42,13 +43,13 @@ public interface View {
   /**
    * Binds properties from the model to the view.
    */
-  default void bindFieldsToModel() {}
+  default void bindFieldsToModel() {
+  }
 
   /**
    * Adds the stylesheet files to the getStylesheets method.
    *
-   * @param stylesheetFile
-   *              list of stylesheet files
+   * @param stylesheetFile list of stylesheet files
    */
   default void addStylesheetFiles(String... stylesheetFile) {
     for (String file : stylesheetFile) {

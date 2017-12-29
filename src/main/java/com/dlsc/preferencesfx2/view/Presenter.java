@@ -17,16 +17,19 @@ public interface Presenter {
   /**
    * Sets up event handlers of the view.
    */
-  default void setupEventHandlers() {}
+  default void setupEventHandlers() {
+  }
 
   /**
    * Adds all listeners to view elements and model properties.
    */
-  default void setupValueChangedListeners() {}
+  default void setupValueChangedListeners() {
+  }
 
   /**
    * Sets up bindings of the view.
    */
-  default void setupBindings() {}
+  default void setupBindings() {
+  }
 
 }

@@ -3,27 +3,27 @@ package com.dlsc.preferencesfx2.view;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
 import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
 
-import com.dlsc.preferencesfx.util.PreferencesFxUtils;
-import com.dlsc.preferencesfx2.util.StorageHandler;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
+import com.dlsc.preferencesfx2.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx2.util.StorageHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 
 public class PreferencesDialog extends DialogPane {
-  private PreferencesModel preferencesModel;
+  private PreferencesModel model;
   private PreferencesView preferenceView;
 
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
   private boolean persistWindowState;
 
-  public PreferencesDialog(PreferencesModel preferencesModel, PreferencesView preferenceView) {
-    this.preferencesModel = preferencesModel;
+  public PreferencesDialog(PreferencesModel model, PreferencesView preferenceView) {
+    this.model = model;
     this.preferenceView = preferenceView;
-    persistWindowState = preferencesModel.isPersistWindowState();
-    storageHandler = preferencesModel.getStorageHandler();
+    persistWindowState = model.isPersistWindowState();
+    storageHandler = model.getStorageHandler();
     layoutForm();
     savePreferencesOnCloseRequest();
     loadLastState();
@@ -76,7 +76,7 @@ public class PreferencesDialog extends DialogPane {
         storageHandler.saveWindowHeight(heightProperty().get());
         storageHandler.saveWindowPosX(getScene().getWindow().getX());
         storageHandler.saveWindowPosY(getScene().getWindow().getY());
-        preferencesModel.saveSelectedCategory(preferenceView.getCategoryTree());
+        model.saveSelectedCategory(preferenceView.getCategoryTree());
       }
       // Save setting values
       PreferencesFxUtils.categoriesToSettings(

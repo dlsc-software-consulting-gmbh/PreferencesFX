@@ -5,11 +5,6 @@ import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -18,23 +13,21 @@ import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
-import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
 public class NavigationView extends VBox implements View {
 
   private static final Logger LOGGER =
       LogManager.getLogger(NavigationView.class.getName());
-  private PreferencesModel preferencesModel;
+  private PreferencesModel model;
   TextField searchFld;
   TreeView<Category> treeView;
 
   HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
 
-  private List<Category> categories;
   FilterableTreeItem<Category> rootItem;
 
-  public NavigationView(PreferencesModel preferencesModel) {
-    this.preferencesModel = preferencesModel;
+  public NavigationView(PreferencesModel model) {
+    this.model = model;
     treeView = new TreeView<>();
     init();
   }
@@ -78,13 +71,7 @@ public class NavigationView extends VBox implements View {
    */
   @Override
   public void bindFieldsToModel() {
-    searchTextProperty().bind(searchFld.textProperty());
-
-  }
-
-
-  public StringProperty searchTextProperty() {
-    return searchText;
+    model.searchTextProperty().bind(searchFld.textProperty());
   }
 
   /**

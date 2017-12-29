@@ -1,9 +1,7 @@
 package com.dlsc.preferencesfx2.model;
 
 import com.dlsc.preferencesfx2.Constants;
-import com.dlsc.preferencesfx_raw.CategoryTree;
-import com.dlsc.preferencesfx_raw.util.IncrementId;
-import com.dlsc.preferencesfx_raw.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx2.util.PreferencesFxUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +13,6 @@ public class Category {
   private static final Logger LOGGER =
       LogManager.getLogger(Category.class.getName());
 
-  private final int id = IncrementId.get();
   private String description;
   private List<Group> groups;
   private List<Category> children;

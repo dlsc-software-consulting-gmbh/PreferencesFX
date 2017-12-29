@@ -7,11 +7,11 @@ import com.dlsc.preferencesfx2.model.PreferencesModel;
  */
 public class TemplatePresenter implements Presenter {
 
-  private PreferencesModel preferencesModel;
+  private PreferencesModel model;
   private TemplateView templateView;
 
-  public TemplatePresenter(PreferencesModel preferencesModel, TemplateView templateView) {
-    this.preferencesModel = preferencesModel;
+  public TemplatePresenter(PreferencesModel model, TemplateView templateView) {
+    this.model = model;
     this.templateView = templateView;
     init();
   }

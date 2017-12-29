@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx2.model;
 
-import com.dlsc.preferencesfx_raw.PreferencesFx;
-import com.dlsc.preferencesfx_raw.formsfx.view.renderer.PreferencesGroup;
+import com.dlsc.preferencesfx2.Constants;
+import com.dlsc.preferencesfx2.formsfx.view.renderer.PreferencesGroup;
 import java.util.Arrays;
 import java.util.List;
 import javafx.event.EventHandler;
@@ -78,7 +78,7 @@ public class Group {
   }
 
   public void addToBreadcrumb(String breadCrumb) {
-    this.breadcrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
+    this.breadcrumb = breadCrumb + Constants.BREADCRUMB_DELIMITER + description;
     settings.forEach(setting -> setting.addToBreadcrumb(this.breadcrumb));
   }
 

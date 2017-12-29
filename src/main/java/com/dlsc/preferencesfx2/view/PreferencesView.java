@@ -1,19 +1,19 @@
 package com.dlsc.preferencesfx2.view;
 
-import com.dlsc.preferencesfx.history.HistoryButtonBox;
+import com.dlsc.preferencesfx2.history.HistoryButtonBox;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
 import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesView extends BorderPane implements View {
-  private PreferencesModel preferencesModel;
+  private PreferencesModel model;
   private NavigationView navigationView;
   CategoryController categoryController;
   MasterDetailPane preferencesPane;
 
-  public PreferencesView(PreferencesModel preferencesModel, NavigationView navigationView, CategoryController categoryController) {
-    this.preferencesModel = preferencesModel;
+  public PreferencesView(PreferencesModel model, NavigationView navigationView, CategoryController categoryController) {
+    this.model = model;
     this.navigationView = navigationView;
     this.categoryController = categoryController;
     init();
@@ -46,10 +46,8 @@ public class PreferencesView extends BorderPane implements View {
     preferencesPane.setMasterNode(categoryController);
 
 
-
-
     setCenter(preferencesPane);
-    setBottom(new HistoryButtonBox(preferencesModel.getHistory()));
+    setBottom(new HistoryButtonBox(model.getHistory()));
   }
 
   /**
@@ -57,6 +55,6 @@ public class PreferencesView extends BorderPane implements View {
    */
   @Override
   public void bindFieldsToModel() {
-    categoryController.addListener(preferencesModel.displayedCategoryProperty());
+    categoryController.addListener(model.displayedCategoryProperty());
   }
 }

@@ -2,9 +2,9 @@ package com.dlsc.preferencesfx2.demo;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.preferencesfx2.model.Category;
-import com.dlsc.preferencesfx2.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx2.PreferencesFx;
+import com.dlsc.preferencesfx2.formsfx.view.controls.IntegerSliderControl;
+import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.Group;
 import com.dlsc.preferencesfx2.model.Setting;
 import com.google.common.collect.Lists;

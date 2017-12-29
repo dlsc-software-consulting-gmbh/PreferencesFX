@@ -2,9 +2,9 @@ package com.dlsc.preferencesfx2.model;
 
 import static com.dlsc.preferencesfx2.Constants.DEFAULT_CATEGORY;
 
-import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx2.Constants;
+import com.dlsc.preferencesfx2.history.History;
+import com.dlsc.preferencesfx2.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx2.util.StorageHandler;
 import java.util.Arrays;
 import java.util.List;

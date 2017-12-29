@@ -82,7 +82,7 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
     valueLabel.setAlignment(Pos.CENTER);
     valueLabel.setMinWidth(VALUE_LABEL_PADDING);
     node.setSpacing(VALUE_LABEL_PADDING);
-    HBox.setMargin(valueLabel, new Insets(0,VALUE_LABEL_PADDING, 0,0));
+    HBox.setMargin(valueLabel, new Insets(0, VALUE_LABEL_PADDING, 0, 0));
   }
 
   /**

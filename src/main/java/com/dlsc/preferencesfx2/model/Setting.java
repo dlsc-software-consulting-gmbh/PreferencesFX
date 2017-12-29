@@ -1,16 +1,16 @@
 package com.dlsc.preferencesfx2.model;
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.preferencesfx_raw.PreferencesFx;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.DoubleSliderControl;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.IntegerSliderControl;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.SimpleComboBoxControl;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.SimpleControl;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.SimpleDoubleControl;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.SimpleIntegerControl;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.SimpleListViewControl;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.SimpleTextControl;
-import com.dlsc.preferencesfx_raw.formsfx.view.controls.ToggleControl;
+import com.dlsc.preferencesfx2.Constants;
+import com.dlsc.preferencesfx2.formsfx.view.controls.DoubleSliderControl;
+import com.dlsc.preferencesfx2.formsfx.view.controls.IntegerSliderControl;
+import com.dlsc.preferencesfx2.formsfx.view.controls.SimpleComboBoxControl;
+import com.dlsc.preferencesfx2.formsfx.view.controls.SimpleControl;
+import com.dlsc.preferencesfx2.formsfx.view.controls.SimpleDoubleControl;
+import com.dlsc.preferencesfx2.formsfx.view.controls.SimpleIntegerControl;
+import com.dlsc.preferencesfx2.formsfx.view.controls.SimpleListViewControl;
+import com.dlsc.preferencesfx2.formsfx.view.controls.SimpleTextControl;
+import com.dlsc.preferencesfx2.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx2.util.StorageHandler;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
@@ -215,7 +215,7 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public void addToBreadcrumb(String breadCrumb) {
-    this.breadcrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
+    this.breadcrumb = breadCrumb + Constants.BREADCRUMB_DELIMITER + description;
   }
 
   public String getBreadcrumb() {

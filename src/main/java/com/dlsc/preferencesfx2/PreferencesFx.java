@@ -1,16 +1,16 @@
 package com.dlsc.preferencesfx2;
 
+import com.dlsc.preferencesfx2.history.History;
+import com.dlsc.preferencesfx2.history.HistoryDialog;
 import com.dlsc.preferencesfx2.model.Category;
-import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.history.HistoryDialog;
-import com.dlsc.preferencesfx2.util.StorageHandler;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
+import com.dlsc.preferencesfx2.util.StorageHandler;
 import com.dlsc.preferencesfx2.view.CategoryController;
+import com.dlsc.preferencesfx2.view.NavigationPresenter;
+import com.dlsc.preferencesfx2.view.NavigationView;
 import com.dlsc.preferencesfx2.view.PreferencesDialog;
 import com.dlsc.preferencesfx2.view.PreferencesPresenter;
 import com.dlsc.preferencesfx2.view.PreferencesView;
-import com.dlsc.preferencesfx2.view.NavigationPresenter;
-import com.dlsc.preferencesfx2.view.NavigationView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;

@@ -2,11 +2,11 @@ package com.dlsc.preferencesfx2.view;
 
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
-import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx2.model.Category;
 import com.dlsc.preferencesfx2.model.Group;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
 import com.dlsc.preferencesfx2.model.Setting;
+import com.dlsc.preferencesfx2.util.PreferencesFxUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,14 +24,13 @@ public class NavigationPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(NavigationPresenter.class.getName());
 
-  private PreferencesModel preferencesModel;
+  private PreferencesModel model;
   private NavigationView navigationView;
-
 
   private HashMap<Setting, Category> settingCategoryMap;
   private HashMap<Group, Category> groupCategoryMap;
 
-  private List<Category> categoriesLst;
+  private List<Category> flatCategoriesLst;
   private List<Setting> settingsLst;
   private List<Group> groupsLst;
   private List<Category> filteredCategoriesLst;
@@ -47,7 +46,8 @@ public class NavigationPresenter implements Presenter {
    */
   private Predicate<Category> filterPredicate = category -> {
     // look in category description for matches
-    boolean categoryMatch = containsIgnoreCase(category.getDescription(), navigationView.searchText.get());
+    String searchText = model.getSearchText();
+    boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText);
     boolean settingMatch = false;
     boolean groupMatch = false;
     if (category.getGroups() != null) {
@@ -55,32 +55,32 @@ public class NavigationPresenter implements Presenter {
       settingMatch = category.getGroups().stream()
           .map(Group::getSettings)      // get settings from groups
           .flatMap(Collection::stream)  // flatten all lists of settings to settings
-          .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), navigationView.searchText.get()));
+          .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText));
       // look in groups too
       groupMatch = category.getGroups().stream()
-          .anyMatch(group -> containsIgnoreCase(group.getDescription(), navigationView.searchText.get()));
+          .anyMatch(group -> containsIgnoreCase(group.getDescription(), searchText));
     }
     return categoryMatch || settingMatch || groupMatch;
   };
 
-  public NavigationPresenter(PreferencesModel preferencesModel, NavigationView navigationView) {
-    this.preferencesModel = preferencesModel;
+  public NavigationPresenter(PreferencesModel model, NavigationView navigationView) {
+    this.model = model;
     this.navigationView = navigationView;
     init();
     initializeTreeItems();
     initializeSearch();
   }
 
-  private void initializeSearch(){
-    categoriesLst = new ArrayList<>(navigationView.categoryTreeItemMap.keySet());
-    settingCategoryMap = PreferencesFxUtils.mapSettingsToCategories(categoriesLst);
-    groupCategoryMap = PreferencesFxUtils.mapGroupsToCategories(categoriesLst);
-    settingsLst = PreferencesFxUtils.categoriesToSettings(categoriesLst);
-    groupsLst = PreferencesFxUtils.categoriesToGroups(categoriesLst);
+  private void initializeSearch() {
+    flatCategoriesLst = new ArrayList<>(navigationView.categoryTreeItemMap.keySet());
+    settingCategoryMap = PreferencesFxUtils.mapSettingsToCategories(flatCategoriesLst);
+    groupCategoryMap = PreferencesFxUtils.mapGroupsToCategories(flatCategoriesLst);
+    settingsLst = PreferencesFxUtils.categoriesToSettings(flatCategoriesLst);
+    groupsLst = PreferencesFxUtils.categoriesToGroups(flatCategoriesLst);
   }
 
   private void initializeTreeItems() {
-    addRecursive(navigationView.rootItem, categories);
+    addRecursive(navigationView.rootItem, model.getCategories());
   }
 
   /**
@@ -100,13 +100,13 @@ public class NavigationPresenter implements Presenter {
     navigationView.treeView.getSelectionModel().selectedItemProperty().addListener(
         (observable, oldTreeItem, newTreeItem) -> {
           if (newTreeItem != null) {
-            preferencesModel.setDisplayedCategory(newTreeItem.getValue());
+            model.setDisplayedCategory(newTreeItem.getValue());
           }
         }
     );
 
     // Filter TreeSearchView upon Search
-    navigationView.searchText.addListener((observable, oldText, newText) -> {
+    model.searchTextProperty().addListener((observable, oldText, newText) -> {
       if (newText.equals("")) { // empty search
         // unmark all categories
         unmarkEverything();
@@ -120,8 +120,8 @@ public class NavigationPresenter implements Presenter {
    * {@inheritDoc}
    */
   @Override
-  public void setupBindings(){
-    StringProperty searchText = preferencesModel.searchTextProperty();
+  public void setupBindings() {
+    StringProperty searchText = model.searchTextProperty();
     // Make TreeSearchView filterable by implementing the necessary binding
     navigationView.rootItem.predicateProperty().bind(Bindings.createObjectBinding(() -> {
       if (searchText.get() == null || searchText.get().isEmpty()) {
@@ -140,7 +140,7 @@ public class NavigationPresenter implements Presenter {
 
   private void updateFilteredLists(String searchText) {
     filteredCategoriesLst =
-        PreferencesFxUtils.filterCategoriesByDescription(categoriesLst, searchText);
+        PreferencesFxUtils.filterCategoriesByDescription(flatCategoriesLst, searchText);
     filteredSettingsLst =
         PreferencesFxUtils.filterSettingsByDescription(settingsLst, searchText);
     filteredGroupsLst =

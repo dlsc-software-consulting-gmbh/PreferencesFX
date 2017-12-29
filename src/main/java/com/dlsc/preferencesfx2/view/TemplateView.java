@@ -8,10 +8,10 @@ import javafx.scene.layout.Pane;
  */
 public class TemplateView extends Pane implements View {
 
-  private PreferencesModel preferencesModel;
+  private PreferencesModel model;
 
-  public TemplateView(PreferencesModel preferencesModel) {
-    this.preferencesModel = preferencesModel;
+  public TemplateView(PreferencesModel model) {
+    this.model = model;
     init();
   }
 
