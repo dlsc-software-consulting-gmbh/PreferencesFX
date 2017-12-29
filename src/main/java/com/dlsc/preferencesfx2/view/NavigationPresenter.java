@@ -9,12 +9,12 @@ public class NavigationPresenter implements Presenter {
       LogManager.getLogger(NavigationPresenter.class.getName());
 
   private PreferencesModel preferencesModel;
-  private NavigationView treeSearchView;
-  private NavigationView treeSearchView;
-  public NavigationPresenter(PreferencesModel preferencesModel, NavigationView treeSearchView) {
+  private NavigationView navigationView;
+
+  public NavigationPresenter(PreferencesModel preferencesModel, NavigationView navigationView) {
     this.preferencesModel = preferencesModel;
-    this.treeSearchView = treeSearchView;
-    this.treeSearchView = treeSearchView.getCategoryTreeView();
+    this.navigationView = navigationView;
+    this.navigationView = navigationView.getCategoryTreeView();
     init();
   }
 

@@ -2,14 +2,14 @@ package com.dlsc.preferencesfx2.model;
 
 import static com.dlsc.preferencesfx2.Constants.DEFAULT_CATEGORY;
 
-import com.dlsc.preferencesfx2.model.Category;
-import com.dlsc.preferencesfx2.CategoryTree;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
-import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx2.util.StorageHandler;
+import com.dlsc.preferencesfx2.view.CategoryView;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,15 +20,16 @@ public class PreferencesModel {
 
   private List<Category> categories;
   private StorageHandler storageHandler;
-  private Category displayedCategory;
+  private ObjectProperty<Category> displayedCategory;
+  private ObjectProperty<CategoryView> displayedCategoryPane;
   private History history;
 
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
 
-  public PreferencesModel(Class<?> saveClass, Category[] categories, StorageHandler) {
-    storageHandler = new StorageHandler(saveClass);
-    history = new History();
+  public PreferencesModel(StorageHandler storageHandler, History history, Category[] categories) {
+    this.storageHandler = storageHandler;
+    this.history = history;
     this.categories = Arrays.asList(categories);
     loadSettingValues();
   }

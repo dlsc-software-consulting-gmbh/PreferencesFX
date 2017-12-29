@@ -14,10 +14,10 @@ public class PreferencesPresenter implements Presenter{
 
   private void setupListeners() {
     // Whenever the divider position is changed, it's position is saved.
-    preferenceView.masterDetailPane.dividerPositionProperty().addListener(
+    preferenceView.preferencesPane.dividerPositionProperty().addListener(
         (observable, oldValue, newValue) ->
             preferencesModel.saveDividerPosition(
-                preferenceView.masterDetailPane.getDividerPosition()
+                preferenceView.preferencesPane.getDividerPosition()
             )
     );
   }

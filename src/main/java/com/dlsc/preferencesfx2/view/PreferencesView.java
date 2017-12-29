@@ -9,14 +9,14 @@ import org.controlsfx.control.MasterDetailPane;
 
 public class PreferencesView extends BorderPane implements View {
   private PreferencesModel preferencesModel;
-  private CategoryView categoryView;
-  private NavigationView treeSearchView;
-  MasterDetailPane masterDetailPane;
+  private CategoryController categoryController;
+  private NavigationView navigationView;
+  MasterDetailPane preferencesPane;
 
-  public PreferencesView(PreferencesModel preferencesModel, NavigationView treeSearchView, CategoryView categoryView) {
+  public PreferencesView(PreferencesModel preferencesModel, NavigationView navigationView, CategoryController categoryController) {
     this.preferencesModel = preferencesModel;
-    this.treeSearchView = treeSearchView;
-    this.categoryView = categoryView;
+    this.navigationView = navigationView;
+    this.categoryController = categoryController;
     init();
   }
 
@@ -53,12 +53,12 @@ public class PreferencesView extends BorderPane implements View {
   }
 
   private void layoutParts() {
-    masterDetailPane = new MasterDetailPane();
-    masterDetailPane.setDetailSide(Side.LEFT);
-    masterDetailPane.setDetailNode(treeSearchView);
-    masterDetailPane.setMasterNode(categoryView);
+    preferencesPane = new MasterDetailPane();
+    preferencesPane.setDetailSide(Side.LEFT);
+    preferencesPane.setDetailNode(navigationView);
+    preferencesPane.setMasterNode(categoryView);
 
-    setCenter(masterDetailPane);
+    setCenter(preferencesPane);
     setBottom(new HistoryButtonBox(preferencesModel.getHistory()));
   }
 

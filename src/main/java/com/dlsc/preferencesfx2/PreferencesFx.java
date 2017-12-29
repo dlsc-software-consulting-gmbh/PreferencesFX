@@ -1,10 +1,11 @@
 package com.dlsc.preferencesfx2;
 
-import com.dlsc.preferencesfx.Category;
+import com.dlsc.preferencesfx2.model.Category;
+import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.HistoryDialog;
+import com.dlsc.preferencesfx2.util.StorageHandler;
 import com.dlsc.preferencesfx2.model.PreferencesModel;
-import com.dlsc.preferencesfx2.view.CategoryPresenter;
-import com.dlsc.preferencesfx2.view.CategoryView;
+import com.dlsc.preferencesfx2.view.CategoryController;
 import com.dlsc.preferencesfx2.view.PreferencesDialog;
 import com.dlsc.preferencesfx2.view.PreferencesPresenter;
 import com.dlsc.preferencesfx2.view.PreferencesView;
@@ -23,25 +24,23 @@ public class PreferencesFx {
 
   private PreferencesModel preferencesModel;
 
-  private NavigationView treeSearchView;
-  private NavigationPresenter treeSearchPresenter;
+  private NavigationView navigationView;
+  private NavigationPresenter navigationPresenter;
 
-  private CategoryView categoryView;
-  private CategoryPresenter categoryPresenter;
+  private CategoryController categoryController;
 
   private PreferencesView preferenceView;
   private PreferencesPresenter preferencePresenter;
 
-  private PreferencesFx(Class<?> saveClass, Category[] categories) {
-    preferencesModel = new PreferencesModel(saveClass, categories);
+  private PreferencesFx(Class<?> saveClass, Category... categories) {
+    preferencesModel = new PreferencesModel(new StorageHandler(saveClass), new History(), categories);
 
-    treeSearchView = new NavigationView(preferencesModel);
-    treeSearchPresenter = new NavigationPresenter(preferencesModel, treeSearchView);
+    navigationView = new NavigationView(preferencesModel);
+    navigationPresenter = new NavigationPresenter(preferencesModel, navigationView);
 
-    categoryView = new CategoryView(preferencesModel);
-    categoryPresenter = new CategoryPresenter(preferencesModel, categoryView);
+    categoryController = new CategoryController();
 
-    preferenceView = new PreferencesView(preferencesModel, treeSearchView, categoryView);
+    preferenceView = new PreferencesView(preferencesModel, navigationView, categoryController);
     preferencePresenter = new PreferencesPresenter(preferencesModel, preferenceView);
   }
 
