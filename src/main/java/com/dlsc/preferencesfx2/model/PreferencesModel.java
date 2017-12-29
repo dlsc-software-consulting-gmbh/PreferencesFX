@@ -2,7 +2,6 @@ package com.dlsc.preferencesfx2.model;
 
 import static com.dlsc.preferencesfx2.Constants.DEFAULT_CATEGORY;
 
-import com.dlsc.preferencesfx2.Constants;
 import com.dlsc.preferencesfx2.history.History;
 import com.dlsc.preferencesfx2.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx2.util.StorageHandler;
@@ -14,7 +13,6 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,7 +42,13 @@ public class PreferencesModel {
   }
 
   private void initializeDisplayedCategory() {
-    displayedCategory.setValue(categories.get(Constants.DEFAULT_CATEGORY_INDEX));
+    Category displayCategory;
+    if (persistWindowState) {
+      displayCategory = loadSelectedCategory();
+    } else {
+      displayCategory = getCategories().get(DEFAULT_CATEGORY);
+    }
+    displayedCategory.setValue(displayCategory);
   }
 
   private void loadSettingValues() {
@@ -107,12 +111,19 @@ public class PreferencesModel {
     storageHandler.saveSelectedCategory(displayedCategory.get().getBreadcrumb());
   }
 
+  /**
+   * Loads the last selected Category before exiting the Preferences window.
+   * @return last selected Category
+   */
   public Category loadSelectedCategory() {
     String breadcrumb = storageHandler.loadSelectedCategory();
+    Category defaultCategory = getCategories().get(DEFAULT_CATEGORY);
     if (breadcrumb == null) {
-      return getCategories().get(DEFAULT_CATEGORY);
+      return defaultCategory;
     }
-    return breadcrumb;
+    return flatCategoriesLst.stream()
+        .filter(category -> category.getDescription().equals(breadcrumb))
+        .findAny().orElse(defaultCategory);
   }
 
   public void saveDividerPosition(double dividerPosition) {
