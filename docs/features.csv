@@ -1,0 +1,31 @@
+ID,Feature,Priority*,MVP**,Comment
+0,Demo App,1,{y},
+1,Widget - Toggle,1,{y},Data type: boolean
+2,Widget - Combobox,1,{y},"Data type: Object (toString), String"
+3,Widget - Textfield,1,{y},"Data type: String, Number"
+5,Structure elements - Category,1,{y},
+6,Structure elements - Setting,1,{y},
+8,TreeView - Multiple Top-Level Categories,1,{y},
+4,Widget - Slider as custom control,2,{y},Data type: Number range (lower / upper limit)
+7,Structure elements - Section,2,{y},Multiple settings as a group
+9,TreeView - Nesting of Categories,2,{y},
+10,Save - using Java Preferences API,3,{y},
+11,Save - Instant persistance,3,{y},
+12,Save - Binding via properties,3,{y},
+13,Search,3,{y},
+14,Undo/Redo - History (Git-like),4,,Historisation of settings
+16,Secured Lock,4,,"Attribute ""secured"" and field is read only, until lock is clicked"
+18,Widget - Custom controls,4,,Enable rendering of custom controls
+20,Styling via CSS,4,,
+25,State persistence,4,,Have preferences window open just as it was left before closing it the last time
+15,Undo/Redo - Tags,5,,To save different states
+17,Widget - Text area,5,,Multiple lines
+29,Insert sections during runtime,5,,
+19,Widget - Table View,6,,
+21,Tabs,6,,For multiple preference window
+22,Flexible Layout - Orientation of tabs,6,,"Top, Bottom, Left, Right"
+23,Flexible Layout - Change layout depending on amount of categories,6,,"For example, 5 categories => more sophisticated view"
+24,FontAwesome Icons,6,,
+26,Structure Elements - ItemList,6,,See IntelliJ -> Project Structure -> SDK  (+/- Buttons  View)
+27,Widget - Color Field,6,,
+28,Widget - Font,6,,

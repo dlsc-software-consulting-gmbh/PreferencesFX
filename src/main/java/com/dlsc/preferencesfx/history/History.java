@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.history;
 
-import com.dlsc.preferencesfx.Setting;
+import com.dlsc.preferencesfx.model.Setting;
 import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
