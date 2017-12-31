@@ -5,7 +5,6 @@ import static org.mockito.Mockito.mock;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import com.dlsc.preferencesfx_old.util.PreferencesFxUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,7 +52,7 @@ public class SearchHandlerTest {
       assertSame(
           "match1: " + matches1[i] + ", match2: " + matches2[i] + ", match3: " + matches3[i],
           expected[i],
-          PreferencesFxUtils.compareMatches(setting, group, category, matches1[i], matches2[i], matches3[i])
+          searchHandler.compareMatches(setting, group, category, matches1[i], matches2[i], matches3[i])
       );
     }
   }

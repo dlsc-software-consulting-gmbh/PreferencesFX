@@ -6,8 +6,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.dlsc.preferencesfx_old.Setting;
-import com.dlsc.preferencesfx_old.history.History;
+import com.dlsc.preferencesfx.model.Setting;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;

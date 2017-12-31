@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx.util;
 
-import com.dlsc.preferencesfx_old.AppStarter;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import org.junit.After;
@@ -18,7 +17,7 @@ public class StorageHandlerTest {
 
   @Test
   public void testClearPreferences() throws BackingStoreException {
-    StorageHandler storageHandler = new StorageHandler(AppStarter.class);
+    StorageHandler storageHandler = new StorageHandler(StorageHandlerTest.class);
     Preferences preferences = storageHandler.getPreferences();
     preferences.clear();
   }
