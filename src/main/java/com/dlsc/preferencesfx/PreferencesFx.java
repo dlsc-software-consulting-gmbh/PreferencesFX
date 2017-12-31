@@ -1,18 +1,18 @@
 package com.dlsc.preferencesfx;
 
+import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.view.CategoryController;
 import com.dlsc.preferencesfx.view.CategoryPresenter;
 import com.dlsc.preferencesfx.view.CategoryView;
 import com.dlsc.preferencesfx.view.NavigationPresenter;
-import com.dlsc.preferencesfx.view.PreferencesFxPresenter;
-import com.dlsc.preferencesfx.view.PreferencesFxView;
-import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.view.CategoryController;
 import com.dlsc.preferencesfx.view.NavigationView;
 import com.dlsc.preferencesfx.view.PreferencesFxDialog;
+import com.dlsc.preferencesfx.view.PreferencesFxPresenter;
+import com.dlsc.preferencesfx.view.PreferencesFxView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

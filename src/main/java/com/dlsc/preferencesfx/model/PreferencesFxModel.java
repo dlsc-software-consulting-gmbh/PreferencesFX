@@ -2,8 +2,8 @@ package com.dlsc.preferencesfx.model;
 
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 
-import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.history.History;
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;

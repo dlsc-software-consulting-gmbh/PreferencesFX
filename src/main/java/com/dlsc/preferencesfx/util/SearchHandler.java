@@ -72,10 +72,11 @@ public class SearchHandler {
   /**
    * Initializes the SearchHandler by initially creating all necessary lists for filtering and setting up the bindings.
    * Must be called to make the filtering work.
-   * @param searchText textProperty of a TextField where the search string is being input
+   *
+   * @param searchText        textProperty of a TextField where the search string is being input
    * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
    */
-  public void init(PreferencesFxModel model, StringProperty searchText, ObjectProperty<TreeItemPredicate<Category>> predicateProperty){
+  public void init(PreferencesFxModel model, StringProperty searchText, ObjectProperty<TreeItemPredicate<Category>> predicateProperty) {
     this.model = model;
     initializeSearch();
     initializeSearchText(searchText);
@@ -115,6 +116,7 @@ public class SearchHandler {
 
   /**
    * Makes sure this class is aware of the current text which is being searched for.
+   *
    * @param searchText textProperty of a TextField where the search string is being input
    */
   private void bindSearchText(StringProperty searchText) {
@@ -123,6 +125,7 @@ public class SearchHandler {
 
   /**
    * Binds the predicateProperty to ensure filtering according to the searchText.
+   *
    * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
    */
   public void bindFilterPredicate(ObjectProperty<TreeItemPredicate<Category>> predicateProperty) {
@@ -189,16 +192,16 @@ public class SearchHandler {
    * Compares three categories with decreasing priority from the first to the last category.
    * {@see developer reference} for further information
    *
-   * @param setting category to return, if settingsMatch is chosen
-   * @param group category to return, if groupMatch is chosen
-   * @param category category to return, if categoryMatch is chosen
-   * @param settingMatch amount of settings which match
-   * @param groupMatch amount of groups which match
+   * @param setting       category to return, if settingsMatch is chosen
+   * @param group         category to return, if groupMatch is chosen
+   * @param category      category to return, if categoryMatch is chosen
+   * @param settingMatch  amount of settings which match
+   * @param groupMatch    amount of groups which match
    * @param categoryMatch amount of categories which match
    * @return the category with the least amount of matches, taking into account the priority
    */
   public Category compareMatches(Category setting, Category group, Category category,
-                                     int settingMatch, int groupMatch, int categoryMatch) {
+                                 int settingMatch, int groupMatch, int categoryMatch) {
     if (settingMatch == 0 && groupMatch == 0 && categoryMatch == 0) { // if all values are 0
       return null;
     } else if (settingMatch == groupMatch && settingMatch == categoryMatch) { // if all values are equal to each other

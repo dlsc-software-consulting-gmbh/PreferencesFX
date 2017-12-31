@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx.model;
 
-import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.Constants;
+import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
