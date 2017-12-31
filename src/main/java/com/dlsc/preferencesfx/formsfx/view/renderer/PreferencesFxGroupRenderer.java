@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
-public class PreferencesGroupRenderer {
+public class PreferencesFxGroupRenderer {
 
   /**
    * Add the controls in the GridPane in a 12-column layout. If a control
@@ -20,14 +20,14 @@ public class PreferencesGroupRenderer {
   public static final int GRID_MARGIN = 10;
   private Label titleLabel;
   private GridPane grid;
-  private PreferencesGroup preferencesGroup;
+  private PreferencesFxGroup preferencesGroup;
 
   /**
    * This is the constructor to pass over data.
    *
    * @param preferencesGroup The PreferencesGroup which gets rendered.
    */
-  PreferencesGroupRenderer(PreferencesGroup preferencesGroup, GridPane grid) {
+  PreferencesFxGroupRenderer(PreferencesFxGroup preferencesGroup, GridPane grid) {
     this.preferencesGroup = preferencesGroup;
     this.grid = grid;
     preferencesGroup.setRenderer(this);
@@ -80,8 +80,8 @@ public class PreferencesGroupRenderer {
       // additional styling for the last setting
       if (i == fields.size() - 1) {
         styleClass.append("-last");
-        GridPane.setMargin(c.getNode(), new Insets(0, 0, PreferencesFormRenderer.SPACING * 4, 0));
-        GridPane.setMargin(c.getFieldLabel(), new Insets(0, 0, PreferencesFormRenderer.SPACING * 4, 0));
+        GridPane.setMargin(c.getNode(), new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0));
+        GridPane.setMargin(c.getFieldLabel(), new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0));
       }
 
       c.getFieldLabel().getStyleClass().add(styleClass.toString() + "-label");

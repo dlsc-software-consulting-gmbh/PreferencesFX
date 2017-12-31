@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.model.Category;
-import com.dlsc.preferencesfx.model.PreferencesModel;
+import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Priority;
@@ -17,9 +17,9 @@ public class NavigationView extends VBox implements View {
   TextField searchFld;
   TreeView<Category> treeView;
   FilterableTreeItem<Category> rootItem;
-  private PreferencesModel model;
+  private PreferencesFxModel model;
 
-  public NavigationView(PreferencesModel model) {
+  public NavigationView(PreferencesFxModel model) {
     this.model = model;
     treeView = new TreeView<>();
     init();

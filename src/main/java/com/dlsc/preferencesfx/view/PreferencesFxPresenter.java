@@ -1,17 +1,17 @@
 package com.dlsc.preferencesfx.view;
 
-import com.dlsc.preferencesfx.model.PreferencesModel;
+import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class PreferencesPresenter implements Presenter {
+public class PreferencesFxPresenter implements Presenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesPresenter.class.getName());
+      LogManager.getLogger(PreferencesFxPresenter.class.getName());
 
-  private PreferencesModel model;
-  private PreferencesView preferenceView;
+  private PreferencesFxModel model;
+  private PreferencesFxView preferenceView;
 
-  public PreferencesPresenter(PreferencesModel model, PreferencesView preferenceView) {
+  public PreferencesFxPresenter(PreferencesFxModel model, PreferencesFxView preferenceView) {
     this.model = model;
     this.preferenceView = preferenceView;
     init();

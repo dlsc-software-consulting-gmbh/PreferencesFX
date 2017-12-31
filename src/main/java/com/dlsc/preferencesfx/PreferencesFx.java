@@ -1,17 +1,18 @@
 package com.dlsc.preferencesfx;
 
 import com.dlsc.preferencesfx.model.Category;
-import com.dlsc.preferencesfx.model.PreferencesModel;
+import com.dlsc.preferencesfx.model.PreferencesFxModel;
+import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.view.CategoryPresenter;
 import com.dlsc.preferencesfx.view.CategoryView;
 import com.dlsc.preferencesfx.view.NavigationPresenter;
-import com.dlsc.preferencesfx.view.PreferencesPresenter;
-import com.dlsc.preferencesfx.view.PreferencesView;
+import com.dlsc.preferencesfx.view.PreferencesFxPresenter;
+import com.dlsc.preferencesfx.view.PreferencesFxView;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.view.CategoryController;
 import com.dlsc.preferencesfx.view.NavigationView;
-import com.dlsc.preferencesfx.view.PreferencesDialog;
+import com.dlsc.preferencesfx.view.PreferencesFxDialog;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,28 +20,28 @@ public class PreferencesFx {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFx.class.getName());
 
-  private PreferencesModel preferencesModel;
+  private PreferencesFxModel preferencesFxModel;
 
   private NavigationView navigationView;
   private NavigationPresenter navigationPresenter;
 
   private CategoryController categoryController;
 
-  private PreferencesView preferenceView;
-  private PreferencesPresenter preferencePresenter;
+  private PreferencesFxView preferencesFxView;
+  private PreferencesFxPresenter preferencesFxPresenter;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
-    preferencesModel = new PreferencesModel(new StorageHandler(saveClass), new History(), categories);
+    preferencesFxModel = new PreferencesFxModel(new StorageHandler(saveClass), new SearchHandler(), new History(), categories);
 
     categoryController = new CategoryController();
     initializeCategoryViews();
-    categoryController.setView(preferencesModel.getDisplayedCategory()); // display initial category
+    categoryController.setView(preferencesFxModel.getDisplayedCategory()); // display initial category
 
-    navigationView = new NavigationView(preferencesModel);
-    navigationPresenter = new NavigationPresenter(preferencesModel, navigationView);
+    navigationView = new NavigationView(preferencesFxModel);
+    navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
 
-    preferenceView = new PreferencesView(preferencesModel, navigationView, categoryController);
-    preferencePresenter = new PreferencesPresenter(preferencesModel, preferenceView);
+    preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, categoryController);
+    preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
   }
 
   /**
@@ -60,9 +61,9 @@ public class PreferencesFx {
    * all Categories and loading them into the CategoryController.
    */
   private void initializeCategoryViews() {
-    preferencesModel.getFlatCategoriesLst().forEach(category -> {
-      CategoryView categoryView = new CategoryView(preferencesModel, category);
-      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesModel, category, categoryView);
+    preferencesFxModel.getFlatCategoriesLst().forEach(category -> {
+      CategoryView categoryView = new CategoryView(preferencesFxModel, category);
+      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesFxModel, category, categoryView);
       categoryController.addView(category, categoryView, categoryPresenter);
     });
   }
@@ -71,7 +72,7 @@ public class PreferencesFx {
    * Shows the PreferencesFX dialog.
    */
   public void show() {
-    new PreferencesDialog(preferencesModel, preferenceView);
+    new PreferencesFxDialog(preferencesFxModel, preferencesFxView);
   }
 
   /**
@@ -83,7 +84,7 @@ public class PreferencesFx {
    * @return this object for fluent API
    */
   public PreferencesFx persistWindowState(boolean persist) {
-    preferencesModel.setPersistWindowState(persist);
+    preferencesFxModel.setPersistWindowState(persist);
     return this;
   }
 
@@ -98,7 +99,7 @@ public class PreferencesFx {
    * @return this object for fluent API
    */
   public PreferencesFx debugHistoryMode(boolean debugState) {
-    preferencesModel.setHistoryDebugState(debugState);
+    preferencesFxModel.setHistoryDebugState(debugState);
     return this;
   }
 }

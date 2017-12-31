@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
-import com.dlsc.preferencesfx.model.PreferencesModel;
+import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
@@ -17,18 +17,18 @@ import javafx.stage.Modality;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class PreferencesDialog extends DialogPane {
+public class PreferencesFxDialog extends DialogPane {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesDialog.class.getName());
+      LogManager.getLogger(PreferencesFxDialog.class.getName());
 
-  private PreferencesModel model;
-  private PreferencesView preferenceView;
+  private PreferencesFxModel model;
+  private PreferencesFxView preferenceView;
 
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
   private boolean persistWindowState;
 
-  public PreferencesDialog(PreferencesModel model, PreferencesView preferenceView) {
+  public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferenceView) {
     this.model = model;
     this.preferenceView = preferenceView;
     persistWindowState = model.isPersistWindowState();

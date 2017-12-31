@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
-import com.dlsc.preferencesfx.model.PreferencesModel;
+import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.scene.layout.Pane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,9 +12,9 @@ public class TemplateView extends Pane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(TemplateView.class.getName());
 
-  private PreferencesModel model;
+  private PreferencesFxModel model;
 
-  public TemplateView(PreferencesModel model) {
+  public TemplateView(PreferencesFxModel model) {
     this.model = model;
     init();
   }

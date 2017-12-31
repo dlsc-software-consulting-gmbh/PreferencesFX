@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.model;
 
-import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesGroup;
+import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFxGroup;
 import com.dlsc.preferencesfx.util.Constants;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Group {
   private static final String MARKED_STYLE_CLASS = "group-marked";
   private String description;
   private List<Setting> settings;
-  private PreferencesGroup preferencesGroup;
+  private PreferencesFxGroup preferencesGroup;
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private String breadcrumb = "";
@@ -51,11 +51,11 @@ public class Group {
     return settings;
   }
 
-  public PreferencesGroup getPreferencesGroup() {
+  public PreferencesFxGroup getPreferencesGroup() {
     return preferencesGroup;
   }
 
-  public void setPreferencesGroup(PreferencesGroup preferencesGroup) {
+  public void setPreferencesGroup(PreferencesFxGroup preferencesGroup) {
     this.preferencesGroup = preferencesGroup;
   }
 

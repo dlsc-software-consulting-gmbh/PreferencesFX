@@ -1,9 +1,9 @@
 package com.dlsc.preferencesfx.view;
 
 import com.dlsc.formsfx.model.structure.Form;
-import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFormRenderer;
+import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFxFormRenderer;
 import com.dlsc.preferencesfx.model.Category;
-import com.dlsc.preferencesfx.model.PreferencesModel;
+import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,9 +13,9 @@ public class CategoryView extends StackPane implements View {
       LogManager.getLogger(CategoryView.class.getName());
 
   Form form;
-  private PreferencesModel model;
+  private PreferencesFxModel model;
   private Category categoryModel;
-  private PreferencesFormRenderer preferencesFormRenderer;
+  private PreferencesFxFormRenderer preferencesFormRenderer;
 
   /**
    * Initializes a new view of a Category.
@@ -23,7 +23,7 @@ public class CategoryView extends StackPane implements View {
    * @param model
    * @param categoryModel is the category that will be displayed in this view
    */
-  public CategoryView(PreferencesModel model, Category categoryModel) {
+  public CategoryView(PreferencesFxModel model, Category categoryModel) {
     this.model = model;
     this.categoryModel = categoryModel;
     init();
@@ -31,7 +31,7 @@ public class CategoryView extends StackPane implements View {
 
   void initializeFormRenderer() {
     getChildren().clear();
-    preferencesFormRenderer = new PreferencesFormRenderer(form);
+    preferencesFormRenderer = new PreferencesFxFormRenderer(form);
     getChildren().add(preferencesFormRenderer);
   }
 

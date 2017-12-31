@@ -70,7 +70,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the window width of the PreferencesDialog.
+   * Stores the window width of the PreferencesFxDialog.
    *
    * @param windowWidth the width of the window to be stored
    */
@@ -79,7 +79,7 @@ public class StorageHandler {
   }
 
   /**
-   * Searches for the window width of the PreferencesDialog.
+   * Searches for the window width of the PreferencesFxDialog.
    *
    * @return the double value of the window width. 1000 if none is found
    */
@@ -88,7 +88,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the window height of the PreferencesDialog.
+   * Stores the window height of the PreferencesFxDialog.
    *
    * @param windowHeight the height of the window to be stored
    */
@@ -97,7 +97,7 @@ public class StorageHandler {
   }
 
   /**
-   * Searches for the window height of the PreferencesDialog.
+   * Searches for the window height of the PreferencesFxDialog.
    *
    * @return the double value of the window height. 700 if none is found
    */
@@ -106,7 +106,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the position of the PreferencesDialog in horizontal orientation.
+   * Stores the position of the PreferencesFxDialog in horizontal orientation.
    *
    * @param windowPosX the double value of the window position in horizontal orientation
    */
@@ -124,7 +124,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the position of the PreferencesDialog in vertical orientation.
+   * Stores the position of the PreferencesFxDialog in vertical orientation.
    *
    * @param windowPosY the double value of the window position in vertical orientation
    */

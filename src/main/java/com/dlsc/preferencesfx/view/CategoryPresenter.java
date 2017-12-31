@@ -2,10 +2,10 @@ package com.dlsc.preferencesfx.view;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.model.util.BindingMode;
-import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesGroup;
+import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFxGroup;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
-import com.dlsc.preferencesfx.model.PreferencesModel;
+import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +16,11 @@ public class CategoryPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryPresenter.class.getName());
 
-  private PreferencesModel model;
+  private PreferencesFxModel model;
   private Category categoryModel;
   private CategoryView categoryView;
 
-  public CategoryPresenter(PreferencesModel model, Category categoryModel, CategoryView categoryView) {
+  public CategoryPresenter(PreferencesFxModel model, Category categoryModel, CategoryView categoryView) {
     this.model = model;
     this.categoryModel = categoryModel;
     this.categoryView = categoryView;
@@ -54,8 +54,8 @@ public class CategoryPresenter implements Presenter {
 
     // create PreferenceGroups from Groups
     for (int i = 0; i < groups.size(); i++) {
-      PreferencesGroup preferencesGroup =
-          (PreferencesGroup) PreferencesGroup.of().title(groups.get(i).getDescription());
+      PreferencesFxGroup preferencesGroup =
+          (PreferencesFxGroup) PreferencesFxGroup.of().title(groups.get(i).getDescription());
       groups.get(i).setPreferencesGroup(preferencesGroup);
       formGroups.add(preferencesGroup);
       // fill groups with settings (as FormsFX fields)

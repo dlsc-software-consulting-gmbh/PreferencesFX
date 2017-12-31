@@ -4,6 +4,7 @@ import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.history.History;
+import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
 import java.util.List;
@@ -16,9 +17,9 @@ import javafx.beans.property.StringProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class PreferencesModel {
+public class PreferencesFxModel {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesModel.class.getName());
+      LogManager.getLogger(PreferencesFxModel.class.getName());
 
   private ObjectProperty<Category> displayedCategory = new SimpleObjectProperty<>();
 
@@ -27,13 +28,15 @@ public class PreferencesModel {
   private List<Category> categories;
   private List<Category> flatCategoriesLst;
   private StorageHandler storageHandler;
+  private SearchHandler searchHandler;
   private History history;
 
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
 
-  public PreferencesModel(StorageHandler storageHandler, History history, Category[] categories) {
+  public PreferencesFxModel(StorageHandler storageHandler, SearchHandler searchHandler, History history, Category[] categories) {
     this.storageHandler = storageHandler;
+    this.searchHandler = searchHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
@@ -162,5 +165,9 @@ public class PreferencesModel {
 
   public List<Category> getFlatCategoriesLst() {
     return flatCategoriesLst;
+  }
+
+  public SearchHandler getSearchHandler() {
+    return searchHandler;
   }
 }
