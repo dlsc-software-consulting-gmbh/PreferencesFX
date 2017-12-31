@@ -248,11 +248,11 @@ public class SearchHandler {
     return categoryMatch.get();
   }
 
-  public ReadOnlyObjectProperty<Category> categoryMatchProperty() {
-    return categoryMatch;
-  }
-
   private void setCategoryMatch(Category categoryMatch) {
     this.categoryMatch.set(categoryMatch);
+  }
+
+  public ReadOnlyObjectProperty<Category> categoryMatchProperty() {
+    return categoryMatch;
   }
 }
