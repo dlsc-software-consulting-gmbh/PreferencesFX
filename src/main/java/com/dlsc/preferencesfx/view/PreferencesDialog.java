@@ -34,8 +34,8 @@ public class PreferencesDialog extends DialogPane {
     persistWindowState = model.isPersistWindowState();
     storageHandler = model.getStorageHandler();
     layoutForm();
-    savePreferencesOnCloseRequest();
-    loadLastState();
+    saveOnCloseRequest();
+    loadLastWindowState();
     setupClose();
     dialog.show();
     if (model.getHistoryDebugState()) {
@@ -51,7 +51,7 @@ public class PreferencesDialog extends DialogPane {
     setContent(preferenceView);
   }
 
-  private void savePreferencesOnCloseRequest() {
+  private void saveOnCloseRequest() {
     dialog.setOnCloseRequest(e -> {
       if (persistWindowState) {
         // Save window state
@@ -71,7 +71,7 @@ public class PreferencesDialog extends DialogPane {
   /**
    * Loads last saved size and position of the window.
    */
-  private void loadLastState() {
+  private void loadLastWindowState() {
     if (persistWindowState) {
       setPrefSize(storageHandler.loadWindowWidth(), storageHandler.loadWindowHeight());
       getScene().getWindow().setX(storageHandler.loadWindowPosX());
@@ -97,16 +97,14 @@ public class PreferencesDialog extends DialogPane {
     closeButton.setVisible(false);
   }
 
-
   private void setupDebugHistoryTable() {
     final KeyCombination keyCombination =
         new KeyCodeCombination(KeyCode.H, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN);
     preferenceView.getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
-          if (keyCombination.match(event)) {
-            LOGGER.trace("Opened History Debug View");
-            new HistoryDialog(model.getHistory());
-          }
-        }
-    );
+      if (keyCombination.match(event)) {
+        LOGGER.trace("Opened History Debug View");
+        new HistoryDialog(model.getHistory());
+      }
+    });
   }
 }
