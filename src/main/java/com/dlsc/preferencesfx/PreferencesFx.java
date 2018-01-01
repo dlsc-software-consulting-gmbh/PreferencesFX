@@ -102,4 +102,9 @@ public class PreferencesFx {
     preferencesFxModel.setHistoryDebugState(debugState);
     return this;
   }
+
+  public PreferencesFx buttonsVisibility(boolean isVisible) {
+    preferencesFxModel.setButtonsVisible(isVisible);
+    return this;
+  }
 }

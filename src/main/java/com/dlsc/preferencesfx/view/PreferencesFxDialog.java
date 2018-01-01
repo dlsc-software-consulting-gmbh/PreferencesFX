@@ -5,7 +5,7 @@ import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.StorageHandler;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -27,6 +27,8 @@ public class PreferencesFxDialog extends DialogPane {
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
   private boolean persistWindowState;
+  private ButtonType closeWindowBtnType = ButtonType.CLOSE;
+  private ButtonType cancelBtnType = ButtonType.CANCEL;
 
   public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferenceView) {
     this.model = model;
@@ -36,7 +38,7 @@ public class PreferencesFxDialog extends DialogPane {
     layoutForm();
     saveOnCloseRequest();
     loadLastWindowState();
-    setupClose();
+    setupButtons();
     dialog.show();
     if (model.getHistoryDebugState()) {
       setupDebugHistoryTable();
@@ -46,6 +48,7 @@ public class PreferencesFxDialog extends DialogPane {
   private void layoutForm() {
     dialog.setTitle("PreferencesFx");
     dialog.setResizable(true);
+    getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     dialog.initModality(Modality.NONE);
     dialog.setDialogPane(this);
     setContent(preferenceView);
@@ -82,21 +85,6 @@ public class PreferencesFxDialog extends DialogPane {
     }
   }
 
-  /**
-   * Instantiates a close button and makes it invisible.
-   * Dialog requires at least one button to close the dialog window.
-   *
-   * @see <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Dialog.html">
-   * javafx.scene.control.Dialog</a>
-   * Chapter: Dialog Closing Rules
-   */
-  private void setupClose() {
-    this.getButtonTypes().add(ButtonType.CLOSE);
-    Node closeButton = dialog.getDialogPane().lookupButton(ButtonType.CLOSE);
-    closeButton.managedProperty().bind(closeButton.visibleProperty());
-    closeButton.setVisible(false);
-  }
-
   private void setupDebugHistoryTable() {
     final KeyCombination keyCombination =
         new KeyCodeCombination(KeyCode.H, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN);
@@ -106,5 +94,15 @@ public class PreferencesFxDialog extends DialogPane {
         new HistoryDialog(model.getHistory());
       }
     });
+  }
+
+  private void setupButtons() {
+    final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
+    final Button cancelBtn = (Button) lookupButton(cancelBtnType);
+
+    cancelBtn.setOnAction(event -> model.getHistory().undoAll());
+
+    cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
   }
 }

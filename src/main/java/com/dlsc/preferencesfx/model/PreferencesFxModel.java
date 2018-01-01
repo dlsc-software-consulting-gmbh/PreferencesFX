@@ -9,8 +9,10 @@ import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -33,6 +35,7 @@ public class PreferencesFxModel {
 
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
+  private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
 
   public PreferencesFxModel(StorageHandler storageHandler, SearchHandler searchHandler, History history, Category[] categories) {
     this.storageHandler = storageHandler;
@@ -169,5 +172,17 @@ public class PreferencesFxModel {
 
   public SearchHandler getSearchHandler() {
     return searchHandler;
+  }
+
+  public boolean getButtonsVisible() {
+    return buttonsVisible.get();
+  }
+
+  public BooleanProperty buttonsVisibleProperty() {
+    return buttonsVisible;
+  }
+
+  public void setButtonsVisible(boolean buttonsVisible) {
+    this.buttonsVisible.set(buttonsVisible);
   }
 }
