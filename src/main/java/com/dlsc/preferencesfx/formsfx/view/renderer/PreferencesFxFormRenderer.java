@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 
-public class PreferencesFormRenderer extends GridPane implements ViewMixin {
+public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
 
   /**
    * SPACING is used to set the spacing of the group as well as the
@@ -17,21 +17,21 @@ public class PreferencesFormRenderer extends GridPane implements ViewMixin {
   public static final double SPACING = 5;
 
   private Form form;
-  private List<PreferencesGroupRenderer> groups = new ArrayList<>();
+  private List<PreferencesFxGroupRenderer> groups = new ArrayList<>();
 
   /**
    * This is the constructor to pass over data.
    *
    * @param form The form which gets rendered.
    */
-  public PreferencesFormRenderer(Form form) {
+  public PreferencesFxFormRenderer(Form form) {
     this.form = form;
     init();
   }
 
   @Override
   public String getUserAgentStylesheet() {
-    return PreferencesFormRenderer.class.getResource("style.css").toExternalForm();
+    return PreferencesFxFormRenderer.class.getResource("style.css").toExternalForm();
   }
 
   /**
@@ -40,7 +40,7 @@ public class PreferencesFormRenderer extends GridPane implements ViewMixin {
   @Override
   public void initializeParts() {
     groups = form.getGroups().stream().map(
-        g -> new PreferencesGroupRenderer((PreferencesGroup) g, this)).collect(Collectors.toList());
+        g -> new PreferencesFxGroupRenderer((PreferencesFxGroup) g, this)).collect(Collectors.toList());
   }
 
   /**

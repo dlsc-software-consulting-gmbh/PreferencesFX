@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx;
 
-import com.dlsc.preferencesfx.views.RootPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

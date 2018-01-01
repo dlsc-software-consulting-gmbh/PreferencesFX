@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.history;
 
-import com.dlsc.preferencesfx.Setting;
+import com.dlsc.preferencesfx.model.Setting;
 import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,8 +34,10 @@ public class Change<P> {
 
   private final ListProperty<P> oldList = new SimpleListProperty<>();
   private final ListProperty<P> newList = new SimpleListProperty<>();
+
   private final ObjectProperty<P> oldValue = new SimpleObjectProperty<>();
   private final ObjectProperty<P> newValue = new SimpleObjectProperty<>();
+
   private final BooleanProperty listChange = new SimpleBooleanProperty();
 
   private final LocalDateTime timestamp;
