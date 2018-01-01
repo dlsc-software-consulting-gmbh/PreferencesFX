@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.model;
 
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 
+import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
@@ -32,6 +33,8 @@ public class PreferencesFxModel {
   private StorageHandler storageHandler;
   private SearchHandler searchHandler;
   private History history;
+  private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
+
 
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
@@ -184,5 +187,17 @@ public class PreferencesFxModel {
 
   public void setButtonsVisible(boolean buttonsVisible) {
     this.buttonsVisible.set(buttonsVisible);
+  }
+
+  public TranslationService getTranslationService() {
+    return translationService.get();
+  }
+
+  public ObjectProperty<TranslationService> translationServiceProperty() {
+    return translationService;
+  }
+
+  public void setTranslationService(TranslationService translationService) {
+    this.translationService.set(translationService);
   }
 }
