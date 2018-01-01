@@ -126,9 +126,7 @@ public class Category {
   }
 
   public void updateGroupDescriptions() {
-    groups.forEach(group -> {
-      group.getPreferencesGroup().translate();
-    });
+    groups.forEach(group -> group.getPreferencesGroup().translate());
   }
 
   public String getDescription() {
