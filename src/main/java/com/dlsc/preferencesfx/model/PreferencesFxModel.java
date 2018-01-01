@@ -35,7 +35,6 @@ public class PreferencesFxModel {
   private History history;
   private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
 
-
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
@@ -46,8 +45,23 @@ public class PreferencesFxModel {
     this.history = history;
     this.categories = Arrays.asList(categories);
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
+    initializeCategoryTranslation();
     initializeDisplayedCategory();
     loadSettingValues();
+  }
+
+  /**
+   * Sets up a binding of the TranslationService on the model, so that the Category's title gets
+   * translated properly according to the TranslationService used.
+   */
+  private void initializeCategoryTranslation() {
+    flatCategoriesLst.forEach(category -> {
+      translationServiceProperty().addListener((observable, oldValue, newValue) -> {
+        category.translate(newValue);
+        // listen for i18n changes in the TranslationService for this Category
+        newValue.addListener(() -> category.translate(newValue));
+      });
+    });
   }
 
   private void initializeDisplayedCategory() {
