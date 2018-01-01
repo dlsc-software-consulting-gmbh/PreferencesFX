@@ -1,6 +1,8 @@
 package com.dlsc.preferencesfx.model;
 
+import com.dlsc.formsfx.model.structure.DataField;
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.validators.Validator;
 import com.dlsc.preferencesfx.formsfx.view.controls.DoubleSliderControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleComboBoxControl;
@@ -164,6 +166,26 @@ public class Setting<F extends Field, P extends Property> {
         description,
         field.label(description),
         property);
+  }
+
+  /**
+   * Sets the list of validators for the current field. This overrides all
+   * validators that have previously been added.
+   *
+   * @param newValue The validators that are to be used for validating this
+   *                 field. Limited to validators that are able to handle the
+   *                 field's underlying type.
+   * @return the current setting to allow for chaining
+   * @throws UnsupportedOperationException if this {@link Field} is not instanceof {@link DataField}
+   */
+  @SafeVarargs
+  public final Setting validate(Validator... newValue) {
+    if (field instanceof DataField) {
+      ((DataField) field).validate(newValue);
+    } else {
+      throw new UnsupportedOperationException("Field type must be instance of DataField");
+    }
+    return this;
   }
 
   public void mark() {
