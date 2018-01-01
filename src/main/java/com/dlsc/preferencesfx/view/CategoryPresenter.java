@@ -32,8 +32,21 @@ public class CategoryPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
+    initializeTranslation();
     initializeForm(categoryView.form);
     categoryView.initializeFormRenderer();
+  }
+
+  /**
+   * Sets up a binding of the TranslationService on the model, so that this Category's title gets
+   * translated properly according to the TranslationService used.
+   */
+  private void initializeTranslation() {
+    model.translationServiceProperty().addListener((observable, oldValue, newValue) -> {
+      categoryModel.translate();
+      // listen for i18n changes in the TranslationService for this Category
+      newValue.addListener(() -> categoryModel.translate());
+    });
   }
 
   /**
