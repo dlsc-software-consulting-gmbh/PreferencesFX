@@ -7,6 +7,7 @@ import com.google.common.base.Strings;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.apache.logging.log4j.LogManager;
@@ -154,9 +155,7 @@ public class Category {
     this.breadcrumb = breadcrumb;
   }
 
-  public void setDescription(String description) {
-    this.description.set(description);
+  public ReadOnlyStringProperty descriptionProperty() {
+    return description;
   }
-
-
 }
