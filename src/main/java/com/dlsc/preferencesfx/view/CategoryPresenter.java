@@ -33,8 +33,8 @@ public class CategoryPresenter implements Presenter {
   @Override
   public void initializeViewParts() {
     initializeForm(categoryView.form);
-    addI18nListener();
     categoryView.initializeFormRenderer();
+    addI18nListener();
   }
 
   /**
