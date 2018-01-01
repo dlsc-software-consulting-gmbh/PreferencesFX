@@ -23,6 +23,7 @@ package com.dlsc.preferencesfx.formsfx.view.renderer;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.util.TranslationService;
+import com.google.common.base.Strings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -56,8 +57,7 @@ public class PreferencesFxGroup extends Group {
     // Whenever the title's key changes, update the displayed value based
     // on the new translation.
 
-    titleKey.addListener((observable, oldValue, newValue) ->
-        title.setValue(translationService.translate(newValue)));
+    titleKey.addListener((observable, oldValue, newValue) -> translate());
   }
 
   /**
@@ -79,32 +79,8 @@ public class PreferencesFxGroup extends Group {
    * @see TranslationService
    */
   public Group title(String newValue) {
-    if (isI18N()) {
-      titleKey.set(newValue);
-    } else {
-      title.set(newValue);
-    }
-
+    titleKey.set(newValue);
     return this;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  void translate(TranslationService newValue) {
-    translationService = newValue;
-
-    if (!isI18N()) {
-      return;
-    }
-
-    if (titleKey.get() == null || titleKey.get().isEmpty()) {
-      titleKey.setValue(title.get());
-    } else {
-      title.setValue(translationService.translate(titleKey.get()));
-    }
-
-    fields.forEach(f -> f.translate(translationService));
   }
 
   public String getTitle() {
@@ -121,5 +97,16 @@ public class PreferencesFxGroup extends Group {
 
   public void setRenderer(PreferencesFxGroupRenderer renderer) {
     this.renderer = renderer;
+  }
+
+  public void translate() {
+    if (translationService == null) {
+      title.setValue(titleKey.getValue());
+      return;
+    }
+
+    if (!Strings.isNullOrEmpty(titleKey.getValue())) {
+      title.setValue(translationService.translate(titleKey.get()));
+    }
   }
 }
