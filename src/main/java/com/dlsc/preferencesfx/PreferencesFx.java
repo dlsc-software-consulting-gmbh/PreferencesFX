@@ -17,7 +17,6 @@ import com.dlsc.preferencesfx.view.PreferencesFxView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// TODO: fix i18n search!
 public class PreferencesFx {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFx.class.getName());

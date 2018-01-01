@@ -44,6 +44,9 @@ public class Group {
   }
 
   public String getDescription() {
+    if (preferencesGroup != null) {
+      return preferencesGroup.getTitle();
+    }
     return description;
   }
 

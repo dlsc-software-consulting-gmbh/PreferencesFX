@@ -211,6 +211,9 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public String getDescription() {
+    if (field != null) {
+      return field.getLabel();
+    }
     return description;
   }
 
