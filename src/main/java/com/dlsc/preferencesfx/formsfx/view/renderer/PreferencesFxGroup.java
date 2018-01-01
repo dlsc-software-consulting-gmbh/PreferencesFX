@@ -34,7 +34,7 @@ import javafx.beans.property.StringProperty;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class PreferencesGroup extends Group {
+public class PreferencesFxGroup extends Group {
 
   /**
    * The title acts as a description for the group. It is always visible to
@@ -45,12 +45,12 @@ public class PreferencesGroup extends Group {
   private final StringProperty titleKey = new SimpleStringProperty("");
   private final StringProperty title = new SimpleStringProperty("");
 
-  private PreferencesGroupRenderer renderer;
+  private PreferencesFxGroupRenderer renderer;
 
   /**
    * {@inheritDoc}
    */
-  private PreferencesGroup(Field... fields) {
+  private PreferencesFxGroup(Field... fields) {
     super(fields);
 
     // Whenever the title's key changes, update the displayed value based
@@ -66,8 +66,8 @@ public class PreferencesGroup extends Group {
    * @param fields The fields to be included in the section.
    * @return Returns a new {@code Section}.
    */
-  public static PreferencesGroup of(Field... fields) {
-    return new PreferencesGroup(fields);
+  public static PreferencesFxGroup of(Field... fields) {
+    return new PreferencesFxGroup(fields);
   }
 
   /**
@@ -115,11 +115,11 @@ public class PreferencesGroup extends Group {
     return title;
   }
 
-  public PreferencesGroupRenderer getRenderer() {
+  public PreferencesFxGroupRenderer getRenderer() {
     return renderer;
   }
 
-  public void setRenderer(PreferencesGroupRenderer renderer) {
+  public void setRenderer(PreferencesFxGroupRenderer renderer) {
     this.renderer = renderer;
   }
 }

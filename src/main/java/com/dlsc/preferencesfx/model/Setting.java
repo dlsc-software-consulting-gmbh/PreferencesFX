@@ -1,7 +1,16 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.model;
 
 import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.preferencesfx.formsfx.view.controls.*;
+import com.dlsc.preferencesfx.formsfx.view.controls.DoubleSliderControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleComboBoxControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleDoubleControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleIntegerControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleListViewControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
+import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
@@ -15,7 +24,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -207,7 +215,7 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public void addToBreadcrumb(String breadCrumb) {
-    this.breadcrumb = breadCrumb + PreferencesFx.BREADCRUMB_DELIMITER + description;
+    this.breadcrumb = breadCrumb + Constants.BREADCRUMB_DELIMITER + description;
   }
 
   public String getBreadcrumb() {
