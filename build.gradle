@@ -1,8 +1,15 @@
 group 'com.dlsc'
-version '1.1.0-SNAPSHOT'
+version '1.2.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+    description = 'Generates gradlew[.bat] scripts'
+    gradleVersion = '4.2.1'
+}
 
 allprojects {
     repositories {
+        jcenter()
+        mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url 'http://maven.bestsolution.at/efxclipse-releases/' }
     }
@@ -10,8 +17,11 @@ allprojects {
 
 buildscript {
     repositories {
-        mavenCentral()
         jcenter()
+        mavenCentral()
+        maven { url 'https://jcenter.bintray.com' }
+        maven { url 'http://maven.bestsolution.at/efxclipse-releases/' }
+
     }
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.6'
@@ -41,7 +51,6 @@ compileTestJava {
 }
 
 dependencies {
-    // include all local jar libraries in /lib, including FormsFX
     compile fileTree(dir: 'lib', include: ['*.jar'])
 
     // JUnit 4
@@ -70,11 +79,6 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
 }
 
-task wrapper(type: Wrapper) {
-    description = 'Generates gradlew[.bat] scripts'
-    gradleVersion = '4.2.1'
-}
-
 asciidoctorj {
     version = '1.5.6'
 }
@@ -82,31 +86,27 @@ asciidoctorj {
 asciidoctor {
     requires = ['asciidoctor-diagram']
 
-    sourceDir = file('doc')
-    outputDir = file('build/doc')
+    sourceDir = file('docs')
+    outputDir = file('build/docs')
 
     backends = ['html5', 'pdf']
 
-    attributes 'source-highlighter' : 'coderay',
-            'coderay-linenums-mode' : 'table',
-            toc : 'left',
-            icons : 'font',
-            linkattrs : true,
-            encoding : 'utf-8'
+    attributes 'source-highlighter': 'coderay',
+            'coderay-linenums-mode': 'table',
+            toc: 'left',
+            icons: 'font',
+            linkattrs: true,
+            encoding: 'utf-8'
 }
 
-task('pdf', type: org.asciidoctor.gradle.AsciidoctorTask){
+task('pdf', type: org.asciidoctor.gradle.AsciidoctorTask) {
     configure asciidoctor
     backends = ['pdf']
 }
 
-task('html', type: org.asciidoctor.gradle.AsciidoctorTask){
+task('html', type: org.asciidoctor.gradle.AsciidoctorTask) {
     configure asciidoctor
     backends = ['html5']
-}
-
-asciidoctor {
-
 }
 
 checkstyle {

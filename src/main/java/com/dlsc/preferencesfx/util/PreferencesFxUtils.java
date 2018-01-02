@@ -2,9 +2,10 @@ package com.dlsc.preferencesfx.util;
 
 import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 
-import com.dlsc.preferencesfx.Category;
-import com.dlsc.preferencesfx.Group;
-import com.dlsc.preferencesfx.Setting;
+import com.dlsc.preferencesfx.model.Category;
+import com.dlsc.preferencesfx.model.Group;
+import com.dlsc.preferencesfx.model.Setting;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -91,63 +92,8 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * Compares three objects with decreasing priority from the first to the last object.
-   * {@see developer reference} for further information
-   *
-   * @param o1
-   * @param o2
-   * @param o3
-   * @param match1
-   * @param match2
-   * @param match3
-   * @param <T>
-   * @return the object with the least amount of matches, taking into account the priority
-   */
-  public static <T> T compareMatches(T o1, T o2, T o3, int match1, int match2, int match3) {
-    if (match1 == 0 && match2 == 0 && match3 == 0) { // if all values are 0
-      return null;
-    } else if (match1 == match2 && match1 == match3) { // if all values are equal to each other
-      return o1;
-    } else if (match1 == 1) {
-      return o1;
-    } else if (match2 == 1) {
-      return o2;
-    } else if (match3 == 1) {
-      return o3;
-    } else if (match1 != 0 && match2 == 0 && match3 == 0) {
-      return o1;
-    } else if (match1 == 0 && match2 != 0 && match3 == 0) {
-      return o2;
-    } else if (match1 == 0 && match2 == 0 && match3 != 0) {
-      return o3;
-    } else if (match1 == 0) {
-      if (match3 < match2) {  // can only be match3, if it's smaller than match2
-        return o3;
-      } else {                // from here it can only be match2 if match1 is 0
-        return o2;
-      }
-    } else if (match2 == 0) {
-      if (match1 <= match3) { // can only be match1, if it's smaller or equal to match3
-        return o1;
-      } else {                // from here it can only be match3
-        return o3;
-      }
-    } else if (match3 == 0) {
-      if (match2 < match1) {  // can only be match2, if it's smaller than match1
-        return o2;
-      } else {                // from here it can only be match1
-        return o1;
-      } // from here, no more 0 or 1 values are present => comparisons can be made safely!
-    } else if (match1 <= match2 && match1 <= match3) {
-      return o1;
-    } else if (match2 <= match3) {
-      return o2;
-    }
-    return o3;
-  }
-
-  /**
    * Gets the amount of rows of a given GridPane.
+   *
    * @return the amount of rows, if present, -1 else
    */
   public static int getRowCount(GridPane grid) {
@@ -156,5 +102,37 @@ public class PreferencesFxUtils {
       Integer rowSpan = GridPane.getRowSpan(n);   // default: 1
       return (row == null ? 0 : row) + (rowSpan == null ? 0 : rowSpan - 1);
     }).max().orElse(-1);
+  }
+
+  /**
+   * Puts all categories and their respective children recursively flattened into a list.
+   *
+   * @param categoryLst list of parent categories
+   * @return list of all parent categories and respective recursive children categories
+   */
+  public static List<Category> flattenCategories(List<Category> categoryLst) {
+    if (categoryLst == null) {
+      return null;
+    }
+    List<Category> flatCategoryLst = new ArrayList<>();
+    flattenCategories(flatCategoryLst, categoryLst);
+    return flatCategoryLst;
+  }
+
+  /**
+   * Internal helper method for {@link PreferencesFxUtils#flattenCategories(List)}.
+   * Goes through the list of parent categories and adds each category it visists to the flatList.
+   *
+   * @param flatList   list to which the categories for the flattened list should be added
+   * @param categories list of parent categories to go through recursively
+   */
+  private static void flattenCategories(List<Category> flatList, List<Category> categories) {
+    categories.forEach(category -> {
+      flatList.add(category);
+      List<Category> children = category.getChildren();
+      if (children != null) {
+        flattenCategories(flatList, children);
+      }
+    });
   }
 }

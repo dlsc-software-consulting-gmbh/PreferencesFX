@@ -1,14 +1,15 @@
-package com.dlsc.preferencesfx.views;
+package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.preferencesfx.AppStarter;
-import com.dlsc.preferencesfx.Category;
-import com.dlsc.preferencesfx.Group;
-import com.dlsc.preferencesfx.PreferencesFx;
-import com.dlsc.preferencesfx.Setting;
+import com.dlsc.formsfx.model.util.ResourceBundleService;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
-import com.google.common.collect.Lists;
+import com.dlsc.preferencesfx.model.Category;
+import com.dlsc.preferencesfx.model.Group;
+import com.dlsc.preferencesfx.model.Setting;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -24,15 +25,11 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * Created by François Martin on 30.10.17.
  */
-public class RootPane extends StackPane {
-  private static final Logger LOGGER =
-      LogManager.getLogger(RootPane.class.getName());
+public class RootPaneI18n extends StackPane {
 
   public PreferencesFx preferencesFx;
 
@@ -45,13 +42,13 @@ public class RootPane extends StackPane {
   DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
 
-  ObservableList<String> resolutionItems = FXCollections.observableArrayList(Lists.newArrayList(
+  ObservableList<String> resolutionItems = FXCollections.observableArrayList(Arrays.asList(
       "1024x768", "1280x1024", "1440x900", "1920x1080")
   );
   ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
 
   ListProperty<String> orientationItems = new SimpleListProperty<>(
-      FXCollections.observableArrayList(Lists.newArrayList("Vertical", "Horizontal"))
+      FXCollections.observableArrayList(Arrays.asList("Vertical", "Horizontal"))
   );
   ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 
@@ -60,14 +57,14 @@ public class RootPane extends StackPane {
 
   // Favorites
   ListProperty<String> favoritesItems = new SimpleListProperty<>(
-      FXCollections.observableArrayList(Lists.newArrayList(
+      FXCollections.observableArrayList(Arrays.asList(
           "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
           "Mikesoft Numbers", "Mikesoft Present", "IntelliG"
           )
       )
   );
   ListProperty<String> favoritesSelection = new SimpleListProperty<>(
-      FXCollections.observableArrayList(Lists.newArrayList(
+      FXCollections.observableArrayList(Arrays.asList(
           "Eboda Phot-O-Shop", "Mikesoft Text"))
   );
 
@@ -75,9 +72,14 @@ public class RootPane extends StackPane {
   IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
   IntegerField customControl = setupCustomControl();
 
-  public RootPane() {
+  // i18n
+  ResourceBundle rbDE = ResourceBundle.getBundle("demo-locale", new Locale("de", "CH"));
+  ResourceBundle rbEN = ResourceBundle.getBundle("demo-locale", new Locale("en", "US"));
+  ResourceBundleService rbs = new ResourceBundleService(rbEN);
+
+  public RootPaneI18n() {
     preferencesFx = createPreferences();
-    getChildren().add(new DemoView(preferencesFx, this));
+    getChildren().add(new DemoViewI18n(preferencesFx, this));
   }
 
   private IntegerField setupCustomControl() {
@@ -87,34 +89,34 @@ public class RootPane extends StackPane {
 
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(AppStarter.class,
-        Category.of("General",
-            Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
+        Category.of("general",
+            Group.of("greeting",
+                Setting.of("welcome", welcomeText)
             ),
-            Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
+            Group.of("display",
+                Setting.of("brightness", brightness),
+                Setting.of("night_mode", nightMode)
             )
         ),
-        Category.of("Screen")
+        Category.of("screen")
             .subCategories(
-                Category.of("Scaling & Ordering",
+                Category.of("scaling_ordering",
                     Group.of(
-                        Setting.of("Scaling", scaling),
-                        Setting.of("Screen name", screenName),
-                        Setting.of("Resolution", resolutionItems, resolutionSelection),
-                        Setting.of("Orientation", orientationItems, orientationSelection)
-                    ).description("Screen Options"),
+                        Setting.of("scaling", scaling),
+                        Setting.of("screen_name", screenName),
+                        Setting.of("resolution", resolutionItems, resolutionSelection),
+                        Setting.of("orientation", orientationItems, orientationSelection)
+                    ).description("screen_options"),
                     Group.of(
-                        Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
+                        Setting.of("font_size", fontSize, 6, 36),
+                        Setting.of("line_spacing", lineSpacing, 0, 3, 1)
                     )
                 )
             ),
-        Category.of("Favorites",
-            Setting.of("Favorites", favoritesItems, favoritesSelection),
-            Setting.of("Favorite Number", customControl, customControlProperty)
+        Category.of("favorites",
+            Setting.of("favorites", favoritesItems, favoritesSelection),
+            Setting.of("favorite_number", customControl, customControlProperty)
         )
-    ).persistWindowState(true).debugHistoryMode(true);
+    ).persistWindowState(true).debugHistoryMode(true).buttonsVisibility(true).i18n(rbs);
   }
 }

@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.history;
 
-import com.dlsc.preferencesfx.Setting;
+import com.dlsc.preferencesfx.model.Setting;
 import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -145,6 +145,10 @@ public class History {
     return false;
   }
 
+  public void undoAll() {
+    while(undo()){}
+  }
+
   public boolean redo() {
     LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
     Change nextChange = next();
@@ -154,6 +158,10 @@ public class History {
       return true;
     }
     return false;
+  }
+
+  public void redoAll() {
+    while(redo()){}
   }
 
   private Change next() {
@@ -176,6 +184,19 @@ public class History {
 
   private boolean hasPrev() {
     return undoAvailable.get();
+  }
+
+  /**
+   * Clears the change history.
+   * @param undoAll if true, will undo all changes before clearing
+   */
+  public void clear(boolean undoAll){
+    if (undoAll) {
+      undoAll();
+    }
+    changes.clear();
+    position.set(-1);
+    validPosition.set(-1);
   }
 
   /**

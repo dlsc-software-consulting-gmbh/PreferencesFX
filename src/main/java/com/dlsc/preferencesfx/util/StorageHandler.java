@@ -1,25 +1,29 @@
 package com.dlsc.preferencesfx.util;
 
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_CATEGORY;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_DIVIDER_POSITION;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_HEIGHT;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_POS_X;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_POS_Y;
-import static com.dlsc.preferencesfx.PreferencesFx.DEFAULT_PREFERENCES_WIDTH;
-import static com.dlsc.preferencesfx.PreferencesFx.DIVIDER_POSITION;
-import static com.dlsc.preferencesfx.PreferencesFx.SELECTED_CATEGORY;
-import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_HEIGHT;
-import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_X;
-import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_POS_Y;
-import static com.dlsc.preferencesfx.PreferencesFx.WINDOW_WIDTH;
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_HEIGHT;
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_POS_X;
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_POS_Y;
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_WIDTH;
+import static com.dlsc.preferencesfx.util.Constants.DIVIDER_POSITION;
+import static com.dlsc.preferencesfx.util.Constants.SELECTED_CATEGORY;
+import static com.dlsc.preferencesfx.util.Constants.WINDOW_HEIGHT;
+import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_X;
+import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_Y;
+import static com.dlsc.preferencesfx.util.Constants.WINDOW_WIDTH;
 
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class StorageHandler {
+
+  private static final Logger LOGGER =
+      LogManager.getLogger(StorageHandler.class.getName());
 
   private Preferences preferences;
   private Gson gson;
@@ -30,21 +34,21 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the last selected category in TreeView.
+   * Stores the last selected category in TreeSearchView.
    *
-   * @param categoryId the category id to be stored
+   * @param breadcrumb the category path as a breadcrumb string
    */
-  public void saveSelectedCategory(int categoryId) {
-    preferences.putInt(SELECTED_CATEGORY, categoryId);
+  public void saveSelectedCategory(String breadcrumb) {
+    preferences.put(SELECTED_CATEGORY, breadcrumb);
   }
 
   /**
-   * Gets the last selected category in TreeView.
+   * Gets the last selected category in TreeSearchView.
    *
-   * @return the index of the selected category. 0 if none is found
+   * @return the breadcrumb string of the selected category. null if none is found
    */
-  public int loadSelectedCategory() {
-    return preferences.getInt(SELECTED_CATEGORY, DEFAULT_CATEGORY);
+  public String loadSelectedCategory() {
+    return preferences.get(SELECTED_CATEGORY, null);
   }
 
   /**
@@ -66,7 +70,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the window width of the PreferencesDialog.
+   * Stores the window width of the PreferencesFxDialog.
    *
    * @param windowWidth the width of the window to be stored
    */
@@ -75,7 +79,7 @@ public class StorageHandler {
   }
 
   /**
-   * Searches for the window width of the PreferencesDialog.
+   * Searches for the window width of the PreferencesFxDialog.
    *
    * @return the double value of the window width. 1000 if none is found
    */
@@ -84,7 +88,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the window height of the PreferencesDialog.
+   * Stores the window height of the PreferencesFxDialog.
    *
    * @param windowHeight the height of the window to be stored
    */
@@ -93,7 +97,7 @@ public class StorageHandler {
   }
 
   /**
-   * Searches for the window height of the PreferencesDialog.
+   * Searches for the window height of the PreferencesFxDialog.
    *
    * @return the double value of the window height. 700 if none is found
    */
@@ -102,7 +106,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the position of the PreferencesDialog in horizontal orientation.
+   * Stores the position of the PreferencesFxDialog in horizontal orientation.
    *
    * @param windowPosX the double value of the window position in horizontal orientation
    */
@@ -120,7 +124,7 @@ public class StorageHandler {
   }
 
   /**
-   * Stores the position of the PreferencesDialog in vertical orientation.
+   * Stores the position of the PreferencesFxDialog in vertical orientation.
    *
    * @param windowPosY the double value of the window position in vertical orientation
    */

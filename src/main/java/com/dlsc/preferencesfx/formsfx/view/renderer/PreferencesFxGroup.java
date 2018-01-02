@@ -23,6 +23,7 @@ package com.dlsc.preferencesfx.formsfx.view.renderer;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.util.TranslationService;
+import com.google.common.base.Strings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -34,7 +35,7 @@ import javafx.beans.property.StringProperty;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public class PreferencesGroup extends Group {
+public class PreferencesFxGroup extends Group {
 
   /**
    * The title acts as a description for the group. It is always visible to
@@ -45,19 +46,18 @@ public class PreferencesGroup extends Group {
   private final StringProperty titleKey = new SimpleStringProperty("");
   private final StringProperty title = new SimpleStringProperty("");
 
-  private PreferencesGroupRenderer renderer;
+  private PreferencesFxGroupRenderer renderer;
 
   /**
    * {@inheritDoc}
    */
-  private PreferencesGroup(Field... fields) {
+  private PreferencesFxGroup(Field... fields) {
     super(fields);
 
     // Whenever the title's key changes, update the displayed value based
     // on the new translation.
 
-    titleKey.addListener((observable, oldValue, newValue) ->
-        title.setValue(translationService.translate(newValue)));
+    titleKey.addListener((observable, oldValue, newValue) -> translate());
   }
 
   /**
@@ -66,8 +66,8 @@ public class PreferencesGroup extends Group {
    * @param fields The fields to be included in the section.
    * @return Returns a new {@code Section}.
    */
-  public static PreferencesGroup of(Field... fields) {
-    return new PreferencesGroup(fields);
+  public static PreferencesFxGroup of(Field... fields) {
+    return new PreferencesFxGroup(fields);
   }
 
   /**
@@ -79,32 +79,8 @@ public class PreferencesGroup extends Group {
    * @see TranslationService
    */
   public Group title(String newValue) {
-    if (isI18N()) {
-      titleKey.set(newValue);
-    } else {
-      title.set(newValue);
-    }
-
+    titleKey.set(newValue);
     return this;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  void translate(TranslationService newValue) {
-    translationService = newValue;
-
-    if (!isI18N()) {
-      return;
-    }
-
-    if (titleKey.get() == null || titleKey.get().isEmpty()) {
-      titleKey.setValue(title.get());
-    } else {
-      title.setValue(translationService.translate(titleKey.get()));
-    }
-
-    fields.forEach(f -> f.translate(translationService));
   }
 
   public String getTitle() {
@@ -115,11 +91,22 @@ public class PreferencesGroup extends Group {
     return title;
   }
 
-  public PreferencesGroupRenderer getRenderer() {
+  public PreferencesFxGroupRenderer getRenderer() {
     return renderer;
   }
 
-  public void setRenderer(PreferencesGroupRenderer renderer) {
+  public void setRenderer(PreferencesFxGroupRenderer renderer) {
     this.renderer = renderer;
+  }
+
+  public void translate() {
+    if (translationService == null) {
+      title.setValue(titleKey.getValue());
+      return;
+    }
+
+    if (!Strings.isNullOrEmpty(titleKey.getValue())) {
+      title.setValue(translationService.translate(titleKey.get()));
+    }
   }
 }
