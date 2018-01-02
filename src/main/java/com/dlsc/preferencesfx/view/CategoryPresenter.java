@@ -34,6 +34,21 @@ public class CategoryPresenter implements Presenter {
   public void initializeViewParts() {
     initializeForm(categoryView.form);
     categoryView.initializeFormRenderer();
+    addI18nListener();
+  }
+
+  /**
+   * Updates the internal FormsFX form with the most current TranslationService.
+   * Makes sure the group descriptions are updated with changing locale.
+   */
+  void addI18nListener() {
+    model.translationServiceProperty().addListener((observable, oldValue, newValue) -> {
+      if (oldValue != newValue) {
+        categoryView.form.i18n(newValue);
+        newValue.addListener(categoryModel::updateGroupDescriptions);
+        categoryModel.updateGroupDescriptions();
+      }
+    });
   }
 
   /**

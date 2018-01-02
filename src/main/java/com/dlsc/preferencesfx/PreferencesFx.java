@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx;
 
+import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
@@ -105,6 +106,19 @@ public class PreferencesFx {
 
   public PreferencesFx buttonsVisibility(boolean isVisible) {
     preferencesFxModel.setButtonsVisible(isVisible);
+    return this;
+  }
+
+  /**
+   * Sets the translation service property of the preferences dialog.
+   *
+   * @param newValue
+   *              The new value for the translation service property.
+   *
+   * @return PreferencesFx to allow for chaining.
+   */
+  public PreferencesFx i18n(TranslationService newValue) {
+    preferencesFxModel.setTranslationService(newValue);
     return this;
   }
 }

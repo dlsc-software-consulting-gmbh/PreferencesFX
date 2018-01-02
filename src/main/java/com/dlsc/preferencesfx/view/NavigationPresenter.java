@@ -6,6 +6,7 @@ import com.dlsc.preferencesfx.util.SearchHandler;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,6 +41,7 @@ public class NavigationPresenter implements Presenter {
         navigationView.searchFld.textProperty(),
         navigationView.rootItem.predicateProperty()
     );
+    setupCellValueFactory();
   }
 
   private void initializeTreeItems() {
@@ -70,10 +72,12 @@ public class NavigationPresenter implements Presenter {
 
     // Update selected category upon search changes
     searchHandler.categoryMatchProperty().addListener(
-        (observable, oldCategory, newCategory) ->
-            navigationView.treeView.getSelectionModel().select(
-                categoryTreeItemMap.get(newCategory)
-            )
+        (observable, oldCategory, newCategory) -> {
+          LOGGER.trace(String.format("Category match changed! oldCategory: %s newCategory: %s selecting: %s", oldCategory, newCategory, categoryTreeItemMap.get(newCategory)));
+          navigationView.treeView.getSelectionModel().select(
+              categoryTreeItemMap.get(newCategory)
+          );
+        }
     );
   }
 
@@ -116,6 +120,25 @@ public class NavigationPresenter implements Presenter {
    */
   public void setSelectedCategory(Category category) {
     navigationView.setSelectedItem(categoryTreeItemMap.get(category));
+  }
+
+  /**
+   * Makes the TreeItems' text update when the description of a Category changes (due to i18n).
+   */
+  public void setupCellValueFactory() {
+    navigationView.treeView.setCellFactory(param -> new TreeCell<Category>() {
+      @Override
+      protected void updateItem(Category category, boolean empty) {
+        super.updateItem(category, empty);
+        textProperty().unbind();
+        if (empty || category == null) {
+          setText(null);
+          setGraphic(null);
+        } else {
+          textProperty().bind(category.descriptionProperty());
+        }
+      }
+    });
   }
 
 }

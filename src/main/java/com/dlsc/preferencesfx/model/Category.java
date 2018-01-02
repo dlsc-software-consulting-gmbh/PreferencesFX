@@ -1,10 +1,15 @@
 package com.dlsc.preferencesfx.model;
 
+import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.google.common.base.Strings;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.ReadOnlyStringProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +18,8 @@ public class Category {
   private static final Logger LOGGER =
       LogManager.getLogger(Category.class.getName());
 
-  private String description;
+  private StringProperty description = new SimpleStringProperty();
+  private StringProperty descriptionKey = new SimpleStringProperty();
   private List<Group> groups;
   private List<Category> children;
   private String breadcrumb;
@@ -24,7 +30,8 @@ public class Category {
    * @param description Category name, for display in {@link }
    */
   private Category(String description) {
-    this.description = description;
+    descriptionKey.setValue(description);
+    translate(null);
     breadcrumb = description;
   }
 
@@ -101,8 +108,32 @@ public class Category {
     unmarkSettings();
   }
 
+  /**
+   * This internal method is used as a callback for when the translation
+   * service or its locale changes. Also applies the translation to all
+   * contained sections.
+   *
+   * @see com.dlsc.formsfx.model.structure.Group ::translate
+   */
+  public void translate(TranslationService translationService) {
+    if (translationService == null) {
+      description.setValue(descriptionKey.getValue());
+      return;
+    }
+
+    if (!Strings.isNullOrEmpty(descriptionKey.get())) {
+      description.setValue(translationService.translate(descriptionKey.get()));
+    }
+  }
+
+  public void updateGroupDescriptions() {
+    if (groups != null) {
+      groups.forEach(group -> group.getPreferencesGroup().translate());
+    }
+  }
+
   public String getDescription() {
-    return description;
+    return description.get();
   }
 
   public List<Group> getGroups() {
@@ -115,7 +146,7 @@ public class Category {
 
   @Override
   public String toString() {
-    return description;
+    return description.get();
   }
 
   public String getBreadcrumb() {
@@ -126,4 +157,7 @@ public class Category {
     this.breadcrumb = breadcrumb;
   }
 
+  public ReadOnlyStringProperty descriptionProperty() {
+    return description;
+  }
 }

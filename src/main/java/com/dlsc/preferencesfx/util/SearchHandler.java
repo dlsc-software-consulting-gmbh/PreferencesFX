@@ -105,13 +105,17 @@ public class SearchHandler {
    */
   private void initializeSearchTextListener() {
     searchText.addListener((observable, oldText, newText) -> {
-      if (newText.equals("")) { // empty search
-        // unmark all categories
-        unmarkEverything();
+      if (newText.equals("")) { // empty search -> doesn't match anything!
+        resetSearch();
       } else {
         updateSearch(newText);
       }
     });
+  }
+
+  private void resetSearch() {
+    setCategoryMatch(null); // no categories match
+    unmarkEverything();
   }
 
   /**
@@ -202,6 +206,7 @@ public class SearchHandler {
    */
   public Category compareMatches(Category setting, Category group, Category category,
                                  int settingMatch, int groupMatch, int categoryMatch) {
+    LOGGER.trace(String.format("compareMatches: settingMatch: %s, groupMatch: %s, categoryMatch: %s", settingMatch, groupMatch, categoryMatch));
     if (settingMatch == 0 && groupMatch == 0 && categoryMatch == 0) { // if all values are 0
       return null;
     } else if (settingMatch == groupMatch && settingMatch == categoryMatch) { // if all values are equal to each other
@@ -249,6 +254,7 @@ public class SearchHandler {
   }
 
   private void setCategoryMatch(Category categoryMatch) {
+    LOGGER.trace("Set Category Match to: " + categoryMatch);
     this.categoryMatch.set(categoryMatch);
   }
 

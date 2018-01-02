@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.model;
 
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 
+import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
@@ -32,6 +33,7 @@ public class PreferencesFxModel {
   private StorageHandler storageHandler;
   private SearchHandler searchHandler;
   private History history;
+  private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
 
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
@@ -43,8 +45,23 @@ public class PreferencesFxModel {
     this.history = history;
     this.categories = Arrays.asList(categories);
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
+    initializeCategoryTranslation();
     initializeDisplayedCategory();
     loadSettingValues();
+  }
+
+  /**
+   * Sets up a binding of the TranslationService on the model, so that the Category's title gets
+   * translated properly according to the TranslationService used.
+   */
+  private void initializeCategoryTranslation() {
+    flatCategoriesLst.forEach(category -> {
+      translationServiceProperty().addListener((observable, oldValue, newValue) -> {
+        category.translate(newValue);
+        // listen for i18n changes in the TranslationService for this Category
+        newValue.addListener(() -> category.translate(newValue));
+      });
+    });
   }
 
   private void initializeDisplayedCategory() {
@@ -184,5 +201,17 @@ public class PreferencesFxModel {
 
   public void setButtonsVisible(boolean buttonsVisible) {
     this.buttonsVisible.set(buttonsVisible);
+  }
+
+  public TranslationService getTranslationService() {
+    return translationService.get();
+  }
+
+  public ObjectProperty<TranslationService> translationServiceProperty() {
+    return translationService;
+  }
+
+  public void setTranslationService(TranslationService translationService) {
+    this.translationService.set(translationService);
   }
 }
