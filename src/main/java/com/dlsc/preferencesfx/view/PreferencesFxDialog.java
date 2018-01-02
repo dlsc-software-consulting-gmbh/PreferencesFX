@@ -65,14 +65,12 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   private void saveSettingValues() {
-    // Save setting values
     PreferencesFxUtils.categoriesToSettings(
         model.getFlatCategoriesLst()
     ).forEach(setting -> setting.saveSettingValue(storageHandler));
   }
 
   private void saveWindowState() {
-    // Save window state
     storageHandler.saveWindowWidth(widthProperty().get());
     storageHandler.saveWindowHeight(heightProperty().get());
     storageHandler.saveWindowPosX(getScene().getWindow().getX());
