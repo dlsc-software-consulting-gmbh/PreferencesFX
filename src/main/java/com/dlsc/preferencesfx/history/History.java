@@ -187,6 +187,19 @@ public class History {
   }
 
   /**
+   * Clears the change history.
+   * @param undoAll if true, will undo all changes before clearing
+   */
+  public void clear(boolean undoAll){
+    if (undoAll) {
+      undoAll();
+    }
+    changes.clear();
+    position.set(-1);
+    validPosition.set(-1);
+  }
+
+  /**
    * Equals to the same as: "return ++position" if position was an Integer.
    *
    * @return the position value before the incrementation

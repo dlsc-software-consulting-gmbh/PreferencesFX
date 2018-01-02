@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
+import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.Constants;
@@ -36,7 +37,7 @@ public class PreferencesFxDialog extends DialogPane {
     persistWindowState = model.isPersistWindowState();
     storageHandler = model.getStorageHandler();
     layoutForm();
-    saveOnCloseRequest();
+    setupDialogClose();
     loadLastWindowState();
     setupButtons();
     dialog.show();
@@ -54,21 +55,29 @@ public class PreferencesFxDialog extends DialogPane {
     setContent(preferenceView);
   }
 
-  private void saveOnCloseRequest() {
+  private void setupDialogClose() {
     dialog.setOnCloseRequest(e -> {
       if (persistWindowState) {
-        // Save window state
-        storageHandler.saveWindowWidth(widthProperty().get());
-        storageHandler.saveWindowHeight(heightProperty().get());
-        storageHandler.saveWindowPosX(getScene().getWindow().getX());
-        storageHandler.saveWindowPosY(getScene().getWindow().getY());
-        model.saveSelectedCategory();
+        saveWindowState();
       }
-      // Save setting values
-      PreferencesFxUtils.categoriesToSettings(
-          model.getFlatCategoriesLst()
-      ).forEach(setting -> setting.saveSettingValue(storageHandler));
+      saveSettingValues();
     });
+  }
+
+  private void saveSettingValues() {
+    // Save setting values
+    PreferencesFxUtils.categoriesToSettings(
+        model.getFlatCategoriesLst()
+    ).forEach(setting -> setting.saveSettingValue(storageHandler));
+  }
+
+  private void saveWindowState() {
+    // Save window state
+    storageHandler.saveWindowWidth(widthProperty().get());
+    storageHandler.saveWindowHeight(heightProperty().get());
+    storageHandler.saveWindowPosX(getScene().getWindow().getX());
+    storageHandler.saveWindowPosY(getScene().getWindow().getY());
+    model.saveSelectedCategory();
   }
 
   /**
@@ -100,7 +109,9 @@ public class PreferencesFxDialog extends DialogPane {
     final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
 
-    cancelBtn.setOnAction(event -> model.getHistory().undoAll());
+    History history = model.getHistory();
+    cancelBtn.setOnAction(event -> history.clear(true));
+    closeBtn.setOnAction(event -> history.clear(false));
 
     cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
     closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
