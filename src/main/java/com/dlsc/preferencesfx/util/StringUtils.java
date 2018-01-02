@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.util;
 
-import com.google.common.base.Strings;
+    import com.google.common.base.Strings;
 
 /**
  * Created by François Martin on 27.11.17.
