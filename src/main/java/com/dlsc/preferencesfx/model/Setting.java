@@ -22,6 +22,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -40,7 +41,7 @@ public class Setting<F extends Field, P extends Property> {
   private P value;
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
-  private String breadcrumb = "";
+  private final StringProperty breadcrumb = new SimpleStringProperty("");
 
   private Setting(String description, F field, P value) {
     this.description = description;
@@ -226,25 +227,33 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public void saveSettingValue(StorageHandler storageHandler) {
-    storageHandler.saveObject(breadcrumb, value.getValue());
+    storageHandler.saveObject(getBreadcrumb(), value.getValue());
   }
 
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
-          storageHandler.loadObservableList(breadcrumb, (ObservableList) value.getValue())
+          storageHandler.loadObservableList(getBreadcrumb(), (ObservableList) value.getValue())
       );
     } else {
-      value.setValue(storageHandler.loadObject(breadcrumb, value.getValue()));
+      value.setValue(storageHandler.loadObject(getBreadcrumb(), value.getValue()));
     }
   }
 
   public void addToBreadcrumb(String breadCrumb) {
-    this.breadcrumb = breadCrumb + Constants.BREADCRUMB_DELIMITER + description;
+    setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
   }
 
   public String getBreadcrumb() {
+    return breadcrumb.get();
+  }
+
+  public StringProperty breadcrumbProperty() {
     return breadcrumb;
+  }
+
+  public void setBreadcrumb(String breadcrumb) {
+    this.breadcrumb.set(breadcrumb);
   }
 
   @Override
@@ -266,6 +275,6 @@ public class Setting<F extends Field, P extends Property> {
 
   @Override
   public String toString() {
-    return breadcrumb;
+    return getBreadcrumb();
   }
 }
