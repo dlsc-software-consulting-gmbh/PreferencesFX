@@ -6,6 +6,8 @@ import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.view.BreadCrumbPresenter;
+import com.dlsc.preferencesfx.view.BreadCrumbView;
 import com.dlsc.preferencesfx.view.CategoryController;
 import com.dlsc.preferencesfx.view.CategoryPresenter;
 import com.dlsc.preferencesfx.view.CategoryView;
@@ -26,6 +28,9 @@ public class PreferencesFx {
   private NavigationView navigationView;
   private NavigationPresenter navigationPresenter;
 
+  private BreadCrumbView breadCrumbView;
+  private BreadCrumbPresenter breadCrumbPresenter;
+
   private CategoryController categoryController;
 
   private PreferencesFxView preferencesFxView;
@@ -41,7 +46,10 @@ public class PreferencesFx {
     navigationView = new NavigationView(preferencesFxModel);
     navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
 
-    preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, categoryController);
+    breadCrumbView = new BreadCrumbView(preferencesFxModel);
+    breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
+
+    preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
   }
 

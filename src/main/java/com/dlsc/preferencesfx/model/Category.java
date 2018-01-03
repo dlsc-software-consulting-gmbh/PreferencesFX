@@ -1,5 +1,7 @@
 package com.dlsc.preferencesfx.model;
 
+import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
+
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
@@ -80,12 +82,12 @@ public class Category {
 
   public void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
-      setBreadcrumb(getBreadcrumb() + Constants.BREADCRUMB_DELIMITER + category.getDescription());
+      category.setBreadcrumb(getBreadcrumb() + BREADCRUMB_DELIMITER + category.getDescription());
       if (!Objects.equals(category.getGroups(), null)) {
         category.getGroups().forEach(group -> group.addToBreadcrumb(getBreadcrumb()));
       }
       if (!Objects.equals(category.getChildren(), null)) {
-        createBreadcrumbs(category.getChildren());
+        category.createBreadcrumbs(category.getChildren());
       }
     });
   }
