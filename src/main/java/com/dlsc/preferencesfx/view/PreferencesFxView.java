@@ -4,6 +4,7 @@ import com.dlsc.preferencesfx.history.view.HistoryButtonBox;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,6 +33,12 @@ public class PreferencesFxView extends BorderPane implements View {
     init();
   }
 
+  public PreferencesFxView(PreferencesFxModel model, CategoryController categoryController) {
+    this.model = model;
+    this.categoryController = categoryController;
+    init();
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -54,16 +61,20 @@ public class PreferencesFxView extends BorderPane implements View {
   @Override
   public void layoutParts() {
     preferencesPane = new MasterDetailPane();
-    preferencesPane.setDetailSide(Side.LEFT);
-    preferencesPane.setDetailNode(navigationView);
-    preferencesPane.setMasterNode(
-        new VBox(
-            breadCrumbView,
-            categoryController
-        )
-    );
+    if (model.getCategories().size() > 1) {
+      preferencesPane.setDetailSide(Side.LEFT);
+      preferencesPane.setDetailNode(navigationView);
+      preferencesPane.setMasterNode(
+          new VBox(
+              breadCrumbView,
+              categoryController
+          )
+      );
 
-    setCenter(preferencesPane);
+      setCenter(preferencesPane);
+    } else {
+      setCenter(new StackPane(categoryController));
+    }
     setBottom(new HistoryButtonBox(model.getHistory()));
   }
 

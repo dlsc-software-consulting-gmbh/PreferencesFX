@@ -43,13 +43,17 @@ public class PreferencesFx {
     initializeCategoryViews();
     categoryController.setView(preferencesFxModel.getDisplayedCategory()); // display initial category
 
-    navigationView = new NavigationView(preferencesFxModel);
-    navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
+    if (categories.length > 1) {
+      navigationView = new NavigationView(preferencesFxModel);
+      navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
 
-    breadCrumbView = new BreadCrumbView(preferencesFxModel);
-    breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
+      breadCrumbView = new BreadCrumbView(preferencesFxModel);
+      breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
 
-    preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
+      preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
+    } else {
+      preferencesFxView = new PreferencesFxView(preferencesFxModel, categoryController);
+    }
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
   }
 
@@ -120,9 +124,7 @@ public class PreferencesFx {
   /**
    * Sets the translation service property of the preferences dialog.
    *
-   * @param newValue
-   *              The new value for the translation service property.
-   *
+   * @param newValue The new value for the translation service property.
    * @return PreferencesFx to allow for chaining.
    */
   public PreferencesFx i18n(TranslationService newValue) {
