@@ -4,11 +4,13 @@ import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.BreadCrumbBar;
 
-public class BreadCrumbPresenter {
+public class BreadCrumbPresenter implements Presenter {
+  private static final Logger LOGGER =
+      LogManager.getLogger(BreadCrumbPresenter.class.getName());
   private final PreferencesFxModel model;
   private final BreadCrumbView breadCrumbView;
 
@@ -19,43 +21,46 @@ public class BreadCrumbPresenter {
     setupBreadCrumbBar();
   }
 
-  private void setupBreadCrumbBar() {
-    List<Category> categories = new ArrayList<>();
-    String selectedBreadcrumb = model.getDisplayedCategory().getBreadcrumb();
-    String[] stringArr = selectedBreadcrumb.split(BREADCRUMB_DELIMITER);
+  /**
+   * {@inheritDoc}
+   */
+  private void setupListeners() {
+    // When the displayed category changes, it reloads the BreadcrumbBar
+    model.displayedCategoryProperty().addListener(e -> setupBreadCrumbBar());
 
-    categories = addToCategory(stringArr[0], categories);
+    // Sets the displayed category when clicking on a breadcrumb
+    breadCrumbView.breadCrumbBar.setOnCrumbAction(event ->
+        model.setDisplayedCategory(event.getSelectedCrumb().getValue())
+    );
+  }
+
+  /**
+   * Sets up the BreadcrumbBar depending on the displayed category
+   */
+  private void setupBreadCrumbBar() {
+    String[] stringArr = model.getDisplayedCategory().getBreadcrumb().split(BREADCRUMB_DELIMITER);
+    Category[] categories = new Category[stringArr.length];
+
+    // Collecting all parent categories from the displayed category using the breadcrumb
+    categories[0] = searchCategory(stringArr[0]);
     for (int i = 1; i < stringArr.length; ++i) {
       stringArr[i] = stringArr[i - 1] + BREADCRUMB_DELIMITER + stringArr[i];
-      categories = addToCategory(stringArr[i], categories);
+      categories[i] = searchCategory(stringArr[i]);
     }
 
-    Category[] categoriesArr = new Category[categories.size()];
-    for (int i = 0; i < categoriesArr.length; ++i) {
-      categoriesArr[i] = categories.get(i);
-    }
-
-    breadCrumbView.breadcrumbsItm = BreadCrumbBar.buildTreeModel(categoriesArr);
+    breadCrumbView.breadcrumbsItm = BreadCrumbBar.buildTreeModel(categories);
     breadCrumbView.breadCrumbBar.setSelectedCrumb(breadCrumbView.breadcrumbsItm);
   }
 
-  private List<Category> addToCategory(String breadcrumb, List<Category> categories) {
-    Category category = model.getFlatCategoriesLst().stream().filter(
+  /**
+   * Searches in all categories breadcrumbs one that matches the given one.
+   *
+   * @param breadcrumb the breadcrumb, which the matching category should have
+   * @return a matching category or null if nothing is found
+   */
+  private Category searchCategory(String breadcrumb) {
+    return model.getFlatCategoriesLst().stream().filter(
         cat -> cat.getBreadcrumb().equals(breadcrumb)
-    ).findFirst().get();
-    categories.add(category);
-    return categories;
-  }
-
-  private void setupListeners() {
-    model.displayedCategoryProperty().addListener(e -> setupBreadCrumbBar());
-
-    breadCrumbView.breadCrumbBar.setOnCrumbAction(event ->
-        model.setDisplayedCategory(
-            model.getCategories().get(
-                model.getCategories().indexOf(event.getSelectedCrumb().getValue())
-            )
-        )
-    );
+    ).findFirst().orElse(null);
   }
 }

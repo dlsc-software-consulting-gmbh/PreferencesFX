@@ -79,6 +79,11 @@ public class NavigationPresenter implements Presenter {
           );
         }
     );
+
+    // Listens when a breadcrumb was clicked and the displayed category changed
+    model.displayedCategoryProperty().addListener((observable, oldValue, newValue) ->
+        setSelectedCategory(newValue)
+    );
   }
 
   /**
