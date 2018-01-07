@@ -17,7 +17,7 @@ public class BreadCrumbView extends HBox implements View {
 
   public BreadCrumbView(PreferencesFxModel model) {
     this.model = model;
-    layoutParts();
+    init();
   }
 
   /**
