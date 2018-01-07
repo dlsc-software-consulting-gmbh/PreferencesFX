@@ -22,13 +22,7 @@ public class PreferencesFxPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    loadDividerPosition();
-  }
 
-  private void loadDividerPosition() {
-    preferenceView.preferencesPane.setDividerPosition(
-        model.getStorageHandler().loadDividerPosition()
-    );
   }
 
   /**
@@ -44,19 +38,9 @@ public class PreferencesFxPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // Whenever the divider position is changed, it's position is saved.
-    preferenceView.preferencesPane.dividerPositionProperty().addListener(
-        (observable, oldValue, newValue) ->
-            model.saveDividerPosition(
-                preferenceView.preferencesPane.getDividerPosition()
-            )
-    );
-
-    // When the displayed category is changed, load the divider position again
-    model.displayedCategoryProperty().addListener(
-        (observable, oldCategory, newCategory) ->
-            loadDividerPosition()
-    );
+    // Binds the dividerPosition to the divider position in the model.
+    preferenceView.preferencesPane.dividerPositionProperty()
+        .bindBidirectional(model.dividerPositionProperty());
 
     // When the displayedCategory in the model changes, set the view in the CategoryController
     preferenceView.categoryController.addListener(model.displayedCategoryProperty());

@@ -75,10 +75,8 @@ public class PreferencesFxDialog extends DialogPane {
     storageHandler.saveWindowHeight(heightProperty().get());
     storageHandler.saveWindowPosX(getScene().getWindow().getX());
     storageHandler.saveWindowPosY(getScene().getWindow().getY());
+    storageHandler.saveDividerPosition(model.getDividerPosition());
     model.saveSelectedCategory();
-//    System.out.println("Save:");
-//    System.out.println("model.loadSelectedCategory(): " + model.loadSelectedCategory());
-//    System.out.println("model.getDisplayedCategory(): " + model.getDisplayedCategory());
   }
 
   /**
@@ -89,10 +87,8 @@ public class PreferencesFxDialog extends DialogPane {
       setPrefSize(storageHandler.loadWindowWidth(), storageHandler.loadWindowHeight());
       getScene().getWindow().setX(storageHandler.loadWindowPosX());
       getScene().getWindow().setY(storageHandler.loadWindowPosY());
+      model.setDividerPosition(storageHandler.loadDividerPosition());
       model.setDisplayedCategory(model.loadSelectedCategory());
-//      System.out.println("Load:");
-//      System.out.println("model.loadSelectedCategory(): " + model.loadSelectedCategory());
-//      System.out.println("model.getDisplayedCategory(): " + model.getDisplayedCategory());
     } else {
       setPrefSize(Constants.DEFAULT_PREFERENCES_WIDTH, Constants.DEFAULT_PREFERENCES_HEIGHT);
       getScene().getWindow().centerOnScreen();

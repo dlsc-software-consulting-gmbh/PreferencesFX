@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.model;
 
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
@@ -11,9 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -38,6 +41,7 @@ public class PreferencesFxModel {
   private boolean persistWindowState = false;
   private boolean historyDebugState = false;
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
+  private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
   public PreferencesFxModel(StorageHandler storageHandler, SearchHandler searchHandler, History history, Category[] categories) {
     this.storageHandler = storageHandler;
@@ -140,14 +144,6 @@ public class PreferencesFxModel {
         .findAny().orElse(defaultCategory);
   }
 
-  public void saveDividerPosition(double dividerPosition) {
-    storageHandler.saveDividerPosition(dividerPosition);
-  }
-
-  public double loadDividerPosition() {
-    return storageHandler.loadDividerPosition();
-  }
-
   public Category getDisplayedCategory() {
     return displayedCategory.get();
   }
@@ -203,5 +199,17 @@ public class PreferencesFxModel {
 
   public void setTranslationService(TranslationService translationService) {
     this.translationService.set(translationService);
+  }
+
+  public double getDividerPosition() {
+    return dividerPosition.get();
+  }
+
+  public DoubleProperty dividerPositionProperty() {
+    return dividerPosition;
+  }
+
+  public void setDividerPosition(double dividerPosition) {
+    this.dividerPosition.set(dividerPosition);
   }
 }
