@@ -32,18 +32,12 @@ public class BreadCrumbPresenter implements Presenter {
     breadCrumbView.breadCrumbBar.setOnCrumbAction(event ->
         model.setDisplayedCategory(event.getSelectedCrumb().getValue())
     );
-
-    // When the description of any category changes (for example when translating),
-    // the breadcrumb will be updated
-    model.getFlatCategoriesLst().forEach(
-        category -> category.descriptionProperty().addListener(observable -> setupBreadCrumbBar())
-    );
   }
 
   /**
    * Sets up the BreadcrumbBar depending on the displayed category
    */
-  private void setupBreadCrumbBar() {
+  public void setupBreadCrumbBar() {
     String[] stringArr = model.getDisplayedCategory().getBreadcrumb().split(BREADCRUMB_DELIMITER);
     Category[] categories = new Category[stringArr.length];
 
