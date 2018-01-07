@@ -59,7 +59,7 @@ public class BreadCrumbPresenter implements Presenter {
   }
 
   /**
-   * Searches in all categories breadcrumbs one that matches the given one.
+   * Searches in all categories for the category that matches a breadcrumb.
    *
    * @param breadcrumb the breadcrumb, which the matching category should have
    * @return a matching category or null if nothing is found
