@@ -136,7 +136,7 @@ public class PreferencesFxModel {
       return defaultCategory;
     }
     return flatCategoriesLst.stream()
-        .filter(category -> category.getDescription().equals(breadcrumb))
+        .filter(category -> category.getBreadcrumb().equals(breadcrumb))
         .findAny().orElse(defaultCategory);
   }
 
