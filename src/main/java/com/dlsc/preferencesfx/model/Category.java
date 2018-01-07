@@ -3,7 +3,6 @@ package com.dlsc.preferencesfx.model;
 import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
 
 import com.dlsc.formsfx.model.util.TranslationService;
-import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.google.common.base.Strings;
 import java.util.Arrays;
