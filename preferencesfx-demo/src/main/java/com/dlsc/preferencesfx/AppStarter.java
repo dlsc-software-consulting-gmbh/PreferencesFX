@@ -18,7 +18,7 @@ public class AppStarter extends Application {
     primaryStage.setTitle("PreferencesFx Demo");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(1000);
-    primaryStage.setHeight(600);
+    primaryStage.setHeight(700);
     primaryStage.show();
     primaryStage.centerOnScreen();
   }
