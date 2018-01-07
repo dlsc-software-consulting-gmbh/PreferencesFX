@@ -67,6 +67,6 @@ public class BreadCrumbPresenter implements Presenter {
   private Category searchCategory(String breadcrumb) {
     return model.getFlatCategoriesLst().stream().filter(
         cat -> cat.getBreadcrumb().equals(breadcrumb)
-    ).findFirst().orElse(null);
+    ).findAny().orElse(null);
   }
 }
