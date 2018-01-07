@@ -38,10 +38,6 @@ public class PreferencesFxPresenter implements Presenter {
    */
   @Override
   public void setupValueChangedListeners() {
-    // Binds the dividerPosition to the divider position in the model.
-    preferenceView.preferencesPane.dividerPositionProperty()
-        .bindBidirectional(model.dividerPositionProperty());
-
     // When the displayedCategory in the model changes, set the view in the CategoryController
     preferenceView.categoryController.addListener(model.displayedCategoryProperty());
   }
@@ -51,6 +47,8 @@ public class PreferencesFxPresenter implements Presenter {
    */
   @Override
   public void setupBindings() {
-
+    // Binds the dividerPosition to the divider position in the model.
+    preferenceView.preferencesPane.dividerPositionProperty()
+        .bindBidirectional(model.dividerPositionProperty());
   }
 }

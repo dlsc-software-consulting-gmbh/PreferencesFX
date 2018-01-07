@@ -146,7 +146,8 @@ public class History {
   }
 
   public void undoAll() {
-    while(undo()){}
+    while (undo()) {
+    }
   }
 
   public boolean redo() {
@@ -161,7 +162,8 @@ public class History {
   }
 
   public void redoAll() {
-    while(redo()){}
+    while (redo()) {
+    }
   }
 
   private Change next() {
@@ -188,9 +190,10 @@ public class History {
 
   /**
    * Clears the change history.
+   *
    * @param undoAll if true, will undo all changes before clearing
    */
-  public void clear(boolean undoAll){
+  public void clear(boolean undoAll) {
     if (undoAll) {
       undoAll();
     }
