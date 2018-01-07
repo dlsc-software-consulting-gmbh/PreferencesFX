@@ -46,7 +46,7 @@ public class PreferencesFxModel {
     this.categories = Arrays.asList(categories);
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
-    initializeDisplayedCategory();
+    setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
     loadSettingValues();
   }
 
@@ -62,16 +62,6 @@ public class PreferencesFxModel {
         newValue.addListener(() -> category.translate(newValue));
       });
     });
-  }
-
-  private void initializeDisplayedCategory() {
-    Category displayCategory;
-    if (persistWindowState) {
-      displayCategory = loadSelectedCategory();
-    } else {
-      displayCategory = getCategories().get(DEFAULT_CATEGORY);
-    }
-    setDisplayedCategory(displayCategory);
   }
 
   private void loadSettingValues() {
