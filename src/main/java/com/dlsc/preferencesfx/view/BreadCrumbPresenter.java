@@ -17,14 +17,14 @@ public class BreadCrumbPresenter implements Presenter {
   public BreadCrumbPresenter(PreferencesFxModel model, BreadCrumbView breadCrumbView) {
     this.model = model;
     this.breadCrumbView = breadCrumbView;
-    setupListeners();
+    init();
     setupBreadCrumbBar();
   }
 
   /**
    * {@inheritDoc}
    */
-  private void setupListeners() {
+  public void setupListeners() {
     // When the displayed category changes, it reloads the BreadcrumbBar
     model.displayedCategoryProperty().addListener(e -> setupBreadCrumbBar());
 
