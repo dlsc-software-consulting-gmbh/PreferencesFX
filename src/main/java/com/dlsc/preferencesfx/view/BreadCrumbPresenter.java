@@ -24,7 +24,7 @@ public class BreadCrumbPresenter implements Presenter {
   /**
    * {@inheritDoc}
    */
-  public void setupListeners() {
+  public void setupValueChangedListeners() {
     // When the displayed category changes, it reloads the BreadcrumbBar
     model.displayedCategoryProperty().addListener(e -> setupBreadCrumbBar());
 

@@ -10,7 +10,6 @@ public interface Presenter {
    */
   default void init() {
     initializeViewParts();
-    setupListeners();
     setupEventHandlers();
     setupValueChangedListeners();
     setupBindings();
@@ -20,12 +19,6 @@ public interface Presenter {
    * Initializes parts of the view which require more logic.
    */
   default void initializeViewParts() {
-  }
-
-  /**
-   * Sets up listeners of the view.
-   */
-  default void setupListeners() {
   }
 
   /**
