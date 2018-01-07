@@ -28,6 +28,7 @@ public class PreferencesFxDialog extends DialogPane {
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
   private boolean persistWindowState;
+  private boolean saveSettings;
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
   private ButtonType cancelBtnType = ButtonType.CANCEL;
 
@@ -35,7 +36,9 @@ public class PreferencesFxDialog extends DialogPane {
     this.model = model;
     this.preferenceView = preferenceView;
     persistWindowState = model.isPersistWindowState();
+    saveSettings = model.isSaveSettings();
     storageHandler = model.getStorageHandler();
+    model.loadSettingValues();
     layoutForm();
     setupDialogClose();
     loadLastWindowState();
@@ -60,7 +63,9 @@ public class PreferencesFxDialog extends DialogPane {
       if (persistWindowState) {
         saveWindowState();
       }
-      saveSettingValues();
+      if (saveSettings) {
+        saveSettingValues();
+      }
     });
   }
 

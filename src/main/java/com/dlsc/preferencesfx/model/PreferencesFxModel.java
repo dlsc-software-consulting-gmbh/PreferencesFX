@@ -39,6 +39,7 @@ public class PreferencesFxModel {
   private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
 
   private boolean persistWindowState = false;
+  private boolean saveSettings = false;
   private boolean historyDebugState = false;
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
@@ -51,7 +52,7 @@ public class PreferencesFxModel {
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
     setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
-    loadSettingValues();
+    createBreadcrumbs(this.categories);
   }
 
   /**
@@ -68,12 +69,13 @@ public class PreferencesFxModel {
     });
   }
 
-  private void loadSettingValues() {
-    createBreadcrumbs(categories);
+  public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
         .forEach(setting -> {
           LOGGER.trace("Loading: " + setting.getBreadcrumb());
-          setting.loadSettingValue(storageHandler);
+          if (saveSettings) {
+            setting.loadSettingValue(storageHandler);
+          }
           history.attachChangeListener(setting);
         });
   }
@@ -100,6 +102,14 @@ public class PreferencesFxModel {
 
   public void setPersistWindowState(boolean persistWindowState) {
     this.persistWindowState = persistWindowState;
+  }
+
+  public boolean isSaveSettings() {
+    return saveSettings;
+  }
+
+  public void setSaveSettings(boolean saveSettings) {
+    this.saveSettings = saveSettings;
   }
 
   public History getHistory() {
