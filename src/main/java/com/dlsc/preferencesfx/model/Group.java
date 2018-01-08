@@ -4,6 +4,8 @@ import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFxGroup;
 import com.dlsc.preferencesfx.util.Constants;
 import java.util.Arrays;
 import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +25,7 @@ public class Group {
   private PreferencesFxGroup preferencesGroup;
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
-  private String breadcrumb = "";
+  private final StringProperty breadcrumb = new SimpleStringProperty("");
 
   private Group(String description, Setting... settings) {
     this.description = description;
@@ -81,11 +83,19 @@ public class Group {
   }
 
   public void addToBreadcrumb(String breadCrumb) {
-    this.breadcrumb = breadCrumb + Constants.BREADCRUMB_DELIMITER + description;
-    settings.forEach(setting -> setting.addToBreadcrumb(this.breadcrumb));
+    setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
+    settings.forEach(setting -> setting.addToBreadcrumb(getBreadcrumb()));
   }
 
   public String getBreadcrumb() {
+    return breadcrumb.get();
+  }
+
+  public StringProperty breadcrumbProperty() {
     return breadcrumb;
+  }
+
+  public void setBreadcrumb(String breadcrumb) {
+    this.breadcrumb.set(breadcrumb);
   }
 }

@@ -9,6 +9,7 @@ import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,11 +20,13 @@ public class CategoryPresenter implements Presenter {
   private PreferencesFxModel model;
   private Category categoryModel;
   private CategoryView categoryView;
+  private final BreadCrumbPresenter breadCrumbPresenter;
 
-  public CategoryPresenter(PreferencesFxModel model, Category categoryModel, CategoryView categoryView) {
+  public CategoryPresenter(PreferencesFxModel model, Category categoryModel, CategoryView categoryView, BreadCrumbPresenter breadCrumbPresenter) {
     this.model = model;
     this.categoryModel = categoryModel;
     this.categoryView = categoryView;
+    this.breadCrumbPresenter = breadCrumbPresenter;
     init();
   }
 
@@ -46,6 +49,9 @@ public class CategoryPresenter implements Presenter {
       if (oldValue != newValue) {
         categoryView.form.i18n(newValue);
         newValue.addListener(categoryModel::updateGroupDescriptions);
+        if (!Objects.equals(breadCrumbPresenter, null)) {
+          newValue.addListener(breadCrumbPresenter::setupBreadCrumbBar);
+        }
         categoryModel.updateGroupDescriptions();
       }
     });

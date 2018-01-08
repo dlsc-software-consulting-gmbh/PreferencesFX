@@ -6,6 +6,8 @@ import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.view.BreadCrumbPresenter;
+import com.dlsc.preferencesfx.view.BreadCrumbView;
 import com.dlsc.preferencesfx.view.CategoryController;
 import com.dlsc.preferencesfx.view.CategoryPresenter;
 import com.dlsc.preferencesfx.view.CategoryView;
@@ -26,6 +28,9 @@ public class PreferencesFx {
   private NavigationView navigationView;
   private NavigationPresenter navigationPresenter;
 
+  private BreadCrumbView breadCrumbView;
+  private BreadCrumbPresenter breadCrumbPresenter;
+
   private CategoryController categoryController;
 
   private PreferencesFxView preferencesFxView;
@@ -34,15 +39,23 @@ public class PreferencesFx {
   private PreferencesFx(Class<?> saveClass, Category... categories) {
     preferencesFxModel = new PreferencesFxModel(new StorageHandler(saveClass), new SearchHandler(), new History(), categories);
 
+    breadCrumbView = new BreadCrumbView(preferencesFxModel);
+    breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
+
     categoryController = new CategoryController();
     initializeCategoryViews();
     categoryController.setView(preferencesFxModel.getDisplayedCategory()); // display initial category
 
-    navigationView = new NavigationView(preferencesFxModel);
-    navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
-
-    preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, categoryController);
+    if (categories.length > 1) {
+      navigationView = new NavigationView(preferencesFxModel);
+      navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
+      
+      preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
+    } else {
+      preferencesFxView = new PreferencesFxView(preferencesFxModel, categoryController);
+    }
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
+
   }
 
   /**
@@ -64,7 +77,7 @@ public class PreferencesFx {
   private void initializeCategoryViews() {
     preferencesFxModel.getFlatCategoriesLst().forEach(category -> {
       CategoryView categoryView = new CategoryView(preferencesFxModel, category);
-      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesFxModel, category, categoryView);
+      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesFxModel, category, categoryView, breadCrumbPresenter);
       categoryController.addView(category, categoryView, categoryPresenter);
     });
   }

@@ -1,7 +1,8 @@
 package com.dlsc.preferencesfx.model;
 
+import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
+
 import com.dlsc.formsfx.model.util.TranslationService;
-import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.google.common.base.Strings;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class Category {
   private StringProperty descriptionKey = new SimpleStringProperty();
   private List<Group> groups;
   private List<Category> children;
-  private String breadcrumb;
+  private final StringProperty breadcrumb = new SimpleStringProperty("");
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -32,7 +33,7 @@ public class Category {
   private Category(String description) {
     descriptionKey.setValue(description);
     translate(null);
-    breadcrumb = description;
+    setBreadcrumb(description);
   }
 
   private Category(String description, Group... groups) {
@@ -80,12 +81,12 @@ public class Category {
 
   public void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
-      breadcrumb = breadcrumb + Constants.BREADCRUMB_DELIMITER + category.getDescription();
+      category.setBreadcrumb(getBreadcrumb() + BREADCRUMB_DELIMITER + category.getDescription());
       if (!Objects.equals(category.getGroups(), null)) {
-        category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
+        category.getGroups().forEach(group -> group.addToBreadcrumb(getBreadcrumb()));
       }
       if (!Objects.equals(category.getChildren(), null)) {
-        createBreadcrumbs(category.getChildren());
+        category.createBreadcrumbs(category.getChildren());
       }
     });
   }
@@ -150,11 +151,15 @@ public class Category {
   }
 
   public String getBreadcrumb() {
+    return breadcrumb.get();
+  }
+
+  public StringProperty breadcrumbProperty() {
     return breadcrumb;
   }
 
   public void setBreadcrumb(String breadcrumb) {
-    this.breadcrumb = breadcrumb;
+    this.breadcrumb.set(breadcrumb);
   }
 
   public ReadOnlyStringProperty descriptionProperty() {
