@@ -41,8 +41,12 @@ public class BreadCrumbPresenter implements Presenter {
     String[] stringArr = model.getDisplayedCategory().getBreadcrumb().split(BREADCRUMB_DELIMITER);
     Category[] categories = new Category[stringArr.length];
 
-    // Collecting all parent categories from the displayed category using the breadcrumb
+    // Collecting all parent categories from the displayed category using the breadcrumb.
+    // There will always be at least one category which will be added to the breadcrumb.
     categories[0] = searchCategory(stringArr[0]);
+
+    // If there are more than one category in the stringArr[], they will be added. For this reason
+    // the Integer in the loop starts with one, thus only the second element in the array is needed.
     for (int i = 1; i < stringArr.length; ++i) {
       stringArr[i] = stringArr[i - 1] + BREADCRUMB_DELIMITER + stringArr[i];
       categories[i] = searchCategory(stringArr[i]);
