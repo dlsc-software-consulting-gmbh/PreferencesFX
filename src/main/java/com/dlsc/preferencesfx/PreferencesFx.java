@@ -90,6 +90,20 @@ public class PreferencesFx {
   }
 
   /**
+   * Defines if the PreferencesAPI should save the applications states.
+   * This includes the persistence of the dialog window, as well as each settings values.
+   *
+   * @param enable if true, the storing of the window state of the dialog window
+   *               and the settings values are enabled.
+   * @return this object for fluent API
+   */
+  public PreferencesFx persistApplicationState(boolean enable) {
+    persistWindowState(enable);
+    saveSettings(enable);
+    return this;
+  }
+
+  /**
    * Defines whether the state of the dialog window should be persisted or not.
    *
    * @param persist if true, the size, position and last selected item in the TreeSearchView are
@@ -99,6 +113,19 @@ public class PreferencesFx {
    */
   public PreferencesFx persistWindowState(boolean persist) {
     preferencesFxModel.setPersistWindowState(persist);
+    return this;
+  }
+
+  /**
+   * Defines whether the adjusted settings of the application should be saved or not.
+   *
+   * @param save if true, the values of all settings of the application are saved.
+   *             When the application is started again, the settings values will be restored to
+   *             the last saved state. Defaults to false.
+   * @return this object for fluent API
+   */
+  public PreferencesFx saveSettings(boolean save) {
+    preferencesFxModel.setSaveSettings(save);
     return this;
   }
 

@@ -80,7 +80,7 @@ public class NavigationPresenter implements Presenter {
         }
     );
 
-    // Sets the selected category to the displayed category when it changes.
+    // Listens when a breadcrumb was clicked or the last selected category is loaded
     model.displayedCategoryProperty().addListener((observable, oldValue, newValue) ->
         setSelectedCategory(newValue)
     );
