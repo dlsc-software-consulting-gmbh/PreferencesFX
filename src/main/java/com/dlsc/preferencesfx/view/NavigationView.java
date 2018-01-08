@@ -60,6 +60,7 @@ public class NavigationView extends VBox implements View {
     // TreeSearchView requires a RootItem, but in this case it's not desired to have it visible.
     treeView.setShowRoot(false);
     treeView.getRoot().setExpanded(true);
+    treeView.setStyle("-fx-background-color:transparent;");
   }
 
   /**

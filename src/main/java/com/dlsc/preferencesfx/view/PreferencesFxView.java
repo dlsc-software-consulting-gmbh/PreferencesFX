@@ -1,5 +1,7 @@
 package com.dlsc.preferencesfx.view;
 
+import static com.dlsc.preferencesfx.util.Constants.SCROLLPANE_HEIGHT;
+
 import com.dlsc.preferencesfx.history.view.HistoryButtonBox;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.geometry.Side;
@@ -70,7 +72,8 @@ public class PreferencesFxView extends BorderPane implements View {
               categoryController
           )
       );
-
+      // Binding for ScrollPane.
+      categoryController.minHeightProperty().bind(heightProperty().subtract(SCROLLPANE_HEIGHT));
       setCenter(preferencesPane);
     } else {
       setCenter(new StackPane(categoryController));
