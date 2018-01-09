@@ -20,7 +20,7 @@ public class CategoryView extends StackPane implements View {
   /**
    * Initializes a new view of a Category.
    *
-   * @param model
+   * @param model the preferencesFx model
    * @param categoryModel is the category that will be displayed in this view
    */
   public CategoryView(PreferencesFxModel model, Category categoryModel) {

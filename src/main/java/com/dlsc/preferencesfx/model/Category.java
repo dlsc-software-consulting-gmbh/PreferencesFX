@@ -67,8 +67,8 @@ public class Category {
   /**
    * Creates a new category from settings, if the settings shouldn't be individually grouped.
    *
-   * @param description Category name, for display in {@link }
-   * @param settings    {@link Setting} to be shown in the {@link }
+   * @param description Category name, for display in {@link CategoryView}
+   * @param settings    {@link Setting} to be shown in the {@link CategoryView}
    * @return initialized Category object
    */
   public static Category of(String description, Setting... settings) {
