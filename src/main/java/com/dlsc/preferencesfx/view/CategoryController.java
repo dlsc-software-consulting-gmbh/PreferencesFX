@@ -25,6 +25,10 @@ public class CategoryController extends ScrollPane {
   private HashMap<Category, CategoryView> views = new HashMap<>();
   private HashMap<Category, CategoryPresenter> presenters = new HashMap<>();
 
+  public CategoryController() {
+    setStyle("-fx-background-color:transparent;");
+  }
+
   /**
    * Returns an already loaded presenter.
    *
@@ -53,8 +57,6 @@ public class CategoryController extends ScrollPane {
    */
   public boolean setView(final Category category) {
     LOGGER.trace("CategoryController, setView: " + category);
-    setStyle("-fx-background-color:transparent;");
-
     CategoryView categoryView = views.get(category);
     if (categoryView != null) { // view is loaded
       setContent(categoryView);
