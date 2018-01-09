@@ -35,7 +35,7 @@ public class BreadCrumbPresenter implements Presenter {
   }
 
   /**
-   * Sets up the BreadcrumbBar depending on the displayed category
+   * Sets up the BreadcrumbBar depending on the displayed category.
    */
   public void setupBreadCrumbBar() {
     String[] stringArr = model.getDisplayedCategory().getBreadcrumb().split(BREADCRUMB_DELIMITER);

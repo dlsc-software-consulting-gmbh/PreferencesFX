@@ -37,20 +37,25 @@ public class PreferencesFx {
   private PreferencesFxPresenter preferencesFxPresenter;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
-    preferencesFxModel = new PreferencesFxModel(new StorageHandler(saveClass), new SearchHandler(), new History(), categories);
+    preferencesFxModel = new PreferencesFxModel(
+        new StorageHandler(saveClass), new SearchHandler(), new History(), categories
+    );
 
     breadCrumbView = new BreadCrumbView(preferencesFxModel);
     breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
 
     categoryController = new CategoryController();
     initializeCategoryViews();
-    categoryController.setView(preferencesFxModel.getDisplayedCategory()); // display initial category
+    // display initial category
+    categoryController.setView(preferencesFxModel.getDisplayedCategory());
 
     if (categories.length > 1) {
       navigationView = new NavigationView(preferencesFxModel);
       navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
 
-      preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
+      preferencesFxView = new PreferencesFxView(
+          preferencesFxModel, navigationView, breadCrumbView, categoryController
+      );
     } else {
       preferencesFxView = new PreferencesFxView(preferencesFxModel, categoryController);
     }
@@ -77,7 +82,9 @@ public class PreferencesFx {
   private void initializeCategoryViews() {
     preferencesFxModel.getFlatCategoriesLst().forEach(category -> {
       CategoryView categoryView = new CategoryView(preferencesFxModel, category);
-      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesFxModel, category, categoryView, breadCrumbPresenter);
+      CategoryPresenter categoryPresenter = new CategoryPresenter(
+          preferencesFxModel, category, categoryView, breadCrumbPresenter
+      );
       categoryController.addView(category, categoryView, categoryPresenter);
     });
   }
@@ -132,7 +139,7 @@ public class PreferencesFx {
   /**
    * Defines whether the table to debug the undo / redo history should be shown in a dialog
    * when pressing a key combination or not.
-   * <p>
+   * <\br>
    * Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the
    * undo / redo history, shown in a table.
    *

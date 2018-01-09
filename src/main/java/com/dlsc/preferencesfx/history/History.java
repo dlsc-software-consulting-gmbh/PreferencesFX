@@ -72,17 +72,18 @@ public class History {
   }
 
   private void addChange(Change change) {
-    LOGGER.trace("addChange, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+    LOGGER.trace("addChange, before, size: " + changes.size() + " pos: "
+        + position.get() + " validPos: " + validPosition.get());
 
     int lastIndex = changes.size() - 1;
 
     // check if change is on same setting as the last change => compounded change
-    boolean compounded = changes.size() > 0 && position.get() != -1 &&
-        changes.get(position.get()).getSetting().equals(change.getSetting());
+    boolean compounded = changes.size() > 0 && position.get() != -1
+        && changes.get(position.get()).getSetting().equals(change.getSetting());
 
     // check if the last added change has the same new and old value
-    boolean redundant = changes.size() > 0 && position.get() != -1 &&
-        changes.get(position.get()).isRedundant();
+    boolean redundant = changes.size() > 0 && position.get() != -1
+        && changes.get(position.get()).isRedundant();
 
     // if there is an element in the next position already => overwrite it instead of adding
     boolean elementExists = position.get() < lastIndex;
@@ -117,7 +118,8 @@ public class History {
     // the last valid position is now equal to the current position
     validPosition.setValue(position.get());
 
-    LOGGER.trace("addChange, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+    LOGGER.trace("addChange, after, size: " + changes.size() + " pos: "
+        + position.get() + " validPos: " + validPosition.get());
   }
 
   /**
@@ -135,11 +137,13 @@ public class History {
   }
 
   public boolean undo() {
-    LOGGER.trace("undo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+    LOGGER.trace("undo, before, size: " + changes.size() + " pos: " + position.get()
+        + " validPos: " + validPosition.get());
     Change lastChange = prev();
     if (lastChange != null) {
       doWithoutListeners(lastChange.getSetting(), lastChange::undo);
-      LOGGER.trace("undo, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+      LOGGER.trace("undo, after, size: " + changes.size() + " pos: " + position.get()
+          + " validPos: " + validPosition.get());
       return true;
     }
     return false;
@@ -151,11 +155,13 @@ public class History {
   }
 
   public boolean redo() {
-    LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+    LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get()
+        + " validPos: " + validPosition.get());
     Change nextChange = next();
     if (nextChange != null) {
       doWithoutListeners(nextChange.getSetting(), nextChange::redo);
-      LOGGER.trace("redo, after, size: " + changes.size() + " pos: " + position.get() + " validPos: " + validPosition.get());
+      LOGGER.trace("redo, after, size: " + changes.size() + " pos: " + position.get()
+          + " validPos: " + validPosition.get());
       return true;
     }
     return false;

@@ -20,7 +20,8 @@ public class CategoryController extends ScrollPane {
       LogManager.getLogger(CategoryController.class.getName());
 
   private ObjectProperty<CategoryView> displayedCategoryView = new SimpleObjectProperty<>();
-  private ObjectProperty<CategoryPresenter> displayedCategoryPresenter = new SimpleObjectProperty<>();
+  private ObjectProperty<CategoryPresenter> displayedCategoryPresenter =
+      new SimpleObjectProperty<>();
 
   private HashMap<Category, CategoryView> views = new HashMap<>();
   private HashMap<Category, CategoryPresenter> presenters = new HashMap<>();

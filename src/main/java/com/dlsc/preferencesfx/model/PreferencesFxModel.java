@@ -44,7 +44,12 @@ public class PreferencesFxModel {
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
-  public PreferencesFxModel(StorageHandler storageHandler, SearchHandler searchHandler, History history, Category[] categories) {
+  public PreferencesFxModel(
+      StorageHandler storageHandler,
+      SearchHandler searchHandler,
+      History history,
+      Category[] categories
+  ) {
     this.storageHandler = storageHandler;
     this.searchHandler = searchHandler;
     this.history = history;

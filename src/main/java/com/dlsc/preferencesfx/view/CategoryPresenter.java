@@ -22,7 +22,12 @@ public class CategoryPresenter implements Presenter {
   private CategoryView categoryView;
   private final BreadCrumbPresenter breadCrumbPresenter;
 
-  public CategoryPresenter(PreferencesFxModel model, Category categoryModel, CategoryView categoryView, BreadCrumbPresenter breadCrumbPresenter) {
+  public CategoryPresenter(
+      PreferencesFxModel model,
+      Category categoryModel,
+      CategoryView categoryView,
+      BreadCrumbPresenter breadCrumbPresenter
+  ) {
     this.model = model;
     this.categoryModel = categoryModel;
     this.categoryView = categoryView;

@@ -94,7 +94,7 @@ public class Change<P> {
 
   /**
    * Creates a function, which handles binding between a ListProperty and an ObjectProperty.
-   * <p>
+   * </br>
    * If this change isn't a list change, oldValue and newValue properties will have the single
    * element inside of the list, for easier usage.
    *

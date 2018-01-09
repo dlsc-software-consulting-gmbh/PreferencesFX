@@ -1,24 +1,24 @@
 package com.dlsc.preferencesfx.formsfx.view.controls;
 
-    /*-
-     * ========================LICENSE_START=================================
-     * FormsFX
-     * %%
-     * Copyright (C) 2017 DLSC Software & Consulting
-     * %%
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     *        http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS,
-     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     * See the License for the specific language governing permissions and
-     * limitations under the License.
-     * =========================LICENSE_END==================================
-     */
+  /* -
+   * ========================LICENSE_START=================================
+   * FormsFX
+   * %%
+   * Copyright (C) 2017 DLSC Software & Consulting
+   * %%
+   * Licensed under the Apache License, Version 2.0 (the "License");
+   * you may not use this file except in compliance with the License.
+   * You may obtain a copy of the License at
+   *
+   *        http://www.apache.org/licenses/LICENSE-2.0
+   *
+   * Unless required by applicable law or agreed to in writing, software
+   * distributed under the License is distributed on an "AS IS" BASIS,
+   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   * See the License for the specific language governing permissions and
+   * limitations under the License.
+   * =========================LICENSE_END==================================
+   */
 
 import com.dlsc.formsfx.model.structure.DataField;
 import javafx.geometry.Pos;
@@ -33,7 +33,8 @@ import javafx.scene.layout.StackPane;
  * @author Rinesch Murugathas
  * @author Sacha Schmid
  */
-public abstract class SimpleNumberControl<F extends DataField, D extends Number> extends SimpleControl<F, StackPane> {
+public abstract class SimpleNumberControl<F extends DataField, D extends Number>
+    extends SimpleControl<F, StackPane> {
 
   /**
    * This StackPane is needed for achieving the readonly effect by putting
@@ -105,6 +106,7 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
         case DOWN:
           editableSpinner.decrement(1);
           break;
+        default:
       }
     });
   }
@@ -115,6 +117,8 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
   @Override
   public void setupValueChangedListeners() {
     super.setupValueChangedListeners();
-    editableSpinner.focusedProperty().addListener((observable, oldValue, newValue) -> toggleTooltip(editableSpinner));
+    editableSpinner.focusedProperty().addListener(
+        (observable, oldValue, newValue) -> toggleTooltip(editableSpinner)
+    );
   }
 }

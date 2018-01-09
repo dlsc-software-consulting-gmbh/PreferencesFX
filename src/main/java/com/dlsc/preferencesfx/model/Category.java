@@ -4,6 +4,7 @@ import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx.view.CategoryView;
 import com.google.common.base.Strings;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,7 @@ public class Category {
   /**
    * Creates a category without groups, for top-level categories without any settings.
    *
-   * @param description Category name, for display in {@link }
+   * @param description Category name, for display in {@link CategoryView}
    */
   private Category(String description) {
     descriptionKey.setValue(description);
@@ -45,7 +46,7 @@ public class Category {
    * Creates an empty category.
    * Can be used for top-level categories without {@link Setting}.
    *
-   * @param description Category name, for display in {@link }
+   * @param description Category name, for display in {@link CategoryView}
    * @return initialized Category object
    */
   public static Category of(String description) {
@@ -55,8 +56,8 @@ public class Category {
   /**
    * Creates a new category from groups.
    *
-   * @param description Category name, for display in {@link }
-   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link }
+   * @param description Category name, for display in {@link CategoryView}
+   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link CategoryView}
    * @return initialized Category object
    */
   public static Category of(String description, Group... groups) {

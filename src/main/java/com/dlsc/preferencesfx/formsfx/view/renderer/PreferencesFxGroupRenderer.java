@@ -80,8 +80,14 @@ public class PreferencesFxGroupRenderer {
       // additional styling for the last setting
       if (i == fields.size() - 1) {
         styleClass.append("-last");
-        GridPane.setMargin(c.getNode(), new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0));
-        GridPane.setMargin(c.getFieldLabel(), new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0));
+        GridPane.setMargin(
+            c.getNode(),
+            new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0)
+        );
+        GridPane.setMargin(
+            c.getFieldLabel(),
+            new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0)
+        );
       }
 
       c.getFieldLabel().getStyleClass().add(styleClass.toString() + "-label");

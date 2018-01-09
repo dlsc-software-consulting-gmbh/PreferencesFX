@@ -77,7 +77,9 @@ public class Group {
     // check if it's marked before removing the style class
     if (marked) {
       preferencesGroup.getRenderer().removeStyleClass(MARKED_STYLE_CLASS);
-      preferencesGroup.getRenderer().getTitleLabel().removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
+      preferencesGroup.getRenderer().getTitleLabel().removeEventHandler(
+          MouseEvent.MOUSE_EXITED, unmarker
+      );
       marked = !marked;
     }
   }
