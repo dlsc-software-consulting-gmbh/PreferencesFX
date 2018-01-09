@@ -54,7 +54,8 @@ public class PreferencesFxView extends BorderPane implements View {
    */
   @Override
   public void initializeParts() {
-
+    preferencesPane = new MasterDetailPane();
+    contentBox = new VBox();
   }
 
   /**
@@ -62,13 +63,9 @@ public class PreferencesFxView extends BorderPane implements View {
    */
   @Override
   public void layoutParts() {
-    contentBox = new VBox(
-        breadCrumbView,
-        categoryController
-    );
+    contentBox.getChildren().addAll(breadCrumbView, categoryController);
     VBox.setVgrow(categoryController, Priority.ALWAYS);
 
-    preferencesPane = new MasterDetailPane();
     if (model.getCategories().size() > 1) {
       preferencesPane.setDetailSide(Side.LEFT);
       preferencesPane.setDetailNode(navigationView);
