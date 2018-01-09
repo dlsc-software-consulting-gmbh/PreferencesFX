@@ -6,6 +6,8 @@ import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.view.BreadCrumbPresenter;
+import com.dlsc.preferencesfx.view.BreadCrumbView;
 import com.dlsc.preferencesfx.view.CategoryController;
 import com.dlsc.preferencesfx.view.CategoryPresenter;
 import com.dlsc.preferencesfx.view.CategoryView;
@@ -26,23 +28,39 @@ public class PreferencesFx {
   private NavigationView navigationView;
   private NavigationPresenter navigationPresenter;
 
+  private BreadCrumbView breadCrumbView;
+  private BreadCrumbPresenter breadCrumbPresenter;
+
   private CategoryController categoryController;
 
   private PreferencesFxView preferencesFxView;
   private PreferencesFxPresenter preferencesFxPresenter;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
-    preferencesFxModel = new PreferencesFxModel(new StorageHandler(saveClass), new SearchHandler(), new History(), categories);
+    preferencesFxModel = new PreferencesFxModel(
+        new StorageHandler(saveClass), new SearchHandler(), new History(), categories
+    );
+
+    breadCrumbView = new BreadCrumbView(preferencesFxModel);
+    breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
 
     categoryController = new CategoryController();
     initializeCategoryViews();
-    categoryController.setView(preferencesFxModel.getDisplayedCategory()); // display initial category
+    // display initial category
+    categoryController.setView(preferencesFxModel.getDisplayedCategory());
 
-    navigationView = new NavigationView(preferencesFxModel);
-    navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
+    if (categories.length > 1) {
+      navigationView = new NavigationView(preferencesFxModel);
+      navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
 
-    preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, categoryController);
+      preferencesFxView = new PreferencesFxView(
+          preferencesFxModel, navigationView, breadCrumbView, categoryController
+      );
+    } else {
+      preferencesFxView = new PreferencesFxView(preferencesFxModel, categoryController);
+    }
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
+
   }
 
   /**
@@ -64,7 +82,9 @@ public class PreferencesFx {
   private void initializeCategoryViews() {
     preferencesFxModel.getFlatCategoriesLst().forEach(category -> {
       CategoryView categoryView = new CategoryView(preferencesFxModel, category);
-      CategoryPresenter categoryPresenter = new CategoryPresenter(preferencesFxModel, category, categoryView);
+      CategoryPresenter categoryPresenter = new CategoryPresenter(
+          preferencesFxModel, category, categoryView, breadCrumbPresenter
+      );
       categoryController.addView(category, categoryView, categoryPresenter);
     });
   }
@@ -74,6 +94,20 @@ public class PreferencesFx {
    */
   public void show() {
     new PreferencesFxDialog(preferencesFxModel, preferencesFxView);
+  }
+
+  /**
+   * Defines if the PreferencesAPI should save the applications states.
+   * This includes the persistence of the dialog window, as well as each settings values.
+   *
+   * @param enable if true, the storing of the window state of the dialog window
+   *               and the settings values are enabled.
+   * @return this object for fluent API
+   */
+  public PreferencesFx persistApplicationState(boolean enable) {
+    persistWindowState(enable);
+    saveSettings(enable);
+    return this;
   }
 
   /**
@@ -90,9 +124,22 @@ public class PreferencesFx {
   }
 
   /**
+   * Defines whether the adjusted settings of the application should be saved or not.
+   *
+   * @param save if true, the values of all settings of the application are saved.
+   *             When the application is started again, the settings values will be restored to
+   *             the last saved state. Defaults to false.
+   * @return this object for fluent API
+   */
+  public PreferencesFx saveSettings(boolean save) {
+    preferencesFxModel.setSaveSettings(save);
+    return this;
+  }
+
+  /**
    * Defines whether the table to debug the undo / redo history should be shown in a dialog
    * when pressing a key combination or not.
-   * <p>
+   * <\br>
    * Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the
    * undo / redo history, shown in a table.
    *
@@ -112,9 +159,7 @@ public class PreferencesFx {
   /**
    * Sets the translation service property of the preferences dialog.
    *
-   * @param newValue
-   *              The new value for the translation service property.
-   *
+   * @param newValue The new value for the translation service property.
    * @return PreferencesFx to allow for chaining.
    */
   public PreferencesFx i18n(TranslationService newValue) {

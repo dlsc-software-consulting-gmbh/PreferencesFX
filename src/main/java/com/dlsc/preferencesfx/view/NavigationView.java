@@ -2,19 +2,25 @@ package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.controlsfx.control.textfield.CustomTextField;
+import org.controlsfx.glyphfont.FontAwesome;
+import org.controlsfx.glyphfont.Glyph;
+import org.controlsfx.glyphfont.GlyphFont;
+import org.controlsfx.glyphfont.GlyphFontRegistry;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
 public class NavigationView extends VBox implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(NavigationView.class.getName());
 
-  TextField searchFld;
+  CustomTextField searchFld;
   TreeView<Category> treeView;
   FilterableTreeItem<Category> rootItem;
   private PreferencesFxModel model;
@@ -38,9 +44,19 @@ public class NavigationView extends VBox implements View {
    */
   @Override
   public void initializeParts() {
-    searchFld = new TextField();
-    searchFld.setPromptText("Search..."); // TODO: make this i18n
+    setupTextField();
     rootItem = new FilterableTreeItem<>(Category.of(""));
+  }
+
+  /**
+   * Initializes the TextField and sets the search icon.
+   */
+  private void setupTextField() {
+    searchFld = new CustomTextField();
+    GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
+    Glyph glyph = fontAwesome.create(FontAwesome.Glyph.SEARCH).color(Color.GRAY);
+    glyph.setPadding(new Insets(0, 3, 0, 5));
+    searchFld.setLeft(glyph);
   }
 
   /**
@@ -55,6 +71,7 @@ public class NavigationView extends VBox implements View {
     // TreeSearchView requires a RootItem, but in this case it's not desired to have it visible.
     treeView.setShowRoot(false);
     treeView.getRoot().setExpanded(true);
+    treeView.setStyle("-fx-background-color:transparent;"); // Remove border
   }
 
   /**

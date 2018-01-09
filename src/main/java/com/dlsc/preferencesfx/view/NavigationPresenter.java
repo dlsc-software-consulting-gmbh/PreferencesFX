@@ -73,11 +73,18 @@ public class NavigationPresenter implements Presenter {
     // Update selected category upon search changes
     searchHandler.categoryMatchProperty().addListener(
         (observable, oldCategory, newCategory) -> {
-          LOGGER.trace(String.format("Category match changed! oldCategory: %s newCategory: %s selecting: %s", oldCategory, newCategory, categoryTreeItemMap.get(newCategory)));
+          LOGGER.trace(
+              String.format("Category match changed! oldCategory: %s newCategory: %s selecting:"
+                  + " %s", oldCategory, newCategory, categoryTreeItemMap.get(newCategory)));
           navigationView.treeView.getSelectionModel().select(
               categoryTreeItemMap.get(newCategory)
           );
         }
+    );
+
+    // Listens when a breadcrumb was clicked or the last selected category is loaded
+    model.displayedCategoryProperty().addListener((observable, oldValue, newValue) ->
+        setSelectedCategory(newValue)
     );
   }
 

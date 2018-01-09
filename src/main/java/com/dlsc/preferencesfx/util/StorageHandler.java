@@ -176,7 +176,10 @@ public class StorageHandler {
    *                              which will be returned if nothing is found
    * @return the deserialized ObservableList or the default ObservableList if nothing is found
    */
-  public ObservableList loadObservableList(String breadcrumb, ObservableList defaultObservableList) {
+  public ObservableList loadObservableList(
+      String breadcrumb,
+      ObservableList defaultObservableList
+  ) {
     String serializedDefault = gson.toJson(defaultObservableList);
     String json = preferences.get(breadcrumb, serializedDefault);
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));

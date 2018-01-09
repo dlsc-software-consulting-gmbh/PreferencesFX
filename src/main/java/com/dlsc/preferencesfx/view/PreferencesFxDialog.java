@@ -28,6 +28,7 @@ public class PreferencesFxDialog extends DialogPane {
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
   private boolean persistWindowState;
+  private boolean saveSettings;
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
   private ButtonType cancelBtnType = ButtonType.CANCEL;
 
@@ -35,7 +36,9 @@ public class PreferencesFxDialog extends DialogPane {
     this.model = model;
     this.preferenceView = preferenceView;
     persistWindowState = model.isPersistWindowState();
+    saveSettings = model.isSaveSettings();
     storageHandler = model.getStorageHandler();
+    model.loadSettingValues();
     layoutForm();
     setupDialogClose();
     loadLastWindowState();
@@ -60,7 +63,9 @@ public class PreferencesFxDialog extends DialogPane {
       if (persistWindowState) {
         saveWindowState();
       }
-      saveSettingValues();
+      if (saveSettings) {
+        saveSettingValues();
+      }
     });
   }
 
@@ -75,6 +80,7 @@ public class PreferencesFxDialog extends DialogPane {
     storageHandler.saveWindowHeight(heightProperty().get());
     storageHandler.saveWindowPosX(getScene().getWindow().getX());
     storageHandler.saveWindowPosY(getScene().getWindow().getY());
+    storageHandler.saveDividerPosition(model.getDividerPosition());
     model.saveSelectedCategory();
   }
 
@@ -86,6 +92,8 @@ public class PreferencesFxDialog extends DialogPane {
       setPrefSize(storageHandler.loadWindowWidth(), storageHandler.loadWindowHeight());
       getScene().getWindow().setX(storageHandler.loadWindowPosX());
       getScene().getWindow().setY(storageHandler.loadWindowPosY());
+      model.setDividerPosition(storageHandler.loadDividerPosition());
+      model.setDisplayedCategory(model.loadSelectedCategory());
     } else {
       setPrefSize(Constants.DEFAULT_PREFERENCES_WIDTH, Constants.DEFAULT_PREFERENCES_HEIGHT);
       getScene().getWindow().centerOnScreen();

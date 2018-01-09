@@ -1,11 +1,13 @@
 package com.dlsc.preferencesfx.view;
 
+import static com.dlsc.preferencesfx.util.Constants.SCROLLBAR_SUBTRACT;
+
 import com.dlsc.preferencesfx.model.Category;
 import java.util.HashMap;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.ScrollPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,16 +15,20 @@ import org.apache.logging.log4j.Logger;
  * Acts as a proxy for the CategoryViews.
  * Can be used to switch between different categories, which will be displayed in this view.
  */
-public class CategoryController extends StackPane {
-
+public class CategoryController extends ScrollPane {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryController.class.getName());
 
   private ObjectProperty<CategoryView> displayedCategoryView = new SimpleObjectProperty<>();
-  private ObjectProperty<CategoryPresenter> displayedCategoryPresenter = new SimpleObjectProperty<>();
+  private ObjectProperty<CategoryPresenter> displayedCategoryPresenter =
+      new SimpleObjectProperty<>();
 
   private HashMap<Category, CategoryView> views = new HashMap<>();
   private HashMap<Category, CategoryPresenter> presenters = new HashMap<>();
+
+  public CategoryController() {
+    setStyle("-fx-background-color:transparent;");
+  }
 
   /**
    * Returns an already loaded presenter.
@@ -54,16 +60,9 @@ public class CategoryController extends StackPane {
     LOGGER.trace("CategoryController, setView: " + category);
     CategoryView categoryView = views.get(category);
     if (categoryView != null) { // view is loaded
-      // If at least one view is already being displayed
-      if (!getChildren().isEmpty()) {
-        //remove displayed view
-        getChildren().clear();
-        //add new view
-        getChildren().add(categoryView);
-      } else {
-        // No view is currently being displayed, so just add it
-        getChildren().add(categoryView);
-      }
+      setContent(categoryView);
+      // Binding for ScrollPane
+      categoryView.minWidthProperty().bind(widthProperty().subtract(SCROLLBAR_SUBTRACT));
       displayedCategoryView.setValue(categoryView);
       displayedCategoryPresenter.setValue(getPresenter(category));
       return true;

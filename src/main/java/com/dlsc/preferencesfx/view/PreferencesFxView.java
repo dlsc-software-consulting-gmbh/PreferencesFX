@@ -4,6 +4,9 @@ import com.dlsc.preferencesfx.history.view.HistoryButtonBox;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
@@ -14,12 +17,26 @@ public class PreferencesFxView extends BorderPane implements View {
 
   CategoryController categoryController;
   MasterDetailPane preferencesPane;
+  VBox contentBox;
   private PreferencesFxModel model;
   private NavigationView navigationView;
+  private BreadCrumbView breadCrumbView;
 
-  public PreferencesFxView(PreferencesFxModel model, NavigationView navigationView, CategoryController categoryController) {
+  public PreferencesFxView(
+      PreferencesFxModel model,
+      NavigationView navigationView,
+      BreadCrumbView breadCrumbView,
+      CategoryController categoryController
+  ) {
     this.model = model;
     this.navigationView = navigationView;
+    this.breadCrumbView = breadCrumbView;
+    this.categoryController = categoryController;
+    init();
+  }
+
+  public PreferencesFxView(PreferencesFxModel model, CategoryController categoryController) {
+    this.model = model;
     this.categoryController = categoryController;
     init();
   }
@@ -37,7 +54,8 @@ public class PreferencesFxView extends BorderPane implements View {
    */
   @Override
   public void initializeParts() {
-
+    preferencesPane = new MasterDetailPane();
+    contentBox = new VBox();
   }
 
   /**
@@ -45,12 +63,17 @@ public class PreferencesFxView extends BorderPane implements View {
    */
   @Override
   public void layoutParts() {
-    preferencesPane = new MasterDetailPane();
-    preferencesPane.setDetailSide(Side.LEFT);
-    preferencesPane.setDetailNode(navigationView);
-    preferencesPane.setMasterNode(categoryController);
+    contentBox.getChildren().addAll(breadCrumbView, categoryController);
+    VBox.setVgrow(categoryController, Priority.ALWAYS);
 
-    setCenter(preferencesPane);
+    if (model.getCategories().size() > 1) {
+      preferencesPane.setDetailSide(Side.LEFT);
+      preferencesPane.setDetailNode(navigationView);
+      preferencesPane.setMasterNode(contentBox);
+      setCenter(preferencesPane);
+    } else {
+      setCenter(new StackPane(categoryController));
+    }
     setBottom(new HistoryButtonBox(model.getHistory()));
   }
 

@@ -70,13 +70,17 @@ public class SearchHandler {
   };
 
   /**
-   * Initializes the SearchHandler by initially creating all necessary lists for filtering and setting up the bindings.
-   * Must be called to make the filtering work.
+   * Initializes the SearchHandler by initially creating all necessary lists
+   * for filtering and setting up the bindings. Must be called to make the filtering work.
    *
    * @param searchText        textProperty of a TextField where the search string is being input
    * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
    */
-  public void init(PreferencesFxModel model, StringProperty searchText, ObjectProperty<TreeItemPredicate<Category>> predicateProperty) {
+  public void init(
+      PreferencesFxModel model,
+      StringProperty searchText,
+      ObjectProperty<TreeItemPredicate<Category>> predicateProperty
+  ) {
     this.model = model;
     initializeSearch();
     initializeSearchText(searchText);
@@ -206,10 +210,12 @@ public class SearchHandler {
    */
   public Category compareMatches(Category setting, Category group, Category category,
                                  int settingMatch, int groupMatch, int categoryMatch) {
-    LOGGER.trace(String.format("compareMatches: settingMatch: %s, groupMatch: %s, categoryMatch: %s", settingMatch, groupMatch, categoryMatch));
+    LOGGER.trace(String.format("compareMatches: settingMatch: %s, groupMatch: %s, "
+        + "categoryMatch: %s", settingMatch, groupMatch, categoryMatch));
     if (settingMatch == 0 && groupMatch == 0 && categoryMatch == 0) { // if all values are 0
       return null;
-    } else if (settingMatch == groupMatch && settingMatch == categoryMatch) { // if all values are equal to each other
+      // if all values are equal to each other
+    } else if (settingMatch == groupMatch && settingMatch == categoryMatch) {
       return setting;
     } else if (settingMatch == 1) {
       return setting;
@@ -224,19 +230,21 @@ public class SearchHandler {
     } else if (settingMatch == 0 && groupMatch == 0 && categoryMatch != 0) {
       return category;
     } else if (settingMatch == 0) {
-      if (categoryMatch < groupMatch) {  // can only be categoryMatch, if it's smaller than groupMatch
+      // can only be categoryMatch, if it's smaller than groupMatch
+      if (categoryMatch < groupMatch) {
         return category;
       } else {                // from here it can only be groupMatch if settingMatch is 0
         return group;
       }
     } else if (groupMatch == 0) {
-      if (settingMatch <= categoryMatch) { // can only be settingMatch, if it's smaller or equal to categoryMatch
+      // can only be settingMatch, if it's smaller or equal to categoryMatch
+      if (settingMatch <= categoryMatch) {
         return setting;
       } else {                // from here it can only be categoryMatch
         return category;
       }
     } else if (categoryMatch == 0) {
-      if (groupMatch < settingMatch) {  // can only be groupMatch, if it's smaller than settingMatch
+      if (groupMatch < settingMatch) { // can only be groupMatch, if it's smaller than settingMatch
         return group;
       } else {                // from here it can only be settingMatch
         return setting;

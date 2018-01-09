@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.model;
 
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
@@ -11,9 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -36,18 +39,25 @@ public class PreferencesFxModel {
   private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
 
   private boolean persistWindowState = false;
+  private boolean saveSettings = false;
   private boolean historyDebugState = false;
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
+  private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
-  public PreferencesFxModel(StorageHandler storageHandler, SearchHandler searchHandler, History history, Category[] categories) {
+  public PreferencesFxModel(
+      StorageHandler storageHandler,
+      SearchHandler searchHandler,
+      History history,
+      Category[] categories
+  ) {
     this.storageHandler = storageHandler;
     this.searchHandler = searchHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
-    initializeDisplayedCategory();
-    loadSettingValues();
+    setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
+    createBreadcrumbs(this.categories);
   }
 
   /**
@@ -64,22 +74,13 @@ public class PreferencesFxModel {
     });
   }
 
-  private void initializeDisplayedCategory() {
-    Category displayCategory;
-    if (persistWindowState) {
-      displayCategory = loadSelectedCategory();
-    } else {
-      displayCategory = getCategories().get(DEFAULT_CATEGORY);
-    }
-    setDisplayedCategory(displayCategory);
-  }
-
-  private void loadSettingValues() {
-    createBreadcrumbs(categories);
+  public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
         .forEach(setting -> {
           LOGGER.trace("Loading: " + setting.getBreadcrumb());
-          setting.loadSettingValue(storageHandler);
+          if (saveSettings) {
+            setting.loadSettingValue(storageHandler);
+          }
           history.attachChangeListener(setting);
         });
   }
@@ -106,6 +107,14 @@ public class PreferencesFxModel {
 
   public void setPersistWindowState(boolean persistWindowState) {
     this.persistWindowState = persistWindowState;
+  }
+
+  public boolean isSaveSettings() {
+    return saveSettings;
+  }
+
+  public void setSaveSettings(boolean saveSettings) {
+    this.saveSettings = saveSettings;
   }
 
   public History getHistory() {
@@ -146,16 +155,8 @@ public class PreferencesFxModel {
       return defaultCategory;
     }
     return flatCategoriesLst.stream()
-        .filter(category -> category.getDescription().equals(breadcrumb))
+        .filter(category -> category.getBreadcrumb().equals(breadcrumb))
         .findAny().orElse(defaultCategory);
-  }
-
-  public void saveDividerPosition(double dividerPosition) {
-    storageHandler.saveDividerPosition(dividerPosition);
-  }
-
-  public double loadDividerPosition() {
-    return storageHandler.loadDividerPosition();
   }
 
   public Category getDisplayedCategory() {
@@ -213,5 +214,17 @@ public class PreferencesFxModel {
 
   public void setTranslationService(TranslationService translationService) {
     this.translationService.set(translationService);
+  }
+
+  public double getDividerPosition() {
+    return dividerPosition.get();
+  }
+
+  public DoubleProperty dividerPositionProperty() {
+    return dividerPosition;
+  }
+
+  public void setDividerPosition(double dividerPosition) {
+    this.dividerPosition.set(dividerPosition);
   }
 }

@@ -40,7 +40,8 @@ public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
   @Override
   public void initializeParts() {
     groups = form.getGroups().stream().map(
-        g -> new PreferencesFxGroupRenderer((PreferencesFxGroup) g, this)).collect(Collectors.toList());
+        g -> new PreferencesFxGroupRenderer((PreferencesFxGroup) g, this)
+    ).collect(Collectors.toList());
   }
 
   /**

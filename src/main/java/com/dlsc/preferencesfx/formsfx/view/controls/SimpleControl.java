@@ -1,24 +1,24 @@
 package com.dlsc.preferencesfx.formsfx.view.controls;
 
-    /*-
-     * ========================LICENSE_START=================================
-     * FormsFX
-     * %%
-     * Copyright (C) 2017 DLSC Software & Consulting
-     * %%
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     *        http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS,
-     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     * See the License for the specific language governing permissions and
-     * limitations under the License.
-     * =========================LICENSE_END==================================
-     */
+/* -
+ * ========================LICENSE_START=================================
+ * FormsFX
+ * %%
+ * Copyright (C) 2017 DLSC Software & Consulting
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * =========================LICENSE_END==================================
+ */
 
 import com.dlsc.formsfx.model.structure.Field;
 import javafx.collections.ListChangeListener;
@@ -35,7 +35,8 @@ import javafx.scene.control.Tooltip;
  * @author Sacha Schmid
  * @author Rinesch Murugathas
  */
-public abstract class SimpleControl<F extends Field, N extends Node> extends com.dlsc.formsfx.view.controls.SimpleControl<F> {
+public abstract class SimpleControl<F extends Field, N extends Node>
+    extends com.dlsc.formsfx.view.controls.SimpleControl<F> {
 
   /**
    * Pseudo classes for state changes.
@@ -49,11 +50,11 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
    */
   protected F field;
   /**
-   * The label which gets rendered on the left of the node
+   * The label which gets rendered on the left of the node.
    */
   protected Label fieldLabel;
   /**
-   * The control which gets rendered
+   * The control which gets rendered.
    */
   protected N node;
   /**
@@ -108,10 +109,18 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
 
   @Override
   public void setupValueChangedListeners() {
-    field.validProperty().addListener((observable, oldValue, newValue) -> updateStyle(INVALID_CLASS, !newValue));
-    field.requiredProperty().addListener((observable, oldValue, newValue) -> updateStyle(REQUIRED_CLASS, newValue));
-    field.changedProperty().addListener((observable, oldValue, newValue) -> updateStyle(CHANGED_CLASS, newValue));
-    field.editableProperty().addListener((observable, oldValue, newValue) -> updateStyle(DISABLED_CLASS, !newValue));
+    field.validProperty().addListener(
+        (observable, oldValue, newValue) -> updateStyle(INVALID_CLASS, !newValue)
+    );
+    field.requiredProperty().addListener(
+        (observable, oldValue, newValue) -> updateStyle(REQUIRED_CLASS, newValue)
+    );
+    field.changedProperty().addListener(
+        (observable, oldValue, newValue) -> updateStyle(CHANGED_CLASS, newValue)
+    );
+    field.editableProperty().addListener(
+        (observable, oldValue, newValue) -> updateStyle(DISABLED_CLASS, !newValue)
+    );
 
     field.getStyleClass().addListener((ListChangeListener<String>) c -> {
       while (c.next()) {
@@ -151,8 +160,10 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
   protected void toggleTooltip(Node reference, Control below) {
     String fieldTooltip = field.getTooltip();
 
-    if ((reference.isFocused() || reference.isHover()) && (!fieldTooltip.equals("") || field.getErrorMessages().size() > 0)) {
-      tooltip.setText((!fieldTooltip.equals("") ? fieldTooltip + "\n" : "") + String.join("\n", field.getErrorMessages()));
+    if ((reference.isFocused() || reference.isHover())
+        && (!fieldTooltip.equals("") || field.getErrorMessages().size() > 0)) {
+      tooltip.setText((!fieldTooltip.equals("") ? fieldTooltip + "\n" : "")
+          + String.join("\n", field.getErrorMessages()));
 
       if (tooltip.isShowing()) {
         return;
@@ -163,7 +174,8 @@ public abstract class SimpleControl<F extends Field, N extends Node> extends com
       tooltip.show(
           reference.getScene().getWindow(),
           p.getX() + reference.getScene().getX() + reference.getScene().getWindow().getX(),
-          p.getY() + reference.getScene().getY() + reference.getScene().getWindow().getY() + below.getHeight() + 5
+          p.getY() + reference.getScene().getY() + reference.getScene().getWindow().getY()
+              + below.getHeight() + 5
       );
     } else {
       tooltip.hide();

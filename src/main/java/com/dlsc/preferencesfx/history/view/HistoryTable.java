@@ -18,10 +18,14 @@ public class HistoryTable extends TableView<Change> {
     this.changes = changes;
 
     TableColumn<Change, String> timestamp = new TableColumn<>("Time");
-    timestamp.setCellValueFactory(change -> new ReadOnlyStringWrapper(change.getValue().getTimestamp()));
+    timestamp.setCellValueFactory(
+        change -> new ReadOnlyStringWrapper(change.getValue().getTimestamp())
+    );
 
     TableColumn<Change, String> breadcrumb = new TableColumn<>("Setting");
-    breadcrumb.setCellValueFactory(change -> new ReadOnlyStringWrapper(change.getValue().getSetting().toString()));
+    breadcrumb.setCellValueFactory(
+        change -> new ReadOnlyStringWrapper(change.getValue().getSetting().toString())
+    );
 
     TableColumn<Change, Object> oldValue = new TableColumn<>("Old Value");
     oldValue.setCellValueFactory(change -> change.getValue().oldListProperty());

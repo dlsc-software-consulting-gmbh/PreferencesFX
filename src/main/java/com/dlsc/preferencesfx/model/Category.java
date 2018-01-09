@@ -1,8 +1,10 @@
 package com.dlsc.preferencesfx.model;
 
+import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
+
 import com.dlsc.formsfx.model.util.TranslationService;
-import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx.view.CategoryView;
 import com.google.common.base.Strings;
 import java.util.Arrays;
 import java.util.List;
@@ -22,17 +24,17 @@ public class Category {
   private StringProperty descriptionKey = new SimpleStringProperty();
   private List<Group> groups;
   private List<Category> children;
-  private String breadcrumb;
+  private final StringProperty breadcrumb = new SimpleStringProperty("");
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
    *
-   * @param description Category name, for display in {@link }
+   * @param description Category name, for display in {@link CategoryView}
    */
   private Category(String description) {
     descriptionKey.setValue(description);
     translate(null);
-    breadcrumb = description;
+    setBreadcrumb(description);
   }
 
   private Category(String description, Group... groups) {
@@ -44,7 +46,7 @@ public class Category {
    * Creates an empty category.
    * Can be used for top-level categories without {@link Setting}.
    *
-   * @param description Category name, for display in {@link }
+   * @param description Category name, for display in {@link CategoryView}
    * @return initialized Category object
    */
   public static Category of(String description) {
@@ -54,8 +56,8 @@ public class Category {
   /**
    * Creates a new category from groups.
    *
-   * @param description Category name, for display in {@link }
-   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link }
+   * @param description Category name, for display in {@link CategoryView}
+   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link CategoryView}
    * @return initialized Category object
    */
   public static Category of(String description, Group... groups) {
@@ -65,8 +67,8 @@ public class Category {
   /**
    * Creates a new category from settings, if the settings shouldn't be individually grouped.
    *
-   * @param description Category name, for display in {@link }
-   * @param settings    {@link Setting} to be shown in the {@link }
+   * @param description Category name, for display in {@link CategoryView}
+   * @param settings    {@link Setting} to be shown in the {@link CategoryView}
    * @return initialized Category object
    */
   public static Category of(String description, Setting... settings) {
@@ -80,12 +82,12 @@ public class Category {
 
   public void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
-      breadcrumb = breadcrumb + Constants.BREADCRUMB_DELIMITER + category.getDescription();
+      category.setBreadcrumb(getBreadcrumb() + BREADCRUMB_DELIMITER + category.getDescription());
       if (!Objects.equals(category.getGroups(), null)) {
-        category.getGroups().forEach(group -> group.addToBreadcrumb(breadcrumb));
+        category.getGroups().forEach(group -> group.addToBreadcrumb(getBreadcrumb()));
       }
       if (!Objects.equals(category.getChildren(), null)) {
-        createBreadcrumbs(category.getChildren());
+        category.createBreadcrumbs(category.getChildren());
       }
     });
   }
@@ -150,11 +152,15 @@ public class Category {
   }
 
   public String getBreadcrumb() {
+    return breadcrumb.get();
+  }
+
+  public StringProperty breadcrumbProperty() {
     return breadcrumb;
   }
 
   public void setBreadcrumb(String breadcrumb) {
-    this.breadcrumb = breadcrumb;
+    this.breadcrumb.set(breadcrumb);
   }
 
   public ReadOnlyStringProperty descriptionProperty() {
