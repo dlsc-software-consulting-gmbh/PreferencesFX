@@ -4,6 +4,7 @@ import com.dlsc.preferencesfx.history.view.HistoryButtonBox;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +17,7 @@ public class PreferencesFxView extends BorderPane implements View {
 
   CategoryController categoryController;
   MasterDetailPane preferencesPane;
+  VBox contentBox;
   private PreferencesFxModel model;
   private NavigationView navigationView;
   private BreadCrumbView breadCrumbView;
@@ -52,7 +54,8 @@ public class PreferencesFxView extends BorderPane implements View {
    */
   @Override
   public void initializeParts() {
-
+    preferencesPane = new MasterDetailPane();
+    contentBox = new VBox();
   }
 
   /**
@@ -60,17 +63,13 @@ public class PreferencesFxView extends BorderPane implements View {
    */
   @Override
   public void layoutParts() {
-    preferencesPane = new MasterDetailPane();
+    contentBox.getChildren().addAll(breadCrumbView, categoryController);
+    VBox.setVgrow(categoryController, Priority.ALWAYS);
+
     if (model.getCategories().size() > 1) {
       preferencesPane.setDetailSide(Side.LEFT);
       preferencesPane.setDetailNode(navigationView);
-      preferencesPane.setMasterNode(
-          new VBox(
-              breadCrumbView,
-              categoryController
-          )
-      );
-
+      preferencesPane.setMasterNode(contentBox);
       setCenter(preferencesPane);
     } else {
       setCenter(new StackPane(categoryController));

@@ -13,6 +13,8 @@ public class Constants {
   public static final int DEFAULT_PREFERENCES_POS_X = 700;
   public static final int DEFAULT_PREFERENCES_POS_Y = 500;
 
+  public static final int SCROLLBAR_SUBTRACT = 20;
+
   public static final String WINDOW_WIDTH = "WINDOW_WIDTH";
   public static final String WINDOW_HEIGHT = "WINDOW_HEIGHT";
   public static final String WINDOW_POS_X = "WINDOW_POS_X";

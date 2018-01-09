@@ -49,7 +49,7 @@ public class PreferencesFx {
     if (categories.length > 1) {
       navigationView = new NavigationView(preferencesFxModel);
       navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
-      
+
       preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
     } else {
       preferencesFxView = new PreferencesFxView(preferencesFxModel, categoryController);
