@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
-import static com.dlsc.preferencesfx.util.Constants.SCROLLPANE_WIDTH;
+import static com.dlsc.preferencesfx.util.Constants.SCROLLBAR_SUBTRACT;
 
 import com.dlsc.preferencesfx.model.Category;
 import java.util.HashMap;
@@ -61,7 +61,7 @@ public class CategoryController extends ScrollPane {
     if (categoryView != null) { // view is loaded
       setContent(categoryView);
       // Binding for ScrollPane
-      categoryView.minWidthProperty().bind(widthProperty().subtract(SCROLLPANE_WIDTH));
+      categoryView.minWidthProperty().bind(widthProperty().subtract(SCROLLBAR_SUBTRACT));
       displayedCategoryView.setValue(categoryView);
       displayedCategoryPresenter.setValue(getPresenter(category));
       return true;
