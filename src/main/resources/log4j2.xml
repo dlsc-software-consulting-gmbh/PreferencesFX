@@ -17,7 +17,9 @@
     <Loggers>
         <Root level="trace">
             <AppenderRef ref="Console"/>
+            <!-- Uncomment this for logging to file
             <AppenderRef ref="File"/>
+            -->
         </Root>
     </Loggers>
 </Configuration>
