@@ -76,4 +76,31 @@ public class HistoryTest {
   public void redoAvailableProperty() throws Exception {
   }
 
+  @Test
+  public void attachChangeListener1() {
+  }
+
+  @Test
+  public void doWithoutListeners1() {
+  }
+
+  @Test
+  public void undo1() {
+  }
+
+  @Test
+  public void undoAll() {
+  }
+
+  @Test
+  public void redo1() {
+  }
+
+  @Test
+  public void redoAll() {
+  }
+
+  @Test
+  public void clear() {
+  }
 }
