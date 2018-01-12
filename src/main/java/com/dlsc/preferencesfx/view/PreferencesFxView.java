@@ -28,11 +28,9 @@ public class PreferencesFxView extends BorderPane implements View {
       BreadCrumbView breadCrumbView,
       CategoryController categoryController
   ) {
-    this.model = model;
+    this(model, categoryController);
     this.navigationView = navigationView;
     this.breadCrumbView = breadCrumbView;
-    this.categoryController = categoryController;
-    init();
   }
 
   public PreferencesFxView(PreferencesFxModel model, CategoryController categoryController) {
