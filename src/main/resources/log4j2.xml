@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
+    <Properties>
+        <Property name="appenderPatternLayout">%d{dd.MM.yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="path">logs</Property>
+    </Properties>
+
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="${appenderPatternLayout}"/>
         </Console>
+
+        <File name="File" fileName="${path}/preferencesFx.log">
+            <PatternLayout pattern="${appenderPatternLayout}"/>
+        </File>
     </Appenders>
     <Loggers>
         <Root level="trace">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Root>
     </Loggers>
 </Configuration>
