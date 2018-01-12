@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.i18n;
 
+import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
@@ -119,7 +120,7 @@ public class DemoView extends VBox {
     // Styling
     getStyleClass().add("demo-view");
     if (rootPane.nightMode.get()) {
-      getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());
+      getStylesheets().add(AppStarter.class.getResource("darkTheme.css").toExternalForm());
     }
   }
 
