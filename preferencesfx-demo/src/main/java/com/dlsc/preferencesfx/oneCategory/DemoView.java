@@ -1,5 +1,6 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.oneCategory;
 
+import com.dlsc.preferencesfx.PreferencesFx;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;

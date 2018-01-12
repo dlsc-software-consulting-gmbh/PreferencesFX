@@ -1,5 +1,6 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.i18n;
 
+import com.dlsc.preferencesfx.PreferencesFx;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
@@ -11,12 +12,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class DemoViewI18n extends VBox {
+public class DemoView extends VBox {
   private PreferencesFx preferencesFx;
   private MenuBar menuBar;
   private Menu menu;
   private MenuItem preferencesMenuItem;
-  private RootPaneI18n rootPane;
+  private RootPane rootPane;
 
   private Label welcomeLbl;
   private Label brightnessLbl;
@@ -34,7 +35,7 @@ public class DemoViewI18n extends VBox {
   private Button germanBtn;
 
 
-  public DemoViewI18n(PreferencesFx preferencesFx, RootPaneI18n rootPane) {
+  public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
     this.preferencesFx = preferencesFx;
     this.rootPane = rootPane;
 
