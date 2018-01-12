@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.model.util.ResourceBundleService;
+import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
@@ -102,7 +103,8 @@ public class RootPaneI18n extends StackPane {
             .subCategories(
                 Category.of("scaling_ordering",
                     Group.of(
-                        Setting.of("scaling", scaling),
+                        Setting.of("scaling", scaling)
+                            .validate(DoubleRangeValidator.atLeast(1, "scaling_validate")),
                         Setting.of("screen_name", screenName),
                         Setting.of("resolution", resolutionItems, resolutionSelection),
                         Setting.of("orientation", orientationItems, orientationSelection)
