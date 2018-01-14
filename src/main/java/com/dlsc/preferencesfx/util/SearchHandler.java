@@ -22,7 +22,7 @@ import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
 /**
- * Created by François Martin on 31.12.17.
+ * TODO: Add javadoc.
  */
 public class SearchHandler {
 

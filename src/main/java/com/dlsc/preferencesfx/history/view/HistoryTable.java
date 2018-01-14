@@ -8,7 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * Created by François Martin on 03.12.2017.
+ * TODO: Add javadoc.
  */
 public class HistoryTable extends TableView<Change> {
 

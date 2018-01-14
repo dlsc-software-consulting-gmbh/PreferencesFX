@@ -8,7 +8,7 @@ import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
 
 /**
- * Created by François Martin on 11.12.2017.
+ * TODO: Add javadoc.
  */
 public class HistoryButtonBox extends HBox {
   GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");

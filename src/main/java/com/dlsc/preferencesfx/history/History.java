@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by François Martin on 02.12.17.
+ * TODO: Add javadoc.
  */
 public class History {
 

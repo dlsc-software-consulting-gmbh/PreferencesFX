@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by François Martin on 07.11.17.
+ * TODO: Add javadoc.
  */
 public class Group {
 

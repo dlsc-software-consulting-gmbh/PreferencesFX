@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 
 /**
- * Created by François Martin on 03.12.2017.
+ * TODO: Add javadoc.
  */
 public class HistoryDialog extends DialogPane {
 

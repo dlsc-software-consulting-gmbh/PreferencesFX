@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import javafx.scene.layout.GridPane;
 
 /**
- * Created by François Martin on 29.11.17.
+ * TODO: Add javadoc.
  */
 public class PreferencesFxUtils {
 
