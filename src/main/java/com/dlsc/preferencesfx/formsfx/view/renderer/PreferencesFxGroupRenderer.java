@@ -10,6 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
+/**
+ * This class renders a group for a PreferencesFx form.
+ *
+ * @author Sacha Schmid
+ * @author Rinesch Murugathas
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class PreferencesFxGroupRenderer {
 
   /**

@@ -10,6 +10,8 @@ import org.controlsfx.control.BreadCrumbBar;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class BreadCrumbPresenter implements Presenter {
   private static final Logger LOGGER =

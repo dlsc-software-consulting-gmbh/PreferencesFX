@@ -8,6 +8,11 @@ import java.util.stream.Collectors;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 
+/**
+ * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
 
   /**

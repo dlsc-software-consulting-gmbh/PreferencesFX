@@ -31,6 +31,11 @@ import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class Setting<F extends Field, P extends Property> {
   private static final Logger LOGGER =
       LogManager.getLogger(Setting.class.getName());

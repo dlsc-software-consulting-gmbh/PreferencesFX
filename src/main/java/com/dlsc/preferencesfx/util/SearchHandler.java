@@ -23,6 +23,8 @@ import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SearchHandler {
 

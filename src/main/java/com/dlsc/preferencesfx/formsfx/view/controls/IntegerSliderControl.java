@@ -10,6 +10,8 @@ import javafx.scene.layout.Priority;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
   public static final int VALUE_LABEL_PADDING = 25;

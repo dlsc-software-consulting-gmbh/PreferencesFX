@@ -1,5 +1,10 @@
 package com.dlsc.preferencesfx.util;
 
+/**
+ * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class Constants {
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
 

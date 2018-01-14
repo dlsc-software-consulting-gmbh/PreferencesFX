@@ -14,6 +14,8 @@ import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class NavigationPresenter implements Presenter {
   private static final Logger LOGGER =

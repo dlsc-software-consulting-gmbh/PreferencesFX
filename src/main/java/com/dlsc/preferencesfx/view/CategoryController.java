@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 /**
  * Acts as a proxy for the CategoryViews.
  * Can be used to switch between different categories, which will be displayed in this view.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class CategoryController extends ScrollPane {
   private static final Logger LOGGER =

@@ -34,6 +34,8 @@ import javafx.beans.property.StringProperty;
  *
  * @author Sacha Schmid
  * @author Rinesch Murugathas
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class PreferencesFxGroup extends Group {
 

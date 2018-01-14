@@ -32,6 +32,8 @@ import javafx.scene.layout.StackPane;
  *
  * @author Rinesch Murugathas
  * @author Sacha Schmid
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public abstract class SimpleNumberControl<F extends DataField, D extends Number>
     extends SimpleControl<F, StackPane> {

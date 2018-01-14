@@ -18,6 +18,8 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class History {
 

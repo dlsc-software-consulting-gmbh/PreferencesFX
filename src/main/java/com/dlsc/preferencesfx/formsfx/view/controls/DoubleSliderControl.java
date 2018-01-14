@@ -12,6 +12,8 @@ import javafx.scene.layout.Priority;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
   public static final int VALUE_LABEL_PADDING = 25;

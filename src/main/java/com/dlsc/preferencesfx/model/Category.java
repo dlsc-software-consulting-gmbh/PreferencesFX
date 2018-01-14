@@ -15,6 +15,11 @@ import javafx.beans.property.StringProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class Category {
 
   private static final Logger LOGGER =

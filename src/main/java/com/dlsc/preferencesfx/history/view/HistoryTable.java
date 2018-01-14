@@ -9,6 +9,8 @@ import javafx.scene.control.TableView;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class HistoryTable extends TableView<Change> {
 

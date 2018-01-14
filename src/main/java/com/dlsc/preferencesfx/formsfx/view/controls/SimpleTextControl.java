@@ -34,6 +34,8 @@ import javafx.scene.layout.StackPane;
  *
  * @author Rinesch Murugathas
  * @author Sacha Schmid
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
 

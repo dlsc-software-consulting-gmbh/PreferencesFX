@@ -13,6 +13,8 @@ import org.controlsfx.control.MasterDetailPane;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class PreferencesFxView extends BorderPane implements View {
   private static final Logger LOGGER =

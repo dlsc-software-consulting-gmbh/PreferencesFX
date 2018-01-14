@@ -11,6 +11,8 @@ import javafx.stage.Modality;
 
 /**
  * TODO: Add javadoc.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class HistoryDialog extends DialogPane {
 

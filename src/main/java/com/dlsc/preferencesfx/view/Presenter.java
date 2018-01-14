@@ -2,6 +2,8 @@ package com.dlsc.preferencesfx.view;
 
 /**
  * Defines a presenter of PreferencesFX.
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public interface Presenter {
 
