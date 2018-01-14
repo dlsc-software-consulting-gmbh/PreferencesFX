@@ -44,6 +44,13 @@ public class PreferencesFxModel {
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
+  /**
+   * TODO: Add javadoc.
+   * @param storageHandler TODO: Add javadoc.
+   * @param searchHandler TODO: Add javadoc.
+   * @param history TODO: Add javadoc.
+   * @param categories TODO: Add javadoc.
+   */
   public PreferencesFxModel(
       StorageHandler storageHandler,
       SearchHandler searchHandler,
@@ -74,6 +81,9 @@ public class PreferencesFxModel {
     });
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
         .forEach(setting -> {

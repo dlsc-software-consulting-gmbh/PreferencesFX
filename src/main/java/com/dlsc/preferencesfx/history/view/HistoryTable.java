@@ -14,6 +14,10 @@ public class HistoryTable extends TableView<Change> {
 
   ObservableList<Change> changes;
 
+  /**
+   * TODO: Add javadoc.
+   * @param changes TODO: Add javadoc.
+   */
   public HistoryTable(ObservableList<Change> changes) {
     this.changes = changes;
 
@@ -37,6 +41,10 @@ public class HistoryTable extends TableView<Change> {
     getColumns().addAll(timestamp, breadcrumb, oldValue, newValue);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param currentChange TODO: Add javadoc.
+   */
   public void addSelectionBinding(ReadOnlyObjectProperty<Change> currentChange) {
     currentChange.addListener(
         (observable, oldValue, newValue) -> getSelectionModel().select(newValue)

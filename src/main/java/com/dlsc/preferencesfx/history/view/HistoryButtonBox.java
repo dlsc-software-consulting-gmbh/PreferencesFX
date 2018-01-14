@@ -16,6 +16,10 @@ public class HistoryButtonBox extends HBox {
   Button redoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.REPEAT));
   private History history;
 
+  /**
+   * TODO: Add javadoc.
+   * @param history TODO: Add javadoc.
+   */
   public HistoryButtonBox(History history) {
     this.history = history;
     getChildren().addAll(undoBtn, redoBtn);

@@ -44,6 +44,10 @@ public class SearchHandler {
   private HashMap<Setting, Category> settingCategoryMap;
 
   private StringProperty searchText = new SimpleStringProperty();
+
+  /**
+   * Represents the category which is matched by the search and should ultimately be displayed.
+   */
   private ObjectProperty<Category> categoryMatch = new SimpleObjectProperty<>();
 
   /**
@@ -145,6 +149,10 @@ public class SearchHandler {
     }, searchText));
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param searchText TODO: Add javadoc.
+   */
   public void updateSearch(String searchText) {
     updateFilteredLists(searchText);
     setCategoryMatch(getSelectedCategoryByMatch());

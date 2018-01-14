@@ -13,6 +13,9 @@ import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class CategoryPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryPresenter.class.getName());
@@ -22,6 +25,13 @@ public class CategoryPresenter implements Presenter {
   private CategoryView categoryView;
   private final BreadCrumbPresenter breadCrumbPresenter;
 
+  /**
+   * TODO: Add javadoc.
+   * @param model TODO: Add javadoc.
+   * @param categoryModel TODO: Add javadoc.
+   * @param categoryView TODO: Add javadoc.
+   * @param breadCrumbPresenter TODO: Add javadoc.
+   */
   public CategoryPresenter(
       PreferencesFxModel model,
       Category categoryModel,

@@ -22,6 +22,10 @@ public class HistoryDialog extends DialogPane {
 
   private Dialog dialog = new Dialog();
 
+  /**
+   * TODO: Add javadoc.
+   * @param history TODO: Add javadoc.
+   */
   public HistoryDialog(History history) {
     this.history = history;
     historyTable = new HistoryTable(history.getChanges());

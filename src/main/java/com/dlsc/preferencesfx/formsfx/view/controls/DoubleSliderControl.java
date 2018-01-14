@@ -76,6 +76,10 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
     node.getStyleClass().add("double-slider-control");
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void layoutParts() {
     node.getChildren().addAll(slider, valueLabel);
     HBox.setHgrow(slider, Priority.ALWAYS);

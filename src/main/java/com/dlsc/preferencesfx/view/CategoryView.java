@@ -8,6 +8,9 @@ import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class CategoryView extends StackPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(CategoryView.class.getName());
@@ -29,6 +32,9 @@ public class CategoryView extends StackPane implements View {
     init();
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   void initializeFormRenderer() {
     getChildren().clear();
     preferencesFormRenderer = new PreferencesFxFormRenderer(form);

@@ -11,6 +11,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class PreferencesFxView extends BorderPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFxView.class.getName());
@@ -22,6 +25,13 @@ public class PreferencesFxView extends BorderPane implements View {
   private NavigationView navigationView;
   private BreadCrumbView breadCrumbView;
 
+  /**
+   * TODO: Add javadoc.
+   * @param model TODO: Add javadoc.
+   * @param navigationView TODO: Add javadoc.
+   * @param breadCrumbView TODO: Add javadoc.
+   * @param categoryController TODO: Add javadoc.
+   */
   public PreferencesFxView(
       PreferencesFxModel model,
       NavigationView navigationView,
@@ -35,6 +45,11 @@ public class PreferencesFxView extends BorderPane implements View {
     init();
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param model TODO: Add javadoc.
+   * @param categoryController TODO: Add javadoc.
+   */
   public PreferencesFxView(PreferencesFxModel model, CategoryController categoryController) {
     this.model = model;
     this.categoryController = categoryController;

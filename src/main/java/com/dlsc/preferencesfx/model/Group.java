@@ -32,19 +32,39 @@ public class Group {
     this.settings = Arrays.asList(settings);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param settings TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static Group of(String description, Setting... settings) {
     return new Group(description, settings);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param settings TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static Group of(Setting... settings) {
     return new Group(null, settings);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public Group description(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public String getDescription() {
     if (preferencesGroup != null) {
       return preferencesGroup.getTitle();
@@ -64,6 +84,9 @@ public class Group {
     this.preferencesGroup = preferencesGroup;
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
@@ -73,6 +96,9 @@ public class Group {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void unmark() {
     // check if it's marked before removing the style class
     if (marked) {
@@ -84,6 +110,10 @@ public class Group {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param breadCrumb TODO: Add javadoc.
+   */
   public void addToBreadcrumb(String breadCrumb) {
     setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
     settings.forEach(setting -> setting.addToBreadcrumb(getBreadcrumb()));

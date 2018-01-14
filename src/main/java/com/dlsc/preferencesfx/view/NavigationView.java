@@ -16,6 +16,9 @@ import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class NavigationView extends VBox implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(NavigationView.class.getName());
@@ -25,6 +28,10 @@ public class NavigationView extends VBox implements View {
   FilterableTreeItem<Category> rootItem;
   private PreferencesFxModel model;
 
+  /**
+   * TODO: Add javadoc.
+   * @param model TODO: Add javadoc.
+   */
   public NavigationView(PreferencesFxModel model) {
     this.model = model;
     treeView = new TreeView<>();

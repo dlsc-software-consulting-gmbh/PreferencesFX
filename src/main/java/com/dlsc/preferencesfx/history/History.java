@@ -33,6 +33,9 @@ public class History {
 
   private HashMap<Setting, ChangeListener> settingChangeListenerMap = new HashMap<>();
 
+  /**
+   * TODO: Add javadoc.
+   */
   public History() {
     setupBindings();
   }
@@ -50,6 +53,10 @@ public class History {
     }, position));
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param setting TODO: Add javadoc.
+   */
   public void attachChangeListener(Setting setting) {
     ChangeListener changeEvent = (observable, oldValue, newValue) -> {
       if (oldValue != newValue) {
@@ -136,6 +143,10 @@ public class History {
     setting.valueProperty().addListener(changeListener);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public boolean undo() {
     LOGGER.trace("undo, before, size: " + changes.size() + " pos: " + position.get()
         + " validPos: " + validPosition.get());
@@ -149,11 +160,18 @@ public class History {
     return false;
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void undoAll() {
     while (undo()) {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public boolean redo() {
     LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get()
         + " validPos: " + validPosition.get());
@@ -167,6 +185,9 @@ public class History {
     return false;
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void redoAll() {
     while (redo()) {
     }

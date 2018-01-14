@@ -34,6 +34,9 @@ public class PreferencesFxGroupRenderer {
     init();
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void init() {
     //this.initializeSelf();
     this.initializeParts();
@@ -43,10 +46,16 @@ public class PreferencesFxGroupRenderer {
     //this.setupValueChangedListeners();
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void initializeParts() {
     titleLabel = new Label();
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void layoutParts() {
     StringBuilder styleClass = new StringBuilder("group");
 
@@ -95,6 +104,9 @@ public class PreferencesFxGroupRenderer {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void setupBindings() {
     titleLabel.textProperty().bind(preferencesGroup.titleProperty());
   }

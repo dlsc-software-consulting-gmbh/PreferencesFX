@@ -99,6 +99,9 @@ public class PreferencesFxGroup extends Group {
     this.renderer = renderer;
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void translate() {
     if (translationService == null) {
       title.setValue(titleKey.getValue());

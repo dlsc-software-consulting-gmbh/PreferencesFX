@@ -17,6 +17,12 @@ import javafx.scene.layout.GridPane;
  * Created by François Martin on 29.11.17.
  */
 public class PreferencesFxUtils {
+
+  /**
+   * TODO: Add javadoc.
+   * @param categories TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static List<Setting> categoriesToSettings(List<Category> categories) {
     return categories.stream()
         .map(Category::getGroups)     // get groups from categories
@@ -28,6 +34,11 @@ public class PreferencesFxUtils {
         .collect(Collectors.toList());
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param categories TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static HashMap<Setting, Category> mapSettingsToCategories(List<Category> categories) {
     HashMap<Setting, Category> settingCategoryMap = new HashMap<>();
     for (Category category : categories) {
@@ -44,6 +55,11 @@ public class PreferencesFxUtils {
     return settingCategoryMap;
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param categories TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static HashMap<Group, Category> mapGroupsToCategories(List<Category> categories) {
     HashMap<Group, Category> groupCategoryMap = new HashMap<>();
     for (Category category : categories) {
@@ -56,6 +72,12 @@ public class PreferencesFxUtils {
     return groupCategoryMap;
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param categories TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static List<Category> filterCategoriesByDescription(List<Category> categories,
                                                              String description) {
     return categories.stream()
@@ -63,6 +85,12 @@ public class PreferencesFxUtils {
         .collect(Collectors.toList());
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param settings TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static List<Setting> filterSettingsByDescription(List<Setting> settings,
                                                           String description) {
     return settings.stream()
@@ -70,6 +98,11 @@ public class PreferencesFxUtils {
         .collect(Collectors.toList());
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param groups TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static List<Setting> groupsToSettings(List<Group> groups) {
     return groups.stream()
         .map(Group::getSettings)
@@ -77,12 +110,23 @@ public class PreferencesFxUtils {
         .collect(Collectors.toList());
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param groups TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static List<Group> filterGroupsByDescription(List<Group> groups, String description) {
     return groups.stream()
         .filter(group -> containsIgnoreCase(group.getDescription(), description))
         .collect(Collectors.toList());
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param categories TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static List<Group> categoriesToGroups(List<Category> categories) {
     return categories.stream()
         .map(Category::getGroups)     // get groups from categories

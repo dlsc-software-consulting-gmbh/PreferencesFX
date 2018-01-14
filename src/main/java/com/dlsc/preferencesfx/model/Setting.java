@@ -49,6 +49,12 @@ public class Setting<F extends Field, P extends Property> {
     this.value = value;
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param property TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static Setting of(String description, BooleanProperty property) {
     return new Setting<>(
         description,
@@ -59,6 +65,12 @@ public class Setting<F extends Field, P extends Property> {
     );
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param property TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static Setting of(String description, IntegerProperty property) {
     return new Setting<>(
         description,
@@ -68,6 +80,12 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param property TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static Setting of(String description, DoubleProperty property) {
     return new Setting<>(
         description,
@@ -77,6 +95,15 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param property TODO: Add javadoc.
+   * @param min TODO: Add javadoc.
+   * @param max TODO: Add javadoc.
+   * @param precision TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static Setting of(
       String description, DoubleProperty property, double min, double max, int precision) {
     return new Setting<>(
@@ -87,6 +114,14 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param property TODO: Add javadoc.
+   * @param min TODO: Add javadoc.
+   * @param max TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static Setting of(String description, IntegerProperty property, int min, int max) {
     return new Setting<>(
         description,
@@ -96,6 +131,12 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param property TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static Setting of(String description, StringProperty property) {
     return new Setting<>(
         description,
@@ -105,6 +146,14 @@ public class Setting<F extends Field, P extends Property> {
         property);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param items TODO: Add javadoc.
+   * @param selection TODO: Add javadoc.
+   * @param <P> TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static <P> Setting of(
       String description, ListProperty<P> items, ObjectProperty<P> selection) {
     return new Setting<>(
@@ -115,6 +164,14 @@ public class Setting<F extends Field, P extends Property> {
         selection);
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param description TODO: Add javadoc.
+   * @param items TODO: Add javadoc.
+   * @param selection TODO: Add javadoc.
+   * @param <P> TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public static <P> Setting of(
       String description, ObservableList<P> items, ObjectProperty<P> selection) {
     return new Setting<>(
@@ -189,6 +246,9 @@ public class Setting<F extends Field, P extends Property> {
     return this;
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
@@ -200,6 +260,9 @@ public class Setting<F extends Field, P extends Property> {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void unmark() {
     // check if it's marked before removing the style class
     if (marked) {
@@ -211,6 +274,10 @@ public class Setting<F extends Field, P extends Property> {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public String getDescription() {
     if (field != null) {
       return field.getLabel();
@@ -226,10 +293,18 @@ public class Setting<F extends Field, P extends Property> {
     return field;
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param storageHandler TODO: Add javadoc.
+   */
   public void saveSettingValue(StorageHandler storageHandler) {
     storageHandler.saveObject(getBreadcrumb(), value.getValue());
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param storageHandler TODO: Add javadoc.
+   */
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
@@ -240,6 +315,10 @@ public class Setting<F extends Field, P extends Property> {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param breadCrumb TODO: Add javadoc.
+   */
   public void addToBreadcrumb(String breadCrumb) {
     setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
   }

@@ -18,6 +18,9 @@ import javafx.stage.Modality;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class PreferencesFxDialog extends DialogPane {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFxDialog.class.getName());
@@ -32,6 +35,11 @@ public class PreferencesFxDialog extends DialogPane {
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
   private ButtonType cancelBtnType = ButtonType.CANCEL;
 
+  /**
+   * TODO: Add javadoc.
+   * @param model TODO: Add javadoc.
+   * @param preferenceView TODO: Add javadoc.
+   */
   public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferenceView) {
     this.model = model;
     this.preferenceView = preferenceView;

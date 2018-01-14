@@ -8,12 +8,20 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.BreadCrumbBar;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class BreadCrumbPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(BreadCrumbPresenter.class.getName());
   private final PreferencesFxModel model;
   private final BreadCrumbView breadCrumbView;
 
+  /**
+   * TODO: Add javadoc.
+   * @param model TODO: Add javadoc.
+   * @param breadCrumbView TODO: Add javadoc.
+   */
   public BreadCrumbPresenter(PreferencesFxModel model, BreadCrumbView breadCrumbView) {
     this.model = model;
     this.breadCrumbView = breadCrumbView;

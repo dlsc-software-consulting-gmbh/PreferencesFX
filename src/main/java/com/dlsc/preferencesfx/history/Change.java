@@ -124,6 +124,9 @@ public class Change<P> {
     return oldValue.get().equals(newValue.get());
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void undo() {
     if (isListChange()) {
       LOGGER.trace("Undoing list change: " + oldList.get().toString());
@@ -133,6 +136,9 @@ public class Change<P> {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void redo() {
     if (isListChange()) {
       LOGGER.trace("Redoing list change: " + newList.get().toString());

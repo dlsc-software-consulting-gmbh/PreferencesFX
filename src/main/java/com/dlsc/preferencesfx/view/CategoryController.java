@@ -26,6 +26,9 @@ public class CategoryController extends ScrollPane {
   private HashMap<Category, CategoryView> views = new HashMap<>();
   private HashMap<Category, CategoryPresenter> presenters = new HashMap<>();
 
+  /**
+   * TODO: Add javadoc.
+   */
   public CategoryController() {
     setStyle("-fx-background-color:transparent;");
   }

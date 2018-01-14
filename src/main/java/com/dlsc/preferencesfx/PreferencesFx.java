@@ -19,6 +19,9 @@ import com.dlsc.preferencesfx.view.PreferencesFxView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class PreferencesFx {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFx.class.getName());

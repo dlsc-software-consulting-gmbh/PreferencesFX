@@ -75,11 +75,20 @@ public class Category {
     return new Category(description, Group.of(settings));
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param children TODO: Add javadoc.
+   * @return TODO: Add javadoc.
+   */
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
     return this;
   }
 
+  /**
+   * TODO: Add javadoc.
+   * @param categories TODO: Add javadoc.
+   */
   public void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
       category.setBreadcrumb(getBreadcrumb() + BREADCRUMB_DELIMITER + category.getDescription());
@@ -92,6 +101,9 @@ public class Category {
     });
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void unmarkSettings() {
     if (getGroups() != null) {
       PreferencesFxUtils.groupsToSettings(getGroups())
@@ -99,12 +111,18 @@ public class Category {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void unmarkGroups() {
     if (getGroups() != null) {
       getGroups().forEach(Group::unmark);
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void unmarkAll() {
     unmarkGroups();
     unmarkSettings();
@@ -128,6 +146,9 @@ public class Category {
     }
   }
 
+  /**
+   * TODO: Add javadoc.
+   */
   public void updateGroupDescriptions() {
     if (groups != null) {
       groups.forEach(group -> group.getPreferencesGroup().translate());

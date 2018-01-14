@@ -12,6 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class NavigationPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(NavigationPresenter.class.getName());
@@ -22,6 +25,11 @@ public class NavigationPresenter implements Presenter {
 
   private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
 
+  /**
+   * TODO: Add javadoc.
+   * @param model TODO: Add javadoc.
+   * @param navigationView TODO: Add javadoc.
+   */
   public NavigationPresenter(PreferencesFxModel model, NavigationView navigationView) {
     this.model = model;
     searchHandler = model.getSearchHandler();

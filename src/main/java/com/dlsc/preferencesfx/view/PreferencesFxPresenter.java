@@ -4,6 +4,9 @@ import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * TODO: Add javadoc.
+ */
 public class PreferencesFxPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFxPresenter.class.getName());
@@ -11,6 +14,11 @@ public class PreferencesFxPresenter implements Presenter {
   private PreferencesFxModel model;
   private PreferencesFxView preferenceView;
 
+  /**
+   * TODO: Add javadoc.
+   * @param model TODO: Add javadoc.
+   * @param preferenceView TODO: Add javadoc.
+   */
   public PreferencesFxPresenter(PreferencesFxModel model, PreferencesFxView preferenceView) {
     this.model = model;
     this.preferenceView = preferenceView;
