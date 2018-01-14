@@ -5,6 +5,7 @@ import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
+import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -120,6 +121,7 @@ public class PreferencesFxUtils {
    */
   public static List<Group> filterGroupsByDescription(List<Group> groups, String description) {
     return groups.stream()
+        .filter(group -> !Strings.isNullOrEmpty(group.getDescription()))
         .filter(group -> containsIgnoreCase(group.getDescription(), description))
         .collect(Collectors.toList());
   }

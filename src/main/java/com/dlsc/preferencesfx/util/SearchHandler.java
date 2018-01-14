@@ -6,6 +6,7 @@ import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
+import com.google.common.base.Strings;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -67,9 +68,11 @@ public class SearchHandler {
       settingMatch = category.getGroups().stream()
           .map(Group::getSettings)      // get settings from groups
           .flatMap(Collection::stream)  // flatten all lists of settings to settings
+          .filter(setting -> !Strings.isNullOrEmpty(setting.getDescription()))
           .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText));
       // look in groups too
       groupMatch = category.getGroups().stream()
+          .filter(group -> !Strings.isNullOrEmpty(group.getDescription()))
           .anyMatch(group -> containsIgnoreCase(group.getDescription(), searchText));
     }
     return categoryMatch || settingMatch || groupMatch;
