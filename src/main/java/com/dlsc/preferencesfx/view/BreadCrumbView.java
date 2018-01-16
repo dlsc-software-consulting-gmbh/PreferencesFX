@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
+import javafx.geometry.Pos;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -28,8 +29,12 @@ public class BreadCrumbView extends HBox implements View {
    */
   @Override
   public void initializeParts() {
+    // only add breadCrumbBar if there's more than one category
+    if (!model.isOneCategoryLayout()) {
+      getChildren().add(breadCrumbBar);
+    }
     getChildren().addAll(
-        breadCrumbBar, undoRedoBox
+        undoRedoBox
     );
   }
 
@@ -39,5 +44,9 @@ public class BreadCrumbView extends HBox implements View {
   @Override
   public void layoutParts() {
     HBox.setHgrow(breadCrumbBar, Priority.ALWAYS);
+    // align undo / redo buttons on the right if there are no breadcrumbs
+    if (model.isOneCategoryLayout()) {
+      setAlignment(Pos.CENTER_RIGHT);
+    }
   }
 }
