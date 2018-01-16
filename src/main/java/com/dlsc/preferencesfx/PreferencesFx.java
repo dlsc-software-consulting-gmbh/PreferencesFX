@@ -2,7 +2,7 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.history.view.UndoRedoBox;
+import com.dlsc.preferencesfx.view.UndoRedoBox;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;

@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.history.view;
+package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.history.History;
 import javafx.scene.control.Button;

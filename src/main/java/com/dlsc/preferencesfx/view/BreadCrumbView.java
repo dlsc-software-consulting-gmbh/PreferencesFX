@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx.view;
 
-import com.dlsc.preferencesfx.history.view.UndoRedoBox;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.scene.control.TreeItem;
