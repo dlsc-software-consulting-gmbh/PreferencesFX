@@ -64,4 +64,24 @@ public class SearchHandlerTest {
   @Test
   public void categoryMatchProperty() {
   }
+
+  @Test
+  public void init1() {
+  }
+
+  @Test
+  public void initializeSearchText1() {
+  }
+
+  @Test
+  public void bindFilterPredicate1() {
+  }
+
+  @Test
+  public void updateSearch1() {
+  }
+
+  @Test
+  public void compareMatches1() {
+  }
 }
