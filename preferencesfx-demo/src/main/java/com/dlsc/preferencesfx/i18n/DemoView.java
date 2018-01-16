@@ -150,9 +150,9 @@ public class DemoView extends VBox {
   private void setupListeners() {
     rootPane.nightMode.addListener((observable, oldValue, newValue) -> {
       if (newValue) {
-        getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());
+        getStylesheets().add(AppStarter.class.getResource("darkTheme.css").toExternalForm());
       } else {
-        getStylesheets().remove(getClass().getResource("darkTheme.css").toExternalForm());
+        getStylesheets().remove(AppStarter.class.getResource("darkTheme.css").toExternalForm());
       }
     });
   }
