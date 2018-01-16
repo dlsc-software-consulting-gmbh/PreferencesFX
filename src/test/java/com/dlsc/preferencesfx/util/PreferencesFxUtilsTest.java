@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.util;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -54,4 +55,47 @@ public class PreferencesFxUtilsTest {
 
   }
 
+  @Before
+  public void setUp() throws Exception {
+  }
+
+  @Test
+  public void categoriesToSettings1() {
+  }
+
+  @Test
+  public void mapSettingsToCategories1() {
+  }
+
+  @Test
+  public void mapGroupsToCategories1() {
+  }
+
+  @Test
+  public void filterCategoriesByDescription1() {
+  }
+
+  @Test
+  public void filterSettingsByDescription1() {
+  }
+
+  @Test
+  public void groupsToSettings1() {
+  }
+
+  @Test
+  public void filterGroupsByDescription1() {
+  }
+
+  @Test
+  public void categoriesToGroups1() {
+  }
+
+  @Test
+  public void getRowCount() {
+  }
+
+  @Test
+  public void flattenCategories() {
+  }
 }

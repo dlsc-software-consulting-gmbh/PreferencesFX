@@ -122,12 +122,19 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   private void setupButtons() {
+    LOGGER.trace("Setting Buttons up");
     final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
 
     History history = model.getHistory();
-    cancelBtn.setOnAction(event -> history.clear(true));
-    closeBtn.setOnAction(event -> history.clear(false));
+    cancelBtn.setOnAction(event -> {
+      LOGGER.trace("Cancel Button was pressed");
+      history.clear(true);
+    });
+    closeBtn.setOnAction(event -> {
+      LOGGER.trace("Close Button was pressed");
+      history.clear(false);
+    });
 
     cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
     closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());

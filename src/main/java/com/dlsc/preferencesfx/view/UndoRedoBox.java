@@ -1,4 +1,4 @@
-package com.dlsc.preferencesfx.history.view;
+package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.history.History;
 import javafx.scene.control.Button;
@@ -12,7 +12,7 @@ import org.controlsfx.glyphfont.GlyphFontRegistry;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class HistoryButtonBox extends HBox {
+public class UndoRedoBox extends HBox {
   GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
   Button undoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.UNDO));
   Button redoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.REPEAT));
@@ -22,11 +22,14 @@ public class HistoryButtonBox extends HBox {
    * TODO: Add javadoc.
    * @param history TODO: Add javadoc.
    */
-  public HistoryButtonBox(History history) {
+  public UndoRedoBox(History history) {
     this.history = history;
+
     getChildren().addAll(undoBtn, redoBtn);
+
     undoBtn.setOnAction(event -> history.undo());
     undoBtn.disableProperty().bind(history.undoAvailableProperty().not());
+
     redoBtn.setOnAction(event -> history.redo());
     redoBtn.disableProperty().bind(history.redoAvailableProperty().not());
   }

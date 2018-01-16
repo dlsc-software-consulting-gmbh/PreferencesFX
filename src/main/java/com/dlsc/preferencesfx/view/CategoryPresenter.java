@@ -61,7 +61,7 @@ public class CategoryPresenter implements Presenter {
    * Updates the internal FormsFX form with the most current TranslationService.
    * Makes sure the group descriptions are updated with changing locale.
    */
-  void addI18nListener() {
+  private void addI18nListener() {
     model.translationServiceProperty().addListener((observable, oldValue, newValue) -> {
       if (oldValue != newValue) {
         categoryView.form.i18n(newValue);

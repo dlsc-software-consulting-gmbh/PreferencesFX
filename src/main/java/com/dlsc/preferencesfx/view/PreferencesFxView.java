@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx.view;
 
-import com.dlsc.preferencesfx.history.view.HistoryButtonBox;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
@@ -40,9 +39,9 @@ public class PreferencesFxView extends BorderPane implements View {
       BreadCrumbView breadCrumbView,
       CategoryController categoryController
   ) {
-    this.model = model;
-    this.navigationView = navigationView;
     this.breadCrumbView = breadCrumbView;
+    this.navigationView = navigationView;
+    this.model = model;
     this.categoryController = categoryController;
     init();
   }
@@ -80,7 +79,12 @@ public class PreferencesFxView extends BorderPane implements View {
    */
   @Override
   public void layoutParts() {
-    contentBox.getChildren().addAll(breadCrumbView, categoryController);
+    // if there is more than 1 category, also add the breadCrumbBar
+    if (breadCrumbView != null) {
+      contentBox.getChildren().add(breadCrumbView);
+    }
+    // but always add the categoryController
+    contentBox.getChildren().addAll(categoryController);
     VBox.setVgrow(categoryController, Priority.ALWAYS);
 
     if (model.getCategories().size() > 1) {
@@ -91,7 +95,6 @@ public class PreferencesFxView extends BorderPane implements View {
     } else {
       setCenter(new StackPane(categoryController));
     }
-    setBottom(new HistoryButtonBox(model.getHistory()));
   }
 
   /**
