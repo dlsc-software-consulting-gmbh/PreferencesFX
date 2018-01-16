@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx.view;
 
-import com.dlsc.preferencesfx.history.view.HistoryButtonBox;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
@@ -77,7 +76,6 @@ public class PreferencesFxView extends BorderPane implements View {
     } else {
       setCenter(new StackPane(categoryController));
     }
-    setBottom(new HistoryButtonBox(model.getHistory()));
   }
 
   /**
