@@ -111,7 +111,7 @@ public class DemoView extends VBox {
     // Styling
     getStyleClass().add("demo-view");
     if (rootPane.nightMode.get()) {
-      getStylesheets().add(AppStarter.class.getResource("darkTheme.css").toExternalForm());
+      getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());
     }
   }
 
