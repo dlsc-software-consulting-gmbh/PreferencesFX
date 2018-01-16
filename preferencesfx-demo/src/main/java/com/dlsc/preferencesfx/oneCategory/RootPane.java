@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.oneCategory;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
@@ -89,7 +90,9 @@ public class RootPane extends StackPane {
             ),
             Group.of("Display",
                 Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
+                Setting.of("Night mode", nightMode),
+                Setting.of("Scaling", scaling)
+                    .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1"))
             )
         )
     ).persistWindowState(true).debugHistoryMode(true).buttonsVisibility(true);
