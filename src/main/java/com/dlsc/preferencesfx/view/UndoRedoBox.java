@@ -18,9 +18,12 @@ public class UndoRedoBox extends HBox {
 
   public UndoRedoBox(History history) {
     this.history = history;
+
     getChildren().addAll(undoBtn, redoBtn);
+
     undoBtn.setOnAction(event -> history.undo());
     undoBtn.disableProperty().bind(history.undoAvailableProperty().not());
+
     redoBtn.setOnAction(event -> history.redo());
     redoBtn.disableProperty().bind(history.redoAvailableProperty().not());
   }
