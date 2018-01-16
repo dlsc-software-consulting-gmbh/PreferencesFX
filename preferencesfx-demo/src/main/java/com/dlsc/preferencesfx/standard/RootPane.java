@@ -1,8 +1,10 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.standard;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
+import com.dlsc.preferencesfx.AppStarter;
+import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;

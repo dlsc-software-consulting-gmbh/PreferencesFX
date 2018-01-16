@@ -1,9 +1,10 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.i18n;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.model.util.ResourceBundleService;
-import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
+import com.dlsc.preferencesfx.AppStarter;
+import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
@@ -30,7 +31,7 @@ import javafx.scene.layout.StackPane;
 /**
  * Created by François Martin on 30.10.17.
  */
-public class RootPaneI18n extends StackPane {
+public class RootPane extends StackPane {
 
   public PreferencesFx preferencesFx;
 
@@ -78,9 +79,9 @@ public class RootPaneI18n extends StackPane {
   ResourceBundle rbEN = ResourceBundle.getBundle("demo-locale", new Locale("en", "US"));
   ResourceBundleService rbs = new ResourceBundleService(rbEN);
 
-  public RootPaneI18n() {
+  public RootPane() {
     preferencesFx = createPreferences();
-    getChildren().add(new DemoViewI18n(preferencesFx, this));
+    getChildren().add(new DemoView(preferencesFx, this));
   }
 
   private IntegerField setupCustomControl() {
@@ -103,8 +104,7 @@ public class RootPaneI18n extends StackPane {
             .subCategories(
                 Category.of("scaling_ordering",
                     Group.of(
-                        Setting.of("scaling", scaling)
-                            .validate(DoubleRangeValidator.atLeast(1, "scaling_validate")),
+                        Setting.of("scaling", scaling),
                         Setting.of("screen_name", screenName),
                         Setting.of("resolution", resolutionItems, resolutionSelection),
                         Setting.of("orientation", orientationItems, orientationSelection)
