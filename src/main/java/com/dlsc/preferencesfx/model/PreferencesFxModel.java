@@ -41,6 +41,7 @@ public class PreferencesFxModel {
   private boolean persistWindowState = false;
   private boolean saveSettings = false;
   private boolean historyDebugState = false;
+  private boolean oneCategoryLayout;
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
@@ -54,6 +55,7 @@ public class PreferencesFxModel {
     this.searchHandler = searchHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
+    oneCategoryLayout = categories.length == 1;
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
     setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
@@ -226,5 +228,9 @@ public class PreferencesFxModel {
 
   public void setDividerPosition(double dividerPosition) {
     this.dividerPosition.set(dividerPosition);
+  }
+
+  public boolean isOneCategoryLayout() {
+    return oneCategoryLayout;
   }
 }

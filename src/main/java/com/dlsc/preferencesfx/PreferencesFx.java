@@ -2,7 +2,6 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.view.UndoRedoBox;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
@@ -17,6 +16,7 @@ import com.dlsc.preferencesfx.view.NavigationView;
 import com.dlsc.preferencesfx.view.PreferencesFxDialog;
 import com.dlsc.preferencesfx.view.PreferencesFxPresenter;
 import com.dlsc.preferencesfx.view.PreferencesFxView;
+import com.dlsc.preferencesfx.view.UndoRedoBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,16 +54,12 @@ public class PreferencesFx {
     // display initial category
     categoryController.setView(preferencesFxModel.getDisplayedCategory());
 
-    if (categories.length > 1) {
-      navigationView = new NavigationView(preferencesFxModel);
-      navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
+    navigationView = new NavigationView(preferencesFxModel);
+    navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
 
-      preferencesFxView = new PreferencesFxView(
-          preferencesFxModel, navigationView, breadCrumbView, categoryController
-      );
-    } else {
-      preferencesFxView = new PreferencesFxView(preferencesFxModel, categoryController);
-    }
+    preferencesFxView = new PreferencesFxView(
+        preferencesFxModel, navigationView, breadCrumbView, categoryController
+    );
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
 
   }
