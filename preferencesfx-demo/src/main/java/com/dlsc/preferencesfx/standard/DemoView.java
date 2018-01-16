@@ -1,9 +1,10 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.standard;
 
+import com.dlsc.preferencesfx.AppStarter;
+import com.dlsc.preferencesfx.PreferencesFx;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -11,12 +12,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class DemoViewI18n extends VBox {
+public class DemoView extends VBox {
   private PreferencesFx preferencesFx;
   private MenuBar menuBar;
   private Menu menu;
   private MenuItem preferencesMenuItem;
-  private RootPaneI18n rootPane;
+  private RootPane rootPane;
 
   private Label welcomeLbl;
   private Label brightnessLbl;
@@ -30,11 +31,7 @@ public class DemoViewI18n extends VBox {
   private Label lineSpacingLbl;
   private Label favoriteNumberLbl;
 
-  private Button englishBtn;
-  private Button germanBtn;
-
-
-  public DemoViewI18n(PreferencesFx preferencesFx, RootPaneI18n rootPane) {
+  public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
     this.preferencesFx = preferencesFx;
     this.rootPane = rootPane;
 
@@ -61,8 +58,6 @@ public class DemoViewI18n extends VBox {
     fontSizeLbl = new Label();
     lineSpacingLbl = new Label();
     favoriteNumberLbl = new Label();
-    englishBtn = new Button("English");
-    germanBtn = new Button("German");
   }
 
   private void layoutParts() {
@@ -82,9 +77,7 @@ public class DemoViewI18n extends VBox {
         favoritesLbl,
         fontSizeLbl,
         lineSpacingLbl,
-        favoriteNumberLbl,
-        englishBtn,
-        germanBtn
+        favoriteNumberLbl
     );
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
@@ -118,7 +111,7 @@ public class DemoViewI18n extends VBox {
     // Styling
     getStyleClass().add("demo-view");
     if (rootPane.nightMode.get()) {
-      getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());
+      getStylesheets().add(AppStarter.class.getResource("darkTheme.css").toExternalForm());
     }
   }
 
@@ -141,8 +134,6 @@ public class DemoViewI18n extends VBox {
 
   private void setupEventHandlers() {
     preferencesMenuItem.setOnAction(e -> preferencesFx.show());
-    englishBtn.setOnAction(event -> translate("EN"));
-    germanBtn.setOnAction(event -> translate("DE"));
   }
 
   private void setupListeners() {
@@ -153,24 +144,6 @@ public class DemoViewI18n extends VBox {
         getStylesheets().remove(getClass().getResource("darkTheme.css").toExternalForm());
       }
     });
-  }
-
-  /**
-   * Sets the locale of the form.
-   *
-   * @param language The language identifier for the new locale. Either DE or EN.
-   */
-  public void translate(String language) {
-    switch (language) {
-      case "EN":
-        rootPane.rbs.changeLocale(rootPane.rbEN);
-        break;
-      case "DE":
-        rootPane.rbs.changeLocale(rootPane.rbDE);
-        break;
-      default:
-        throw new IllegalArgumentException("Not a valid locale");
-    }
   }
 
 }
