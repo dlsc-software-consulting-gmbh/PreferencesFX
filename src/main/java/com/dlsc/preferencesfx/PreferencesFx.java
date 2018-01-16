@@ -2,7 +2,7 @@ package com.dlsc.preferencesfx;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.history.view.HistoryButtonBox;
+import com.dlsc.preferencesfx.history.view.UndoRedoBox;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
@@ -29,7 +29,7 @@ public class PreferencesFx {
   private NavigationView navigationView;
   private NavigationPresenter navigationPresenter;
 
-  private HistoryButtonBox historyButtonBox;
+  private UndoRedoBox undoRedoBox;
 
   private BreadCrumbView breadCrumbView;
   private BreadCrumbPresenter breadCrumbPresenter;
@@ -44,9 +44,9 @@ public class PreferencesFx {
         new StorageHandler(saveClass), new SearchHandler(), new History(), categories
     );
 
-    historyButtonBox = new HistoryButtonBox(preferencesFxModel.getHistory());
+    undoRedoBox = new UndoRedoBox(preferencesFxModel.getHistory());
 
-    breadCrumbView = new BreadCrumbView(preferencesFxModel, historyButtonBox);
+    breadCrumbView = new BreadCrumbView(preferencesFxModel, undoRedoBox);
     breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
 
     categoryController = new CategoryController();

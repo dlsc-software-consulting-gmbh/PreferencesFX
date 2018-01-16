@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
-import com.dlsc.preferencesfx.history.view.HistoryButtonBox;
+import com.dlsc.preferencesfx.history.view.UndoRedoBox;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.scene.control.TreeItem;
@@ -14,13 +14,13 @@ public class BreadCrumbView extends HBox implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(BreadCrumbView.class.getName());
   private final PreferencesFxModel model;
-  private final HistoryButtonBox historyButtonBox;
+  private final UndoRedoBox undoRedoBox;
   TreeItem<Category> breadcrumbsItm;
   BreadCrumbBar<Category> breadCrumbBar = new BreadCrumbBar<>();
 
-  public BreadCrumbView(PreferencesFxModel model, HistoryButtonBox historyButtonBox) {
+  public BreadCrumbView(PreferencesFxModel model, UndoRedoBox undoRedoBox) {
     this.model = model;
-    this.historyButtonBox = historyButtonBox;
+    this.undoRedoBox = undoRedoBox;
     init();
   }
 
@@ -30,7 +30,7 @@ public class BreadCrumbView extends HBox implements View {
   @Override
   public void initializeParts() {
     getChildren().addAll(
-        breadCrumbBar, historyButtonBox
+        breadCrumbBar, undoRedoBox
     );
   }
 

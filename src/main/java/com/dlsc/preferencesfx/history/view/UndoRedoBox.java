@@ -10,13 +10,13 @@ import org.controlsfx.glyphfont.GlyphFontRegistry;
 /**
  * Created by François Martin on 11.12.2017.
  */
-public class HistoryButtonBox extends HBox {
+public class UndoRedoBox extends HBox {
   GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
   Button undoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.UNDO));
   Button redoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.REPEAT));
   private History history;
 
-  public HistoryButtonBox(History history) {
+  public UndoRedoBox(History history) {
     this.history = history;
     getChildren().addAll(undoBtn, redoBtn);
     undoBtn.setOnAction(event -> history.undo());
