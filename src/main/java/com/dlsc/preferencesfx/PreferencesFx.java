@@ -121,10 +121,12 @@ public class PreferencesFx {
    *                the last saved state. Defaults to false.
    * @return this object for fluent API
    */
+  // asciidoctor Documentation - tag::fluentApiMethod[]
   public PreferencesFx persistWindowState(boolean persist) {
     preferencesFxModel.setPersistWindowState(persist);
     return this;
   }
+  // asciidoctor Documentation - end::fluentApiMethod[]
 
   /**
    * Defines whether the adjusted settings of the application should be saved or not.

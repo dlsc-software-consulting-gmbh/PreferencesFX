@@ -24,17 +24,23 @@ Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consultin
 
 The developer should not need to invest a lot of time creating a preferences window. We should orientate ourselves at the preferences window of the programming platform Intellij IDEA regarding the look and feel.
 
-The user of FormsFX builds his form using the so called fluent API. This means, that the structure of creating a form was implemented the way, that one could (theoretically) write the whole form in one line. This is done by using methods, which are returning the same object on which the method is called. A famous example of the fluent API in use are streams. Our customer wanted us to apply it the same way in the PreferencesFX API. The two graphics below show the fluent API in use.
+The user of FormsFX builds his form using the so called fluent API. This means, that the structure of creating a form was implemented the way, that one could (theoretically) write the whole form in one line. This is done by using methods, which are returning the same object on which the method is called. A famous example of the fluent API in use are streams. Our customer wanted us to apply it the same way in the PreferencesFX API. The code snippet below shows how the preferences are set up.
 
 This method is being used in `RootPane`:
 
 :sourcedir: ../src/main/java
+:sourcedirdemo: ../preferencesfx-demo/src/main/java
 
 [source,java]
 ----
-include::{sourcedir}/com/dlsc/preferencesfx/standard/RootPane.java[tags=compareMatches]
+include::{sourcedirdemo}/com/dlsc/preferencesfx/standard/RootPane.java[tags=setupPreferences]
 ----
 
-image::images/setting_up_preferences.PNG[Setting up the preferences] image::method_call.PNG[The method, which is called]
+At the bottom of the method, there are several methods called. One can see in the code snippet below, that the method returns exactly the object on which this method was called. This style of implementation allows a user of the API a simple, intuitive and easy way to create the preferences.
 
-In the first picture, the preferences are created. At the bottom, there are several methods called. In the second picture one can see, that the method returns exactly the object on which this method was called. This style of implementation allows a user of the API a simple, intuitive and easy way to create the preferences.
+This method is being used in `PreferencesFx`:
+
+[source,java]
+----
+include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=fluentApiMethod]
+----

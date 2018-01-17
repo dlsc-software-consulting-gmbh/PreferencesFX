@@ -83,6 +83,7 @@ public class RootPane extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
+    // asciidoctor Documentation - tag::setupPreferences[]
     return PreferencesFx.of(AppStarter.class,
         Category.of("General",
             Group.of("Greeting",
@@ -114,5 +115,6 @@ public class RootPane extends StackPane {
             Setting.of("Favorite Number", customControl, customControlProperty)
         )
     ).persistWindowState(true).saveSettings(true).debugHistoryMode(true).buttonsVisibility(true);
+    // asciidoctor Documentation - end::setupPreferences[]
   }
 }
