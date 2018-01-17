@@ -95,6 +95,6 @@ public class RootPane extends StackPane {
                     .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1"))
             )
         )
-    ).persistWindowState(true).debugHistoryMode(true).buttonsVisibility(true);
+    ).debugHistoryMode(true).buttonsVisibility(true).persistApplicationState(false);
   }
 }

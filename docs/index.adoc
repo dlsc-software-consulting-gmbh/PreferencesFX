@@ -1,4 +1,14 @@
 = PreferencesFX
 François Martin; Marco Sanfratello
 
-Insert documentation here
+= Abstract
+Zusammenfassung der Arbeit auf einer halben bis max. einer ganzen Seite:
+1. Was wurde erreicht?
+2. Welche weiteren Informationen findet ein Leser/eine Leserin im
+Dokument?
+
+= Entry
+
+= Main content
+    = Theoretical Part
+    = Practical Part
