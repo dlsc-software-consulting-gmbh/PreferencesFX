@@ -78,7 +78,7 @@ public class PreferencesFxDialog extends DialogPane {
     });
   }
 
-  public void saveWindowState() {
+  private void saveWindowState() {
     storageHandler.saveWindowWidth(widthProperty().get());
     storageHandler.saveWindowHeight(heightProperty().get());
     storageHandler.saveWindowPosX(getScene().getWindow().getX());
