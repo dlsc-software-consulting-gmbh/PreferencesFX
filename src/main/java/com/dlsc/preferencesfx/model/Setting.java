@@ -229,37 +229,17 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public void saveSettingValue(StorageHandler storageHandler) {
-    storageHandler.saveObject(getPreferencesKey(), value.getValue());
+    storageHandler.saveObject(getBreadcrumb(), value.getValue());
   }
 
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
-          storageHandler.loadObservableList(getPreferencesKey(), (ObservableList) value.getValue())
+          storageHandler.loadObservableList(getBreadcrumb(), (ObservableList) value.getValue())
       );
     } else {
-      value.setValue(storageHandler.loadObject(getPreferencesKey(), value.getValue()));
+      value.setValue(storageHandler.loadObject(getBreadcrumb(), value.getValue()));
     }
-  }
-
-  /**
-   * Since {@link java.util.prefs.Preferences#MAX_KEY_LENGTH} is 80, if the breadcrumb is over
-   * 80 characters, it will lead to an exception while saving. This method generates a
-   * SHA-256 hash of the breadcrumb and uses this hash to save it to
-   * {@link java.util.prefs.Preferences}, since those are guaranteed to be maximum 64 chars long.
-   * @return SHA-256 representation of breadcrumb
-   */
-  private String getPreferencesKey() {
-    String breadcrumb = getBreadcrumb();
-    MessageDigest messageDigest = null;
-    try {
-      messageDigest = MessageDigest.getInstance("SHA-256");
-    } catch (NoSuchAlgorithmException e) {
-      LOGGER.error("Hashing algorithm not found!");
-    }
-    messageDigest.update(breadcrumb.getBytes());
-    String hashedBreadcrumb = new String(messageDigest.digest());
-    return hashedBreadcrumb;
   }
 
   public void addToBreadcrumb(String breadCrumb) {
