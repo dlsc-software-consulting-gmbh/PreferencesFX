@@ -83,18 +83,22 @@ public class RootPane extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(AppStarter.class,
-        Category.of("General",
-            Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
-            ),
-            Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode),
-                Setting.of("Scaling", scaling)
-                    .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1"))
+    return
+
+        PreferencesFx.of(AppStarter.class,
+            Category.of("General",
+                Group.of("Greeting",
+                    Setting.of("Welcome Text", welcomeText)
+                ),
+                Group.of("Display",
+                    Setting.of("Brightness", brightness),
+                    Setting.of("Night mode", nightMode),
+                    Setting.of("Scaling", scaling)
+                        .validate(DoubleRangeValidator
+                            .atLeast(1, "Scaling needs to be at least 1")
+                        )
+                )
             )
-        )
-    ).debugHistoryMode(true).buttonsVisibility(true).persistApplicationState(false);
+        ).debugHistoryMode(true).buttonsVisibility(true).persistApplicationState(false);
   }
 }

@@ -1,14 +1,26 @@
 = PreferencesFX
 François Martin; Marco Sanfratello
 
-= Abstract
-Zusammenfassung der Arbeit auf einer halben bis max. einer ganzen Seite:
-1. Was wurde erreicht?
-2. Welche weiteren Informationen findet ein Leser/eine Leserin im
-Dokument?
+== Abstract / Management summary
 
-= Entry
+== Entry
+The PreferenesFX API creates a preferences window. This is done by simply writing a title and giving it a property and all the other work is done by the API itself. Often developers have no time, energy or simply not mind to write a preferences window for their application. It’s a generic, boring work which nobody really wants to do. The picture below shows the final result of the PreferencesFX API in use.
 
-= Main content
-    = Theoretical Part
-    = Practical Part
+image::PreferencesFX_in_use.PNG[PreferencesFX in use]
+
+PreferencesFX API is to replace this boring work with a much simpler, cleaner solution. Always in mind to relieve this part of a developers work as much as possible, this solution was created.
+The PreferencesFX API works with a fluent API approach. The developer can build up his preferences window by simply calling function after function to define it further. Each preference which needs to be stored represents a setting. One or multiple settings are collected in a group. One or multiple groups are collected in a category and the preferences window consists of one or multiple categories.
+The project itself is programmed with a model view presenter structure, which separates the frontend and backend to ensure a clear overview.
+In the following chapters, the reader will gain additional insights of the projects structure and the features the PreferencesFX API provides.
+
+== Main content
+=== Starting position
+Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consulting (dlsc, http://dlsc.com/). One of his former projects was the FormsFX API, where a developer can easily create forms without a lot of effort. His approach was to adapt this idea of an easy way to create a structure with a predefined User Interface to preference windows.
+
+The developer should not need to invest a lot of time creating a preferences window. We should orientate ourselves at the preferences window of the programming platform Intellij IDEA regarding the look and feel.
+
+The user of FormsFX builds his form using the so called fluent API. This means, that the structure of creating a form was implemented the way, that one could (theoretically) write the whole form in one line. This is done by using methods, which are returning the same object on which the method is called. A famous example of the fluent API in use are streams. Our customer wanted us to apply it the same way in the PreferencesFX API. The two graphics below show the fluent API in use.
+
+image::Setting_up_preferences.PNG[Setting up the preferences] image::method_call.PNG[The method, which is called]
+
+In the first picture, the preferences are created. At the bottom, there are several methods called. In the second picture one can see, that the method returns exactly the object on which this method was called. This style of implementation allows a user of the API a simple, intuitive and easy way to create the preferences.
