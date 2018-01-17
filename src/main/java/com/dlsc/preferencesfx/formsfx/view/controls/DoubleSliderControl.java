@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**
- * TODO: Add javadoc.
+ * Provides an implementation of a slider control for an {@link DoubleField}.
  * @author François Martin
  * @author Marco Sanfratello
  */

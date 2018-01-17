@@ -43,26 +43,23 @@ public class PreferencesFxGroupRenderer {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Calls all the other methods for easier initialization.
    */
   public void init() {
-    //this.initializeSelf();
     this.initializeParts();
     this.layoutParts();
-    //this.setupEventHandlers();
     this.setupBindings();
-    //this.setupValueChangedListeners();
   }
 
   /**
-   * TODO: Add javadoc.
+   * Initializes all parts of the rendered group.
    */
   public void initializeParts() {
     titleLabel = new Label();
   }
 
   /**
-   * TODO: Add javadoc.
+   * Defines the layout of the rendered group.
    */
   public void layoutParts() {
     StringBuilder styleClass = new StringBuilder("group");
@@ -113,7 +110,7 @@ public class PreferencesFxGroupRenderer {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Sets up bindings of the rendered group.
    */
   public void setupBindings() {
     titleLabel.textProperty().bind(preferencesGroup.titleProperty());
