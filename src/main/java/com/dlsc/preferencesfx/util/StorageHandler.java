@@ -14,6 +14,7 @@ import static com.dlsc.preferencesfx.util.Constants.WINDOW_WIDTH;
 
 import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -185,8 +186,24 @@ public class StorageHandler {
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));
   }
 
+  /**
+   * Clears the preferences.
+   * @return true if successful, false if there was an exception.
+   */
+  public boolean clearPreferences() {
+    try {
+      preferences.clear();
+    } catch (BackingStoreException e) {
+      return false;
+    }
+    return true;
+  }
+
   public Preferences getPreferences() {
     return preferences;
   }
+
+
+
 
 }
