@@ -81,7 +81,11 @@ public class History {
   }
 
   private void addChange(Change change) {
-    LOGGER.trace(String.format("addChange for: %s, before, size: %s, pos: %s, validPos: %s", change.setting, changes.size(), position.get(), validPosition.get()));
+    LOGGER.trace(
+        String.format("addChange for: %s, before, size: %s, pos: %s, validPos: %s",
+            change.setting, changes.size(), position.get(), validPosition.get()
+        )
+    );
 
     int lastIndex = changes.size() - 1;
 
@@ -126,7 +130,11 @@ public class History {
     // the last valid position is now equal to the current position
     validPosition.setValue(position.get());
 
-    LOGGER.trace(String.format("addChange for: %s, after, size: %s, pos: %s, validPos: %s", change.setting, changes.size(), position.get(), validPosition.get()));
+    LOGGER.trace(
+        String.format("addChange for: %s, before, size: %s, pos: %s, validPos: %s",
+            change.setting, changes.size(), position.get(), validPosition.get()
+        )
+    );
   }
 
   /**
