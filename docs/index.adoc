@@ -8,7 +8,7 @@ François Martin; Marco Sanfratello
 == Entry
 The PreferenesFX API creates a preferences window. This is done by simply writing a title and giving it a property and all the other work is done by the API itself. Often developers have no time, energy or simply not mind to write a preferences window for their application. It’s a generic, boring work which nobody really wants to do. The picture below shows the final result of the PreferencesFX API in use.
 
-image::images/preferencesFX_in_use.PNG[PreferencesFX in use]
+image::images/preferencesFX_in_use.png[PreferencesFX in use]
 
 The idea of the PreferencesFX API is to replace this boring work with a much simpler, cleaner solution. Always in mind to relieve this part of a developers work as much as possible, this solution was created.
 
@@ -24,9 +24,7 @@ Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consultin
 
 The developer should not need to invest a lot of time creating a preferences window. We should orientate ourselves at the preferences window of the programming platform Intellij IDEA regarding the look and feel.
 
-The user of FormsFX builds his form using the so called fluent API. This means, that the structure of creating a form was implemented the way, that one could (theoretically) write the whole form in one line. This is done by using methods, which are returning the same object on which the method is called. A famous example of the fluent API in use are streams. Our customer wanted us to apply it the same way in the PreferencesFX API. The code snippet below shows how the preferences are set up.
-
-This method is being used in `RootPane`:
+The user of FormsFX builds his form using the so called fluent API. This means, that the structure of creating a form was implemented the way, that one could (theoretically) write the whole form in one line. This is done by using methods, which are returning the same object on which the method is called. A famous example of the fluent API in use are streams. Our customer wanted us to apply it the same way in the PreferencesFX API. The code snippet below, which is used in `RootPane.java`, shows how the preferences are set up and the fluent API is used:
 
 :sourcedir: ../src/main/java
 :sourcedirdemo: ../preferencesfx-demo/src/main/java
@@ -36,11 +34,62 @@ This method is being used in `RootPane`:
 include::{sourcedirdemo}/com/dlsc/preferencesfx/standard/RootPane.java[tags=setupPreferences]
 ----
 
-At the bottom of the method, there are several methods called. One can see in the code snippet below, that the method returns exactly the object on which this method was called. This style of implementation allows a user of the API a simple, intuitive and easy way to create the preferences.
-
-This method is being used in `PreferencesFx`:
+At the bottom of this method, there are several methods called. One can see in the code snippet below, that the method returns exactly the object on which this method was called. This style of implementation allows a user of the API a simple, intuitive and easy way to create the preferences. This method is being used in `PreferencesFx.java`:
 
 [source,java]
 ----
 include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=fluentApiMethod]
 ----
+
+Additionally we got access to a fork of the already mentionned project FormsFX. Our customer allowed us to use it for creation of our project.
+
+=== First thoughts
+==== Layout
+Well, we didn't just started programming. In fact we did some research. Although our customer had initial some ideas, we did not just accept and implement these. At the beginning we looked at various preferences windows and noted the usual best practices and the do's and dont's which are made through the last years. Intellij is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles". As a result of our research we created a paper prototype, which was also the minimal viable product (MVP). Our promise to our customer, that he gets at least this product from us. The MVP is shown in the picture below:
+
+image::images/minimal_viable_product.png[Minimal viable product]
+
+==== The way creating the preferences
+We also did some research about how would a developer use the PreferencesFX API. When someone usually uses any JavaFX components, for example a `MenuBar`, he writes in the following code style:
+
+[source,java]
+----
+MenuBar menuBar = new MenuBar();
+Menu menu = new Menu("Menu");
+MenuItem menuItem = new MenuItem("Menu Item");
+
+menu.getItems().add(menuItem);
+menuBar.getMenus().add(menu);
+----
+
+According to this code style we wrote first pseudo code snippets to try using the PreferencesFX API in this style:
+
+[source,java]
+----
+PreferencesFx preferencesFx = new PreferencesFx();
+Category category = new Category("Category");
+Group group = new Group("Group");
+Setting setting = new Setting("Setting", new SimpleBooleanProperty(true));
+
+group.getSettings().add(setting);
+category.getGroups().add(group);
+preferencesFx.getCategories().add(category);
+----
+
+The second try was with the fluent API approach, like our customer suggested:
+
+[source,java]
+----
+PreferencesFx preferencesFx = PreferencesFx.of(
+    Category.of("Category",
+        Group.of("Group",
+            Setting.of("Setting", new SimpleBooleanProperty(true))
+        )
+    )
+);
+----
+
+The reason why we finally were convinced that the fluent API approach was the right way, was how intuitive it was to write the code and how clearly arranged the code was. That way everyone sees what is a setting and what is a category. Especially when an application has literally hundreds of preferences which are needed to store.
+
+==== Using FormsFX or not
+Another question we asked ourselves, was if we should use the former project FormsFX or not.
