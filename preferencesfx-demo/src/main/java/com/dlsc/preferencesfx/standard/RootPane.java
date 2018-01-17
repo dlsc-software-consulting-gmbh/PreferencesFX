@@ -83,6 +83,7 @@ public class RootPane extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
+    // asciidoctor Documentation - tag::setupPreferences[]
     return PreferencesFx.of(AppStarter.class,
         Category.of("General",
             Group.of("Greeting",
@@ -98,7 +99,9 @@ public class RootPane extends StackPane {
                 Category.of("Scaling & Ordering",
                     Group.of(
                         Setting.of("Scaling", scaling)
-                            .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1")),
+                            .validate(DoubleRangeValidator
+                                .atLeast(1, "Scaling needs to be at least 1")
+                            ),
                         Setting.of("Screen name", screenName),
                         Setting.of("Resolution", resolutionItems, resolutionSelection),
                         Setting.of("Orientation", orientationItems, orientationSelection)
@@ -114,5 +117,6 @@ public class RootPane extends StackPane {
             Setting.of("Favorite Number", customControl, customControlProperty)
         )
     ).persistWindowState(true).saveSettings(true).debugHistoryMode(true).buttonsVisibility(true);
+    // asciidoctor Documentation - end::setupPreferences[]
   }
 }
