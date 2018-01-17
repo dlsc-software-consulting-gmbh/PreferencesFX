@@ -17,7 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Manages a list of changes, so undo / redo functionality can be used with {@link Setting}.
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -36,7 +36,7 @@ public class History {
   private BooleanProperty listenerActive = new SimpleBooleanProperty(true);
 
   /**
-   * TODO: Add javadoc.
+   * Initializes a new history object.
    */
   public History() {
     setupBindings();
@@ -56,8 +56,9 @@ public class History {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param setting TODO: Add javadoc.
+   * Adds a listener to the {@code setting}, so every time the value of the {@code setting} changes,
+   * a new {@link Change} will be created and added to the list of changes.
+   * @param setting the setting to observe for changes
    */
   public void attachChangeListener(Setting setting) {
     ChangeListener changeEvent = (observable, oldValue, newValue) -> {
@@ -155,8 +156,8 @@ public class History {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Undos a change in the history.
+   * @return true if successful, false if there are no changes to undo
    */
   public boolean undo() {
     LOGGER.trace("undo, before, size: " + changes.size() + " pos: " + position.get()
@@ -172,7 +173,7 @@ public class History {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Undos all changes in the history.
    */
   public void undoAll() {
     while (undo()) {
@@ -180,8 +181,8 @@ public class History {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Redos a change in the history.
+   * @return true if successful, false if there are no changes to redo
    */
   public boolean redo() {
     LOGGER.trace("redo, before, size: " + changes.size() + " pos: " + position.get()
@@ -197,7 +198,7 @@ public class History {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Redos all changes in the history.
    */
   public void redoAll() {
     while (redo()) {

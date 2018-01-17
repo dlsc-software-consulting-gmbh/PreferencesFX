@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.history.view;
 
 import com.dlsc.preferencesfx.history.Change;
+import com.dlsc.preferencesfx.history.History;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -8,7 +9,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * TODO: Add javadoc.
+ * Used for debugging purposes only.
+ * Represents a TableView of {@link Change} being shown in the dialog to debug the {@link History}.
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -17,8 +19,8 @@ public class HistoryTable extends TableView<Change> {
   ObservableList<Change> changes;
 
   /**
-   * TODO: Add javadoc.
-   * @param changes TODO: Add javadoc.
+   * Initializes a new table, showing the {@code changes}.
+   * @param changes to be shown in the table
    */
   public HistoryTable(ObservableList<Change> changes) {
     this.changes = changes;
@@ -44,10 +46,12 @@ public class HistoryTable extends TableView<Change> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param currentChange TODO: Add javadoc.
+   * Updates the selection in the table whenever the current {@link Change}
+   * in the {@link History} changes.
+   * @param currentChange the property which contains the current {@link Change}
+   *                      in the {@link History}
    */
-  public void addSelectionBinding(ReadOnlyObjectProperty<Change> currentChange) {
+  void addSelectionBinding(ReadOnlyObjectProperty<Change> currentChange) {
     currentChange.addListener(
         (observable, oldValue, newValue) -> getSelectionModel().select(newValue)
     );

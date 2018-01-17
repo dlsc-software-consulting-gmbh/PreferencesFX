@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.history.view;
 
+import com.dlsc.preferencesfx.history.Change;
 import com.dlsc.preferencesfx.history.History;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -10,7 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 
 /**
- * TODO: Add javadoc.
+ * Used for debugging purposes only.
+ * Shows a dialog with a table of {@link Change} made in the {@link History}.
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -25,8 +27,8 @@ public class HistoryDialog extends DialogPane {
   private Dialog dialog = new Dialog();
 
   /**
-   * TODO: Add javadoc.
-   * @param history TODO: Add javadoc.
+   * Initializes a new dialog for debugging the history.
+   * @param history the history which should be shown in the table
    */
   public HistoryDialog(History history) {
     this.history = history;

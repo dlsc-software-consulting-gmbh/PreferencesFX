@@ -23,7 +23,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Represents a change, which is comprised of a new and an old value.
+ * There are two types: List changes and regular changes.
+ * Internally, all changes are saved into a {@link ListProperty} for the old and the new value,
+ * regardless of the type of change. However, if two {@link ObservableList} are used to create
+ * a change, a boolean flags the change as a list change. In case of a regular change, a binding
+ * will also set an {@link ObjectProperty} for easier handling.
+ *
+ * @param <P> the data type of the change, which is reflected in a {@link ListProperty<P>} for a
+ *           list change and in a {@link ObjectProperty<P>} for regular changes as well
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -96,7 +104,7 @@ public class Change<P> {
 
   /**
    * Creates a function, which handles binding between a ListProperty and an ObjectProperty.
-   *
+   * <p>
    * <p>If this change isn't a list change, oldValue and newValue properties will have the single
    * element inside of the list, for easier usage.
    *
@@ -127,7 +135,9 @@ public class Change<P> {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Undos a change.
+   * Does this by setting the corresponding value of the {@link Setting} to the old value of this
+   * change.
    */
   public void undo() {
     if (isListChange()) {
@@ -139,7 +149,9 @@ public class Change<P> {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Redos a change.
+   * Does this by setting the corresponding value of the {@link Setting} to the new value of this
+   * change.
    */
   public void redo() {
     if (isListChange()) {
