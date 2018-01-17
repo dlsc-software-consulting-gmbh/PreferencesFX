@@ -99,7 +99,9 @@ public class RootPane extends StackPane {
                 Category.of("Scaling & Ordering",
                     Group.of(
                         Setting.of("Scaling", scaling)
-                            .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1")),
+                            .validate(DoubleRangeValidator
+                                .atLeast(1, "Scaling needs to be at least 1")
+                            ),
                         Setting.of("Screen name", screenName),
                         Setting.of("Resolution", resolutionItems, resolutionSelection),
                         Setting.of("Orientation", orientationItems, orientationSelection)
