@@ -14,6 +14,8 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
