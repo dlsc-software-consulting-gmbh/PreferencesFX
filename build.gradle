@@ -1,5 +1,5 @@
 group 'com.dlsc'
-version '1.2.1-SNAPSHOT'
+version '1.3.0-SNAPSHOT'
 
 task wrapper(type: Wrapper) {
     description = 'Generates gradlew[.bat] scripts'
