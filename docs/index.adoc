@@ -3,14 +3,19 @@ François Martin; Marco Sanfratello
 
 == Abstract / Management summary
 
+----- ToDo -----
+
 == Entry
 The PreferenesFX API creates a preferences window. This is done by simply writing a title and giving it a property and all the other work is done by the API itself. Often developers have no time, energy or simply not mind to write a preferences window for their application. It’s a generic, boring work which nobody really wants to do. The picture below shows the final result of the PreferencesFX API in use.
 
 image::PreferencesFX_in_use.PNG[PreferencesFX in use]
 
-PreferencesFX API is to replace this boring work with a much simpler, cleaner solution. Always in mind to relieve this part of a developers work as much as possible, this solution was created.
+The idea of the PreferencesFX API is to replace this boring work with a much simpler, cleaner solution. Always in mind to relieve this part of a developers work as much as possible, this solution was created.
+
 The PreferencesFX API works with a fluent API approach. The developer can build up his preferences window by simply calling function after function to define it further. Each preference which needs to be stored represents a setting. One or multiple settings are collected in a group. One or multiple groups are collected in a category and the preferences window consists of one or multiple categories.
+
 The project itself is programmed with a model view presenter structure, which separates the frontend and backend to ensure a clear overview.
+
 In the following chapters, the reader will gain additional insights of the projects structure and the features the PreferencesFX API provides.
 
 == Main content
