@@ -115,7 +115,7 @@ public class PreferencesFxDialog extends DialogPane {
       history.clear(true);
       // save settings after undoing them
       if (saveSettings) {
-        saveSettingValues();
+        model.saveSettingValues();
       }
     });
     closeBtn.setOnAction(event -> {
