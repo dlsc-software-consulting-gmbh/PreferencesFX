@@ -120,6 +120,10 @@ public class PreferencesFxDialog extends DialogPane {
     cancelBtn.setOnAction(event -> {
       LOGGER.trace("Cancel Button was pressed");
       history.clear(true);
+      // save settings after undoing them
+      if (saveSettings) {
+        saveSettingValues();
+      }
     });
     closeBtn.setOnAction(event -> {
       LOGGER.trace("Close Button was pressed");
