@@ -39,7 +39,7 @@ public class PreferencesFxModel {
   private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
 
   private boolean persistWindowState = false;
-  private boolean saveSettings = false;
+  private boolean saveSettings = true;
   private boolean historyDebugState = false;
   private boolean oneCategoryLayout;
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
@@ -74,17 +74,6 @@ public class PreferencesFxModel {
         newValue.addListener(() -> category.translate(newValue));
       });
     });
-  }
-
-  public void loadSettingValues() {
-    PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
-        .forEach(setting -> {
-          LOGGER.trace("Loading: " + setting.getBreadcrumb());
-          if (saveSettings) {
-            setting.loadSettingValue(storageHandler);
-          }
-          history.attachChangeListener(setting);
-        });
   }
 
   private void createBreadcrumbs(List<Category> categories) {
@@ -159,6 +148,23 @@ public class PreferencesFxModel {
     return flatCategoriesLst.stream()
         .filter(category -> category.getBreadcrumb().equals(breadcrumb))
         .findAny().orElse(defaultCategory);
+  }
+
+  public void saveSettingValues() {
+    PreferencesFxUtils.categoriesToSettings(
+        getFlatCategoriesLst()
+    ).forEach(setting -> setting.saveSettingValue(storageHandler));
+  }
+
+  public void loadSettingValues() {
+    PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
+        .forEach(setting -> {
+          LOGGER.trace("Loading: " + setting.getBreadcrumb());
+          if (saveSettings) {
+            setting.loadSettingValue(storageHandler);
+          }
+          history.attachChangeListener(setting);
+        });
   }
 
   public Category getDisplayedCategory() {

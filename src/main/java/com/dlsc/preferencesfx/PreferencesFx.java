@@ -44,6 +44,9 @@ public class PreferencesFx {
         new StorageHandler(saveClass), new SearchHandler(), new History(), categories
     );
 
+    // setting values are only loaded if they are present already
+    preferencesFxModel.loadSettingValues();
+
     undoRedoBox = new UndoRedoBox(preferencesFxModel.getHistory());
 
     breadCrumbView = new BreadCrumbView(preferencesFxModel, undoRedoBox);
@@ -61,7 +64,6 @@ public class PreferencesFx {
         preferencesFxModel, navigationView, breadCrumbView, categoryController
     );
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
-
   }
 
   /**
@@ -134,6 +136,10 @@ public class PreferencesFx {
    */
   public PreferencesFx saveSettings(boolean save) {
     preferencesFxModel.setSaveSettings(save);
+    // if settings shouldn't be saved, clear them if there are any present
+    if (!save) {
+      preferencesFxModel.getStorageHandler().clearPreferences();
+    }
     return this;
   }
 
