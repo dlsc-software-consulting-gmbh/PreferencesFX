@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.i18n;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.model.util.ResourceBundleService;
+import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
@@ -104,7 +105,8 @@ public class RootPane extends StackPane {
             .subCategories(
                 Category.of("scaling_ordering",
                     Group.of(
-                        Setting.of("scaling", scaling),
+                        Setting.of("scaling", scaling)
+                            .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1")),
                         Setting.of("screen_name", screenName),
                         Setting.of("resolution", resolutionItems, resolutionSelection),
                         Setting.of("orientation", orientationItems, orientationSelection)
@@ -119,6 +121,6 @@ public class RootPane extends StackPane {
             Setting.of("favorites", favoritesItems, favoritesSelection),
             Setting.of("favorite_number", customControl, customControlProperty)
         )
-    ).debugHistoryMode(true).buttonsVisibility(true).i18n(rbs).persistApplicationState(false);
+    ).debugHistoryMode(true).buttonsVisibility(true).i18n(rbs).persistApplicationState(true);
   }
 }
