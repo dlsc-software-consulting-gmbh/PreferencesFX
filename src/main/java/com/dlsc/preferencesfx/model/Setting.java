@@ -14,6 +14,8 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -242,19 +244,22 @@ public class Setting<F extends Field, P extends Property> {
 
   /**
    * Since {@link java.util.prefs.Preferences#MAX_KEY_LENGTH} is 80, if the breadcrumb is over
-   * 80 characters, it will lead to an exception while saving. This method returns strings that are
-   * 80 characters maximum, by trimming the breadcrumb down (if needed) and adding the hashcode
-   * at the end. This combination ensures compatibility with {@link java.util.prefs.Preferences}
-   * while still preserving maximum uniqueness of the key during saving and loading.
-   * @return
+   * 80 characters, it will lead to an exception while saving. This method generates a
+   * SHA-256 hash of the breadcrumb and uses this hash to save it to
+   * {@link java.util.prefs.Preferences}, since those are guaranteed to be maximum 64 chars long.
+   * @return SHA-256 representation of breadcrumb
    */
   private String getPreferencesKey() {
     String breadcrumb = getBreadcrumb();
-    // if breadcrumb is too long, shorten it
-    if (breadcrumb.length() > Constants.PREFERENCES_KEY_BREADCRUMB_TRIM) {
-      breadcrumb = breadcrumb.substring(0, Constants.PREFERENCES_KEY_BREADCRUMB_TRIM - 1);
+    MessageDigest messageDigest = null;
+    try {
+      messageDigest = MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException e) {
+      LOGGER.error("Hashing algorithm not found!");
     }
-    return breadcrumb + hashCode();
+    messageDigest.update(breadcrumb.getBytes());
+    String hashedBreadcrumb = new String(messageDigest.digest());
+    return hashedBreadcrumb;
   }
 
   public void addToBreadcrumb(String breadCrumb) {
