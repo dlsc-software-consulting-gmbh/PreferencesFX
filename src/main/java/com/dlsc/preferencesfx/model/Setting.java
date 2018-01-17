@@ -227,17 +227,34 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   public void saveSettingValue(StorageHandler storageHandler) {
-    storageHandler.saveObject(getBreadcrumb(), value.getValue());
+    storageHandler.saveObject(getPreferencesKey(), value.getValue());
   }
 
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
-          storageHandler.loadObservableList(getBreadcrumb(), (ObservableList) value.getValue())
+          storageHandler.loadObservableList(getPreferencesKey(), (ObservableList) value.getValue())
       );
     } else {
-      value.setValue(storageHandler.loadObject(getBreadcrumb(), value.getValue()));
+      value.setValue(storageHandler.loadObject(getPreferencesKey(), value.getValue()));
     }
+  }
+
+  /**
+   * Since {@link java.util.prefs.Preferences#MAX_KEY_LENGTH} is 80, if the breadcrumb is over
+   * 80 characters, it will lead to an exception while saving. This method returns strings that are
+   * 80 characters maximum, by trimming the breadcrumb down (if needed) and adding the hashcode
+   * at the end. This combination ensures compatibility with {@link java.util.prefs.Preferences}
+   * while still preserving maximum uniqueness of the key during saving and loading.
+   * @return
+   */
+  private String getPreferencesKey() {
+    String breadcrumb = getBreadcrumb();
+    // if breadcrumb is too long, shorten it
+    if (breadcrumb.length() > Constants.PREFERENCES_KEY_BREADCRUMB_TRIM) {
+      breadcrumb = breadcrumb.substring(0, Constants.PREFERENCES_KEY_BREADCRUMB_TRIM - 1);
+    }
+    return breadcrumb + hashCode();
   }
 
   public void addToBreadcrumb(String breadCrumb) {
