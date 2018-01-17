@@ -204,9 +204,10 @@ public class StorageHandler {
 
   /**
    * Generates a SHA-256 hash of a String.
-   * Since {@link java.util.prefs.Preferences#MAX_KEY_LENGTH} is 80, if the breadcrumb is over
-   * 80 characters, it will lead to an exception while saving. This method generates a
-   * {@link java.util.prefs.Preferences}, since those are guaranteed to be maximum 64 chars long.
+   * Since {@link Preferences#MAX_KEY_LENGTH} is 80, if the breadcrumb is over 80 characters, it
+   * will lead to an exception while saving. This method generates a SHA-256 hash of the breadcrumb
+   * to save / load as the key in {@link Preferences}, since those are guaranteed to be
+   * maximum 64 chars long.
    * @return SHA-256 representation of breadcrumb
    */
   public String hash(String key) {
