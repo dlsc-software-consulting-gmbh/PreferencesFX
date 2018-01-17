@@ -219,8 +219,7 @@ public class StorageHandler {
       LOGGER.error("Hashing algorithm not found!");
     }
     messageDigest.update(key.getBytes());
-    String hashedKey = new String(messageDigest.digest());
-    return hashedKey;
+    return new String(messageDigest.digest());
   }
 
   public Preferences getPreferences() {
