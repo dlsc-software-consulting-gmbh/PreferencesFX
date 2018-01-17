@@ -136,6 +136,10 @@ public class PreferencesFx {
    */
   public PreferencesFx saveSettings(boolean save) {
     preferencesFxModel.setSaveSettings(save);
+    // if settings shouldn't be saved, clear them if there are any present
+    if (!save) {
+      preferencesFxModel.getStorageHandler().clearPreferences();
+    }
     return this;
   }
 
