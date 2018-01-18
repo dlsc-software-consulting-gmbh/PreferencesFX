@@ -8,7 +8,7 @@ import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
 
 /**
- * TODO: Add javadoc.
+ * Displays undo and redo buttons and also defines their behavior.
  *
  * @author François Martin
  * @author Marco Sanfratello

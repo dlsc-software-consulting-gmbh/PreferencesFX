@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
 
 /**
- * TODO: Add javadoc.
+ * Represents the master view, which is used to show all view parts in {@link PreferencesFxDialog}.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -30,7 +30,7 @@ public class PreferencesFxView extends BorderPane implements View {
   /**
    * TODO: Add javadoc.
    *
-   * @param model              TODO: Add javadoc.
+   * @param model the model of PreferencesFX
    * @param navigationView     TODO: Add javadoc.
    * @param breadCrumbView     TODO: Add javadoc.
    * @param categoryController TODO: Add javadoc.
@@ -51,7 +51,7 @@ public class PreferencesFxView extends BorderPane implements View {
   /**
    * TODO: Add javadoc.
    *
-   * @param model              TODO: Add javadoc.
+   * @param model the model of PreferencesFX
    * @param categoryController TODO: Add javadoc.
    */
   public PreferencesFxView(PreferencesFxModel model, CategoryController categoryController) {

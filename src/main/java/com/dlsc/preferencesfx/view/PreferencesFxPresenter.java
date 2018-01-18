@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Contains presenter logic of the {@link PreferencesFxView}.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -18,9 +18,9 @@ public class PreferencesFxPresenter implements Presenter {
   private PreferencesFxView preferenceView;
 
   /**
-   * TODO: Add javadoc.
+   * Constructs a new presenter for the {@link PreferencesFxView}.
    *
-   * @param model          TODO: Add javadoc.
+   * @param model the model of PreferencesFX
    * @param preferenceView TODO: Add javadoc.
    */
   public PreferencesFxPresenter(PreferencesFxModel model, PreferencesFxView preferenceView) {

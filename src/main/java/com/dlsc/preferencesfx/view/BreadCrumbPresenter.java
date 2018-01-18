@@ -9,7 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.BreadCrumbBar;
 
 /**
- * TODO: Add javadoc.
+ * Contains presenter logic of the {@link BreadCrumbView}.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -21,10 +21,10 @@ public class BreadCrumbPresenter implements Presenter {
   private final BreadCrumbView breadCrumbView;
 
   /**
-   * TODO: Add javadoc.
+   * Constructs a new presenter for the {@link BreadCrumbView}.
    *
-   * @param model          TODO: Add javadoc.
-   * @param breadCrumbView TODO: Add javadoc.
+   * @param model the model of PreferencesFX
+   * @param breadCrumbView corresponding view to this presenter
    */
   public BreadCrumbPresenter(PreferencesFxModel model, BreadCrumbView breadCrumbView) {
     this.model = model;

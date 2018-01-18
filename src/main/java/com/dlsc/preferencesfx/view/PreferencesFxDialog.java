@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Represents the dialog which is used to show the PreferencesFX window.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -40,7 +40,7 @@ public class PreferencesFxDialog extends DialogPane {
   /**
    * TODO: Add javadoc.
    *
-   * @param model          TODO: Add javadoc.
+   * @param model the model of PreferencesFX
    * @param preferenceView TODO: Add javadoc.
    */
   public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferenceView) {

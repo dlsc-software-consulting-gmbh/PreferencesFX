@@ -17,7 +17,7 @@ import org.controlsfx.glyphfont.GlyphFontRegistry;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
 /**
- * TODO: Add javadoc.
+ * Displays a {@link TreeView} of all {@link Category} including a search bar.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -32,9 +32,9 @@ public class NavigationView extends VBox implements View {
   private PreferencesFxModel model;
 
   /**
-   * TODO: Add javadoc.
+   * Constructs a new view, which displays the {@link TreeView} and the search bar.
    *
-   * @param model TODO: Add javadoc.
+   * @param model the model of PreferencesFX
    */
   public NavigationView(PreferencesFxModel model) {
     this.model = model;

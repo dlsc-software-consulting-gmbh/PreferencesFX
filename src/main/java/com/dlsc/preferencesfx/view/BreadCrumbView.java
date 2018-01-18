@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.BreadCrumbBar;
 
 /**
- * TODO: Add javadoc.
+ * Displays the {@link BreadCrumbBar} of all {@link Category} up to a certain hierarchy level.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -25,9 +25,9 @@ public class BreadCrumbView extends HBox implements View {
   BreadCrumbBar<Category> breadCrumbBar = new BreadCrumbBar<>();
 
   /**
-   * TODO: Add javadoc.
+   * Constructs a new view, which displays the {@link BreadCrumbBar}.
    *
-   * @param model TODO: Add javadoc.
+   * @param model the model of PreferencesFX
    */
   public BreadCrumbView(PreferencesFxModel model, UndoRedoBox undoRedoBox) {
     this.model = model;

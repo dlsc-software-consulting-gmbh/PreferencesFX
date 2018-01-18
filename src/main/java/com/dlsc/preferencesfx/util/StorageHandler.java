@@ -12,6 +12,9 @@ import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_X;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_WIDTH;
 
+import com.dlsc.preferencesfx.model.Category;
+import com.dlsc.preferencesfx.model.Group;
+import com.dlsc.preferencesfx.model.Setting;
 import com.google.gson.Gson;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,7 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Handles everything related to storing values of {@link Setting} using {@link Preferences}.
  *
  * @author François Martin
  * @author Marco Sanfratello

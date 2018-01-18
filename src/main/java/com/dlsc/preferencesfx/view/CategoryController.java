@@ -30,9 +30,10 @@ public class CategoryController extends ScrollPane {
   private HashMap<Category, CategoryPresenter> presenters = new HashMap<>();
 
   /**
-   * TODO: Add javadoc.
+   * Initializes the category controller.
    */
   public CategoryController() {
+    // removes the border around the scrollpane
     setStyle("-fx-background-color:transparent;");
   }
 
