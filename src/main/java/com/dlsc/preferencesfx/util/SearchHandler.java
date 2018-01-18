@@ -17,13 +17,16 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
 /**
- * TODO: Add javadoc.
+ * Handles everything related to searching in the{@link Category}, {@link Group}
+ * and {@link Setting}.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -55,7 +58,7 @@ public class SearchHandler {
   private ObjectProperty<Category> categoryMatch = new SimpleObjectProperty<>();
 
   /**
-   * Decides whether a TreeItem should be shown in the TreeSearchView or not.
+   * Decides whether a {@link TreeItem} should be shown in the {@link TreeView} or not.
    * If result is true, it will be shown, if the result is false, it will be hidden.
    */
   private Predicate<Category> filterPredicate = category -> {
@@ -81,10 +84,11 @@ public class SearchHandler {
 
   /**
    * Initializes the SearchHandler by initially creating all necessary lists
-   * for filtering and setting up the bindings. Must be called to make the filtering work.
+   * for filtering and setting up the bindings.
    *
    * @param searchText        textProperty of a TextField where the search string is being input
    * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
+   * @apiNote Must be called to make the filtering work.
    */
   public void init(
       PreferencesFxModel model,
@@ -156,9 +160,10 @@ public class SearchHandler {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Updates the search based on a new {@code searchText}.
    *
-   * @param searchText TODO: Add javadoc.
+   * @param searchText the new text to be searched for
+   * @implNote Filters the lists, sets the category match, unmarks everything and marks all matches.
    */
   public void updateSearch(String searchText) {
     updateFilteredLists(searchText);
