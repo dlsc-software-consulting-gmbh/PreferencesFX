@@ -23,13 +23,6 @@ public class DemoView extends VBox {
   private Label brightnessLbl;
   private Label nightModeLbl;
   private Label scalingLbl;
-  private Label screenNameLbl;
-  private Label resolutionLbl;
-  private Label orientationLbl;
-  private Label favoritesLbl;
-  private Label fontSizeLbl;
-  private Label lineSpacingLbl;
-  private Label favoriteNumberLbl;
 
   public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
     this.preferencesFx = preferencesFx;
@@ -51,13 +44,6 @@ public class DemoView extends VBox {
     brightnessLbl = new Label();
     nightModeLbl = new Label();
     scalingLbl = new Label();
-    screenNameLbl = new Label();
-    resolutionLbl = new Label();
-    orientationLbl = new Label();
-    favoritesLbl = new Label();
-    fontSizeLbl = new Label();
-    lineSpacingLbl = new Label();
-    favoriteNumberLbl = new Label();
   }
 
   private void layoutParts() {
@@ -70,14 +56,7 @@ public class DemoView extends VBox {
         welcomeLbl,
         brightnessLbl,
         nightModeLbl,
-        scalingLbl,
-        screenNameLbl,
-        resolutionLbl,
-        orientationLbl,
-        favoritesLbl,
-        fontSizeLbl,
-        lineSpacingLbl,
-        favoriteNumberLbl
+        scalingLbl
     );
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
@@ -87,14 +66,7 @@ public class DemoView extends VBox {
         new Label("Welcome Text:"),
         new Label("Brightness:"),
         new Label("Night mode:"),
-        new Label("Scaling:"),
-        new Label("Screen name:"),
-        new Label("Resolution:"),
-        new Label("Orientation:"),
-        new Label("Favorites:"),
-        new Label("Font Size:"),
-        new Label("Line Spacing:"),
-        new Label("Favorite Number:")
+        new Label("Scaling:")
     );
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
@@ -120,16 +92,6 @@ public class DemoView extends VBox {
     brightnessLbl.textProperty().bind(rootPane.brightness.asString().concat("%"));
     nightModeLbl.textProperty().bind(rootPane.nightMode.asString());
     scalingLbl.textProperty().bind(rootPane.scaling.asString());
-    screenNameLbl.textProperty().bind(rootPane.screenName);
-    resolutionLbl.textProperty().bind(rootPane.resolutionSelection);
-    orientationLbl.textProperty().bind(rootPane.orientationSelection);
-    favoritesLbl.textProperty().bind(Bindings.createStringBinding(
-        () -> rootPane.favoritesSelection.stream().collect(Collectors.joining(", ")),
-        rootPane.favoritesSelection
-    ));
-    fontSizeLbl.textProperty().bind(rootPane.fontSize.asString());
-    lineSpacingLbl.textProperty().bind(rootPane.lineSpacing.asString());
-    favoriteNumberLbl.textProperty().bind(rootPane.customControlProperty.asString());
   }
 
   private void setupEventHandlers() {

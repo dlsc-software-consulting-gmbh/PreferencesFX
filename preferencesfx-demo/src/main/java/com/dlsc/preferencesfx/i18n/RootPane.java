@@ -118,6 +118,6 @@ public class RootPane extends StackPane {
             Setting.of("favorites", favoritesItems, favoritesSelection),
             Setting.of("favorite_number", customControl, customControlProperty)
         )
-    ).i18n(rbs);
+    ).i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 }

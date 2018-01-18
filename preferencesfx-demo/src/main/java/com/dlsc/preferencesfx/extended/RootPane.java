@@ -342,6 +342,6 @@ public class RootPane extends StackPane {
                 Category.of("XPath Viewer")
             ),
         Category.of("Other Settings")
-    );
+    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 }
