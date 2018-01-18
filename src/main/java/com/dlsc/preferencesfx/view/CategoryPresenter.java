@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Contains presenter logic of the {@link CategoryView}.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -27,14 +27,16 @@ public class CategoryPresenter implements Presenter {
   private Category categoryModel;
   private CategoryView categoryView;
   private final BreadCrumbPresenter breadCrumbPresenter;
+  private Form form;
 
   /**
-   * TODO: Add javadoc.
+   * Constructs a new presenter for the {@link CategoryView}.
    *
-   * @param model               TODO: Add javadoc.
-   * @param categoryModel       TODO: Add javadoc.
-   * @param categoryView        TODO: Add javadoc.
-   * @param breadCrumbPresenter TODO: Add javadoc.
+   * @param model the model of PreferencesFX
+   * @param categoryModel       the category which is being represented in the view
+   * @param categoryView        corresponding view to this presenter
+   * @param breadCrumbPresenter the presenter of the corresponding {@link BreadCrumbView} as found
+   *                            in the corresponding view to this presenter
    */
   public CategoryPresenter(
       PreferencesFxModel model,
@@ -54,8 +56,8 @@ public class CategoryPresenter implements Presenter {
    */
   @Override
   public void initializeViewParts() {
-    initializeForm(categoryView.form);
-    categoryView.initializeFormRenderer();
+    form = createForm();
+    categoryView.initializeFormRenderer(form);
     addI18nListener();
   }
 
@@ -66,7 +68,7 @@ public class CategoryPresenter implements Presenter {
   private void addI18nListener() {
     model.translationServiceProperty().addListener((observable, oldValue, newValue) -> {
       if (oldValue != newValue) {
-        categoryView.form.i18n(newValue);
+        form.i18n(newValue);
         newValue.addListener(categoryModel::updateGroupDescriptions);
         if (!Objects.equals(breadCrumbPresenter, null)) {
           newValue.addListener(breadCrumbPresenter::setupBreadCrumbBar);
@@ -77,11 +79,11 @@ public class CategoryPresenter implements Presenter {
   }
 
   /**
-   * Fills the {@link Form} with {@link Group} and {@link Setting} of this {@link Category}.
-   *
-   * @param form the form to be initialized
+   * Creates a {@link Form} with {@link Group} and {@link Setting} of this {@link Category}.
+   * @return the created form.
    */
-  private void initializeForm(Form form) {
+  private Form createForm() {
+    Form form = Form.of();
     // assign groups from this category
     List<Group> groups = categoryModel.getGroups();
     // if there are no groups, initialize them anyways as a list
@@ -106,6 +108,7 @@ public class CategoryPresenter implements Presenter {
 
     // ensures instant persistance of value changes
     form.binding(BindingMode.CONTINUOUS);
+    return form;
   }
 
   /**
