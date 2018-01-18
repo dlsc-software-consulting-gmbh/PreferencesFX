@@ -28,7 +28,7 @@ public class PreferencesFxDialog extends DialogPane {
       LogManager.getLogger(PreferencesFxDialog.class.getName());
 
   private PreferencesFxModel model;
-  private PreferencesFxView preferenceView;
+  private PreferencesFxView preferencesFxView;
 
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
@@ -38,14 +38,14 @@ public class PreferencesFxDialog extends DialogPane {
   private ButtonType cancelBtnType = ButtonType.CANCEL;
 
   /**
-   * TODO: Add javadoc.
+   * Initializes the {@link DialogPane} which shows the PreferencesFX window.
    *
    * @param model the model of PreferencesFX
-   * @param preferenceView TODO: Add javadoc.
+   * @param preferencesFxView the master view to be display in this {@link DialogPane}
    */
-  public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferenceView) {
+  public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferencesFxView) {
     this.model = model;
-    this.preferenceView = preferenceView;
+    this.preferencesFxView = preferencesFxView;
     persistWindowState = model.isPersistWindowState();
     saveSettings = model.isSaveSettings();
     storageHandler = model.getStorageHandler();
@@ -66,7 +66,7 @@ public class PreferencesFxDialog extends DialogPane {
     getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     dialog.initModality(Modality.NONE);
     dialog.setDialogPane(this);
-    setContent(preferenceView);
+    setContent(preferencesFxView);
   }
 
   private void setupDialogClose() {
@@ -108,7 +108,7 @@ public class PreferencesFxDialog extends DialogPane {
   private void setupDebugHistoryTable() {
     final KeyCombination keyCombination =
         new KeyCodeCombination(KeyCode.H, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN);
-    preferenceView.getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+    preferencesFxView.getScene().addEventHandler(KeyEvent.KEY_RELEASED, event -> {
       if (keyCombination.match(event)) {
         LOGGER.trace("Opened History Debug View");
         new HistoryDialog(model.getHistory());

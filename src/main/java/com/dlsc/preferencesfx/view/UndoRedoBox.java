@@ -20,9 +20,10 @@ public class UndoRedoBox extends HBox {
   private History history;
 
   /**
-   * TODO: Add javadoc.
+   * Initializes the undo and redo buttons, sets their respective actions and disables them
+   * if undo or redo is not available, respectively.
    *
-   * @param history TODO: Add javadoc.
+   * @param history the history to be used for undo and redo
    */
   public UndoRedoBox(History history) {
     this.history = history;

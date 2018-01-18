@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
+import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
@@ -28,12 +29,13 @@ public class PreferencesFxView extends BorderPane implements View {
   private BreadCrumbView breadCrumbView;
 
   /**
-   * Constructs a
+   * Displays all of the view parts, representing the master view.
    *
    * @param model the model of PreferencesFX
-   * @param navigationView     TODO: Add javadoc.
-   * @param breadCrumbView     TODO: Add javadoc.
-   * @param categoryController TODO: Add javadoc.
+   * @param navigationView     left part of the view
+   * @param breadCrumbView     breadcrumb bar on the top of the {@code categoryController}
+   * @param categoryController shows the {@link CategoryView} of the
+   *                           currently selected {@link Category}
    */
   public PreferencesFxView(
       PreferencesFxModel model,
