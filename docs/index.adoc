@@ -8,7 +8,7 @@ François Martin; Marco Sanfratello
 
 ----- ToDo -----
 
-== Entry
+== Introduction
 The PreferenesFX API creates a preferences window. This is done by simply writing a title and giving it a property and all the other work is done by the API itself. Often developers have no time, energy or simply not mind to write a preferences window for their application. It’s a generic, boring work which nobody really wants to do. The picture below shows the final result of the PreferencesFX API in use.
 
 image::images/preferencesFX_in_use.png[PreferencesFX in use]
@@ -118,6 +118,9 @@ Another bug occured when we were implementing the support of the setting type `L
 ==== Code refactoring
 
 ----- ToDo -----
+
+=== Architecture
+image::images/UML.png[UML diagram]
 
 == Lessons learned
 * We just started programming and didn't mind about separating the frontend from the backend. This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project. For the next project we are going to focus more on the system architecture in first place.
