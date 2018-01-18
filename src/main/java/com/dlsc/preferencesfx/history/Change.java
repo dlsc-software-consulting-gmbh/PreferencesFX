@@ -30,8 +30,8 @@ import org.apache.logging.log4j.Logger;
  * a change, a boolean flags the change as a list change. In case of a regular change, a binding
  * will also set an {@link ObjectProperty} for easier handling.
  *
- * @param <P> the data type of the change, which is reflected in a {@link ListProperty<P>} for a
- *           list change and in a {@link ObjectProperty<P>} for regular changes as well
+ * @param <P> the data type of the change, which is reflected in a {@link ListProperty} for a
+ *            list change and in a {@link ObjectProperty} for regular changes as well
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -104,8 +104,7 @@ public class Change<P> {
 
   /**
    * Creates a function, which handles binding between a ListProperty and an ObjectProperty.
-   * <p>
-   * <p>If this change isn't a list change, oldValue and newValue properties will have the single
+   * If this change isn't a list change, oldValue and newValue properties will have the single
    * element inside of the list, for easier usage.
    *
    * @param listProperty to be bound to the object property
