@@ -8,14 +8,18 @@ Creating preference dialogs in JavaFX is a tedious and very error-prone task. Pr
 ## Main Features
 
 - Simple and understandable  API
-- The most important Features are shown in the picture below: The created preferences dialog
-    - Search / Filter function
-    - Tree view which shows all categories the user defines
-    - BreadCrumbBar which shows the user the path to the selected category and allows him to navigate back
-    - Undo / Redo Buttons which are allowing the user a stepwise undo and redo possibility of his last changes.
-    - Instant persistance of any changes to the application
-    - Various setting types are supported
-- Regarding the setting types we're also referencing to the requirements.adoc. You can create one when launching the gradle task: 'ascidoctor'. The most important settings are shown further in the document.
+- The most important Features are shown in the picture below: The created preferences dialog:
+
+Feature | Description
+------ | -----------
+`Search / Filter` | Filters all categories after a given String. Helps to find the required category.
+`Tree view` | Shows all categories the user defines.
+`BreadCrumbBar` | Shows the user the path to the selected category and allows him to navigate back.
+`Undo / Redo Buttons` | Allows the user a stepwise undo and redo possibility of his last changes.
+`Instant persistance` | Any changes to the application are saved instant.
+`Various setting types` | Like: boolean, String, Integer, Double, Lists, Objects
+
+- Regarding the setting types we're also referencing to the `requirements.adoc`. You can create one when launching the gradle task: `'ascidoctor'`. The most important settings are shown further in the document.
 
 ![alt text](docs/images/preferencesFX_in_use.png) The created preferences dialog
 
@@ -25,36 +29,56 @@ PreferencesFX contains different semantic layers. A preferences dialog can conta
 
 For better illustration, the basic concept of writing a dialog is shown below:
 ```Java
-PreferencesFx.of(
+PreferencesFx preferencesFx = 
+    PreferencesFx.of(AppStarter.class,
         Category.of("Category Title",
-                Group.of("Group Title",
-                          Setting.of("Setting Title", new Property())
-                )
+            Group.of("Group Title",
+                Setting.of("Setting Title", new Property())
+            )
         )
-);
+    );
 ```
 
-Note: When the user of the API decides to only add   
+Note: The user can decide to add only `Settings` to a `Category` instead of a `Group`. In this case the API creates automatically a single `Group` and add it to the `Category`. But this works only when only one `Group` is needed.
 
-FormsFX offers different semantic layers. The largest entity is the form. It contains groups and sections, which in turn act as containers for fields. Fields are the end user's primary point of interaction as they handle data input and presentation.
+## Defining a preferences dialog
 
-## Defining a form
-
-Creating a form is as simple as calling `Form.of()`.
+Creating a preferences dialog is as simple as calling `FreferencesFx.of()`.
 
 ```Java
-Form.of(
-        Group.of(
-                Field.ofStringType("")
-                        .label("Username"),
-                Field.ofStringType("")
-                        .label("Password")
-                        .required("This field can’t be empty")
+StringProperty stringProperty = new SimpleStringProperty("String");
+BooleanProperty booleanProperty = new SimpleBooleanProperty(true);
+IntegerProperty integerProperty = new SimpleIntegerProperty(12);
+DoubleProperty doubleProperty = new SimpleDoubleProperty(6.5);
+
+PreferencesFx preferencesFx = 
+    PreferencesFx.of(AppStarter.class, // Save class (to save the preferences)
+        Category.of("Category title 1",
+            Setting.of("Setting title 1", stringProperty), // Creates automatically one group
+            Setting.of("Setting title 2", booleanProperty) // which contains both settings
         ),
-        Group.of(…)
-).title("Login");
+        Category.of("Category title 2")
+            .subCategories(
+                Category.of("Category title 3",
+                    Group.of("Group title 1",
+                        Setting.of("Setting title 3", integerProperty)
+                    ),
+                    Group.of("Group title 1",
+                        Setting.of("Setting title 3", doubleProperty)
+                    )
+                )
+            )
+    ).persistApplicationState(true).debugHistoryMode(true);
 ```
 
+The result of this code snippet results in the following preferences window:
+
+![alt text](docs/images/example_preferences.png) Result
+
+For creating a setting, the user needs only to hand over a title and a `Property`. `PreferencesFX` does the rest. The user can then listen to this property for when it changes.
+
+
+----------- FormsFX stuff --------------
 Fields have a range of options that define their semantics and change their functionality.
 
 Option | Description

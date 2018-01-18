@@ -2,7 +2,6 @@ package com.dlsc.preferencesfx.standard;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
@@ -24,9 +23,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -86,40 +82,29 @@ public class RootPane extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
+    StringProperty stringProperty = new SimpleStringProperty("String");
+    BooleanProperty booleanProperty = new SimpleBooleanProperty(true);
+    IntegerProperty integerProperty = new SimpleIntegerProperty(12);
+    DoubleProperty doubleProperty = new SimpleDoubleProperty(6.5);
+
     // asciidoctor Documentation - tag::setupPreferences[]
-    return PreferencesFx.of(AppStarter.class,
-        Category.of("General",
-            Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
-            ),
-            Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
-            )
+    return PreferencesFx.of(AppStarter.class, // Save class (to save the preferences)
+        Category.of("Category title 1",
+            Setting.of("Setting title 1", stringProperty), // Creates automatically one group
+            Setting.of("Setting title 2", booleanProperty) // which contains both settings
         ),
-        Category.of("Screen")
+        Category.of("Category title 2")
             .subCategories(
-                Category.of("Scaling & Ordering",
-                    Group.of(
-                        Setting.of("Scaling", scaling)
-                            .validate(DoubleRangeValidator
-                                .atLeast(1, "Scaling needs to be at least 1")
-                            ),
-                        Setting.of("Screen name", screenName),
-                        Setting.of("Resolution", resolutionItems, resolutionSelection),
-                        Setting.of("Orientation", orientationItems, orientationSelection)
-                    ).description("Screen Options"),
-                    Group.of(
-                        Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
+                Category.of("Category title 3",
+                    Group.of("Group title 1",
+                        Setting.of("Setting title 3", integerProperty)
+                    ),
+                    Group.of("Group title 1",
+                        Setting.of("Setting title 3", doubleProperty)
                     )
                 )
-            ),
-        Category.of("Favorites",
-            Setting.of("Favorites", favoritesItems, favoritesSelection),
-            Setting.of("Favorite Number", customControl, customControlProperty)
-        )
-    ).persistWindowState(true).saveSettings(true).debugHistoryMode(true).buttonsVisibility(true);
+            )
+    ).persistApplicationState(true).debugHistoryMode(true);
     // asciidoctor Documentation - end::setupPreferences[]
   }
 }
