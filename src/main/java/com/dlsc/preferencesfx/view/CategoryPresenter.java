@@ -32,7 +32,7 @@ public class CategoryPresenter implements Presenter {
   /**
    * Constructs a new presenter for the {@link CategoryView}.
    *
-   * @param model the model of PreferencesFX
+   * @param model               the model of PreferencesFX
    * @param categoryModel       the category which is being represented in the view
    * @param categoryView        corresponding view to this presenter
    * @param breadCrumbPresenter the presenter of the corresponding {@link BreadCrumbView} as found
@@ -80,6 +80,7 @@ public class CategoryPresenter implements Presenter {
 
   /**
    * Creates a {@link Form} with {@link Group} and {@link Setting} of this {@link Category}.
+   *
    * @return the created form.
    */
   private Form createForm() {

@@ -40,7 +40,7 @@ public class PreferencesFxDialog extends DialogPane {
   /**
    * Initializes the {@link DialogPane} which shows the PreferencesFX window.
    *
-   * @param model the model of PreferencesFX
+   * @param model             the model of PreferencesFX
    * @param preferencesFxView the master view to be display in this {@link DialogPane}
    */
   public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferencesFxView) {

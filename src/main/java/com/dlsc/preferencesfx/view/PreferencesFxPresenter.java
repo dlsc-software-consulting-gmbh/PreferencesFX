@@ -20,7 +20,7 @@ public class PreferencesFxPresenter implements Presenter {
   /**
    * Constructs a new presenter for the {@link PreferencesFxView}.
    *
-   * @param model the model of PreferencesFX
+   * @param model             the model of PreferencesFX
    * @param preferencesFxView corresponding view to this presenter
    */
   public PreferencesFxPresenter(PreferencesFxModel model, PreferencesFxView preferencesFxView) {

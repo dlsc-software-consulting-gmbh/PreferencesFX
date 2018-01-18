@@ -12,8 +12,6 @@ import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_X;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_WIDTH;
 
-import com.dlsc.preferencesfx.model.Category;
-import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
 import com.google.gson.Gson;
 import java.security.MessageDigest;

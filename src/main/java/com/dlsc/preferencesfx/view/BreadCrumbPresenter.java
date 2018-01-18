@@ -23,7 +23,7 @@ public class BreadCrumbPresenter implements Presenter {
   /**
    * Constructs a new presenter for the {@link BreadCrumbView}.
    *
-   * @param model the model of PreferencesFX
+   * @param model          the model of PreferencesFX
    * @param breadCrumbView corresponding view to this presenter
    */
   public BreadCrumbPresenter(PreferencesFxModel model, BreadCrumbView breadCrumbView) {

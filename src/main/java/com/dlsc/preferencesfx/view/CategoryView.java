@@ -27,7 +27,7 @@ public class CategoryView extends StackPane implements View {
   /**
    * Initializes a new view of a {@link Category}.
    *
-   * @param model the model of PreferencesFX
+   * @param model         the model of PreferencesFX
    * @param categoryModel is the category that will be displayed in this view
    */
   public CategoryView(PreferencesFxModel model, Category categoryModel) {
@@ -38,9 +38,10 @@ public class CategoryView extends StackPane implements View {
 
   /**
    * Initializes the {@link PreferencesFxFormRenderer}.
+   *
+   * @param form to be rendered using the {@link PreferencesFxFormRenderer}
    * @implNote This can't be done in the constructor, since the form has to be initialized by the
    * corresponding presenter first.
-   * @param form to be rendered using the {@link PreferencesFxFormRenderer}
    */
   void initializeFormRenderer(Form form) {
     getChildren().clear();

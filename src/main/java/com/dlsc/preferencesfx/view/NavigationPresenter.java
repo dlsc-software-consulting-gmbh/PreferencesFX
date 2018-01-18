@@ -31,7 +31,7 @@ public class NavigationPresenter implements Presenter {
   /**
    * Constructs a new presenter for the {@link NavigationView}.
    *
-   * @param model the model of PreferencesFX
+   * @param model          the model of PreferencesFX
    * @param navigationView corresponding view to this presenter
    */
   public NavigationPresenter(PreferencesFxModel model, NavigationView navigationView) {

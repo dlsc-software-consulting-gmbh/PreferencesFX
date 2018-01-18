@@ -31,7 +31,7 @@ public class PreferencesFxView extends BorderPane implements View {
   /**
    * Displays all of the view parts, representing the master view.
    *
-   * @param model the model of PreferencesFX
+   * @param model              the model of PreferencesFX
    * @param navigationView     left part of the view
    * @param breadCrumbView     breadcrumb bar on the top of the {@code categoryController}
    * @param categoryController shows the {@link CategoryView} of the
