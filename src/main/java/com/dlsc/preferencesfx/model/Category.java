@@ -16,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Represents a category, which is used to structure one to multiple groups with settings in a page.
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -81,9 +81,9 @@ public class Category {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param children TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Adds subcategories to this category. Can be used to build up a hierarchical tree of Categories.
+   * @param children the subcategories to assign to this category
+   * @return this object for chaining with the fluent API
    */
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
@@ -91,8 +91,8 @@ public class Category {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param categories TODO: Add javadoc.
+   * Creates and defines all of the breadcrumbs for all of the categories.
+   * @param categories the categories to create breadcrumbs for
    */
   public void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
@@ -107,7 +107,9 @@ public class Category {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Unmarks all settings.
+   * Is used for the search, which marks and unmarks items depending on the match as a form of
+   * visual feedback.
    */
   public void unmarkSettings() {
     if (getGroups() != null) {
@@ -117,7 +119,9 @@ public class Category {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Unmarks all groups.
+   * Is used for the search, which marks and unmarks items depending on the match as a form of
+   * visual feedback.
    */
   public void unmarkGroups() {
     if (getGroups() != null) {
@@ -126,7 +130,9 @@ public class Category {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Unmarks all settings and groups.
+   * Is used for the search, which marks and unmarks items depending on the match as a form of
+   * visual feedback.
    */
   public void unmarkAll() {
     unmarkGroups();
@@ -152,7 +158,7 @@ public class Category {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Updates the group descriptions when translation changes.
    */
   public void updateGroupDescriptions() {
     if (groups != null) {
