@@ -23,7 +23,7 @@ In the following chapters, the reader will gain additional insights of the proje
 
 == The way to PreferencesFX
 === Briefing
-Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consulting (dlsc, http://dlsc.com/). One of his former projects was the FormsFX API, where a developer can easily create forms without a lot of effort. His approach was to adapt this idea of an easy way to create a structure with a predefined User Interface to preference windows.
+Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consulting (http://dlsc.com/[dlsc.com]). One of his former projects was the FormsFX API, where a developer can easily create forms without a lot of effort. His approach was to adapt this idea of an easy way to create a structure with a predefined User Interface to preference windows.
 
 The developer should not need to invest a lot of time creating a preferences window. We should orientate ourselves at the preferences window of the programming platform Intellij IDEA regarding the look and feel.
 
@@ -102,10 +102,22 @@ Another question we asked ourselves, was if we should use the former project For
 At last we decided to take the risk and use the FormsFX project, fully aware that it might has some bugs we have to deal with.
 
 ==== Started programming
-Then we finally started programming. We don't wanted to spend any more time researching. So we just started and tried to write as fast as possible some code down to have something to work on. This helped a lot to have some satisfying experiences early in the project and keep motivated.
+We don't wanted to spend any more time researching. So we just started programming and tried to write as fast as possible some code down to have something to work on. This helped a lot to early have some satisfying experiences in the project and keep us motivated.
 
 === Challenges
+During our project we faced several challenges, which we needed to overcome. In the following chapters we'll have a look at the most important ones.
 
+==== FormsFX Bugs
+
+===== GridPane
+----- ToDo -----
+
+===== Bidirectional binding
+Another bug occured when we were implementing the support of the setting type `ListViewControl`. For some reason the alredy
+
+==== Code refactoring
+
+----- ToDo -----
 
 == Lessons learned
 * We just started programming and didn't mind about separating the frontend from the backend. This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project. For the next project we are going to focus more on the system architecture in first place.
