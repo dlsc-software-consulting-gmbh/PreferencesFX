@@ -99,7 +99,7 @@ public class StringUtils {
    * @param subSequence the subsequence to search for.
    * @param fromIndex   the index from which to start the search.
    * @return the index of the first occurrence of the {@code subSequence}, or {@code -1} if there is
-   * no such occurrence.
+   *         no such occurrence.
    * @since NEXT
    */
   public static int indexOfIgnoreCase(
@@ -116,7 +116,7 @@ public class StringUtils {
    * @param sequence    the sequence to be searched in.
    * @param subSequence the subsequence to search for.
    * @return the index of the first occurrence of the {@code subSequence},
-   * or {@code -1} if there is no such occurrence.
+   *         or {@code -1} if there is no such occurrence.
    * @since NEXT
    */
   public static int indexOfIgnoreCase(CharSequence sequence, CharSequence subSequence) {

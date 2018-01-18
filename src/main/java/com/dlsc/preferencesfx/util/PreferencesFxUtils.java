@@ -43,7 +43,7 @@ public class PreferencesFxUtils {
    *
    * @param categories the categories of which to create a map of
    * @return a {@link HashMap} containing {@link Setting}, mapped to their
-   * corresponding {@link Category}
+   *         corresponding {@link Category}
    * @apiNote does not flatten the categories
    */
   public static HashMap<Setting, Category> mapSettingsToCategories(List<Category> categories) {
@@ -67,7 +67,7 @@ public class PreferencesFxUtils {
    *
    * @param categories the categories of which to create a map of
    * @return a {@link HashMap} containing {@link Group}, mapped to their
-   * corresponding {@link Category}
+   *         corresponding {@link Category}
    * @apiNote does not flatten the categories
    */
   public static HashMap<Group, Category> mapGroupsToCategories(List<Category> categories) {
