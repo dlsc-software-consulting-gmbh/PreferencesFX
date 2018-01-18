@@ -18,6 +18,7 @@ import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
 /**
  * TODO: Add javadoc.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -32,6 +33,7 @@ public class NavigationView extends VBox implements View {
 
   /**
    * TODO: Add javadoc.
+   *
    * @param model TODO: Add javadoc.
    */
   public NavigationView(PreferencesFxModel model) {

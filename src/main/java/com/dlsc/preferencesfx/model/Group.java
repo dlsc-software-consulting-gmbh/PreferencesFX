@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Represents a group, which is used to structure one to multiple settings in a category.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -36,8 +37,9 @@ public class Group {
 
   /**
    * Constructs a new group with a {@code description} and {@code settings}.
+   *
    * @param description the title of this group
-   * @param settings the settings that belong to this group
+   * @param settings    the settings that belong to this group
    * @return this object for chaining with the fluent API
    */
   public static Group of(String description, Setting... settings) {
@@ -46,6 +48,7 @@ public class Group {
 
   /**
    * Constructs a new group with {@code settings}, without a {@code description}.
+   *
    * @param settings the settings that belong to this group
    * @return this object for chaining with the fluent API
    */
@@ -55,6 +58,7 @@ public class Group {
 
   /**
    * Sets a {@code description} for this group.
+   *
    * @param description the title of this group
    * @return this object for chaining with the fluent API
    */
@@ -118,6 +122,7 @@ public class Group {
 
   /**
    * Adds the {@code breadCrumb} to this breadcrumb and updates all of its settings accordingly.
+   *
    * @param breadCrumb the breadcrumb to add to this group's breadcrumb
    */
   public void addToBreadcrumb(String breadCrumb) {

@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 
 /**
  * Renders a {@link Form} for a {@link Category} in PreferencesFX.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */

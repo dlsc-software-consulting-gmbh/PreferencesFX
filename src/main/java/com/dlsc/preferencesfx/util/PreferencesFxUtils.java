@@ -15,32 +15,36 @@ import java.util.stream.Collectors;
 import javafx.scene.layout.GridPane;
 
 /**
- * TODO: Add javadoc.
+ * Provides utility methods to do general transformations between different model objects of
+ * PreferencesFX and or lists and maps of them.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
 public class PreferencesFxUtils {
 
   /**
-   * TODO: Add javadoc.
-   * @param categories TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Returns a list of all the settings which are contained in a list of {@code categories}
+   * recursively.
    */
   public static List<Setting> categoriesToSettings(List<Category> categories) {
     return categories.stream()
         .map(Category::getGroups)     // get groups from categories
         .filter(Objects::nonNull)     // remove all null
-        .flatMap(Collection::stream)
+        .flatMap(Collection::stream)  // recursively flatten all categories
         .map(Group::getSettings)      // get settings from groups
         .filter(Objects::nonNull)     // remove all null
-        .flatMap(Collection::stream)
+        .flatMap(Collection::stream)  // recursively flatten all settings
         .collect(Collectors.toList());
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param categories TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Creates a map which links {@link Setting} to {@link Category} in a list of {@code categories}.
+   *
+   * @param categories the categories of which to create a map of
+   * @return a {@link HashMap} containing {@link Setting}, mapped to their
+   * corresponding {@link Category}
+   * @apiNote does not flatten the categories
    */
   public static HashMap<Setting, Category> mapSettingsToCategories(List<Category> categories) {
     HashMap<Setting, Category> settingCategoryMap = new HashMap<>();
@@ -59,9 +63,12 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param categories TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Creates a map which links {@link Group} to {@link Category} in a list of {@code categories}.
+   *
+   * @param categories the categories of which to create a map of
+   * @return a {@link HashMap} containing {@link Group}, mapped to their
+   * corresponding {@link Category}
+   * @apiNote does not flatten the categories
    */
   public static HashMap<Group, Category> mapGroupsToCategories(List<Category> categories) {
     HashMap<Group, Category> groupCategoryMap = new HashMap<>();
@@ -76,10 +83,11 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param categories TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Filters a list of {@code categories} by a given {@code description}.
+   *
+   * @param categories  the list of categories to be filtered
+   * @param description to be searched for
+   * @return a list of {@code categories}, containing (ignoring case) the given {@code description}
    */
   public static List<Category> filterCategoriesByDescription(List<Category> categories,
                                                              String description) {
@@ -89,10 +97,11 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param settings TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Filters a list of {@code settings} by a given {@code description}.
+   *
+   * @param settings    the list of settings to be filtered
+   * @param description to be searched for
+   * @return a list of {@code settings}, containing (ignoring case) the given {@code description}
    */
   public static List<Setting> filterSettingsByDescription(List<Setting> settings,
                                                           String description) {
@@ -102,9 +111,8 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param groups TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Returns a list of all the settings which are contained in a list of {@code groups}
+   * recursively.
    */
   public static List<Setting> groupsToSettings(List<Group> groups) {
     return groups.stream()
@@ -114,10 +122,11 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param groups TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Filters a list of {@code groups} by a given {@code description}.
+   *
+   * @param groups      the list of groups to be filtered
+   * @param description to be searched for
+   * @return a list of {@code groups}, containing (ignoring case) the given {@code description}
    */
   public static List<Group> filterGroupsByDescription(List<Group> groups, String description) {
     return groups.stream()
@@ -127,9 +136,8 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param categories TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Returns a list of all the groups which are contained in a list of {@code categories}
+   * recursively.
    */
   public static List<Group> categoriesToGroups(List<Category> categories) {
     return categories.stream()
@@ -140,12 +148,10 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * Gets the amount of rows of a given GridPane.
-   *
-   * @return the amount of rows, if present, -1 else
+   * Returns the amount of rows of a given {@code gridPane}, if present, -1 else.
    */
-  public static int getRowCount(GridPane grid) {
-    return grid.getChildren().stream().mapToInt(n -> {
+  public static int getRowCount(GridPane gridPane) {
+    return gridPane.getChildren().stream().mapToInt(n -> {
       Integer row = GridPane.getRowIndex(n);      // default: 0
       Integer rowSpan = GridPane.getRowSpan(n);   // default: 1
       return (row == null ? 0 : row) + (rowSpan == null ? 0 : rowSpan - 1);
@@ -168,11 +174,11 @@ public class PreferencesFxUtils {
   }
 
   /**
-   * Internal helper method for {@link PreferencesFxUtils#flattenCategories(List)}.
    * Goes through the list of parent categories and adds each category it visists to the flatList.
    *
    * @param flatList   list to which the categories for the flattened list should be added
    * @param categories list of parent categories to go through recursively
+   * @implNote Internal helper method for {@link PreferencesFxUtils#flattenCategories(List)}.
    */
   private static void flattenCategories(List<Category> flatList, List<Category> categories) {
     categories.forEach(category -> {

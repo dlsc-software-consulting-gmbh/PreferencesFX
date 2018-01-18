@@ -1,7 +1,5 @@
 package com.dlsc.preferencesfx.util;
 
-import com.google.common.base.Strings;
-
 /**
  * Since google/guava pull request #3023 isn't merged yet containing the method "containsIgnoreCase"
  * which is needed in this project, pulled in the changes in this class in the meantime.
@@ -99,10 +97,9 @@ public class StringUtils {
    *
    * @param sequence    the sequence to be searched in.
    * @param subSequence the subsequence to search for.
-   * @param fromIndex the index from which to start the search.
+   * @param fromIndex   the index from which to start the search.
    * @return the index of the first occurrence of the {@code subSequence}, or {@code -1} if there is
-   *     no such occurrence.
-   *
+   * no such occurrence.
    * @since NEXT
    */
   public static int indexOfIgnoreCase(
@@ -116,11 +113,10 @@ public class StringUtils {
    * ignoring the case of any ASCII alphabetic characters
    * between {@code 'a'} and {@code 'z'} or {@code 'A'} and {@code 'Z'} inclusive.
    *
-   * @param sequence the sequence to be searched in.
+   * @param sequence    the sequence to be searched in.
    * @param subSequence the subsequence to search for.
    * @return the index of the first occurrence of the {@code subSequence},
-   *     or {@code -1} if there is no such occurrence.
-   *
+   * or {@code -1} if there is no such occurrence.
    * @since NEXT
    */
   public static int indexOfIgnoreCase(CharSequence sequence, CharSequence subSequence) {

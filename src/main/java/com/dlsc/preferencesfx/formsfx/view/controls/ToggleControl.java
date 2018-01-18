@@ -6,6 +6,7 @@ import org.controlsfx.control.ToggleSwitch;
 
 /**
  * Displays a control for boolean values with a toggle from ControlsFX.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */

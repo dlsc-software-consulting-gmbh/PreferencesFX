@@ -12,6 +12,7 @@ import org.controlsfx.control.MasterDetailPane;
 
 /**
  * TODO: Add javadoc.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -28,9 +29,10 @@ public class PreferencesFxView extends BorderPane implements View {
 
   /**
    * TODO: Add javadoc.
-   * @param model TODO: Add javadoc.
-   * @param navigationView TODO: Add javadoc.
-   * @param breadCrumbView TODO: Add javadoc.
+   *
+   * @param model              TODO: Add javadoc.
+   * @param navigationView     TODO: Add javadoc.
+   * @param breadCrumbView     TODO: Add javadoc.
    * @param categoryController TODO: Add javadoc.
    */
   public PreferencesFxView(
@@ -48,7 +50,8 @@ public class PreferencesFxView extends BorderPane implements View {
 
   /**
    * TODO: Add javadoc.
-   * @param model TODO: Add javadoc.
+   *
+   * @param model              TODO: Add javadoc.
    * @param categoryController TODO: Add javadoc.
    */
   public PreferencesFxView(PreferencesFxModel model, CategoryController categoryController) {

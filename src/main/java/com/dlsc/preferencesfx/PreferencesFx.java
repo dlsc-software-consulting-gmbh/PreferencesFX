@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Represents the main PreferencesFX class.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */

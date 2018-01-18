@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * TODO: Add javadoc.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -18,7 +19,8 @@ public class PreferencesFxPresenter implements Presenter {
 
   /**
    * TODO: Add javadoc.
-   * @param model TODO: Add javadoc.
+   *
+   * @param model          TODO: Add javadoc.
    * @param preferenceView TODO: Add javadoc.
    */
   public PreferencesFxPresenter(PreferencesFxModel model, PreferencesFxView preferenceView) {

@@ -24,7 +24,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Represents the model which holds all of the data and logic which is not limited to presenters.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -51,11 +52,12 @@ public class PreferencesFxModel {
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
   /**
-   * TODO: Add javadoc.
-   * @param storageHandler TODO: Add javadoc.
-   * @param searchHandler TODO: Add javadoc.
-   * @param history TODO: Add javadoc.
-   * @param categories TODO: Add javadoc.
+   * Initializes a new model.
+   *
+   * @param storageHandler the {@link StorageHandler} to use for saving and loading
+   * @param searchHandler  the {@link SearchHandler} to use for handling the searches
+   * @param history        the {@link History} in which to save the changes and handle undo / redo
+   * @param categories     the categories to be displayed, along with the groups and settings
    */
   public PreferencesFxModel(
       StorageHandler storageHandler,
@@ -98,7 +100,6 @@ public class PreferencesFxModel {
       }
     });
   }
-
 
   public List<Category> getCategories() {
     return categories;
@@ -163,7 +164,7 @@ public class PreferencesFxModel {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Saves all of the values of the settings using a {@link StorageHandler}.
    */
   public void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
@@ -172,7 +173,8 @@ public class PreferencesFxModel {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Load all of the values of the settings using a {@link StorageHandler} and attaches a
+   * listener for {@link History}, so that it will be notified of changes to the setting's values.
    */
   public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)

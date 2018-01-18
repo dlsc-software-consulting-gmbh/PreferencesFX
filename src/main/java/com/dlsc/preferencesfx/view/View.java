@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Defines a view of PreferencesFX.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */

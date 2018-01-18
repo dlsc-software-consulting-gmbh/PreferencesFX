@@ -14,6 +14,7 @@ import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
 /**
  * TODO: Add javadoc.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -29,7 +30,8 @@ public class NavigationPresenter implements Presenter {
 
   /**
    * TODO: Add javadoc.
-   * @param model TODO: Add javadoc.
+   *
+   * @param model          TODO: Add javadoc.
    * @param navigationView TODO: Add javadoc.
    */
   public NavigationPresenter(PreferencesFxModel model, NavigationView navigationView) {

@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Represents a category, which is used to structure one to multiple groups with settings in a page.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -82,6 +83,7 @@ public class Category {
 
   /**
    * Adds subcategories to this category. Can be used to build up a hierarchical tree of Categories.
+   *
    * @param children the subcategories to assign to this category
    * @return this object for chaining with the fluent API
    */
@@ -92,6 +94,7 @@ public class Category {
 
   /**
    * Creates and defines all of the breadcrumbs for all of the categories.
+   *
    * @param categories the categories to create breadcrumbs for
    */
   public void createBreadcrumbs(List<Category> categories) {

@@ -9,10 +9,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * Used for debugging purposes only.
- * Represents a TableView of {@link Change} being shown in the dialog to debug the {@link History}.
  * @author François Martin
  * @author Marco Sanfratello
+ * @apiNote Used for debugging purposes only.
+ * Represents a TableView of {@link Change} being shown in the dialog to debug the {@link History}.
  */
 public class HistoryTable extends TableView<Change> {
 
@@ -20,6 +20,7 @@ public class HistoryTable extends TableView<Change> {
 
   /**
    * Initializes a new table, showing the {@code changes}.
+   *
    * @param changes to be shown in the table
    */
   public HistoryTable(ObservableList<Change> changes) {
@@ -48,6 +49,7 @@ public class HistoryTable extends TableView<Change> {
   /**
    * Updates the selection in the table whenever the current {@link Change}
    * in the {@link History} changes.
+   *
    * @param currentChange the property which contains the current {@link Change}
    *                      in the {@link History}
    */

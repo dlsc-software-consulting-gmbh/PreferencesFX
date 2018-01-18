@@ -10,6 +10,7 @@ import javafx.scene.layout.Priority;
 
 /**
  * Provides an implementation of a slider control for an {@link IntegerField}.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */

@@ -10,6 +10,7 @@ import org.controlsfx.control.BreadCrumbBar;
 
 /**
  * TODO: Add javadoc.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -21,7 +22,8 @@ public class BreadCrumbPresenter implements Presenter {
 
   /**
    * TODO: Add javadoc.
-   * @param model TODO: Add javadoc.
+   *
+   * @param model          TODO: Add javadoc.
    * @param breadCrumbView TODO: Add javadoc.
    */
   public BreadCrumbPresenter(PreferencesFxModel model, BreadCrumbView breadCrumbView) {

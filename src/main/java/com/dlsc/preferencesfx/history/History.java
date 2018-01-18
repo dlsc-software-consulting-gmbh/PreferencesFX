@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Manages a list of changes, so undo / redo functionality can be used with {@link Setting}.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -58,6 +59,7 @@ public class History {
   /**
    * Adds a listener to the {@code setting}, so every time the value of the {@code setting} changes,
    * a new {@link Change} will be created and added to the list of changes.
+   *
    * @param setting the setting to observe for changes
    */
   public void attachChangeListener(Setting setting) {
@@ -157,6 +159,7 @@ public class History {
 
   /**
    * Undos a change in the history.
+   *
    * @return true if successful, false if there are no changes to undo
    */
   public boolean undo() {
@@ -182,6 +185,7 @@ public class History {
 
   /**
    * Redos a change in the history.
+   *
    * @return true if successful, false if there are no changes to redo
    */
   public boolean redo() {

@@ -1,7 +1,8 @@
 package com.dlsc.preferencesfx.util;
 
 /**
- * TODO: Add javadoc.
+ * Stores all of the constants used in PreferencesFX.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */

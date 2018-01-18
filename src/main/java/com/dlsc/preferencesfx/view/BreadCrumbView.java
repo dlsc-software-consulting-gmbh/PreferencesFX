@@ -12,6 +12,7 @@ import org.controlsfx.control.BreadCrumbBar;
 
 /**
  * TODO: Add javadoc.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -25,6 +26,7 @@ public class BreadCrumbView extends HBox implements View {
 
   /**
    * TODO: Add javadoc.
+   *
    * @param model TODO: Add javadoc.
    */
   public BreadCrumbView(PreferencesFxModel model, UndoRedoBox undoRedoBox) {

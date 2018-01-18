@@ -9,6 +9,7 @@ import org.controlsfx.glyphfont.GlyphFontRegistry;
 
 /**
  * TODO: Add javadoc.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -20,6 +21,7 @@ public class UndoRedoBox extends HBox {
 
   /**
    * TODO: Add javadoc.
+   *
    * @param history TODO: Add javadoc.
    */
   public UndoRedoBox(History history) {

@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * TODO: Add javadoc.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -38,7 +39,8 @@ public class PreferencesFxDialog extends DialogPane {
 
   /**
    * TODO: Add javadoc.
-   * @param model TODO: Add javadoc.
+   *
+   * @param model          TODO: Add javadoc.
    * @param preferenceView TODO: Add javadoc.
    */
   public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferenceView) {

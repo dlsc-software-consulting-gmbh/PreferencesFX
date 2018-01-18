@@ -14,8 +14,6 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -29,12 +27,15 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * TODO: Add javadoc.
+ * Represents a setting, which holds the field to be displayed and the property which is bound.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  */
@@ -57,10 +58,11 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @param property TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Constructs a setting of {@link Boolean} type, which is represented by a {@link ToggleControl}.
+   *
+   * @param description the title of this setting
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @return the constructed setting
    */
   public static Setting of(String description, BooleanProperty property) {
     return new Setting<>(
@@ -73,10 +75,11 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @param property TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Constructs a setting of {@link Integer} type, which is represented by a {@link TextField}.
+   *
+   * @param description the title of this setting
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @return the constructed setting
    */
   public static Setting of(String description, IntegerProperty property) {
     return new Setting<>(
@@ -88,10 +91,11 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @param property TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Constructs a setting of {@link Double} type, which is represented by a {@link TextField}.
+   *
+   * @param description the title of this setting
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @return the constructed setting
    */
   public static Setting of(String description, DoubleProperty property) {
     return new Setting<>(
@@ -103,13 +107,14 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @param property TODO: Add javadoc.
-   * @param min TODO: Add javadoc.
-   * @param max TODO: Add javadoc.
-   * @param precision TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Constructs a setting of {@link Double} type, which is represented by a {@link Slider}.
+   *
+   * @param description the title of this setting
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @param min         minimum value of the {@link Slider}
+   * @param max         maximum value of the {@link Slider}
+   * @param precision   number of digits after the decimal point
+   * @return the constructed setting
    */
   public static Setting of(
       String description, DoubleProperty property, double min, double max, int precision) {
@@ -122,12 +127,13 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @param property TODO: Add javadoc.
-   * @param min TODO: Add javadoc.
-   * @param max TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Constructs a setting of {@link Integer} type, which is represented by a {@link Slider}.
+   *
+   * @param description the title of this setting
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @param min         minimum value of the {@link Slider}
+   * @param max         maximum value of the {@link Slider}
+   * @return the constructed setting
    */
   public static Setting of(String description, IntegerProperty property, int min, int max) {
     return new Setting<>(
@@ -139,10 +145,11 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @param property TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Constructs a setting of {@link String} type, which is represented by a {@link TextField}.
+   *
+   * @param description the title of this setting
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @return the constructed setting
    */
   public static Setting of(String description, StringProperty property) {
     return new Setting<>(
@@ -154,12 +161,15 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @param items TODO: Add javadoc.
-   * @param selection TODO: Add javadoc.
-   * @param <P> TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Creates a combobox with single selection.
+   *
+   * @param description the title of this setting
+   * @param items       the items which are possible to choose in the combobox, which are shown
+   *                    in their {@link #toString()} representation
+   * @param selection   the currently selected item of the combobox to be bound, saved / loaded and
+   *                    used for undo / redo
+   * @param <P>         the type of objects which should be displayed in the combobox
+   * @return the constructed setting
    */
   public static <P> Setting of(
       String description, ListProperty<P> items, ObjectProperty<P> selection) {
@@ -172,12 +182,15 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param description TODO: Add javadoc.
-   * @param items TODO: Add javadoc.
-   * @param selection TODO: Add javadoc.
-   * @param <P> TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Creates a combobox with single selection.
+   *
+   * @param description the title of this setting
+   * @param items       the items which are possible to choose in the combobox, which are shown
+   *                    in their {@link #toString()} representation
+   * @param selection   the currently selected item of the combobox to be bound, saved / loaded and
+   *                    used for undo / redo
+   * @param <P>         the type of objects which should be displayed in the combobox
+   * @return the constructed setting
    */
   public static <P> Setting of(
       String description, ObservableList<P> items, ObjectProperty<P> selection) {
@@ -192,6 +205,14 @@ public class Setting<F extends Field, P extends Property> {
   /**
    * Creates a combobox with multiselection.
    * At least one element has to be selected at all times.
+   *
+   * @param description the title of this setting
+   * @param items       the items which are possible to choose in the combobox, which are shown
+   *                    in their {@link #toString()} representation
+   * @param selections  the currently selected item(s) of the combobox to be bound, saved / loaded
+   *                    and used for undo / redo
+   * @param <P>         the type of objects which should be displayed in the combobox
+   * @return the constructed setting
    */
   public static <P> Setting of(
       String description, ListProperty<P> items, ListProperty<P> selections) {
@@ -206,6 +227,14 @@ public class Setting<F extends Field, P extends Property> {
   /**
    * Creates a combobox with multiselection.
    * At least one element has to be selected at all times.
+   *
+   * @param description the title of this setting
+   * @param items       the items which are possible to choose in the combobox, which are shown
+   *                    in their {@link #toString()} representation
+   * @param selections  the currently selected item(s) of the combobox to be bound, saved / loaded
+   *                    and used for undo / redo
+   * @param <P>         the type of objects which should be displayed in the combobox
+   * @return the constructed setting
    */
   public static <P> Setting of(
       String description, ObservableList<P> items, ListProperty<P> selections) {
@@ -220,10 +249,10 @@ public class Setting<F extends Field, P extends Property> {
   /**
    * Creates a setting of a custom defined field.
    *
-   * @param description title of the setting
+   * @param description the title of this setting
    * @param field       custom Field object from FormsFX
-   * @param property    property with relevant value to be bound and saved
-   * @return constructed setting
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @return the constructed setting
    */
   public static <F extends Field<F>, P extends Property> Setting of(
       String description, F field, P property) {
@@ -254,7 +283,9 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Marks a setting.
+   * Is used for the search, which marks and unmarks items depending on the match as a form of
+   * visual feedback.
    */
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
@@ -268,7 +299,9 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
+   * Unmarks a setting.
+   * Is used for the search, which marks and unmarks items depending on the match as a form of
+   * visual feedback.
    */
   public void unmark() {
     // check if it's marked before removing the style class
@@ -282,8 +315,8 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @return TODO: Add javadoc.
+   * Returns the description of this setting or if i18n is used, it will return the translated
+   * description in the current locale.
    */
   public String getDescription() {
     if (field != null) {
@@ -301,16 +334,21 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param storageHandler TODO: Add javadoc.
+   * Saves the current value of this setting using a {@link StorageHandler}.
+   *
+   * @param storageHandler the {@link StorageHandler} to use
    */
   public void saveSettingValue(StorageHandler storageHandler) {
     storageHandler.saveObject(getBreadcrumb(), value.getValue());
   }
 
   /**
-   * TODO: Add javadoc.
+   * Loads the value of this setting using a {@link StorageHandler}.
+   *
    * @param storageHandler TODO: Add javadoc.
+   * @implNote differentiates between a {@link ListProperty}, as found in multiselection settings,
+   * and all the other property types, since those need to be handled differently by
+   * the {@link StorageHandler}.
    */
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
@@ -323,8 +361,9 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * TODO: Add javadoc.
-   * @param breadCrumb TODO: Add javadoc.
+   * Adds the {@code breadCrumb} to this breadcrumb and updates all of its settings accordingly.
+   *
+   * @param breadCrumb the breadcrumb to add to this group's breadcrumb
    */
   public void addToBreadcrumb(String breadCrumb) {
     setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
