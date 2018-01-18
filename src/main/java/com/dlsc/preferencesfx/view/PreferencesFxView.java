@@ -28,7 +28,7 @@ public class PreferencesFxView extends BorderPane implements View {
   private BreadCrumbView breadCrumbView;
 
   /**
-   * TODO: Add javadoc.
+   * Constructs a
    *
    * @param model the model of PreferencesFX
    * @param navigationView     TODO: Add javadoc.
@@ -43,18 +43,6 @@ public class PreferencesFxView extends BorderPane implements View {
   ) {
     this.breadCrumbView = breadCrumbView;
     this.navigationView = navigationView;
-    this.model = model;
-    this.categoryController = categoryController;
-    init();
-  }
-
-  /**
-   * TODO: Add javadoc.
-   *
-   * @param model the model of PreferencesFX
-   * @param categoryController TODO: Add javadoc.
-   */
-  public PreferencesFxView(PreferencesFxModel model, CategoryController categoryController) {
     this.model = model;
     this.categoryController = categoryController;
     init();
