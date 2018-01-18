@@ -76,7 +76,7 @@ PreferencesFx preferencesFx =
             Setting.of("Setting title 2", booleanProperty) // which contains both settings
         ),
         Category.of("Category title 2")
-            .subCategories(
+            .subCategories( // Adds another Category as child to the existing one
                 Category.of("Category title 3",
                     Group.of("Group title 1",
                         Setting.of("Setting title 3", integerProperty)
@@ -93,33 +93,33 @@ This code snippet results in the following preferences window, containing three 
 
 ![alt text](docs/images/example_preferences.png) Result
 
-For creating a setting, the user needs only to hand over a title and a `Property`. `PreferencesFX` does the rest. The user can then listen to this property for when it changes.
+For creating a setting, the user needs only to hand over a title and a `Property`. `PreferencesFX` does the rest. The user can then listen to this property for when it changes and apply them to his own application.
 
+The preferences have a range of options that define their semantics and change their functionality:
 
+**Must haves**
 
-
-
-
-
-
-
------------ FormsFX stuff --------------
-Fields have a range of options that define their semantics and change their functionality.
-
-Option | Description
+Method | Description
 ------ | -----------
-`label(String)` | Describes the field’s content in a concise manner. This description is always visible and usually placed next to the editable control.
-`tooltip(String)` | This contextual hint further describes the field. It is usually displayed on hover or focus.
-`placeholder(String)` | This hint describes the expected input as long as the field is empty.
-`required(boolean)` <br /> `required(String)` | Determines, whether entry in this field is required for the correctness of the form.
-`editable(boolean)` | Determines, whether end users can edit the contents of this field.
-`id(String)` | Describes the field with a unique ID. This is not visible directly, but can be used for styling purposes.
-`styleClass(List&lt;String&gt;)` | Adds styling hooks to the field. This can be used on the view layer.
-`span(int)` <br /> `span(ColSpan)` | Determines, how many columns the field should span on the view layer. Can be a number between 1 and 12 or a ColSpan fraction.
-`render(SimpleControl)` | Determines the control that is used to render this field on the view layer.
+`AppStarter.class` | In the constructor of the PreferencesFx a `saveClass` is required. This class is used to save the preferences and is further defined in the javadoc.
+`description (category)` | Each `Category` must have a description. This is required for displaying it's description in the `ListView`.
+`description (setting)` | Each `Setting` must have a description. If for some reason no description is avaliable one can hand over `null`.
 
+**Optionals**
 
-The following table shows how to create different fields and how they look by default:
+Method | Class | Description
+------ | ----- | -----------
+`.subcategories` | `Category` | A way to raise the height of the tree. Subcategories allows a `Category` to have additional categories as Children. Those are also displayed in the tree. 
+`.description` | `Group` | If someone decides to not add the description of a group in the constructor, he is able to add it after creation of the group.
+`.validate` | `Setting` | Allows to add a validator to a setting.
+`.persistApplicationState` | `PreferencesFx` | Defines if the PreferencesAPI should save the applications states. This includes the persistence of the dialog window, as well as each settings values.
+`.persistWindowState` | `PreferencesFx` | Defines whether the state of the dialog window should be persisted or not.
+`.saveSettings` | `PreferencesFx` | Defines whether the adjusted settings of the application should be saved or not.
+`.debugHistoryMode` | `PreferencesFx` | Defines whether the table to debug the undo / redo history should be shown in a dialog when pressing a key combination or not. Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the undo / redo history, shown in a table.
+`.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the decline and close buttons in the `PreferencesDialog`.
+`.i18n` | `PreferencesFx` | Sets the translation service property of the preferences dialog. 
+
+The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
 String Control
 
