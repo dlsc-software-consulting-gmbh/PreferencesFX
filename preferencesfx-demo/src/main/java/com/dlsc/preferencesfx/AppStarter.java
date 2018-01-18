@@ -1,5 +1,10 @@
 package com.dlsc.preferencesfx;
 
+// Change this import depending on the demo
+import com.dlsc.preferencesfx.standard.RootPane;
+//import com.dlsc.preferencesfx.i18n.RootPane;
+//import com.dlsc.preferencesfx.oneCategory.RootPane;
+//import com.dlsc.preferencesfx.extended.RootPane;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,7 +17,7 @@ public class AppStarter extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    RootPaneI18n rootPane = new RootPaneI18n();
+    RootPane rootPane = new RootPane();
     Scene myScene = new Scene(rootPane);
 
     primaryStage.setTitle("PreferencesFx Demo");

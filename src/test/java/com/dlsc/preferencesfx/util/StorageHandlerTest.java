@@ -21,4 +21,64 @@ public class StorageHandlerTest {
     Preferences preferences = storageHandler.getPreferences();
     preferences.clear();
   }
+
+  @Test
+  public void saveSelectedCategory() {
+  }
+
+  @Test
+  public void loadSelectedCategory() {
+  }
+
+  @Test
+  public void saveDividerPosition() {
+  }
+
+  @Test
+  public void loadDividerPosition() {
+  }
+
+  @Test
+  public void saveWindowWidth() {
+  }
+
+  @Test
+  public void loadWindowWidth() {
+  }
+
+  @Test
+  public void saveWindowHeight() {
+  }
+
+  @Test
+  public void loadWindowHeight() {
+  }
+
+  @Test
+  public void saveWindowPosX() {
+  }
+
+  @Test
+  public void loadWindowPosX() {
+  }
+
+  @Test
+  public void saveWindowPosY() {
+  }
+
+  @Test
+  public void loadWindowPosY() {
+  }
+
+  @Test
+  public void saveObject() {
+  }
+
+  @Test
+  public void loadObject() {
+  }
+
+  @Test
+  public void loadObservableList() {
+  }
 }

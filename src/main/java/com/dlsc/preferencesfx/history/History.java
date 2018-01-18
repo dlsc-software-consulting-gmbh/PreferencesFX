@@ -1,10 +1,10 @@
 package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.model.Setting;
-import java.util.HashMap;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -31,7 +31,7 @@ public class History {
   private BooleanProperty undoAvailable = new SimpleBooleanProperty(false);
   private BooleanProperty redoAvailable = new SimpleBooleanProperty(false);
 
-  private HashMap<Setting, ChangeListener> settingChangeListenerMap = new HashMap<>();
+  private BooleanProperty listenerActive = new SimpleBooleanProperty(true);
 
   public History() {
     setupBindings();
@@ -52,28 +52,27 @@ public class History {
 
   public void attachChangeListener(Setting setting) {
     ChangeListener changeEvent = (observable, oldValue, newValue) -> {
-      if (oldValue != newValue) {
+      if (isListenerActive() && oldValue != newValue) {
         LOGGER.trace("Change detected, old: " + oldValue + " new: " + newValue);
         addChange(new Change(setting, oldValue, newValue));
       }
     };
     ChangeListener listChangeEvent = (observable, oldValue, newValue) -> {
-      LOGGER.trace("List Change detected: " + oldValue);
-      addChange(new Change(setting, (ObservableList) oldValue, (ObservableList) newValue));
+      if (isListenerActive()) {
+        LOGGER.trace("List Change detected: " + oldValue);
+        addChange(new Change(setting, (ObservableList) oldValue, (ObservableList) newValue));
+      }
     };
 
     if (setting.valueProperty() instanceof SimpleListProperty) {
       setting.valueProperty().addListener(listChangeEvent);
-      settingChangeListenerMap.put(setting, listChangeEvent);
     } else {
       setting.valueProperty().addListener(changeEvent);
-      settingChangeListenerMap.put(setting, changeEvent);
     }
   }
 
   private void addChange(Change change) {
-    LOGGER.trace("addChange, before, size: " + changes.size() + " pos: "
-        + position.get() + " validPos: " + validPosition.get());
+    LOGGER.trace(String.format("addChange for: %s, before, size: %s, pos: %s, validPos: %s", change.setting, changes.size(), position.get(), validPosition.get()));
 
     int lastIndex = changes.size() - 1;
 
@@ -118,8 +117,7 @@ public class History {
     // the last valid position is now equal to the current position
     validPosition.setValue(position.get());
 
-    LOGGER.trace("addChange, after, size: " + changes.size() + " pos: "
-        + position.get() + " validPos: " + validPosition.get());
+    LOGGER.trace(String.format("addChange for: %s, after, size: %s, pos: %s, validPos: %s", change.setting, changes.size(), position.get(), validPosition.get()));
   }
 
   /**
@@ -130,10 +128,13 @@ public class History {
    * @param action  the action to be performed
    */
   public void doWithoutListeners(Setting setting, Runnable action) {
-    ChangeListener changeListener = settingChangeListenerMap.get(setting);
-    setting.valueProperty().removeListener(changeListener);
+    LOGGER.trace(String.format("doWithoutListeners: setting: %s", setting));
+    setListenerActive(false);
+    LOGGER.trace("removed listener");
     action.run();
-    setting.valueProperty().addListener(changeListener);
+    LOGGER.trace("performed action");
+    setListenerActive(true);
+    LOGGER.trace("add listener back");
   }
 
   public boolean undo() {
@@ -200,9 +201,11 @@ public class History {
    * @param undoAll if true, will undo all changes before clearing
    */
   public void clear(boolean undoAll) {
+    LOGGER.trace("Clear called, with undoAll: " + undoAll);
     if (undoAll) {
       undoAll();
     }
+    LOGGER.trace("Clearing changes");
     changes.clear();
     position.set(-1);
     validPosition.set(-1);
@@ -252,5 +255,17 @@ public class History {
 
   public ReadOnlyObjectProperty<Change> currentChangeProperty() {
     return currentChange;
+  }
+
+  public boolean isListenerActive() {
+    return listenerActive.get();
+  }
+
+  public ReadOnlyBooleanProperty listenerActiveProperty() {
+    return listenerActive;
+  }
+
+  public void setListenerActive(boolean listenerActive) {
+    this.listenerActive.set(listenerActive);
   }
 }

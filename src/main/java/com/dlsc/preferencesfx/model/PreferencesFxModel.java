@@ -39,8 +39,9 @@ public class PreferencesFxModel {
   private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
 
   private boolean persistWindowState = false;
-  private boolean saveSettings = false;
+  private boolean saveSettings = true;
   private boolean historyDebugState = false;
+  private boolean oneCategoryLayout;
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
@@ -54,6 +55,7 @@ public class PreferencesFxModel {
     this.searchHandler = searchHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
+    oneCategoryLayout = categories.length == 1;
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
     setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
@@ -72,17 +74,6 @@ public class PreferencesFxModel {
         newValue.addListener(() -> category.translate(newValue));
       });
     });
-  }
-
-  public void loadSettingValues() {
-    PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
-        .forEach(setting -> {
-          LOGGER.trace("Loading: " + setting.getBreadcrumb());
-          if (saveSettings) {
-            setting.loadSettingValue(storageHandler);
-          }
-          history.attachChangeListener(setting);
-        });
   }
 
   private void createBreadcrumbs(List<Category> categories) {
@@ -159,6 +150,23 @@ public class PreferencesFxModel {
         .findAny().orElse(defaultCategory);
   }
 
+  public void saveSettingValues() {
+    PreferencesFxUtils.categoriesToSettings(
+        getFlatCategoriesLst()
+    ).forEach(setting -> setting.saveSettingValue(storageHandler));
+  }
+
+  public void loadSettingValues() {
+    PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
+        .forEach(setting -> {
+          LOGGER.trace("Loading: " + setting.getBreadcrumb());
+          if (saveSettings) {
+            setting.loadSettingValue(storageHandler);
+          }
+          history.attachChangeListener(setting);
+        });
+  }
+
   public Category getDisplayedCategory() {
     return displayedCategory.get();
   }
@@ -226,5 +234,9 @@ public class PreferencesFxModel {
 
   public void setDividerPosition(double dividerPosition) {
     this.dividerPosition.set(dividerPosition);
+  }
+
+  public boolean isOneCategoryLayout() {
+    return oneCategoryLayout;
   }
 }
