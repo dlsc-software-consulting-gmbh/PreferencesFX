@@ -3,9 +3,10 @@ package com.dlsc.preferencesfx.util;
 /**
  * Since google/guava pull request #3023 isn't merged yet containing the method "containsIgnoreCase"
  * which is needed in this project, pulled in the changes in this class in the meantime.
- * As soon as it has been merged, calls from this class can be referenced to the "Ascii" class.
+ * As soon as it has been merged, calls from this class can be referenced
+ * to {@link com.google.common.base.Ascii}.
  */
-public class StringUtils {
+public class Ascii {
 
   /**
    * Returns the non-negative index value of the alpha character {@code c}, regardless of case. Ie,
