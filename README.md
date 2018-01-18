@@ -121,7 +121,26 @@ Method | Class | Description
 
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
-String Control
+![alt text](docs/images/settings/integer_setting.png)
+
+<img src=".docs/images/settings/integer_setting.png" />
+
+<table>
+  <tr>
+    <th>Syntax</th>
+    <th>Outcome</th>
+  </tr>
+  <tr>
+    <td>
+        ```Java
+        Setting.of("Welcome Text", welcomeText);
+        ```
+    </td>
+    <td>
+        <img src=".docs/images/settings/integer_setting.png" />
+    </td>
+  </tr>
+</table>
 
 <table>
   <tbody>
