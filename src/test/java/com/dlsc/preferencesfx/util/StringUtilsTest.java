@@ -6,7 +6,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Created by François Martin on 27.11.17.
+ * Test class for {@link StringUtils}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class StringUtilsTest {
   @Test

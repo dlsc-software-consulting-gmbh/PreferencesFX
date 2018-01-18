@@ -4,7 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by François Martin on 12.01.18.
+ * Test class for {@link Setting}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SettingTest {
 
