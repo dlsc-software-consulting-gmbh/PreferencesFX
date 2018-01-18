@@ -120,7 +120,17 @@ Another bug occured when we were implementing the support of the setting type `L
 ----- ToDo -----
 
 === Architecture
-image::images/UML.png[UML diagram]
+We decided to implement our project in the model view presenter architecture. This means, that the model and the views are separarted from each other. This means that this parts have a small cohesion. This has the major advantage that the views can easily be exchanged. For example if someone wants in the future a new layout, he can do this relatively easy. To make sure that the possibly new view parts are fitting in the project structure, they need to fulfill certain characteristics. This is guaranteed by implementing interfaces. For this reason we created the two interfaces `View` and `Presenter`. The picture below illustrates a simplified version of our project structure.
+
+image::images/UML_diagram.png[UML diagram]
+
+Here is clearly shown, that the user only creates one instance of the `PreferencesFx` and saves it in his application. This is done in the package `Demo`.
+
+In the Package `PreferencesFx` there is the class `PreferencesFx` which is called, when the preferences are created. In the constructor of the class is the `PreferencesModel` created. Afterwards, all views and their constructors are created, which are needed to visualize the preferences dialog. Simply said is the PreferencesFx class used as a controller to manage the frontend and the backend.
+
+The views and the presenters are built the way, that the views only contain visual elements and the presenters regulate the logical parts, like listeners or complex functions, ect. This has the immense advantage of having a clear overview.
+
+After creating the preferences one can simply call the method `show()` and the `PreferencesFx` opens a `PreferencesDialog`. This dialog contains the `PreferencesView` which puts all other views together.
 
 == Lessons learned
 * We just started programming and didn't mind about separating the frontend from the backend. This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project. For the next project we are going to focus more on the system architecture in first place.
