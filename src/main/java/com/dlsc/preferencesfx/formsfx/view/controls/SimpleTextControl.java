@@ -40,12 +40,6 @@ import javafx.scene.layout.StackPane;
 public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
 
   /**
-   * This StackPane is needed for achieving the readonly effect by putting
-   * the readOnlyLabel over the editableField on the change of the
-   * visibleProperty.
-   */
-
-  /**
    * - The fieldLabel is the container that displays the label property of
    * the field.
    * - The editableField allows users to modify the field's value.
