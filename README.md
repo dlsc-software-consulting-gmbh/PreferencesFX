@@ -19,9 +19,13 @@ Feature | Description
 `Instant persistance` | Any changes to the application are saved instant.
 `Various setting types` | Like: boolean, String, Integer, Double, Lists, Objects
 
-- Regarding the setting types we're also referencing to the `requirements.adoc`. You can create one when launching the gradle task: `'ascidoctor'`. The most important settings are shown further in the document.
-
 ![alt text](docs/images/preferencesFX_in_use.png) The created preferences dialog
+
+## Documentation
+This project uses the plugin `asciidoctor` to create the necessary documents. To create them you can simply launch the gradle task: `asciidoctor`. Following documents will be created:
+- index.adoc
+- developer-reference.adoc
+- requirements.adoc
 
 ## Semantics
 
@@ -40,6 +44,20 @@ PreferencesFx preferencesFx =
 ```
 
 Note: The user can decide to add only `Settings` to a `Category` instead of a `Group`. In this case the API creates automatically a single `Group` and add it to the `Category`. But this works only when only one `Group` is needed.
+
+## Demos
+We created several demos to visualize the possibility of the `PreferencesFX API`. To view any of them, one can change the import of the `RootPane.java` class in the `AppStarter.java` class. The class can be found following the path:
+
+`../preferencesfx-demo/src/main/java/com/dlsc/preferencesfx/AppStarter.java`
+
+The user can choose between the following demo types:
+
+Import | Description
+------ | -----------
+`extended` | Just a full TreeView populated with a lot of categories, groups and settings without any bindings. To show how a full populated TreeView might look like. 
+`i18n` | A demo which shows, that the preferences adapt to changing the language.
+`oneCategory` | To show the behaviour of the API when only one category is used: No breadcrumbs and no TreeView will be added.
+`standard` | The standard demo with a few settings and fully working bindings.
 
 ## Defining a preferences dialog
 
@@ -71,11 +89,18 @@ PreferencesFx preferencesFx =
     ).persistApplicationState(true).debugHistoryMode(true);
 ```
 
-The result of this code snippet results in the following preferences window:
+This code snippet results in the following preferences window, containing three categories:
 
 ![alt text](docs/images/example_preferences.png) Result
 
 For creating a setting, the user needs only to hand over a title and a `Property`. `PreferencesFX` does the rest. The user can then listen to this property for when it changes.
+
+
+
+
+
+
+
 
 
 ----------- FormsFX stuff --------------
