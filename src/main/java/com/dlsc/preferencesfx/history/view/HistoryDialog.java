@@ -12,6 +12,7 @@ import javafx.stage.Modality;
 
 /**
  * Shows a dialog with a table of {@link Change} made in the {@link History}.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  * @apiNote Used for debugging purposes only.
