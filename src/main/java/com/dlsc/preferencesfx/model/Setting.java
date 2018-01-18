@@ -345,7 +345,7 @@ public class Setting<F extends Field, P extends Property> {
   /**
    * Loads the value of this setting using a {@link StorageHandler}.
    *
-   * @param storageHandler TODO: Add javadoc.
+   * @param storageHandler the {@link StorageHandler} to use
    * @implNote differentiates between a {@link ListProperty}, as found in multiselection settings,
    * and all the other property types, since those need to be handled differently by
    * the {@link StorageHandler}.

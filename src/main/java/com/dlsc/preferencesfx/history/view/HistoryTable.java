@@ -9,10 +9,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
+ * Represents a TableView of {@link Change} being shown in the dialog to debug the {@link History}.
+ *
  * @author François Martin
  * @author Marco Sanfratello
  * @apiNote Used for debugging purposes only.
- * Represents a TableView of {@link Change} being shown in the dialog to debug the {@link History}.
  */
 public class HistoryTable extends TableView<Change> {
 
