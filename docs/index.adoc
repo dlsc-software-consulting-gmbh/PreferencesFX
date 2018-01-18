@@ -1,6 +1,9 @@
 = PreferencesFX
 François Martin; Marco Sanfratello
 
+//Table of contents
+:toc:
+
 == Abstract / Management summary
 
 ----- ToDo -----
@@ -18,8 +21,8 @@ The project itself is programmed with a model view presenter structure, which se
 
 In the following chapters, the reader will gain additional insights of the projects structure and the features the PreferencesFX API provides.
 
-== Main content
-=== Starting position
+== The way to PreferencesFX
+=== Briefing
 Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consulting (dlsc, http://dlsc.com/). One of his former projects was the FormsFX API, where a developer can easily create forms without a lot of effort. His approach was to adapt this idea of an easy way to create a structure with a predefined User Interface to preference windows.
 
 The developer should not need to invest a lot of time creating a preferences window. We should orientate ourselves at the preferences window of the programming platform Intellij IDEA regarding the look and feel.
@@ -44,8 +47,10 @@ include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=fluentApiMet
 Additionally we got access to a fork of the already mentionned project FormsFX. Our customer allowed us to use it for creation of our project.
 
 === First thoughts
+Well, we didn't just started programming. In fact we did some research. Although our customer had initial some ideas, we did not just accept and implement these. In the following chapters we're going to discuss our initial steps and thoughts on how to set up our project.
+
 ==== Layout
-Well, we didn't just started programming. In fact we did some research. Although our customer had initial some ideas, we did not just accept and implement these. At the beginning we looked at various preferences windows and noted the usual best practices and the do's and dont's which are made through the last years. Intellij is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles". As a result of our research we created a paper prototype, which was also the minimal viable product (MVP). Our promise to our customer, that he gets at least this product from us. The MVP is shown in the picture below:
+At the beginning we looked at various preferences windows and noted the usual best practices and the do's and dont's which are made through the last years. Intellij is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles". As a result of our research we created a paper prototype, which was also the minimal viable product (MVP). Our promise to our customer, that he gets at least this product from us. The MVP is shown in the picture below:
 
 image::images/minimal_viable_product.png[Minimal viable product]
 
@@ -92,4 +97,17 @@ PreferencesFx preferencesFx = PreferencesFx.of(
 The reason why we finally were convinced that the fluent API approach was the right way, was how intuitive it was to write the code and how clearly arranged the code was. That way everyone sees what is a setting and what is a category. Especially when an application has literally hundreds of preferences which are needed to store.
 
 ==== Using FormsFX or not
-Another question we asked ourselves, was if we should use the former project FormsFX or not.
+Another question we asked ourselves, was if we should use the former project FormsFX or not. We had serious concerns if the projects had bugs we had to deal with in the future. Another concern was, that we needed to get to know the project. The question was, if the time we'd need to invest to overcome all of this concerns would match the time we'd save when using the project. For example we could use the base structure and all of the widgets which were already programmed in the project.
+
+At last we decided to take the risk and use the FormsFX project, fully aware that it might has some bugs we have to deal with.
+
+==== Started programming
+Then we finally started programming. We don't wanted to spend any more time researching. So we just started and tried to write as fast as possible some code down to have something to work on. This helped a lot to have some satisfying experiences early in the project and keep motivated.
+
+=== Challenges
+
+
+== Lessons learned
+* We just started programming and didn't mind about separating the frontend from the backend. This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project. For the next project we are going to focus more on the system architecture in first place.
+
+* We found a bug in FormsFX and fixed it. But the time it took was too much. Of course our customer is happy, that the bug is solved, but in an industrial project we mustn't do this. This is not our problem. It's the one of the FormsFX team. Next time we will discuss the situation with our customer and ask him about his opinion.
