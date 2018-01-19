@@ -43,7 +43,9 @@ PreferencesFx preferencesFx =
         )
     );
 ```
-Note: It is also possible to omit the `Group` and declare all settings in a `Category` directly. However, in this case all settings will simply be displayed one after another without grouping. If you want more control, use `Group`.
+Notes:
+- It is also possible to omit the `Group` and declare all settings in a `Category` directly. However, in this case all settings will simply be displayed one after another without grouping. If you want more control, use `Group`.
+- A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space inbetween them, to ensure they can be differentiated.
 
 ## Demos
 We created several demos to visualize the capabilities of `PreferencesFX`.  
@@ -61,12 +63,12 @@ The following demos are available:
 Import | Description
 ------ | -----------
 `standard` | The standard demo with a few settings and fully working bindings.
-`i18n` | A demo which shows, that the preferences adapt to changing the language.
-`oneCategory` | To show the behaviour of the API when only one category is used: No breadcrumbs and no TreeView will be added.
-`extended` | Just a full TreeView populated with a lot of categories, groups and settings without any bindings. To show how a full populated TreeView might look like. 
+`i18n` | Shows how to define preference dialogs in multiple languages, using internationalization.
+`oneCategory` | Shows the behavior of the API when only one category is used: The Breadcrumb Bar and TreeView will be omitted from the GUI.
+`extended` | A demo, populated with lots of categories, groups and settings without any bindings. Designed to show usage in a big project.
 
 ## Defining a preferences dialog
-Creating a preferences dialog is as simple as calling `FreferencesFx.of()`.
+Creating a preferences dialog is as simple as calling `PreferencesFx.of()`.
 
 ```Java
 StringProperty stringProperty = new SimpleStringProperty("String");
@@ -75,44 +77,46 @@ IntegerProperty integerProperty = new SimpleIntegerProperty(12);
 DoubleProperty doubleProperty = new SimpleDoubleProperty(6.5);
 
 PreferencesFx preferencesFx = 
-    PreferencesFx.of(AppStarter.class, // Save class (to save the preferences)
+    PreferencesFx.of(AppStarter.class, // Save class (will be used to reference saved values of Settings to)
         Category.of("Category title 1",
-            Setting.of("Setting title 1", stringProperty), // Creates automatically one group
+            Setting.of("Setting title 1", stringProperty), // creates a group automatically
             Setting.of("Setting title 2", booleanProperty) // which contains both settings
         ),
         Category.of("Category title 2")
-            .subCategories( // Adds another Category as child to the existing one
+            .subCategories( // adds a subcategory to "Category title 2"
                 Category.of("Category title 3",
                     Group.of("Group title 1",
                         Setting.of("Setting title 3", integerProperty)
                     ),
-                    Group.of("Group title 1",
+                    Group.of( // group without title
                         Setting.of("Setting title 3", doubleProperty)
                     )
                 )
             )
-    ).persistApplicationState(true).debugHistoryMode(true);
+    );
 ```
 
 This code snippet results in the following preferences window, containing three categories:
 
-![alt text](docs/images/example_preferences.png) Result
+![result](docs/images/example_preferences.png)
 
-For creating a setting, the user needs only to hand over a title and a `Property`. `PreferencesFX` does the rest. The user can then listen to this property for when it changes and apply them to his own application.
-
-The preferences have a range of options that define their semantics and change their functionality:
+To create a `Setting`, you only need to define a title and a `Property`. `PreferencesFX` does the rest.  
+You can then integrate this `Property` in your application. Changes of values in the preferences dialog will be persisted instantly, however it's up to you to decide whether you want to persist them instantly in your application as well.
 
 #### Must haves
+You have a lot of options to influence the behavior and layout of the preferences dialog.  
+The following parameters are the absolute minimum, needed for the proper function of `PreferencesFX`:
 
-Method | Description
+Parameter | Description
 ------ | -----------
-`AppStarter.class` | In the constructor of the PreferencesFx a `saveClass` is required. This class is used to save the preferences and is further defined in the javadoc.
-`description (category)` | Each `Category` must have a description. This is required for displaying it's description in the `ListView`.
-`description (setting)` | Each `Setting` must have a description. If for some reason no description is avaliable one can hand over `null`.
+`AppStarter.class` | In the constructor of `PreferencesFx` a `saveClass` is required. This class is saved as a key for the saved setting values. Further information is available in the javadoc.
+`Category description` | Each `Category` must have a description. This is required to display its description in the `TreeView`.
+`Setting description` | Each `Setting` must have a description. It will be displayed on the left of the control, which is used to manipulate the respective `Setting.
 
-- Information: To store the values of each Setting we used the `Preferences API`. During the usage of the PreferencesFX API it can happen, that the user wants a clear storage space. We created a test method which clears the storage. The method is called `PreferencesStorageReset.java` and is found using the following path:
-
-`../preferencesfx-demo/src/test/java/PreferencesStorageReset.java`
+Note: The value of the each `Setting` is stored using the [Java Preferences API](https://docs.oracle.com/javase/8/docs/api/java/util/prefs/Preferences.html) by default. For testing purposes, to clear the saved preferences of the demo, run the method in the class:
+```
+preferencesfx-demo/src/test/java/PreferencesStorageReset.java`
+```
 
 #### Optionals
 
