@@ -27,10 +27,6 @@ This project uses the plugin `asciidoctor` to create the necessary documents. To
 - developer-reference.adoc
 - requirements.adoc
 
-// ToDo: ->
-// - [Javadocs](http://dlsc.com/wp-content/html/formsfx/apidocs/)
-// - [Report](./docs/Project%20Report.pdf)
-
 ## Semantics
 
 PreferencesFX contains different semantic layers. A preferences dialog can contain multiple Categories. Each `Category` can contain multiple Groups and each `Group`can contain multiple `Settings`.
