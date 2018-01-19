@@ -8,17 +8,35 @@ François Martin; Marco Sanfratello
 :sourcedirdemo: ../preferencesfx-demo/src/main/java
 
 == Abstract / Management summary
+Developers do not like to program a preferences dialog.
+Why?
+A lot of boring, repetitive writing is needed.
+Because of that are often slips of the pen made.
+And a lot of time is being wasted in doing so.
 
------ ToDo -----
+We want to release every developer from this pain.
+For that reason we developed an API which does this for you.
+With the `PreferencesFX API` one can create a preferences dialog in a blink of an eye.
+
+Easy, fast and good looking - `PreferencesFX`.
 
 == Introduction
-The PreferenesFX API creates a preferences window. This is done by simply writing a title and giving it a property and all the other work is done by the API itself. Often developers have no time, energy or simply not mind to write a preferences window for their application. It’s a generic, boring work which nobody really wants to do. The picture below shows the final result of the PreferencesFX API in use.
+The `PreferenesFX API` creates a preferences window.
+ This is done by simply writing a title and giving it a property and all the other work is done by the API itself.
+ Often developers have no time, energy or simply not mind to write a preferences window for their application.
+ It’s a generic, boring work which nobody really wants to do.
+ The picture below shows the final result of the PreferencesFX API in use.
 
 image::images/preferencesFX_in_use.png[PreferencesFX in use]
 
-The idea of the PreferencesFX API is to replace this boring work with a much simpler, cleaner solution. Always in mind to relieve this part of a developers work as much as possible, this solution was created.
+The idea of the PreferencesFX API is to replace this boring work with a much simpler, cleaner solution.
+ Always in mind to relieve this part of a developers work as much as possible, this solution was created.
 
-The PreferencesFX API works with a fluent API approach (for further information ). The developer can build up his preferences window by simply calling function after function to define it further. Each preference which needs to be stored represents a setting. One or multiple settings are collected in a group. One or multiple groups are collected in a category and the preferences window consists of one or multiple categories.
+The PreferencesFX API works with a fluent API approach (for further information ).
+ The developer can build up his preferences window by simply calling function after function to define it further.
+ Each preference which needs to be stored represents a setting.
+ One or multiple settings are collected in a group.
+ One or multiple groups are collected in a category and the preferences window consists of one or multiple categories.
 
 The project itself is programmed with a model view presenter structure, which separates the frontend and backend to ensure a clear overview.
 
@@ -26,23 +44,37 @@ In the following chapters, the reader will gain additional insights of the proje
 
 == The way to PreferencesFX
 === Briefing
-Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consulting (http://dlsc.com/[dlsc.com]). One of his former projects was the FormsFX API, where a developer can easily create forms without a lot of effort. FormsFX uses the fluent API approach to create its forms. His approach was to adapt this idea of an easy way to create a structure with a predefined User Interface to preference windows. The developer should not need to invest a lot of time creating a preferences window. We got access to a fork of FormsFX. Our customer allowed us to use it for creation of our project.
+Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consulting (http://dlsc.com/[dlsc.com]).
+One of his former projects was the FormsFX API, where a developer can easily create forms without a lot of effort.
+ FormsFX uses the fluent API approach to create its forms.
+ His approach was to adapt this idea of an easy way to create a structure with a predefined User Interface to preference windows.
+ The developer should not need to invest a lot of time creating a preferences window.
+ We got access to a fork of FormsFX.
+ Our customer allowed us to use it for creation of our project.
 
 Regarding the visual appearance we should orientate ourselves at the preferences window of the programming platform IntelliJ IDEA regarding the look and feel.
 
 === Fluent API
-The user of the `PreferencesFX API` builds his preferences dialog using the so called fluent API. This means, that the structure of creating was implemented the way, that one could (theoretically) write the whole dialog in one line. This is done by using methods, which are returning the same object on which the method is called.
+The user of the `PreferencesFX API` builds his preferences dialog using the so called fluent API.
+ This means, that the structure of creating was implemented the way, that one could (theoretically) write the whole dialog in one line.
+ This is done by using methods, which are returning the same object on which the method is called.
 
-A famous example of the fluent API in use are streams. Our customer wanted us to apply it the same way in the `PreferencesFX API`. The code snippet below, which is used in `RootPane.java`, shows how the preferences are set up and the fluent API is used:
+A famous example of the fluent API in use are streams.
+ Our customer wanted us to apply it the same way in the `PreferencesFX API`.
+ The code snippet below, which is used in `RootPane.
+java`, shows how the preferences are set up and the fluent API is used:
 
 [source,java]
 ----
 include::{sourcedirdemo}/com/dlsc/preferencesfx/standard/RootPane.java[tags=setupPreferences]
 ----
 
-The whole code snippet uses the fluent API, but to explain it the best let's have a look at the last line of code. There are several methods called.
+The whole code snippet uses the fluent API, but to explain it the best let's have a look at the last line of code.
+ There are several methods called.
 
-One can see in the code snippet below, that the method returns exactly the object on which this method was called. This style of implementation allows the user of the API a simple, intuitive and easy way to create the preferences. This method is being used in `PreferencesFx.java`:
+One can see in the code snippet below, that the method returns exactly the object on which this method was called.
+ This style of implementation allows the user of the API a simple, intuitive and easy way to create the preferences.
+ This method is being used in `PreferencesFx.java`:
 
 [source,java]
 ----
@@ -50,19 +82,29 @@ include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=fluentApiMet
 ----
 
 === First thoughts
-Well, we didn't just started programming. In fact we did some research. Although our customer had initial some ideas, we did not just accept and implement these. In the following chapters we're going to discuss our initial steps and thoughts on how to set up our project.
+Well, we didn't just started programming.
+ In fact we did some research.
+ Although our customer had initial some ideas, we did not just accept and implement these.
+ In the following chapters we're going to discuss our initial steps and thoughts on how to set up our project.
 
 ==== Persona
-This applied together with the search after the perfect layout. We asked ourselfs: What would be the target group? Well of course everyone which would ever use an application which uses the `PreferencesFX API`. But this was not really a strict persona. Because this could be literally anyone.
+This applied together with the search after the perfect layout.
+ We asked ourselfs: What would be the target group? Well of course everyone which would ever use an application which uses the `PreferencesFX API`.
+ But this was not really a strict persona.
+ Because this could be literally anyone.
 
-Another thought was, that we did not really have influence of the final application, the developer decides to create. If he decides for example to create three different preferences windows it's not really our fault that the application has a bad usability. Of course we need to do our best to give a developer no reasons to do such things, but in general we don't really can change something.
+Another thought was, that we did not really have influence of the final application, the developer decides to create.
+ If he decides for example to create three different preferences windows it's not really our fault that the application has a bad usability.
+ Of course we need to do our best to give a developer no reasons to do such things, but in general we don't really can change something.
 
 Or what about different types of applications? For example an application for financiers would look different than one for carpenters.
 
-In conclusion we discovered, that our primary persona was not the end user of an application, but we realized, that the developer of the application was our persona. Why? Well of course we would consider the layout of the preference dialog as important, but the developer of the application should be able to create a preferences window as fast and as simple as possible.
+In conclusion we discovered, that our primary persona was not the end user of an application, but we realized, that the developer of the application was our persona.
+ Why? Well of course we would consider the layout of the preference dialog as important, but the developer of the application should be able to create a preferences window as fast and as simple as possible.
 
 ==== Layout
 As stated before, the layout of the preferences dialog was considered as important.
+
  For that reason we looked at various preferences windows and noted the usual best practices and the do's and dont's which are made through the last years.
 
 ===== Eclipse RCP
@@ -196,10 +238,13 @@ But we didn't have to write everything bottom up and thought that we'd save a lo
 In conclusion we really saved a lot of time using `FormsFX` as a base, although we had several bugs.
 
 ==== Started programming
-We don't wanted to spend any more time researching. So we just started programming and tried to write as fast as possible some code down to have something to work on. This helped a lot to early have some satisfying experiences in the project and keep us motivated.
+We don't wanted to spend any more time researching.
+ So we just started programming and tried to write as fast as possible some code down to have something to work on.
+ This helped a lot to early have some satisfying experiences in the project and keep us motivated.
 
 === Challenges
-During our project we faced several challenges, which we needed to overcome. In the following chapters we'll have a look at the most important ones.
+During our project we faced several challenges, which we needed to overcome.
+ In the following chapters we'll have a look at the most important ones.
 
 ==== Instant persistence
 We discovered that preferences windows often provide the user a lot of buttons, like close, discard, apply and more.
@@ -219,7 +264,8 @@ The instant persistence brought up a new problem:
  This way a user can return all of his changes back to his first one.
 
 ==== Issues with FormsFX
-As already mentioned, we had some challenges using `FormsFX`. In the following three chapters we're discussing our most interesting challenges.
+As already mentioned, we had some challenges using `FormsFX`.
+ In the following three chapters we're discussing our most interesting challenges.
 
 ===== GridPane
 The original FormsFX implementation renders a Form by using one GridPane per Setting, instead of using a GridPane per Form.
@@ -252,7 +298,7 @@ Researching online resulted in many people having similar issues, with no real s
 *Our solution* was to only apply the style class to the description and then apply negative insets values for `-fx-background-insets`, which extended over the gap and marked the whole setting.
 
 ===== Bidirectional binding
-Another bug occured when we were implementing the support of the setting type `ListViewControl`
+Another bug occured when we were implementing the support of the setting type `ListViewControl`.
 For some reason the `Field of SingleSelectionType` of `FormsFX` had a bug.
 At first we thought it was a bug in our own code, but then we discovered that `FormsFX` itself had an issue left where exactly the same problem occured.
 As it turned out was the binding of the field only set in one direction.
