@@ -469,7 +469,15 @@ At least the `Javadoc` should've been written frequent.
 For the next project no branch will be merged until all checkstyle errors are eliminated.
 
 == Summary
-In conclusion we can with proud
+In conclusion we can proudly say, that we have a fully functional API which works very well.
+It was an interesting, challenging project.
+We learned a lot and are happy how it turned out.
+Although we faced some challenges we could master all of them.
+
+In conclusion we can say, that a developer now can use the `PreferencesFX API` to create fast and easy a preferences dialog without spending to much time programming one on his own.
+Without any further adjustments he gets a nice and clean looking dialog which supports all important primitive data types.
+
+We're looking forward on how the future of `PreferencesFX` will look like.
 
 == Honesty Declaration
 It is hereby declared that the contents of this report, unless otherwise stated, have been authored by François Martin and Marco Sanfratello.
