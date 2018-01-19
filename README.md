@@ -121,6 +121,11 @@ Method | Class | Description
 
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
+<style>
+    td > img {
+        style="width:30%";
+    }
+</style>
 <table>
     <tr>
         <th>Syntax</th>
