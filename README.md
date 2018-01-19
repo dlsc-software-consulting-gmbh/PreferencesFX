@@ -121,7 +121,8 @@ Method | Class | Description
 
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
-```html
+{::nomarkdown}
+
 <table>
     <tr>
         <th>Syntax</th>
@@ -236,7 +237,7 @@ Setting.of("Favorite Number", customControl, customControlProperty);</pre>
         <td><img src="./docs/images/settings/custom_setting.png"/></td>
     </tr>
 </table>
-```
+{:/}
 
 ## Rendering a form
 
