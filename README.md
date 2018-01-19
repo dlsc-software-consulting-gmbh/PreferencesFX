@@ -122,7 +122,7 @@ Method | Class | Description
 #### Setting types
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
-<table style="width:30%">
+<table>
     <tr>
         <th>Syntax</th>
         <th>Outcome</th>
@@ -133,7 +133,7 @@ The following table shows how to create `Settings` using the current supported P
 IntegerProperty brightness = new SimpleIntegerProperty(50);
 Setting.of("Brightness", brightness);</pre>
         </td>
-        <td><img width="300px" src="./docs/images/settings/integer_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/integer_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -141,7 +141,7 @@ Setting.of("Brightness", brightness);</pre>
 IntegerProperty fontSize = new SimpleIntegerProperty(12);
 Setting.of("Font Size", fontSize, 6, 36);</pre>
         </td>
-        <td><img src="./docs/images/settings/integerSlider_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/integerSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -149,7 +149,7 @@ Setting.of("Font Size", fontSize, 6, 36);</pre>
 DoubleProperty scaling = new SimpleDoubleProperty(1);
 Setting.of("Scaling", scaling);</pre>
         </td>
-        <td><img src="./docs/images/settings/double_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/double_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -157,7 +157,7 @@ Setting.of("Scaling", scaling);</pre>
 DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
 Setting.of("Line Spacing", lineSpacing, 0, 3, 1);</pre>
         </td>
-        <td><img src="./docs/images/settings/doubleSlider_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/doubleSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -165,7 +165,7 @@ Setting.of("Line Spacing", lineSpacing, 0, 3, 1);</pre>
 BooleanProperty nightMode = new SimpleBooleanProperty(true);
 Setting.of("Night Mode", nightMode);</pre>
         </td>
-        <td><img src="./docs/images/settings/boolean_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/boolean_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -173,7 +173,7 @@ Setting.of("Night Mode", nightMode);</pre>
 StringProperty welcomeText = new SimpleStringProperty("Hello World");
 Setting.of("Welcome Text", welcomeText);</pre>
         </td>
-        <td><img src="./docs/images/settings/string_setting.png"></td>
+        <td><img width="300px"  src="./docs/images/settings/string_setting.png"></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -184,7 +184,7 @@ ObservableList<String> resolutionItems = FXCollections.observableArrayList(Array
 ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
 Setting.of("Resolution", resolutionItems, resolutionSelection);</pre>
         </td>
-        <td><img src="./docs/images/settings/observableList_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/observableList_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -195,7 +195,7 @@ ListProperty<String> orientationItems = new SimpleListProperty<>(
 ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 Setting.of("Orientation", orientationItems, orientationSelection);</pre>
         </td>
-        <td><img src="./docs/images/settings/listProperty_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/listProperty_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -213,7 +213,7 @@ ListProperty<String> favoritesSelection = new SimpleListProperty<>(
 );
 Setting.of("Favorites", favoritesItems, favoritesSelection);</pre>
         </td>
-        <td><img src="./docs/images/settings/favourites_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/favourites_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -223,7 +223,7 @@ IntegerField customControl = Field.ofIntegerType(customControlProperty).render(
   new IntegerSliderControl(0, 42));
 Setting.of("Favorite Number", customControl, customControlProperty);</pre>
         </td>
-        <td><img src="./docs/images/settings/custom_setting.png"/></td>
+        <td><img width="300px"  src="./docs/images/settings/custom_setting.png"/></td>
     </tr>
 </table>
 
