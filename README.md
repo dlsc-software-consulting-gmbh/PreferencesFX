@@ -93,7 +93,7 @@ For creating a setting, the user needs only to hand over a title and a `Property
 
 The preferences have a range of options that define their semantics and change their functionality:
 
-**Must haves**
+#### Must haves
 
 Method | Description
 ------ | -----------
@@ -105,7 +105,7 @@ Method | Description
 
 `../preferencesfx-demo/src/test/java/PreferencesStorageReset.java`
 
-**Optionals**
+#### Optionals
 
 Method | Class | Description
 ------ | ----- | -----------
@@ -119,6 +119,7 @@ Method | Class | Description
 `.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the decline and close buttons in the `PreferencesDialog`.
 `.i18n` | `PreferencesFx` | Sets the translation service property of the preferences dialog. 
 
+#### Setting types
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
 <table>
@@ -226,22 +227,6 @@ Setting.of("Favorite Number", customControl, customControlProperty);</pre>
     </tr>
 </table>
 
-## Rendering a form
-
-The only point of interaction is the `FormRenderer`. It delegates rendering of further components to other renderers.
-
-```java
-Pane root = new Pane();
-root.getChildren().add(new FormRenderer(form));
-```
-
-All fields have a default control that is used for rendering. This can be changed to another compatible implementation using the `render()` method.
-
-```java
-Field.ofMultiSelectionType(…)
-        .render(new SimpleCheckBoxControl<>())
-```
-
 ## Localisation
 All displayed values are localisable. PreferencesFx accepts keys which are then used for translation. By default, PreferencesFx includes a `ResourceBundle`-based implementation, however, this can be exchanged for a custom implementation. Adding the i18n support is simply done by calling the method `.i18n()` at the end when creating the preferences:
 
@@ -274,7 +259,8 @@ It is possible for all settings to add a validator. PreferencesFX offers a wide 
 - Easy to understand
 - Easy to extend
 
-##Team
+
+## Team
 - Marco Sanfratello
   - marco.sanfratello@students.fhnw.ch
   - Skype: sanfratello.m@gmail.com 
