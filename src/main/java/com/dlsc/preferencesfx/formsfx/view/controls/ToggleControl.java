@@ -6,6 +6,9 @@ import org.controlsfx.control.ToggleSwitch;
 
 /**
  * Displays a control for boolean values with a toggle from ControlsFX.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   public static final double NEGATIVE_LABEL_INSETS = -17.3;

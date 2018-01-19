@@ -8,7 +8,10 @@ import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
 
 /**
- * Created by François Martin on 11.12.2017.
+ * Displays undo and redo buttons and also defines their behavior.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class UndoRedoBox extends HBox {
   GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
@@ -16,6 +19,12 @@ public class UndoRedoBox extends HBox {
   Button redoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.REPEAT));
   private History history;
 
+  /**
+   * Initializes the undo and redo buttons, sets their respective actions and disables them
+   * if undo or redo is not available, respectively.
+   *
+   * @param history the history to be used for undo and redo
+   */
   public UndoRedoBox(History history) {
     this.history = history;
 

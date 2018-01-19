@@ -9,7 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**
- * Created by François Martin on 24.11.17.
+ * Provides an implementation of a slider control for an {@link IntegerField}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
   public static final int VALUE_LABEL_PADDING = 25;

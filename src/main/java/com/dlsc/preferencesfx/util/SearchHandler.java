@@ -1,11 +1,12 @@
 package com.dlsc.preferencesfx.util;
 
-import static com.dlsc.preferencesfx.util.StringUtils.containsIgnoreCase;
+import static com.dlsc.preferencesfx.util.Ascii.containsIgnoreCase;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
+import com.google.common.base.Strings;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -16,13 +17,19 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 
 /**
- * Created by François Martin on 31.12.17.
+ * Handles everything related to searching in the{@link Category}, {@link Group}
+ * and {@link Setting}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SearchHandler {
 
@@ -44,10 +51,14 @@ public class SearchHandler {
   private HashMap<Setting, Category> settingCategoryMap;
 
   private StringProperty searchText = new SimpleStringProperty();
+
+  /**
+   * Represents the category which is matched by the search and should ultimately be displayed.
+   */
   private ObjectProperty<Category> categoryMatch = new SimpleObjectProperty<>();
 
   /**
-   * Decides whether a TreeItem should be shown in the TreeSearchView or not.
+   * Decides whether a {@link TreeItem} should be shown in the {@link TreeView} or not.
    * If result is true, it will be shown, if the result is false, it will be hidden.
    */
   private Predicate<Category> filterPredicate = category -> {
@@ -61,9 +72,11 @@ public class SearchHandler {
       settingMatch = category.getGroups().stream()
           .map(Group::getSettings)      // get settings from groups
           .flatMap(Collection::stream)  // flatten all lists of settings to settings
+          .filter(setting -> !Strings.isNullOrEmpty(setting.getDescription()))
           .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText));
       // look in groups too
       groupMatch = category.getGroups().stream()
+          .filter(group -> !Strings.isNullOrEmpty(group.getDescription()))
           .anyMatch(group -> containsIgnoreCase(group.getDescription(), searchText));
     }
     return categoryMatch || settingMatch || groupMatch;
@@ -71,10 +84,11 @@ public class SearchHandler {
 
   /**
    * Initializes the SearchHandler by initially creating all necessary lists
-   * for filtering and setting up the bindings. Must be called to make the filtering work.
+   * for filtering and setting up the bindings.
    *
    * @param searchText        textProperty of a TextField where the search string is being input
    * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
+   * @apiNote Must be called to make the filtering work.
    */
   public void init(
       PreferencesFxModel model,
@@ -145,6 +159,12 @@ public class SearchHandler {
     }, searchText));
   }
 
+  /**
+   * Updates the search based on a new {@code searchText}.
+   *
+   * @param searchText the new text to be searched for
+   * @implNote Filters the lists, sets the category match, unmarks everything and marks all matches.
+   */
   public void updateSearch(String searchText) {
     updateFilteredLists(searchText);
     setCategoryMatch(getSelectedCategoryByMatch());

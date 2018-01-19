@@ -6,6 +6,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for {@link StorageHandler}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class StorageHandlerTest {
   @Before
   public void setUp() throws Exception {

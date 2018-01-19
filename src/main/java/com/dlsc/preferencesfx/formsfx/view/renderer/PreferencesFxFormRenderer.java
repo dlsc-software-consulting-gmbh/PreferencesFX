@@ -2,12 +2,19 @@ package com.dlsc.preferencesfx.formsfx.view.renderer;
 
 import com.dlsc.formsfx.model.structure.Form;
 import com.dlsc.formsfx.view.util.ViewMixin;
+import com.dlsc.preferencesfx.model.Category;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 
+/**
+ * Renders a {@link Form} for a {@link Category} in PreferencesFX.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
 
   /**

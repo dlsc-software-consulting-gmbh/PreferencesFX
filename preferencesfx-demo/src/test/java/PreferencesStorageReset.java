@@ -2,7 +2,7 @@ import com.dlsc.preferencesfx.AppStarter;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-public class PreferencesStorageTest {
+public class PreferencesStorageReset {
   /**
    * Clears the currently saved preferences.
    * For testing purposes only.
