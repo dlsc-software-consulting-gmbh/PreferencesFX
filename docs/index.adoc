@@ -83,13 +83,13 @@ At the top of the picture `Eclipse RCP, window 1`, there is a TextField position
 
 Everywhere are settings and buttons and no one really knows what's going on. One big lesson learned was, that we would clearly separate the "selection and filtering options" and the "changing the preferences options". We would also keep any buttons away, because in a preferences window no one should need a button to open another window where he can change another settings.
 
-===== IOS
-It was joyful to see how simple and clean the `Apple IOS` constructs its preferences windows. This was really a contrast to the overwhelming preferences window of the `Eclipse RCP API`. We had a look
+===== MacOS
+It was joyful to see how simple and clean the `macOS` constructs its preferences windows. This was really a contrast to the overwhelming preferences window of the `Eclipse RCP API`. We had a look
 
 [cols="1,1"]
-.IOS
+.MacOS
 |===
-|image:images/alternatives/ios_internal.jpg[internal] Internal IOS application |image:images/alternatives/ios_external.jpg[external] External IOS application
+|image:images/alternatives/ios_internal.jpg[internal] Internal macOS application |image:images/alternatives/ios_external.jpg[external] External macOS application
 |===
 
 ===== Intellij
