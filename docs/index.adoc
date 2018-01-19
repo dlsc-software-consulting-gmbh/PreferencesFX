@@ -129,8 +129,7 @@ That a user of the dialog can navigate back in the navigation but not the change
 We decided, that we would implement an undo/redo function but it should only affect the changed setting values and not the actual navigation.
 
 ===== Minimal viable product
-As a result of our research we created a paper prototype, which was also the minimal viable product (MVP).
- Our promise to our customer, that he gets at least this product from us.
+As a result of our research we created a paper prototype, which was also the minimal viable product (MVP), our promise to our customer, that he gets at least this product from us.
  The MVP is shown in the picture below:
 
 image::images/minimal_viable_product.png[Minimal viable product]
@@ -295,7 +294,13 @@ The views and the presenters are built the way, that the views only contain visu
 
 After creating the preferences one can simply call the method `show()` and the `PreferencesFx` opens a `PreferencesDialog`. This dialog contains the `PreferencesView` which puts all other views together.
 
+==== CategoryController
+----- ToDo -----
+
 == Lessons learned
 * We just started programming and didn't mind about separating the frontend from the backend. This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project. For the next project we are going to focus more on the system architecture in first place.
 
 * We found a bug in FormsFX and fixed it. But the time it took was too much. Of course our customer is happy, that the bug is solved, but in an industrial project we mustn't do this. This is not our problem. It's the one of the FormsFX team. Next time we will discuss the situation with our customer and ask him about his opinion.
+
+* Asciidoctor rulez
+
