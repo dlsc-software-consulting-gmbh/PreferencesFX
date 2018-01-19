@@ -46,9 +46,11 @@ public class PreferencesFx {
   private PreferencesFxPresenter preferencesFxPresenter;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
+    // asciidoctor Documentation - tag::testMock[]
     preferencesFxModel = new PreferencesFxModel(
         new StorageHandler(saveClass), new SearchHandler(), new History(), categories
     );
+    // asciidoctor Documentation - end::testMock[]
 
     // setting values are only loaded if they are present already
     preferencesFxModel.loadSettingValues();
@@ -127,10 +129,12 @@ public class PreferencesFx {
    *                the last saved state. Defaults to false.
    * @return this object for fluent API
    */
+  // asciidoctor Documentation - tag::fluentApiMethod[]
   public PreferencesFx persistWindowState(boolean persist) {
     preferencesFxModel.setPersistWindowState(persist);
     return this;
   }
+  // asciidoctor Documentation - end::fluentApiMethod[]
 
   /**
    * Defines whether the adjusted settings of the application should be saved or not.

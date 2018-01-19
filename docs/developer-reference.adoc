@@ -3,15 +3,15 @@ François Martin; Marco Sanfratello
 
 This document contains information that may be valuable to a developer of PreferencesFX when trying to understand how it works.
 
-== PreferencesFxUtils
+== SearchHandler
 === compareMatches()
-This method is being used in `CategoryTree`:
+This method is being used in `SearchHandler`:
 
 :sourcedir: ../src/main/java
 
 [source,java]
 ----
-include::{sourcedir}/com/dlsc/preferencesfx/CategoryTree.java[tags=compareMatches]
+include::{sourcedir}/com/dlsc/preferencesfx/util/SearchHandler.java[tags=compareMatches]
 ----
 
 Changing the search string will filter the categories, groups, and settings into their respective filtered lists, update the amount of matches from the filtered lists and ultimatively calls `setSelectedCategoryByMatch()`.
