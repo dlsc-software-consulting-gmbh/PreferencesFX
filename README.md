@@ -122,13 +122,13 @@ Method | Class | Description
 #### Setting types
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
-<table>
+<table style="width:30%">
     <tr>
         <th>Syntax</th>
         <th>Outcome</th>
     </tr>
     <tr>
-        <td style="width:30%"><pre lang="java">
+        <td><pre lang="java">
 // Integer
 IntegerProperty brightness = new SimpleIntegerProperty(50);
 Setting.of("Brightness", brightness);</pre>
