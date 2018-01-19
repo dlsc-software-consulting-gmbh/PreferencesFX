@@ -69,12 +69,19 @@ In conclusion we discovered, that our primary persona was not the end user of an
 As stated before, the layout of the preferences dialog was considered as important. For that reason we looked at various preferences windows and noted the usual best practices and the do's and dont's which are made through the last years.
 
 ===== Eclipse RCP
+More a list of dont's than do's provides the analysis of the `Eclipse RCP API`. Below there are two different screenshots of the rcp in use.
 
 [cols="1,1"]
 .Eclipse RCP
 |===
 |image:images/alternatives/eclipse_rcp.png[rcp1] Eclipse RCP, window 1| image:images/alternatives/eclipse_rcp1.png[rcp2] Eclipse RCP, window 2
 |===
+
+Especially displeasing are the huge amount of borders which are used to separate the settings from each other. Interesting is the fact, that even with borders the whole dialog appears big and confusing.
+
+At the top of the picture `Eclipse RCP, window 1`, there is a TextField positioned with the description "Name". We had no idea what this was for. As a lesson learned we kept, that above any navigation one should not be able to change any settings. This corrupts the workflow.
+
+Everywhere are settings and buttons and no one really knows what's going on. One big lesson learned was, that we would clearly separate the "selection and filtering options" and the "changing the preferences options". We would also keep any buttons away, because in a preferences window no one should need a button to open another window where he can change another settings.
 
 ===== IOS
 
