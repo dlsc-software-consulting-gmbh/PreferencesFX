@@ -1,29 +1,31 @@
 # PreferencesFX
-**Preferences dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
+**Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
 ## What is PreferencesFX?
-Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preferences dialogs with ease and creates well-designed and user-friendly preference dialogs by default. 
+Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preference dialogs with ease and creates well-designed and user-friendly preference dialogs by default. 
 
 ## Main Features
-- Simple and understandable  API
-- The most important Features are shown in the picture below: The created preferences dialog:
+- Simple and understandable API
+- The most important features are noted in the picture and the corresponding table below:
+
+![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png)
 
 Feature | Description
 ------ | -----------
-`Search / Filter` | Filters all categories after a given String. Helps to find the required category.
-`Tree view` | Shows all categories the user defines.
-`BreadCrumbBar` | Shows the user the path to the selected category and allows him to navigate back.
+`Search / Filter` | Filters all categories for a given String. Enables searching for a Setting, Group or Category by name.
+`Tree view` | Shows all categories in a hierarchical structure
+`Breadcrumb Bar` | Shows the user the previous categories in the hierarchy to the currently displayed category and allows the user to navigate back.
 `Undo / Redo Buttons` | Allows the user a stepwise undo and redo possibility of his last changes.
-`Instant persistance` | Any changes to the application are saved instant.
-`Various setting types` | Like: boolean, String, Integer, Double, Lists, Objects
-
-![alt text](docs/images/preferencesFX_in_use.png) The created preferences dialog
+`Instant persistance` | Any changes to the application are saved instantly.
+`Various pre-defined setting types` | e.g. Integer, Double, Boolean, String, Lists, Objects
 
 ## Documentation
-This project uses the plugin `asciidoctor` to create the necessary documents. To create them you can simply launch the gradle task: `asciidoctor`. Following documents will be created:
-- index.adoc
-- developer-reference.adoc
-- requirements.adoc
+This project uses the plugin `asciidoctor` to create the necessary documentation. To generate them, run the following gradle tasks:
+```Gradle
+asciidoctor html // HTML format
+asciidoctor pdf // PDF format
+```
+Afterwards, you will find them in the `build/doc/` subdirectory.
 
 ## Semantics
 PreferencesFX contains different semantic layers. A preferences dialog can contain multiple Categories. Each `Category` can contain multiple Groups and each `Group`can contain multiple `Settings`.
@@ -133,7 +135,7 @@ The following table shows how to create `Settings` using the current supported P
 IntegerProperty brightness = new SimpleIntegerProperty(50);
 Setting.of("Brightness", brightness);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/integer_setting.png"/></td>
+        <td><img src="./docs/images/settings/integer_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -141,7 +143,7 @@ Setting.of("Brightness", brightness);</pre>
 IntegerProperty fontSize = new SimpleIntegerProperty(12);
 Setting.of("Font Size", fontSize, 6, 36);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/integerSlider_setting.png"/></td>
+        <td><img src="./docs/images/settings/integerSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -149,7 +151,7 @@ Setting.of("Font Size", fontSize, 6, 36);</pre>
 DoubleProperty scaling = new SimpleDoubleProperty(1);
 Setting.of("Scaling", scaling);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/double_setting.png"/></td>
+        <td><img src="./docs/images/settings/double_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -157,7 +159,7 @@ Setting.of("Scaling", scaling);</pre>
 DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
 Setting.of("Line Spacing", lineSpacing, 0, 3, 1);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/doubleSlider_setting.png"/></td>
+        <td><img src="./docs/images/settings/doubleSlider_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -165,7 +167,7 @@ Setting.of("Line Spacing", lineSpacing, 0, 3, 1);</pre>
 BooleanProperty nightMode = new SimpleBooleanProperty(true);
 Setting.of("Night Mode", nightMode);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/boolean_setting.png"/></td>
+        <td><img src="./docs/images/settings/boolean_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -173,7 +175,7 @@ Setting.of("Night Mode", nightMode);</pre>
 StringProperty welcomeText = new SimpleStringProperty("Hello World");
 Setting.of("Welcome Text", welcomeText);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/string_setting.png"></td>
+        <td><img src="./docs/images/settings/string_setting.png"></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -184,7 +186,7 @@ ObservableList<String> resolutionItems = FXCollections.observableArrayList(Array
 ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
 Setting.of("Resolution", resolutionItems, resolutionSelection);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/observableList_setting.png"/></td>
+        <td><img src="./docs/images/settings/observableList_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -195,7 +197,7 @@ ListProperty<String> orientationItems = new SimpleListProperty<>(
 ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
 Setting.of("Orientation", orientationItems, orientationSelection);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/listProperty_setting.png"/></td>
+        <td><img src="./docs/images/settings/listProperty_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -213,7 +215,7 @@ ListProperty<String> favoritesSelection = new SimpleListProperty<>(
 );
 Setting.of("Favorites", favoritesItems, favoritesSelection);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/favourites_setting.png"/></td>
+        <td><img src="./docs/images/settings/favourites_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
@@ -223,7 +225,7 @@ IntegerField customControl = Field.ofIntegerType(customControlProperty).render(
   new IntegerSliderControl(0, 42));
 Setting.of("Favorite Number", customControl, customControlProperty);</pre>
         </td>
-        <td><img width="300px"  src="./docs/images/settings/custom_setting.png"/></td>
+        <td><img src="./docs/images/settings/custom_setting.png"/></td>
     </tr>
 </table>
 
