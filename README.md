@@ -4,6 +4,13 @@
 ## What is PreferencesFX?
 Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preference dialogs with ease and creates well-designed and user-friendly preference dialogs by default. 
 
+## Advantages
+- Less error-prone
+- Less code needed
+- Easy to learn
+- Easy to understand
+- Easy to use, for developers and users alike
+
 ## Main Features
 - Simple and understandable API
 - The most important features are noted in the picture and the corresponding table below:
@@ -13,7 +20,7 @@ Creating preference dialogs in JavaFX is a tedious and very error-prone task. Pr
 Feature | Description
 ------ | -----------
 `Search / Filter` | Filters all categories for a given String. Enables searching for a Setting, Group or Category by name.
-`Tree view` | Shows all categories in a hierarchical structure
+`TreeView` | Shows all categories in a hierarchical structure
 `Breadcrumb Bar` | Shows the user the previous categories in the hierarchy to the currently displayed category and allows the user to navigate back.
 `Undo / Redo Buttons` | Allows the user a stepwise undo and redo possibility of his last changes.
 `Instant persistance` | Any changes to the application are saved instantly.
@@ -243,7 +250,7 @@ Setting.of("Favorite Number", customControl, customControlProperty);</pre>
 </table>
 
 ## Localisation
-All displayed values are localisable. PreferencesFx accepts keys which are then used for translation. By default, PreferencesFx includes a `ResourceBundle`-based implementation, however, this can be exchanged for a custom implementation. Adding the i18n support is simply done by calling the method `.i18n()` at the end when creating the preferences:
+All displayed strings can be internationalized. You can use [resource bundles](https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html) to define different locales and use the key instead of the descriptions. Adding i18n support is simply done by calling the method `.i18n()` at the end when creating the preferences:
 
 ```java
 private ResourceBundle rbDE = ResourceBundle.getBundle("demo.demo-locale", new Locale("de", "CH"));
@@ -252,28 +259,20 @@ private ResourceBundle rbEN = ResourceBundle.getBundle("demo.demo-locale", new L
 private ResourceBundleService rbs = new ResourceBundleService(rbEN);
 
 PreferencesFx.of(…)
-        .i18n(rbs);
+             .i18n(rbs);
 ```
 
 ## Validation
-It is possible for all settings to add a validator. PreferencesFX offers a wide range of pre-defined validators, but also includes support for custom validators using the `CustomValidator.forPredicate()` method. This part of the implementation was took from the former project `FormsFX`. The following table lists the supported validators:
+It is possible to optionally add a [Validator](http://dlsc.com/wp-content/html/formsfx/apidocs/com/dlsc/formsfx/model/validators/Validator.html) to settings. PreferencesFX uses the [implementation of FormsFX for the validation](http://dlsc.com/wp-content/html/formsfx/apidocs/com/dlsc/formsfx/model/validators/Validator.html). FormsFX offers a wide range of pre-defined validators, but also includes support for custom validators using the `CustomValidator.forPredicate()` method. The following table lists the supported validators:
 
 | Validator | Description |
 | --------- | ----------- |
-| `CustomValidator` | Define a predicate that returns whether the field is valid or not. |
-| `DoubleRangeValidator` | Define a number range which is considered valid. This range can be limited in either one direction or in both directions. |
-| `IntegerRangeValidator` | Define a number range which is considered valid. This range can be limited in either one direction or in both directions. |
-| `RegexValidator` | Valiate text against a regular expression. This validator offers pre-defined expressions for common use cases, such as email addresses.
-| `SelectionLengthValidator` | Define a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
-| `StringLengthValidator` | Define a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
-
-## Advantages
-- Less error-prone
-- Less code needed
-- Easy to learn
-- Easy to understand
-- Easy to extend
-
+| `CustomValidator` | Defines a predicate that returns whether the field is valid or not. |
+| `DoubleRangeValidator` | Defines a number range which is considered valid. This range can be limited in either one direction or in both directions. |
+| `IntegerRangeValidator` | Defines a number range which is considered valid. This range can be limited in either one direction or in both directions. |
+| `RegexValidator` | Valiates text against a regular expression. This validator offers pre-defined expressions for common use cases, such as email addresses.
+| `SelectionLengthValidator` | Defines a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
+| `StringLengthValidator` | Defines a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
 
 ## Team
 - Marco Sanfratello
