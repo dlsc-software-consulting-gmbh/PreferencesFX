@@ -128,10 +128,10 @@ The following table shows how to create `Settings` using the current supported P
     </tr>
 
     <tr>
-        <td><pre lang="java">
+        <td>```java
 // Integer
 IntegerProperty brightness = new SimpleIntegerProperty(50);
-Setting.of("Brightness", brightness);</pre>
+Setting.of("Brightness", brightness);```
         </td>
         <td><img src="./docs/images/settings/integer_setting.png"/></td>
     </tr>
