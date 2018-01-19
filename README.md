@@ -27,6 +27,10 @@ This project uses the plugin `asciidoctor` to create the necessary documents. To
 - developer-reference.adoc
 - requirements.adoc
 
+// ToDo: ->
+// - [Javadocs](http://dlsc.com/wp-content/html/formsfx/apidocs/)
+// - [Report](./docs/Project%20Report.pdf)
+
 ## Semantics
 
 PreferencesFX contains different semantic layers. A preferences dialog can contain multiple Categories. Each `Category` can contain multiple Groups and each `Group`can contain multiple `Settings`.
@@ -121,156 +125,89 @@ Method | Class | Description
 
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
-![alt text](docs/images/settings/integer_setting.png)
-
-<img src=".docs/images/settings/integer_setting.png" />
-
 <table>
-  <tr>
-    <th>Syntax</th>
-    <th>Outcome</th>
-  </tr>
-  <tr>
-    <td>
-        ```Java
-        Setting.of("Welcome Text", welcomeText);
-        ```
-    </td>
-    <td>
-        <img src=".docs/images/settings/integer_setting.png" />
-    </td>
-  </tr>
-</table>
-
-<table>
-  <tbody>
     <tr>
-      <td colspan="2">String Control</td>
+        <th>Syntax</th>
+        <th>Outcome</th>
     </tr>
     <tr>
-      <td><img src="./docs/images/StringField.png" /></td>
+        <td><pre lang="java">
+StringProperty welcomeText = new SimpleStringProperty("Hello World");
+Setting.of("Welcome Text", welcomeText);</pre></td>
+        <td><img src=".docs/images/settings/string_setting.png"></td>
     </tr>
     <tr>
-      <td>
-        <pre lang="java">Field.ofStringType("CHF")
-     .label("Currency")</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <tr>
-      <td colspan="2">Integer Control</td>
+        <td><pre lang="java">
+IntegerProperty brightness = new SimpleIntegerProperty(50);
+Setting.of("Brightness", brightness);</pre></td>
+        <td><img src=".docs/images/settings/integer_setting.png" /></td>
     </tr>
     <tr>
-      <td><img src="./docs/images/IntegerField.png" /></td>
+        <td><pre lang="java">
+BooleanProperty nightMode = new SimpleBooleanProperty(true);
+Setting.of("Night Mode", nightMode);</pre></td>
+        <td><img src=".docs/images/settings/boolean_setting.png" /></td>
     </tr>
     <tr>
-      <td>
-        <pre lang="java">Field.ofIntegerType(8401120)
-     .label("Population")</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <tr>
-      <td colspan="2">Double Control</td>
+        <td><pre lang="java">
+DoubleProperty scaling = new SimpleDoubleProperty(1);
+Setting.of("Scaling", scaling);</pre></td>
+        <td><img src=".docs/images/settings/double_setting.png" /></td>
     </tr>
     <tr>
-      <td><img src="./docs/images/DoubleField.png" /></td>
+        <td><pre lang="java">
+ObservableList<String> resolutionItems = FXCollections.observableArrayList(Arrays.asList(
+  "1024x768", "1280x1024", "1440x900", "1920x1080")
+);
+ObjectProperty<String> resolutionSelection = new SimpleObjectProperty<>("1024x768");
+Setting.of("Resolution", resolutionItems, resolutionSelection);</pre></td>
+        <td><img src=".docs/images/settings/observableList_setting.png" /></td>
     </tr>
     <tr>
-      <td>
-        <pre lang="java">Field.ofDoubleType(41285.0)
-       .label("Area")</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <tr>
-      <td colspan="2">Boolean Control</td>
+        <td><pre lang="java">
+ListProperty<String> orientationItems = new SimpleListProperty<>(
+  FXCollections.observableArrayList(Arrays.asList("Vertical", "Horizontal"))
+);
+ObjectProperty<String> orientationSelection = new SimpleObjectProperty<>("Vertical");
+Setting.of("Orientation", orientationItems, orientationSelection);</pre></td>
+        <td><img src=".docs/images/settings/listProperty_setting.png" /></td>
     </tr>
     <tr>
-      <td><img src="./docs/images/BooleanField.png" /></td>
+        <td><pre lang="java">
+IntegerProperty fontSize = new SimpleIntegerProperty(12);
+Setting.of("Font Size", fontSize, 6, 36);</pre></td>
+        <td><img src=".docs/images/settings/integerSlider_setting.png" /></td>
     </tr>
     <tr>
-      <td>
-        <pre lang="java">Field.ofBooleanType(false)
-     .label("Independent")</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <tr>
-      <td colspan="2">ComboBox Control</td>
+        <td><pre lang="java">
+DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
+Setting.of("Line Spacing", lineSpacing, 0, 3, 1);</pre></td>
+        <td><img src=".docs/images/settings/doubleSlider_setting.png" /></td>
     </tr>
     <tr>
-      <td><img src="./docs/images/ComboBoxField.png" /></td>
+        <td><pre lang="java">
+ListProperty<String> favoritesItems = new SimpleListProperty<>(
+  FXCollections.observableArrayList(Arrays.asList(
+      "eMovie", "Eboda Phot-O-Shop", "Mikesoft Text",
+      "Mikesoft Numbers", "Mikesoft Present", "IntelliG"
+      )
+  )
+);
+ListProperty<String> favoritesSelection = new SimpleListProperty<>(
+  FXCollections.observableArrayList(Arrays.asList(
+      "Eboda Phot-O-Shop", "Mikesoft Text"))
+);
+Setting.of("Favorites", favoritesItems, favoritesSelection);</pre></td>
+        <td><img src=".docs/images/settings/favourites_setting.png" /></td>
     </tr>
     <tr>
-      <td>
-        <pre lang="java">Field.ofSingleSelectionType(Arrays.asList("Zürich (ZH)", "Bern (BE)", …), 1)
-     .label("Capital")</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <tr>
-      <td colspan="2">RadioButton Control</td>
-    </tr>
-    <tr>
-      <td><img src="./docs/images/RadioButtonField.png" /></td>
-    </tr>
-    <tr>
-      <td>
-        <pre lang="java">Field.ofSingleSelectionType(Arrays.asList("Right", "Left"), 0)
-     .label("Driving on the")
-     .render(new SimpleRadioButtonControl<>())</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <tr>
-      <td colspan="2">CheckBox Control</td>
-    </tr>
-    <tr>
-      <td><img src="./docs/images/CheckBoxField.png" /></td>
-    </tr>
-    <tr>
-      <td>
-        <pre lang="java">Field.ofMultiSelectionType(Arrays.asList("Africa", "Asia", …), Collections.singletonList(2))
-     .label("Continent")
-     .render(new SimpleCheckBoxControl<>())</pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <tr>
-      <td colspan="2">ListView Control</td>
-    </tr>
-    <tr>
-      <td><img src="./docs/images/ListField.png" /></td>
-    </tr>
-    <tr>
-      <td>
-        <pre lang="java">Field.ofMultiSelectionType(Arrays.asList("Zürich (ZH)", "Bern (BE)", …), Arrays.asList(0, 1, …))
-     .label("Biggest Cities")</pre>
-      </td>
-    </tr>
-  </tbody>
+        <td><pre lang="java">
+IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
+IntegerField customControl = Field.ofIntegerType(customControlProperty).render(
+  new IntegerSliderControl(0, 42));
+Setting.of("Favorite Number", customControl, customControlProperty);</pre></td>
+        <td><img src=".docs/images/settings/custom_setting.png" /></td>
+    </tr>  
 </table>
 
 ## Rendering a form
@@ -337,31 +274,6 @@ All fields are validated whenever end users edit the contained data. FormsFX off
 - Easy to understand
 - Easy to extend
 
-# Documentation
-
-- [Javadocs](http://dlsc.com/wp-content/html/formsfx/apidocs/)
-- [Report](./docs/Project%20Report.pdf)
-
-
-
-
-
-# PreferencesFX
-**Preferences dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
-
-## What is PreferencesFX?
-
-Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. 
-It enables the developer to create preferences dialogs with ease and creates well-designed and user-friendly preference dialogs by default. 
-
-## Main Features
-
-- Simple and understandable  API
-- The most important Features are shown below in the MVP.png
-- We're also referencing to the requirements.adoc. You can create one when launching the gradle task: 'ascidoctor'
-
-![alt text](MVP.png) MVP.png
-
 ##Team
  
 - Marco Sanfratello
@@ -383,4 +295,3 @@ It enables the developer to create preferences dialogs with ease and creates wel
   - dieter.holz@fhnw.ch
   - Skype: dieter.holz.canoo.com
   - GitHub: DieterHolz
-
