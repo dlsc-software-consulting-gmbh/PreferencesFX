@@ -258,17 +258,28 @@ We invested a lot of time into this problem and we finally managed to fix the bu
 Following the link to the issue in `FormsFX`:
 `https://github.com/dlemmermann/formsfx/issues/2/[formsFx-issue]`
 
-===== Design for inheritance
-Problem with package private and private
+We took our lessons learned but more of this in the chapter <<index.adoc#lessons-learned,Lessons learned>>
 
-==== Möglichst korrekt
-einerseits gut, vorwärts, andererseits problem mit refactoring
+===== Design for inheritance
+The problem was that `FormsFX` isn't really designed to be used as a foundation for next projects.
+A lot of the classes and their attributes were `package-private`.
+So a problem occured when we wanted to inherit from them.
+We had to change manually all classes of our fork of `FormsFX`.
+This was not really difficult, but time consuming and repetitive.
 
 ==== Code refactoring
-Architektur
+As we stated earlier we started programming without the final architecture in mind.
+This resulted in a fast progress and we saw early in which direction our project went.
+Through this we could estimate pretty good how much we could achieve during the semester.
+
+At the end of the project we faced the challenge that our code was one big junk of both, frontend and backend.
+We realized that we've waited to long to refactor our code.
+If we'd started refactoring as soon we had the initial project structure we'd saved a lot of time.
+Because of this reason we lost a little bit of time doing the refactoring.
+This is also a lesson learned for the next project.
 
 ==== StorageHandler
-Problems, herausforderungen
+
 
 ==== Undo/Redo
 While Java Swing/AWT provides an implementation of undo / redo, by using the https://docs.oracle.com/javase/8/docs/api/javax/swing/undo/UndoManager.html[UndoManager], JavaFX doesn't.
@@ -379,11 +390,13 @@ We should've started earlier separating the frontend from the backend.
 This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project.
 For the next project we are going to focus more on the system architecture in first place.
 
-* We found a bug in FormsFX and fixed it.
-But the time it took was too much. Of course our customer is happy, that the bug is solved, but in an industrial project we mustn't do this
- This is not our problem.
- It's the one of the FormsFX team.
- Next time we will discuss the situation with our customer and ask him about his opinion.
+* A lesson learned for the next project is that we will check first if already is an issue open before we search the problem at our work.
+
+*  Additionally we spent a lot of time into solving the bug.
+  But theoretically isn't this our problem.
+  It's the responsibility of the other team to solve this issue.
+  So for the next project we will at least ask our customer after his opinion about what we exactly should do:
+  Fix it or leave it out and focus on the project.
 
 * Using the `Asciidoctor` was a really good decision.
 It allowed us easily to reference code snippets from our project and it provides a pre formatted layout.
