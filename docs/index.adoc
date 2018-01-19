@@ -69,18 +69,27 @@ In conclusion we discovered, that our primary persona was not the end user of an
 As stated before, the layout of the preferences dialog was considered as important. For that reason we looked at various preferences windows and noted the usual best practices and the do's and dont's which are made through the last years.
 
 ===== Eclipse RCP
-image::images/alternatives/eclipse_rcp.png[]
-image::images/alternatives/eclipse_rcp1.png[]
+
+.Eclipse RCP
+|===
+|image:images/alternatives/eclipse_rcp.png[rcp1] Eclipse RCP, window 1| image:images/alternatives/eclipse_rcp1.png[rcp2] Eclipse RCP, window 2
+|===
 
 ===== IOS
-image::images/alternatives/ios_internal.jpg[]
-image::images/alternatives/ios_external.jpg[]
+
+
+.IOS
+|===
+|image:images/alternatives/ios_internal.jpg[internal] Internal IOS application |image:images/alternatives/ios_external.jpg[external] External IOS application
+|===
 
 ===== Intellij
 Intellij is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles".
 
-image:images/alternatives/intellij.png[intellij,450]
-image:images/alternatives/intellij_undoRedo.png[undo/redo,450,role="right"]
+.Intellij
+|===
+|image:images/alternatives/intellij.png[intellij] Standard Intellij dialog | image:images/alternatives/intellij_undoRedo.png[undo/redo] Undo/Redo buttons
+|===
 
 ===== Minimal viable product
 As a result of our research we created a paper prototype, which was also the minimal viable product (MVP). Our promise to our customer, that he gets at least this product from us. The MVP is shown in the picture below:
