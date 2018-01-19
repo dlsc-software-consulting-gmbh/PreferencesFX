@@ -244,12 +244,26 @@ Architektur
 Problems, herausforderungen
 
 ==== Undo/Redo
-While Java Swing/AWT provides an implementation of undo / redo, by using the [UndoManager](https://docs.oracle.com/javase/8/docs/api/javax/swing/undo/UndoManager.html), JavaFX doesn't.
-There is
+While Java Swing/AWT provides an implementation of undo / redo, by using the https://docs.oracle.com/javase/8/docs/api/javax/swing/undo/UndoManager.html[UndoManager], JavaFX doesn't.
 
---> UndoFX gibt es, aber kompliziert implementiert
+There is a library called https://github.com/FXMisc/UndoFX[UndoFX by Tomas Mikula], which implements this feature.
+However, it uses https://github.com/TomasMikula/ReactFX[ReactFX, also by Tomas Mikula], which is a pretty heavyweight library and would add a lot of dependencies, which we want to avoid.
+The main reason for us not to use it, however, is the fact that it works by using so called `EventStreams`, a concept introduced by https://github.com/TomasMikula/ReactFX[ReactFX].
+While they are great in theory, they prove difficult to use in practice.
+Also, https://github.com/FXMisc/UndoFX[UndoFX] requires quite a lot of overhead to implement.
+
+This is why we decided to do our own implementation.
+The most relevant classes for this are `History.java` and `Change.java`, found in the `history` package.
+A `Change` is based on the idea of listening for changes in the used properties and then creating a `Change` object with the old and the new value of the property.
+The `History` class manages a list of changes and handles undo and redo.
+
+If the last change should be undone, the last change in the list will be fetched and the old value of the change will be applied to the respective property.
+If the change should be redone, simply apply the new value of the change to the property.
+
+More details on the implementation can be found in the Javadoc of `History.java` and `Change.java`.
 
 ==== Search
+
 Own implementation
 A lot of work
 FilterableTreeItems
