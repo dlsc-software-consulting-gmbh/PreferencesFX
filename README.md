@@ -130,25 +130,25 @@ The following table shows how to create `Settings` using the current supported P
         <td><pre lang="java">
 StringProperty welcomeText = new SimpleStringProperty("Hello World");
 Setting.of("Welcome Text", welcomeText);</pre></td>
-        <td><img src="./docs/images/settings/string_setting.PNG"></td>
+        <td><img src="./docs/images/settings/string_setting.png"></td>
     </tr>
     <tr>
         <td><pre lang="java">
 IntegerProperty brightness = new SimpleIntegerProperty(50);
 Setting.of("Brightness", brightness);</pre></td>
-        <td><img src=".docs/images/settings/integer_setting.png" /></td>
+        <td><img src="./docs/images/settings/integer_setting.png" /></td>
     </tr>
     <tr>
         <td><pre lang="java">
 BooleanProperty nightMode = new SimpleBooleanProperty(true);
 Setting.of("Night Mode", nightMode);</pre></td>
-        <td><img src=".docs/images/settings/boolean_setting.png" /></td>
+        <td><img src="./docs/images/settings/boolean_setting.png" /></td>
     </tr>
     <tr>
         <td><pre lang="java">
 DoubleProperty scaling = new SimpleDoubleProperty(1);
 Setting.of("Scaling", scaling);</pre></td>
-        <td><img src=".docs/images/settings/double_setting.png" /></td>
+        <td><img src="./docs/images/settings/double_setting.png" /></td>
     </tr>
     <tr>
         <td><pre lang="java">
