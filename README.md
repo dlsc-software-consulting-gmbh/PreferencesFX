@@ -105,35 +105,37 @@ You can then integrate this `Property` in your application. Changes of values in
 
 #### Must haves
 You have a lot of options to influence the behavior and layout of the preferences dialog.  
-The following parameters are the absolute minimum, needed for the proper function of `PreferencesFX`:
+The following parameters are the absolute minimum, needed for the proper functioning of `PreferencesFX`:
 
 Parameter | Description
 ------ | -----------
 `AppStarter.class` | In the constructor of `PreferencesFx` a `saveClass` is required. This class is saved as a key for the saved setting values. Further information is available in the javadoc.
 `Category description` | Each `Category` must have a description. This is required to display its description in the `TreeView`.
-`Setting description` | Each `Setting` must have a description. It will be displayed on the left of the control, which is used to manipulate the respective `Setting.
+`Setting description` | Each `Setting` must have a description. It will be displayed on the left of the control, which is used to manipulate the respective `Setting`.
 
-Note: The value of the each `Setting` is stored using the [Java Preferences API](https://docs.oracle.com/javase/8/docs/api/java/util/prefs/Preferences.html) by default. For testing purposes, to clear the saved preferences of the demo, run the method in the class:
+Note: The value of the each `Setting` is stored using the [Java Preferences API](https://docs.oracle.com/javase/8/docs/api/java/util/prefs/Preferences.html) by default.  
+For testing purposes, to clear the saved preferences of the demo, run the method in the class:
 ```
-preferencesfx-demo/src/test/java/PreferencesStorageReset.java`
+preferencesfx-demo/src/test/java/PreferencesStorageReset.java
 ```
 
 #### Optionals
+The following parameters are optionally available to further configure the dialog created by `PreferencesFX`:
 
 Method | Class | Description
 ------ | ----- | -----------
-`.subcategories` | `Category` | A way to raise the height of the tree. Subcategories allows a `Category` to have additional categories as Children. Those are also displayed in the tree. 
-`.description` | `Group` | If someone decides to not add the description of a group in the constructor, he is able to add it after creation of the group.
-`.validate` | `Setting` | Allows to add a validator to a setting.
-`.persistApplicationState` | `PreferencesFx` | Defines if the PreferencesAPI should save the applications states. This includes the persistence of the dialog window, as well as each settings values.
-`.persistWindowState` | `PreferencesFx` | Defines whether the state of the dialog window should be persisted or not.
-`.saveSettings` | `PreferencesFx` | Defines whether the adjusted settings of the application should be saved or not.
-`.debugHistoryMode` | `PreferencesFx` | Defines whether the table to debug the undo / redo history should be shown in a dialog when pressing a key combination or not. Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the undo / redo history, shown in a table.
-`.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the decline and close buttons in the `PreferencesDialog`.
-`.i18n` | `PreferencesFx` | Sets the translation service property of the preferences dialog. 
+`.subCategories` | `Category` | Subcategories allow a `Category` to have additional subcategories as children. Those are also displayed in the tree.
+`.description` | `Group` | If you decide not to add the description of a group in the constructor, you can still add it after the creation of the group.
+`.validate` | `Setting` | Allows to add a [Validator](http://dlsc.com/wp-content/html/formsfx/apidocs/com/dlsc/formsfx/model/validators/Validator.html) to a setting, to set constraints to the values that can be entered.
+`.persistApplicationState` | `PreferencesFx` | Defines if the Preferences API should save the application states. This includes the state persistence of the dialog window, as well as the values of each Setting.
+`.persistWindowState` | `PreferencesFx` | Defines whether the state of the dialog window (position, size, last selected Category) should be persisted or not. Defaults to false.
+`.saveSettings` | `PreferencesFx` | Defines whether the changed settings in the Preferences window should be saved or not. Defaults to true.
+`.debugHistoryMode` | `PreferencesFx` | Makes it possible to enable or disable the keycombination to open a debug view of the list of all actions in the history (undo / redo). Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the undo / redo history, shown in a table. Defaults to false.
+`.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the cancel and close buttons in the `PreferencesFxDialog`. Defaults to true.
+`.i18n` | `PreferencesFx` | Sets the translation service of the preferences dialog for internationalization.
 
 #### Setting types
-The following table shows how to create `Settings` using the current supported Properties and how they look like:
+The following table shows how to create `Settings` using the predefined controls and how they look like:
 
 <table>
     <tr>
