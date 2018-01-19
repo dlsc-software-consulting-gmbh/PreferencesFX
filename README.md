@@ -233,22 +233,9 @@ Field.ofMultiSelectionType(…)
         .render(new SimpleCheckBoxControl<>())
 ```
 
-## Model
-
-Forms are used to create and manipulate data. In order to use this data in other parts of an application, model classes can be used. These classes contain properties, which are then bound to the persisted value of a field.
-
-```java
-StringProperty name = new SimpleStringProperty("Hans");
-Field.ofStringType(name);
-```
-
-The `persist()` and `reset()` methods can be used to store and revert field values, which in turn updates the binding.
-
-Fields in FormsFX store their values in multiple steps. For free-form fields, like `StringField` or `DoubleField`, the exact user input is stored, along with a type-transformed value and a persistent value. The persistence is, by default, handled manually, but this can be overridden by setting the `BindingMode` to `CONTINUOUS` on the form level.
-
 ## Localisation
 
-All displayed values are localisable. Methods like `label()`, `placeholder()` accept keys which are then used for translation. By default, FormsFX includes a `ResourceBundle`-based implementation, however, this can be exchanged for a custom implementation.
+All displayed values are localisable. PreferencesFx accepts keys which are then used for translation. By default, PreferencesFx includes a `ResourceBundle`-based implementation, however, this can be exchanged for a custom implementation. Adding the i18n support is simply done by calling the method `.i18n()` at the end when creating the preferences:
 
 ```java
 private ResourceBundle rbDE = ResourceBundle.getBundle("demo.demo-locale", new Locale("de", "CH"));
@@ -256,13 +243,13 @@ private ResourceBundle rbEN = ResourceBundle.getBundle("demo.demo-locale", new L
 
 private ResourceBundleService rbs = new ResourceBundleService(rbEN);
 
-Form.of(…)
+PreferencesFx.of(…)
         .i18n(rbs);
 ```
 
 ## Validation
 
-All fields are validated whenever end users edit the contained data. FormsFX offers a wide range of pre-defined validators, but also includes support for custom validators using the `CustomValidator.forPredicate()` method.
+It is possible for all settings to add a validator. PreferencesFX offers a wide range of pre-defined validators, but also includes support for custom validators using the `CustomValidator.forPredicate()` method. This part of the implementation was took from the former project `FormsFX`. The following table lists the supported validators:
 
 | Validator | Description |
 | --------- | ----------- |
