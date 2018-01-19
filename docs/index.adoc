@@ -166,10 +166,37 @@ In case a developer still wants to have buttons, the API provides the method `se
 
 The instant persistence brought up a new problem: What shall the application do, when a user wants to revert his last change? For this case we came up with an implementation of `undo/redo buttons`. This way a user can return all of his changes back to his first one.
 
-==== FormsFX Bugs
+==== Issues with FormsFX
 
 ===== GridPane
------ ToDo -----
+The original FormsFX implementation renders a Form by using one GridPane per Setting, instead of using a GridPane per Form.
+This resulted in a few issues.
+For example, when scaling down the window horizontally, the description text of the setting quickly shrunk to an unreadable size, while the field next to it was way larger than necessary.
+While this isn't an issue on larger screens, it is an issue on smaller screens for sure.
+
+Additionally, when we looked at how the layout looked like with a lot of settings in a category, we noticed that we needed to implement a ScrollPane.
+When we implemented the ScrollPane, the resizing issues with the fields started to get even worse.
+The fields grew outside of the ScrollPane and the descriptions still shrunk very quickly.
+While there is an option in FormsFX to set the `span()` of a `Field`, the problem is that this only applies to the total size of a `Field`.
+This means that it isn't possible to change the span of the title and the control itself separately.
+The span for the `title` is fixed individually on a per-control basis in the source code to `2`.
+The span of the control is then calculated by FormsFX depending on the specified `span()`.
+
+When we presented this issue to Dirk and Dieter, they were not aware of this and agreed that it can't stay that way.
+We decided to implement our own renderer, which only uses one GridPane per Form.
+Additionally, we moved the logic, which decides about the layout of controls to the renderer.
+This also meant, that we needed to pull in all controls from FormsFX and change them accordingly, by removing layout logic.
+
+This was quite a lot of work, but it did pay off in the end.
+The resizing is now much more predictable and the layout is much cleaner.
+
+While it paid off, it also meant that we had to change the way settings and groups are selected during the searches.
+Previously, we assigned a style class to a marked setting as a whole, since each setting was rendered by FormsFX in its own GridPane.
+Using only one GridPane for the whole Form meant, that the title and the control were no longer one unit, but separated in two separate columns.
+Applying a style class to both elements individually didn't result in a satisfying result, because the gap inbetween of the columns not being styled.
+
+Researching online resulted in many people having similar issues, with no real solution in sight.
+*Our solution* was to only apply the style class to the description and then apply negative insets values for `-fx-background-insets`, which extended over the gap and marked the whole setting.
 
 ===== Bidirectional binding
 Another bug occured when we were implementing the support of the setting type `ListViewControl`. For some reason the alredy
@@ -187,7 +214,9 @@ Architektur
 Problems, herausforderungen
 
 ==== Undo/Redo
-not in javafx
+While Java Swing/AWT provides an implementation of undo / redo, by using the [UndoManager](https://docs.oracle.com/javase/8/docs/api/javax/swing/undo/UndoManager.html), JavaFX doesn't.
+There is
+
 --> UndoFX gibt es, aber kompliziert implementiert
 
 ==== Search
