@@ -93,7 +93,7 @@ For creating a setting, the user needs only to hand over a title and a `Property
 
 The preferences have a range of options that define their semantics and change their functionality:
 
-####Must haves
+#### Must haves
 
 Method | Description
 ------ | -----------
@@ -105,7 +105,7 @@ Method | Description
 
 `../preferencesfx-demo/src/test/java/PreferencesStorageReset.java`
 
-####Optionals
+#### Optionals
 
 Method | Class | Description
 ------ | ----- | -----------
@@ -119,7 +119,7 @@ Method | Class | Description
 `.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the decline and close buttons in the `PreferencesDialog`.
 `.i18n` | `PreferencesFx` | Sets the translation service property of the preferences dialog. 
 
-####Setting types
+#### Setting types
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
 <head>
@@ -267,7 +267,7 @@ It is possible for all settings to add a validator. PreferencesFX offers a wide 
 - Easy to extend
 
 
-##Team
+## Team
 - Marco Sanfratello
   - marco.sanfratello@students.fhnw.ch
   - Skype: sanfratello.m@gmail.com 
