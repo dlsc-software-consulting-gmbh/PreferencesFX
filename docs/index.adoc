@@ -70,6 +70,7 @@ As stated before, the layout of the preferences dialog was considered as importa
 
 ===== Eclipse RCP
 
+[cols="1,1"]
 .Eclipse RCP
 |===
 |image:images/alternatives/eclipse_rcp.png[rcp1] Eclipse RCP, window 1| image:images/alternatives/eclipse_rcp1.png[rcp2] Eclipse RCP, window 2
@@ -77,7 +78,7 @@ As stated before, the layout of the preferences dialog was considered as importa
 
 ===== IOS
 
-
+[cols="1,1"]
 .IOS
 |===
 |image:images/alternatives/ios_internal.jpg[internal] Internal IOS application |image:images/alternatives/ios_external.jpg[external] External IOS application
@@ -86,6 +87,7 @@ As stated before, the layout of the preferences dialog was considered as importa
 ===== Intellij
 Intellij is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles".
 
+[cols="1,1"]
 .Intellij
 |===
 |image:images/alternatives/intellij.png[intellij] Standard Intellij dialog | image:images/alternatives/intellij_undoRedo.png[undo/redo] Undo/Redo buttons
