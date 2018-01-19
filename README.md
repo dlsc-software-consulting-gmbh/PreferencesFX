@@ -123,34 +123,40 @@ The following table shows how to create `Settings` using the current supported P
 
 <table>
     <tr>
+        <th>Datatype</th>
         <th>Syntax</th>
         <th>Outcome</th>
     </tr>
     <tr>
+        <td>String</td>
         <td><pre lang="java">
 StringProperty welcomeText = new SimpleStringProperty("Hello World");
 Setting.of("Welcome Text", welcomeText);</pre></td>
         <td><img src="./docs/images/settings/string_setting.png"></td>
     </tr>
     <tr>
+        <td>Integer</td>
         <td><pre lang="java">
 IntegerProperty brightness = new SimpleIntegerProperty(50);
 Setting.of("Brightness", brightness);</pre></td>
         <td><img src="./docs/images/settings/integer_setting.png" /></td>
     </tr>
     <tr>
+        <td>Boolean</td>
         <td><pre lang="java">
 BooleanProperty nightMode = new SimpleBooleanProperty(true);
 Setting.of("Night Mode", nightMode);</pre></td>
         <td><img src="./docs/images/settings/boolean_setting.png" /></td>
     </tr>
     <tr>
+        <td>Double</td>
         <td><pre lang="java">
 DoubleProperty scaling = new SimpleDoubleProperty(1);
 Setting.of("Scaling", scaling);</pre></td>
         <td><img src="./docs/images/settings/double_setting.png" /></td>
     </tr>
     <tr>
+        <td>Combobox, Single Selection, with ObservableList</td>
         <td><pre lang="java">
 ObservableList<String> resolutionItems = FXCollections.observableArrayList(Arrays.asList(
   "1024x768", "1280x1024", "1440x900", "1920x1080")
@@ -160,6 +166,7 @@ Setting.of("Resolution", resolutionItems, resolutionSelection);</pre></td>
         <td><img src="./docs/images/settings/observableList_setting.png" /></td>
     </tr>
     <tr>
+        <td>Combobox, Single Selection, with ListProperty</td>
         <td><pre lang="java">
 ListProperty<String> orientationItems = new SimpleListProperty<>(
   FXCollections.observableArrayList(Arrays.asList("Vertical", "Horizontal"))
@@ -169,18 +176,21 @@ Setting.of("Orientation", orientationItems, orientationSelection);</pre></td>
         <td><img src="./docs/images/settings/listProperty_setting.png" /></td>
     </tr>
     <tr>
+        <td>Integer Range</td>
         <td><pre lang="java">
 IntegerProperty fontSize = new SimpleIntegerProperty(12);
 Setting.of("Font Size", fontSize, 6, 36);</pre></td>
         <td><img src="./docs/images/settings/integerSlider_setting.png" /></td>
     </tr>
     <tr>
+        <td>Double Range</td>
         <td><pre lang="java">
 DoubleProperty lineSpacing = new SimpleDoubleProperty(1.5);
 Setting.of("Line Spacing", lineSpacing, 0, 3, 1);</pre></td>
         <td><img src="./docs/images/settings/doubleSlider_setting.png" /></td>
     </tr>
     <tr>
+        <td>Combobox, Multi Selection</td>
         <td><pre lang="java">
 ListProperty<String> favoritesItems = new SimpleListProperty<>(
   FXCollections.observableArrayList(Arrays.asList(
@@ -197,6 +207,7 @@ Setting.of("Favorites", favoritesItems, favoritesSelection);</pre></td>
         <td><img src="./docs/images/settings/favourites_setting.png" /></td>
     </tr>
     <tr>
+        <td>Custom Control</td>
         <td><pre lang="java">
 IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
 IntegerField customControl = Field.ofIntegerType(customControlProperty).render(
