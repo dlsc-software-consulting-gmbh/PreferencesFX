@@ -121,13 +121,11 @@ Method | Class | Description
 
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
-```html
 <table>
     <tr>
         <th>Syntax</th>
         <th>Outcome</th>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Integer
@@ -136,7 +134,6 @@ Setting.of("Brightness", brightness);</pre>
         </td>
         <td><img src="./docs/images/settings/integer_setting.png"/></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Integer Range
@@ -145,7 +142,6 @@ Setting.of("Font Size", fontSize, 6, 36);</pre>
         </td>
         <td><img src="./docs/images/settings/integerSlider_setting.png"/></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Double
@@ -154,7 +150,6 @@ Setting.of("Scaling", scaling);</pre>
         </td>
         <td><img src="./docs/images/settings/double_setting.png"/></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Double Range
@@ -163,7 +158,6 @@ Setting.of("Line Spacing", lineSpacing, 0, 3, 1);</pre>
         </td>
         <td><img src="./docs/images/settings/doubleSlider_setting.png"/></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Boolean
@@ -172,7 +166,6 @@ Setting.of("Night Mode", nightMode);</pre>
         </td>
         <td><img src="./docs/images/settings/boolean_setting.png"/></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // String
@@ -181,7 +174,6 @@ Setting.of("Welcome Text", welcomeText);</pre>
         </td>
         <td><img src="./docs/images/settings/string_setting.png"></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Combobox, Single Selection, with ObservableList
@@ -193,7 +185,6 @@ Setting.of("Resolution", resolutionItems, resolutionSelection);</pre>
         </td>
         <td><img src="./docs/images/settings/observableList_setting.png"/></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Combobox, Single Selection, with ListProperty
@@ -205,7 +196,6 @@ Setting.of("Orientation", orientationItems, orientationSelection);</pre>
         </td>
         <td><img src="./docs/images/settings/listProperty_setting.png"/></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Combobox, Multi Selection
@@ -224,7 +214,6 @@ Setting.of("Favorites", favoritesItems, favoritesSelection);</pre>
         </td>
         <td><img src="./docs/images/settings/favourites_setting.png"/></td>
     </tr>
-
     <tr>
         <td><pre lang="java">
 // Custom Control
@@ -236,7 +225,6 @@ Setting.of("Favorite Number", customControl, customControlProperty);</pre>
         <td><img src="./docs/images/settings/custom_setting.png"/></td>
     </tr>
 </table>
-```
 
 ## Rendering a form
 
