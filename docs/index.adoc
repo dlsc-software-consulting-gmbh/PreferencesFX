@@ -350,19 +350,37 @@ include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=testMock]
 ----
 
 ==== CategoryController
------ ToDo -----
+
 
 === Testing
 To be honest we wrote not much tests.
+The tests are located in the folder `src/test/java/com/dlsc/preferencesfx`.
+
 But in GUI projects are anyways not many tests written.
 In fact we did ad hoc tests and tested the functionality of our GUI.
+All the GUI tests are located in the `docs` subdirectory.
+
+Additionally we used the `Checkstyle` plugin to check our code after syntactic faults.
 
 == Lessons learned
-* We just started programming and didn't mind about separating the frontend from the backend. This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project. For the next project we are going to focus more on the system architecture in first place.
+* We just started programming and considered the architecture to late.
+We should've started earlier separating the frontend from the backend.
+This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project.
+For the next project we are going to focus more on the system architecture in first place.
 
-* We found a bug in FormsFX and fixed it. But the time it took was too much. Of course our customer is happy, that the bug is solved, but in an industrial project we mustn't do this. This is not our problem. It's the one of the FormsFX team. Next time we will discuss the situation with our customer and ask him about his opinion.
+* We found a bug in FormsFX and fixed it.
+But the time it took was too much. Of course our customer is happy, that the bug is solved, but in an industrial project we mustn't do this
+ This is not our problem.
+ It's the one of the FormsFX team.
+ Next time we will discuss the situation with our customer and ask him about his opinion.
 
-* Asciidoctor rulez
+* Using the `Asciidoctor` was a really good decision.
+It allowed us easily to reference code snippets from our project and it provides a pre formatted layout.
+
+* As always:
+Documentation and reports should be written much earlier and continuously during the project.
+At least the `Javadoc` should've been written frequent.
+For the next project no branch will be merged until all checkstyle errors are eliminated.
 
 == Honesty Declaration
 It is hereby declared that the contents of this report, unless otherwise stated, have been authored by François Martin and Marco Sanfratello.
