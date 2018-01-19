@@ -350,7 +350,14 @@ include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=testMock]
 ----
 
 ==== CategoryController
+The `CategoryController` is the only class in the views package which oesn't follow exactly the defined architecture.
+It manages the CategoryViews and the CategoryPresenters and is responsible for exchanging a view if the selected category changes.
+The controller is needed because we have a lot of CategoryViews and CategoryPresenters.
+To store all of this classes we would need two separate Lists and therefore following exactly the model view presenter architecture would've become very confusing.
 
+Another advantage is flexibility.
+Through the controller it is possible to extend the project further in the future.
+For example one can easily add an animation when another category is selected and make a smooth transition.
 
 === Testing
 To be honest we wrote not much tests.
@@ -358,7 +365,7 @@ The tests are located in the folder `src/test/java/com/dlsc/preferencesfx`.
 
 But in GUI projects are anyways not many tests written.
 In fact we did ad hoc tests and tested the functionality of our GUI.
-All the GUI tests are located in the `docs` subdirectory.
+All the visual tests are located in the `docs` subdirectory.
 
 Additionally we used the `Checkstyle` plugin to check our code after syntactic faults.
 
