@@ -3,6 +3,9 @@ François Martin; Marco Sanfratello
 
 //Table of contents
 :toc:
+// Path to the code references
+:sourcedir: ../src/main/java
+:sourcedirdemo: ../preferencesfx-demo/src/main/java
 
 == Abstract / Management summary
 
@@ -28,9 +31,6 @@ The following chapter explains several important definitions which are mentionne
 The user of the `PreferencesFX API` builds his preferences dialog using the so called fluent API. This means, that the structure of creating was implemented the way, that one could (theoretically) write the whole dialog in one line. This is done by using methods, which are returning the same object on which the method is called.
 
 A famous example of the fluent API in use are streams. Our customer wanted us to apply it the same way in the `PreferencesFX API`. The code snippet below, which is used in `RootPane.java`, shows how the preferences are set up and the fluent API is used:
-
-:sourcedir: ../src/main/java
-:sourcedirdemo: ../preferencesfx-demo/src/main/java
 
 [source,java]
 ----
@@ -175,12 +175,25 @@ PreferencesFx preferencesFx = PreferencesFx.of(
 );
 ----
 
-The reason why we finally were convinced that the fluent API approach was the right way, was how intuitive it was to write the code and how clearly arranged the code was. That way everyone sees what is a setting and what is a category. Especially when an application has literally hundreds of preferences which are needed to store.
+The reason why we finally were convinced that the fluent API approach was the right way, was how intuitive it was to write the code and how clearly arranged the code was.
+ That way everyone sees what is a setting and what is a category.
+ Especially when an application has literally hundreds of preferences which are needed to store.
 
 ==== Using FormsFX or not
-Another question we asked ourselves, was if we should use the former project FormsFX or not. We had serious concerns if the projects had bugs we had to deal with in the future. Another concern was, that we needed to get to know the project. The question was, if the time we'd need to invest to overcome all of this concerns would match the time we'd save when using the project. For example we could use the base structure and all of the widgets which were already programmed in the project.
+Another question we asked ourselves was if we should use the former project FormsFX or not.
+ We had serious concerns if the projects had bugs we had to deal with in the future.
+ Another concern was, that we needed to get to know the project.
+
+On the other hand we would save a huge amount of time.
+All the widgets were created, the bindings were there and the style sheets were already programmed.
+
+The question was, if the time we'd need to invest to overcome all of this concerns would match the time we'd save when using the project.
+ For example we could use the base structure and all of the widgets which were already programmed in the project.
 
 At last we decided to take the risk and use the FormsFX project, fully aware that it might has some bugs we have to deal with.
+But we didn't have to write everything bottom up and thought that we'd save a lot of time.
+
+In conclusion we really saved a lot of time using `FormsFX` as a base, although we had several bugs.
 
 ==== Started programming
 We don't wanted to spend any more time researching. So we just started programming and tried to write as fast as possible some code down to have something to work on. This helped a lot to early have some satisfying experiences in the project and keep us motivated.
@@ -206,6 +219,7 @@ The instant persistence brought up a new problem:
  This way a user can return all of his changes back to his first one.
 
 ==== Issues with FormsFX
+As already mentioned, we had some challenges using `FormsFX`. In the following three chapters we're discussing our most interesting challenges.
 
 ===== GridPane
 The original FormsFX implementation renders a Form by using one GridPane per Setting, instead of using a GridPane per Form.
@@ -294,20 +308,54 @@ Then we had to quantify it and finally implement it, which was no easy task as w
 We described everything in meticulous detail in the <<developer-reference.adoc#,Developer Reference>>.
 
 === Architecture
-We decided to implement our project in the model view presenter architecture. This means, that the model and the views are separarted from each other. This means that this parts have a small cohesion. This has the major advantage that the views can easily be exchanged. For example if someone wants in the future a new layout, he can do this relatively easy. To make sure that the possibly new view parts are fitting in the project structure, they need to fulfill certain characteristics. This is guaranteed by implementing interfaces. For this reason we created the two interfaces `View` and `Presenter`. The picture below illustrates a simplified version of our project structure.
+Initially we started programming our project in the way that the model and the view are separated from each other.
+But during the project we realized, that the classes would become too big to keep them in this architectural style.
+Especially the views were growing more and more.
+So we decided that a new architecture should be used to ensure a good overview.
+
+We decided to implement our project in the model view presenter architecture.
+ This means that the model and the views are separated from each other.
+ All parts have a small cohesion and are able to be replaced easily.
+ This has the major advantage that the views can easily be exchanged.
+ For example if someone wants in the future a new layout, he can do this relatively easy.
+ To make sure that the possibly new view parts are fitting in the project structure, they need to fulfill certain characteristics.
+ This is guaranteed by implementing interfaces.
+ For this reason we created the two interfaces `View` and `Presenter`.
+ The picture below illustrates a simplified version of our project structure.
 
 image::images/UML_diagram.png[UML diagram]
 
-Here is clearly shown, that the user only creates one instance of the `PreferencesFx` and saves it in his application. This is done in the package `Demo`.
+Here is clearly shown, that the user only creates one instance of the `PreferencesFx` and saves it in his application.
+ This is done in the package `Demo`.
 
-In the Package `PreferencesFx` there is the class `PreferencesFx` which is called, when the preferences are created. In the constructor of the class is the `PreferencesModel` created. Afterwards, all views and their constructors are created, which are needed to visualize the preferences dialog. Simply said is the PreferencesFx class used as a controller to manage the frontend and the backend.
+In the Package `PreferencesFx` there is the class `PreferencesFx` which is called, when the preferences are created.
+ In the constructor of the class is the `PreferencesModel` created.
+ Afterwards, all views and their constructors are created, which are needed to visualize the preferences dialog.
+ Simply said is the PreferencesFx class used as a controller to manage the frontend and the backend.
 
-The views and the presenters are built the way, that the views only contain visual elements and the presenters regulate the logical parts, like listeners or complex functions, ect. This has the immense advantage of having a clear overview.
+The views and the presenters are built the way, that the views only contain visual elements and the presenters regulate the logical parts, like listeners or complex functions, ect.
+ This has the immense advantage of having a clear overview.
 
-After creating the preferences one can simply call the method `show()` and the `PreferencesFx` opens a `PreferencesDialog`. This dialog contains the `PreferencesView` which puts all other views together.
+After creating the preferences one can simply call the method `show()` and the `PreferencesFx` opens a `PreferencesDialog`.
+ This dialog contains the `PreferencesView` which puts all other views together.
+
+Another huge advantage of this architectural style is the good testability.
+This way the several classes can easily be mocked and therefore tests can be made in isolation.
+For example:
+In the code snippet below one can see, that all of this classes can easily be mocked and the class `PreferencesFxModel` can be tested in isolation.
+
+[source,java]
+----
+include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=testMock]
+----
 
 ==== CategoryController
 ----- ToDo -----
+
+=== Testing
+To be honest we wrote not much tests.
+But in GUI projects are anyways not many tests written.
+In fact we did ad hoc tests and tested the functionality of our GUI.
 
 == Lessons learned
 * We just started programming and didn't mind about separating the frontend from the backend. This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project. For the next project we are going to focus more on the system architecture in first place.
@@ -316,3 +364,8 @@ After creating the preferences one can simply call the method `show()` and the `
 
 * Asciidoctor rulez
 
+== Honesty Declaration
+It is hereby declared that the contents of this report, unless otherwise stated, have been authored by François Martin and Marco Sanfratello.
+All external sources have been named and quoted material has been attributed appropriately.
+
+Windisch, January 19 2018

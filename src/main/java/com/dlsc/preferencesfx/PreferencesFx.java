@@ -46,9 +46,11 @@ public class PreferencesFx {
   private PreferencesFxPresenter preferencesFxPresenter;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
+    // asciidoctor Documentation - tag::testMock[]
     preferencesFxModel = new PreferencesFxModel(
         new StorageHandler(saveClass), new SearchHandler(), new History(), categories
     );
+    // asciidoctor Documentation - end::testMock[]
 
     // setting values are only loaded if they are present already
     preferencesFxModel.loadSettingValues();
