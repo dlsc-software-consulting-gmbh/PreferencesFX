@@ -28,6 +28,8 @@ import javafx.scene.control.SpinnerValueFactory;
  *
  * @author Rinesch Murugathas
  * @author Sacha Schmid
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Integer> {
 

@@ -9,7 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by François Martin on 31.12.17.
+ * Test class for {@link SearchHandler}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SearchHandlerTest {
 

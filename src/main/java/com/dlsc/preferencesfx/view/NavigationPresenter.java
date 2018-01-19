@@ -12,6 +12,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 
+/**
+ * Contains presenter logic of the {@link NavigationView}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class NavigationPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(NavigationPresenter.class.getName());
@@ -22,6 +28,12 @@ public class NavigationPresenter implements Presenter {
 
   private HashMap<Category, FilterableTreeItem<Category>> categoryTreeItemMap = new HashMap<>();
 
+  /**
+   * Constructs a new presenter for the {@link NavigationView}.
+   *
+   * @param model          the model of PreferencesFX
+   * @param navigationView corresponding view to this presenter
+   */
   public NavigationPresenter(PreferencesFxModel model, NavigationView navigationView) {
     this.model = model;
     searchHandler = model.getSearchHandler();

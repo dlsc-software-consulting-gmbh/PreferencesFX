@@ -26,13 +26,12 @@
 
 .simple-textarea {
     -fx-text-fill: -fx-text-inner-color;
-    -fx-highlight-fill: derive(-fx-control-inner-background,-20%);
+    -fx-highlight-fill: derive(-fx-control-inner-background, -20%);
     -fx-highlight-text-fill: -fx-text-inner-color;
-    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
     /*noinspection CssInvalidFunction*/
-    -fx-background-color:
-            linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
-            linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-text-box-border, -10%), -fx-text-box-border),
+    linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
     -fx-background-insets: 0, 1;
     -fx-background-radius: 3, 2;
     -fx-cursor: text;
@@ -43,11 +42,10 @@
     -fx-highlight-fill: -fx-accent;
     -fx-highlight-text-fill: white;
     /*noinspection CssInvalidFunction*/
-    -fx-background-color:
-            -fx-focus-color,
-            -fx-control-inner-background,
-            -fx-faint-focus-color,
-            linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-color: -fx-focus-color,
+    -fx-control-inner-background,
+    -fx-faint-focus-color,
+    linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
     -fx-background-insets: -0.2, 1, -1.4, 3;
     -fx-background-radius: 3, 2, 4, 0;
     -fx-prompt-text-fill: transparent;
@@ -186,11 +184,10 @@
 .simple-radio-control:invalid .radio-button > .radio,
 .simple-boolean-control:invalid .check-box > .box,
 .simple-checkbox-control:invalid .check-box > .box {
-    -fx-background-color:
-            -fx-shadow-highlight-color,
-            -fx-outer-border,
-            -fx-inner-border,
-            #ffe5e5;
+    -fx-background-color: -fx-shadow-highlight-color,
+    -fx-outer-border,
+    -fx-inner-border,
+    #ffe5e5;
 }
 
 /*noinspection CssInvalidPseudoSelector*/
@@ -203,12 +200,11 @@
 .simple-radio-control:invalid .radio-button:focused > .radio,
 .simple-boolean-control:invalid .check-box:focused > .box,
 .simple-checkbox-control:invalid .check-box:focused > .box {
-    -fx-background-color:
-            -fx-focus-color,
-            -fx-inner-border,
-            -fx-body-color,
-            -fx-faint-focus-color,
-            #ffe5e5;
+    -fx-background-color: -fx-focus-color,
+    -fx-inner-border,
+    -fx-body-color,
+    -fx-faint-focus-color,
+    #ffe5e5;
 }
 
 /*noinspection CssInvalidPseudoSelector*/

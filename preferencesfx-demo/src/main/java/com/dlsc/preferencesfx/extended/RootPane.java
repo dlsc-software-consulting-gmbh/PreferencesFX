@@ -27,9 +27,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 
-/**
- * Created by François Martin on 30.10.17.
- */
 public class RootPane extends StackPane {
 
   public PreferencesFx preferencesFx;
@@ -345,6 +342,6 @@ public class RootPane extends StackPane {
                 Category.of("XPath Viewer")
             ),
         Category.of("Other Settings")
-    );
+    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 }

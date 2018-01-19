@@ -12,7 +12,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by François Martin on 07.11.17.
+ * Represents a group, which is used to structure one to multiple settings in a category.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class Group {
 
@@ -32,19 +35,42 @@ public class Group {
     this.settings = Arrays.asList(settings);
   }
 
+  /**
+   * Constructs a new group with a {@code description} and {@code settings}.
+   *
+   * @param description the title of this group
+   * @param settings    the settings that belong to this group
+   * @return this object for chaining with the fluent API
+   */
   public static Group of(String description, Setting... settings) {
     return new Group(description, settings);
   }
 
+  /**
+   * Constructs a new group with {@code settings}, without a {@code description}.
+   *
+   * @param settings the settings that belong to this group
+   * @return this object for chaining with the fluent API
+   */
   public static Group of(Setting... settings) {
     return new Group(null, settings);
   }
 
+  /**
+   * Sets a {@code description} for this group.
+   *
+   * @param description the title of this group
+   * @return this object for chaining with the fluent API
+   */
   public Group description(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * Returns the description of this group or if i18n is used, it will return the translated
+   * description in the current locale.
+   */
   public String getDescription() {
     if (preferencesGroup != null) {
       return preferencesGroup.getTitle();
@@ -64,6 +90,11 @@ public class Group {
     this.preferencesGroup = preferencesGroup;
   }
 
+  /**
+   * Marks this group in the GUI.
+   * Is used for the search, which marks and unmarks items depending on the match as a form of
+   * visual feedback.
+   */
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
@@ -73,6 +104,11 @@ public class Group {
     }
   }
 
+  /**
+   * Unmarks this group in the GUI.
+   * Is used for the search, which marks and unmarks items depending on the match as a form of
+   * visual feedback.
+   */
   public void unmark() {
     // check if it's marked before removing the style class
     if (marked) {
@@ -84,6 +120,11 @@ public class Group {
     }
   }
 
+  /**
+   * Adds the {@code breadCrumb} to this breadcrumb and updates all of its settings accordingly.
+   *
+   * @param breadCrumb the breadcrumb to add to this group's breadcrumb
+   */
   public void addToBreadcrumb(String breadCrumb) {
     setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
     settings.forEach(setting -> setting.addToBreadcrumb(getBreadcrumb()));

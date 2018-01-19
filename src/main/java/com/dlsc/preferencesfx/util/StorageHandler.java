@@ -12,6 +12,7 @@ import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_X;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_WIDTH;
 
+import com.dlsc.preferencesfx.model.Setting;
 import com.google.gson.Gson;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,6 +25,12 @@ import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Handles everything related to storing values of {@link Setting} using {@link Preferences}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class StorageHandler {
 
   private static final Logger LOGGER =
@@ -191,6 +198,7 @@ public class StorageHandler {
 
   /**
    * Clears the preferences.
+   *
    * @return true if successful, false if there was an exception.
    */
   public boolean clearPreferences() {
@@ -208,6 +216,7 @@ public class StorageHandler {
    * will lead to an exception while saving. This method generates a SHA-256 hash of the breadcrumb
    * to save / load as the key in {@link Preferences}, since those are guaranteed to be
    * maximum 64 chars long.
+   *
    * @return SHA-256 representation of breadcrumb
    */
   public String hash(String key) {
@@ -225,8 +234,6 @@ public class StorageHandler {
   public Preferences getPreferences() {
     return preferences;
   }
-
-
 
 
 }

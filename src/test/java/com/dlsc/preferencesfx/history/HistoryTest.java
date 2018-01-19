@@ -14,7 +14,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created by François Martin on 03.12.2017.
+ * Test class for {@link History}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class HistoryTest {
   History history;

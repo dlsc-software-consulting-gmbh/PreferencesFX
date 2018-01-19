@@ -23,7 +23,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Created by François Martin on 02.12.17.
+ * Represents a change, which is comprised of a new and an old value.
+ *
+ * @param <P> the data type of the change, which is reflected in a {@link ListProperty} for a
+ *            list change and in a {@link ObjectProperty} for regular changes as well
+ * @author François Martin
+ * @author Marco Sanfratello
+ * @implNote There are two types: List changes and regular changes. Internally, all changes are
+ *           saved into a {@link ListProperty} for the old and the new value, regardless of the
+ *           type of change. However, if two {@link ObservableList} are used to create a change, a
+ *           boolean flags the change as a list change. In case of a regular change, a binding will
+ *           also set an {@link ObjectProperty} for easier handling.
  */
 public class Change<P> {
 
@@ -124,6 +134,11 @@ public class Change<P> {
     return oldValue.get().equals(newValue.get());
   }
 
+  /**
+   * Undos a change.
+   * Does this by setting the corresponding value of the {@link Setting} to the old value of this
+   * change.
+   */
   public void undo() {
     if (isListChange()) {
       LOGGER.trace("Undoing list change: " + oldList.get().toString());
@@ -133,6 +148,11 @@ public class Change<P> {
     }
   }
 
+  /**
+   * Redos a change.
+   * Does this by setting the corresponding value of the {@link Setting} to the new value of this
+   * change.
+   */
   public void redo() {
     if (isListChange()) {
       LOGGER.trace("Redoing list change: " + newList.get().toString());

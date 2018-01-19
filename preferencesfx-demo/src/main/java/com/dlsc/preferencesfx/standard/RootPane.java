@@ -26,9 +26,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 
-/**
- * Created by François Martin on 30.10.17.
- */
 public class RootPane extends StackPane {
 
   public PreferencesFx preferencesFx;
@@ -113,6 +110,6 @@ public class RootPane extends StackPane {
             Setting.of("Favorites", favoritesItems, favoritesSelection),
             Setting.of("Favorite Number", customControl, customControlProperty)
         )
-    ).persistWindowState(true).saveSettings(true).debugHistoryMode(true).buttonsVisibility(true);
+    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 }

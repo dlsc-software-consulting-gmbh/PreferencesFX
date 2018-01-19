@@ -30,6 +30,8 @@ import javafx.scene.control.Label;
  *
  * @author Rinesch Murugathas
  * @author Sacha Schmid
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> {
 

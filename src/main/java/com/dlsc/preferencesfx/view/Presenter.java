@@ -1,7 +1,10 @@
 package com.dlsc.preferencesfx.view;
 
 /**
- * Created by François Martin on 29.12.17.
+ * Defines a presenter of PreferencesFX.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public interface Presenter {
 
