@@ -2,11 +2,9 @@
 **Preferences dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
 ## What is PreferencesFX?
-
 Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preferences dialogs with ease and creates well-designed and user-friendly preference dialogs by default. 
 
 ## Main Features
-
 - Simple and understandable  API
 - The most important Features are shown in the picture below: The created preferences dialog:
 
@@ -28,7 +26,6 @@ This project uses the plugin `asciidoctor` to create the necessary documents. To
 - requirements.adoc
 
 ## Semantics
-
 PreferencesFX contains different semantic layers. A preferences dialog can contain multiple Categories. Each `Category` can contain multiple Groups and each `Group`can contain multiple `Settings`.
 
 For better illustration, the basic concept of writing a dialog is shown below:
@@ -60,7 +57,6 @@ Import | Description
 `standard` | The standard demo with a few settings and fully working bindings.
 
 ## Defining a preferences dialog
-
 Creating a preferences dialog is as simple as calling `FreferencesFx.of()`.
 
 ```Java
@@ -104,6 +100,10 @@ Method | Description
 `AppStarter.class` | In the constructor of the PreferencesFx a `saveClass` is required. This class is used to save the preferences and is further defined in the javadoc.
 `description (category)` | Each `Category` must have a description. This is required for displaying it's description in the `ListView`.
 `description (setting)` | Each `Setting` must have a description. If for some reason no description is avaliable one can hand over `null`.
+
+- Information: To store the values of each Setting we used the `Preferences API`. During the usage of the PreferencesFX API it can happen, that the user wants a clear storage space. We created a test method which clears the storage. The method is called `PreferencesStorageReset.java` and is found using the following path:
+
+`../preferencesfx-demo/src/test/java/PreferencesStorageReset.java`
 
 **Optionals**
 
@@ -243,7 +243,6 @@ Field.ofMultiSelectionType(…)
 ```
 
 ## Localisation
-
 All displayed values are localisable. PreferencesFx accepts keys which are then used for translation. By default, PreferencesFx includes a `ResourceBundle`-based implementation, however, this can be exchanged for a custom implementation. Adding the i18n support is simply done by calling the method `.i18n()` at the end when creating the preferences:
 
 ```java
@@ -257,7 +256,6 @@ PreferencesFx.of(…)
 ```
 
 ## Validation
-
 It is possible for all settings to add a validator. PreferencesFX offers a wide range of pre-defined validators, but also includes support for custom validators using the `CustomValidator.forPredicate()` method. This part of the implementation was took from the former project `FormsFX`. The following table lists the supported validators:
 
 | Validator | Description |
@@ -270,7 +268,6 @@ It is possible for all settings to add a validator. PreferencesFX offers a wide 
 | `StringLengthValidator` | Define a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
 
 ## Advantages
-
 - Less error-prone
 - Less code needed
 - Easy to learn
@@ -278,7 +275,6 @@ It is possible for all settings to add a validator. PreferencesFX offers a wide 
 - Easy to extend
 
 ##Team
- 
 - Marco Sanfratello
   - marco.sanfratello@students.fhnw.ch
   - Skype: sanfratello.m@gmail.com 
