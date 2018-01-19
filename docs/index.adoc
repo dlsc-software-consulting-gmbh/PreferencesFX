@@ -50,7 +50,7 @@ include::{sourcedir}/com/dlsc/preferencesfx/PreferencesFx.java[tags=fluentApiMet
 === Briefing
 Our customer is Dirk Lemmermann, CEO of Dirk Lemmermann - Software and Consulting (http://dlsc.com/[dlsc.com]). One of his former projects was the FormsFX API, where a developer can easily create forms without a lot of effort. FormsFX uses the fluent API approach to create its forms. His approach was to adapt this idea of an easy way to create a structure with a predefined User Interface to preference windows. The developer should not need to invest a lot of time creating a preferences window. We got access to a fork of FormsFX. Our customer allowed us to use it for creation of our project.
 
-Regarding the visual appearance we should orientate ourselves at the preferences window of the programming platform Intellij IDEA regarding the look and feel.
+Regarding the visual appearance we should orientate ourselves at the preferences window of the programming platform IntelliJ IDEA regarding the look and feel.
 
 
 === First thoughts
@@ -84,7 +84,10 @@ At the top of the picture `Eclipse RCP, window 1`, there is a TextField position
 Everywhere are settings and buttons and no one really knows what's going on. One big lesson learned was, that we would clearly separate the "selection and filtering options" and the "changing the preferences options". We would also keep any buttons away, because in a preferences window no one should need a button to open another window where he can change another settings.
 
 ===== MacOS
-It was joyful to see how simple and clean the `macOS` constructs its preferences windows. This was really a contrast to the overwhelming preferences window of the `Eclipse RCP API`. We had a look
+It was joyful to see how simple and clean the `macOS` constructs its preferences windows.
+This was really a contrast to the overwhelming preferences window of the `Eclipse RCP API`.
+The two pictures below are showing one internal preferences window and an external preferences window.
+ The external one belongs to a installed program and was not default installed in the operation system.
 
 [cols="1,1"]
 .MacOS
@@ -92,13 +95,18 @@ It was joyful to see how simple and clean the `macOS` constructs its preferences
 |image:images/alternatives/ios_internal.jpg[internal] Internal macOS application |image:images/alternatives/ios_external.jpg[external] External macOS application
 |===
 
-===== Intellij
-Intellij is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles".
+An interesting aspect which those preferences windows apply are the tabs which separate the content.
+This was also something we planned to apply in our project.
+The original idea was using TabViews to visualize the categories.
+When the amount of categories would exceed a certain number, the API should switch automatically from tab view to a tree view for visualization.
+
+===== IntelliJ
+IntelliJ is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles".
 
 [cols="1,1"]
-.Intellij
+.IntelliJ
 |===
-|image:images/alternatives/intellij.png[intellij] Standard Intellij dialog | image:images/alternatives/intellij_undoRedo.png[undo/redo] Undo/Redo buttons
+|image:images/alternatives/intellij.png[intelliJ] Standard IntelliJ dialog | image:images/alternatives/intellij_undoRedo.png[undo/redo] Undo/Redo buttons
 |===
 
 ===== Minimal viable product
