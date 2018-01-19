@@ -121,6 +121,7 @@ Method | Class | Description
 
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
+```html
 <table>
     <tr>
         <th>Syntax</th>
@@ -128,10 +129,10 @@ The following table shows how to create `Settings` using the current supported P
     </tr>
 
     <tr>
-        <td>```java
+        <td><pre lang="java">
 // Integer
 IntegerProperty brightness = new SimpleIntegerProperty(50);
-Setting.of("Brightness", brightness);```
+Setting.of("Brightness", brightness);</pre>
         </td>
         <td><img src="./docs/images/settings/integer_setting.png"/></td>
     </tr>
@@ -235,6 +236,7 @@ Setting.of("Favorite Number", customControl, customControlProperty);</pre>
         <td><img src="./docs/images/settings/custom_setting.png"/></td>
     </tr>
 </table>
+```
 
 ## Rendering a form
 
