@@ -130,6 +130,10 @@ As a result of our research we created a paper prototype, which was also the min
 
 image::images/minimal_viable_product.png[Minimal viable product]
 
+All of the requirements are stored in the <<requirements.adoc#,requirements.adoc>>.
+Those requirements which were the most important ones are marked with a check.
+Those were mandatory for the minimal viable product.
+
 ==== The way creating the preferences
 We also did some research about how would a developer use the PreferencesFX API.
  When someone usually uses any JavaFX components, for example a `MenuBar`, he writes in the following code style:
@@ -279,7 +283,65 @@ Because of this reason we lost a little bit of time doing the refactoring.
 This is also a lesson learned for the next project.
 
 ==== StorageHandler
+We used the `Preferences API` for storing all the data our API requires.
+Such as window position and size and all the setting values.
+For that reason we implemented a class called `StorageHandler.java`.
+The API can store all primitive data types and character arrays.
+In some cases for example when storing an `ObjectProperty` we faced the challenge to save an object.
+The only solution to do this was to serialize the object, save it as character array and when loading, deserialize it.
 
+We tried serializing objects using several plugins but none of them worked reliably.
+Finally we found a plugin which satisfied all of our needs:
+The https://github.com/google/gson/blob/master/UserGuide.md[`Google GSON`] plugin is used in a very effective easy way and works well.
+
+Using the API is very simple:
+One hands over an `Object` and gets a `String`:
+
+[source,java]
+----
+// Serialization
+SomeObject obj = new SomeObject();
+Gson gson = new Gson();
+String json = gson.toJson(obj);
+----
+
+For deserialization one needs only to pass over the serialized `String` and the Object type which one needs:
+
+[source,java]
+----
+// Deserialization
+SomeObject obj2 = gson.fromJson(json, SomeObject.class);
+----
+
+Where we previously needed to create several methods to save our setting values we could now use simply one method to serialize and one to deserialize the given value.
+This saved us a lot of code.
+The following methods are used in the `StorageHandler.java`:
+
+[source,java]
+----
+// Serialization
+include::{sourcedir}/com/dlsc/preferencesfx/util/StorageHandler.java[tags=storageHandlerSave]
+----
+
+[source,java]
+----
+// Deserialization
+include::{sourcedir}/com/dlsc/preferencesfx/util/StorageHandler.java[tags=storageHandlerLoad]
+----
+
+Well the method is working.
+But another problem occured.
+Where does `PreferencesFX` know which setting has which value?
+We decided to give each `Setting` a `breadcrumb` which represents the path from the `Category` and the `Group` it belongs to, separated with a delimiter.
+The actual challenge was to create them.
+Because of the fluent API the preferences are created backwards, first the settings, groups and lastly the categories.
+So we had to add the `breadcrumbs` after the preferences were created.
+This is done by calling a recursive function afterwards which creates the breadcrumbs.
+
+Last but not least:
+The `Preferences API` has a limit of 80 characters which it can store.
+This resulted in an exception.
+The solution was to cut the `breadcrumb` at a certain length, take this part and combine it with a hash value which was calculated with the other part.
 
 ==== Undo/Redo
 While Java Swing/AWT provides an implementation of undo / redo, by using the https://docs.oracle.com/javase/8/docs/api/javax/swing/undo/UndoManager.html[UndoManager], JavaFX doesn't.
@@ -406,8 +468,13 @@ Documentation and reports should be written much earlier and continuously during
 At least the `Javadoc` should've been written frequent.
 For the next project no branch will be merged until all checkstyle errors are eliminated.
 
+== Summary
+In conclusion we can with proud
+
 == Honesty Declaration
 It is hereby declared that the contents of this report, unless otherwise stated, have been authored by François Martin and Marco Sanfratello.
 All external sources have been named and quoted material has been attributed appropriately.
+
+The signatures are delivered separately.
 
 Windisch, January 19 2018

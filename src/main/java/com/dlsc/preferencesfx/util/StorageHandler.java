@@ -158,9 +158,11 @@ public class StorageHandler {
    * @param breadcrumb the key which is used to save the serialized Object
    * @param object     the Object which will be saved
    */
+  // asciidoctor Documentation - tag::storageHandlerSave[]
   public void saveObject(String breadcrumb, Object object) {
     preferences.put(hash(breadcrumb), gson.toJson(object));
   }
+  // asciidoctor Documentation - end::storageHandlerSave[]
 
   /**
    * Searches in the preferences after a serialized Object using the given key,
@@ -170,11 +172,13 @@ public class StorageHandler {
    * @param defaultObject the Object which will be returned if nothing is found
    * @return the deserialized Object or the default Object if nothing is found
    */
+  // asciidoctor Documentation - tag::storageHandlerLoad[]
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String serializedDefault = gson.toJson(defaultObject);
     String json = preferences.get(hash(breadcrumb), serializedDefault);
     return gson.fromJson(json, Object.class);
   }
+  // asciidoctor Documentation - end::storageHandlerLoad[]
 
   /**
    * Searches in the preferences after a serialized ArrayList using the given key,
