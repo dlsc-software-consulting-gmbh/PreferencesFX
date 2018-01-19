@@ -3,7 +3,7 @@ François Martin; Marco Sanfratello
 
 This document contains information that may be valuable to a developer of PreferencesFX when trying to understand how it works.
 
-== PreferencesFxUtils
+== SearchHandler
 === compareMatches()
 This method is being used in `SearchHandler`:
 

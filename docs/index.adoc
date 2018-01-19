@@ -263,14 +263,26 @@ If the change should be redone, simply apply the new value of the change to the 
 More details on the implementation can be found in the Javadoc of `History.java` and `Change.java`.
 
 ==== Search
+Do you remember having thought, that a feature would be quite straight forward to implement, later turning out to be very complex and time consuming?
+Probably, there hasn't ever been a developer, who doesn't know this situation.
 
-Own implementation
-A lot of work
-FilterableTreeItems
-link zum anderen Dokument
-Schwierig eine intuitive suche zu programmieren regarding cat, group, sett
+We have never implemented a search for a TreeView before. +
+We thought it was just like using a TableView, where you can filter quite easily. +
+We have never been more wrong.
 
------ ToDo -----
+`TreeViews` use `TreeItems`, which are organized in a recursive structure (which makes sense, given its hierarchy).
+But it seems like `TreeViews` weren't designed with filtering them in mind.
+Because of the recursive structure, filtering is quite difficult to do, which requires to use unusual 'hacks' to get it done properly.
+At first, we tried to implement it ourselves, but we didn't suceed in a working implementation, which is why we resorted to using a library for it.
+Christoph Keimel contributed an implementation of a http://www.kware.net/?p=204[FilterableTreeItem] class to the https://www.eclipse.org/efxclipse/index.html[e(fx)clipse project].
+When we figured out how to use it, it turned out to work very well.
+
+Now that the `TreeView` can be filtered for search terms, a second challenge appeared.
+Filtering the categories in the `TreeView` is useful, but not very convenient, since the user still has to click through the categories and look through the matches.
+For that reason, we implemented an "algorithm" that would automatically switch between different categories, to match what the user was really searching for as good as possible.
+This turned out to be difficult, because we had to ask ourselves at first, how intuitive behavior of a search would feel like.
+Then we had to quantify it and finally implement it, which was no easy task as well.
+We described everything in meticulous detail in the <<developer-reference.adoc#,Developer Reference>>.
 
 === Architecture
 We decided to implement our project in the model view presenter architecture. This means, that the model and the views are separarted from each other. This means that this parts have a small cohesion. This has the major advantage that the views can easily be exchanged. For example if someone wants in the future a new layout, he can do this relatively easy. To make sure that the possibly new view parts are fitting in the project structure, they need to fulfill certain characteristics. This is guaranteed by implementing interfaces. For this reason we created the two interfaces `View` and `Presenter`. The picture below illustrates a simplified version of our project structure.
