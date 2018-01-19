@@ -1,8 +1,10 @@
 # PreferencesFX
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
+![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
+
 ## What is PreferencesFX?
-Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preference dialogs with ease and creates well-designed and user-friendly preference dialogs by default. 
+Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preference dialogs with ease and creates well-designed and user-friendly preference dialogs by default.
 
 ## Advantages
 - Less error-prone
@@ -15,16 +17,17 @@ Creating preference dialogs in JavaFX is a tedious and very error-prone task. Pr
 - Simple and understandable API
 - The most important features are noted in the picture and the corresponding table below:
 
-![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png)
+![screenshot of created preferences dialog with features](docs/images/preferencesFX_in_use_border.png)
 
-Feature | Description
------- | -----------
-`Search / Filter` | Filters all categories for a given String. Enables searching for a Setting, Group or Category by name.
-`TreeView` | Shows all categories in a hierarchical structure
-`Breadcrumb Bar` | Shows the user the previous categories in the hierarchy to the currently displayed category and allows the user to navigate back.
-`Undo / Redo Buttons` | Allows the user a stepwise undo and redo possibility of his last changes.
-`Instant persistance` | Any changes to the application are saved instantly.
-`Various pre-defined setting types` | e.g. Integer, Double, Boolean, String, Lists, Objects
+Nr. | Feature | Description
+--- | ------- | -----------
+1 | `Search / Filter` | Filters all categories for a given String. Enables searching for a Setting, Group or Category by name.
+2 | `TreeView` | Shows all categories in a hierarchical structure
+3 | `Breadcrumb Bar` | Shows the user the previous categories in the hierarchy to the currently displayed category and allows the user to navigate back.
+4 | `Undo / Redo Buttons` | Allows the user a stepwise undo and redo possibility of his last changes.
+5 | `Various pre-defined setting types` | e.g. Integer, Double, Boolean, String, Lists, Objects
+6 | `close/cancel buttons` | The close button just closes the window and leaves the preferences as they are. The cancel button discards all changes which are made during the time the dialog was last opened.
+- | `Instant persistance` | Any changes to the application are saved instantly.
 
 ## Documentation
 This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following gradle tasks:
@@ -34,7 +37,7 @@ asciidoctor pdf  // PDF format
 ```
 Afterwards, you will find them in the `build/docs/` subdirectory.
 
-## Semantics
+## Structure
 A preferences dialog can contain multiple `Categories`.  
 Each `Category` contains one to multiple `Groups`  
 Each `Group` contains one to multiple `Settings`  

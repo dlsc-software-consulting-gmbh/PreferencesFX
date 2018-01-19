@@ -129,8 +129,7 @@ That a user of the dialog can navigate back in the navigation but not the change
 We decided, that we would implement an undo/redo function but it should only affect the changed setting values and not the actual navigation.
 
 ===== Minimal viable product
-As a result of our research we created a paper prototype, which was also the minimal viable product (MVP).
- Our promise to our customer, that he gets at least this product from us.
+As a result of our research we created a paper prototype, which was also the minimal viable product (MVP), our promise to our customer, that he gets at least this product from us.
  The MVP is shown in the picture below:
 
 image::images/minimal_viable_product.png[Minimal viable product]
@@ -190,11 +189,21 @@ We don't wanted to spend any more time researching. So we just started programmi
 During our project we faced several challenges, which we needed to overcome. In the following chapters we'll have a look at the most important ones.
 
 ==== Instant persistence
-We discovered that preferences windows often provide the user a lot of buttons, like close, discard, apply and more. All of this buttons have their reasons. But in general the huge amount of buttons disturbed us. For that reason we decided to build the API the way, that changes in the preferences are applied instant. This way we got rid of the buttons.
+We discovered that preferences windows often provide the user a lot of buttons, like close, discard, apply and more.
+ All of this buttons have their reasons.
+ But in general the huge amount of buttons disturbed us.
+ For that reason we decided to build the API the way, that changes in the preferences are applied instant.
+ This way we got rid of the buttons.
 
-In case a developer still wants to have buttons, the API provides the method `setButtonsVisible()` which allows him to define the visibility of the buttons. There are two button types available: `Close` and `Decline`. The close button just closes the window and leaves the preferences as they are. THe decline button discards all changes which are made during the time the dialog was last opened.
+In case a developer still wants to have buttons, the API provides the method `setButtonsVisible()` which allows him to define the visibility of the buttons.
+ There are two button types available: `Close` and `Cancel`.
+ The close button just closes the window and leaves the preferences as they are.
+ The cancel button discards all changes which are made during the time the dialog was last opened.
 
-The instant persistence brought up a new problem: What shall the application do, when a user wants to revert his last change? For this case we came up with an implementation of `undo/redo buttons`. This way a user can return all of his changes back to his first one.
+The instant persistence brought up a new problem:
+ What shall the application do, when a user wants to revert his last change?
+ For this case we came up with an implementation of `undo/redo buttons`.
+ This way a user can return all of his changes back to his first one.
 
 ==== Issues with FormsFX
 
@@ -297,7 +306,13 @@ The views and the presenters are built the way, that the views only contain visu
 
 After creating the preferences one can simply call the method `show()` and the `PreferencesFx` opens a `PreferencesDialog`. This dialog contains the `PreferencesView` which puts all other views together.
 
+==== CategoryController
+----- ToDo -----
+
 == Lessons learned
 * We just started programming and didn't mind about separating the frontend from the backend. This had the disadvantage, that we needed to invest a lot of time to separate it at the end of the project. For the next project we are going to focus more on the system architecture in first place.
 
 * We found a bug in FormsFX and fixed it. But the time it took was too much. Of course our customer is happy, that the bug is solved, but in an industrial project we mustn't do this. This is not our problem. It's the one of the FormsFX team. Next time we will discuss the situation with our customer and ask him about his opinion.
+
+* Asciidoctor rulez
+
