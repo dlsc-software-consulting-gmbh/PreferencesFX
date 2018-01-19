@@ -7,6 +7,23 @@ François Martin; Marco Sanfratello
 :sourcedir: ../src/main/java
 :sourcedirdemo: ../preferencesfx-demo/src/main/java
 
+== Front page
+image:images/FHNW_logo.png[FHNW, 20%]
+
+*PreferencesFX*
+
+*Project report*
+
+François Martin
+
+Marco Sanfratello
+
+Dirk Lemmermann
+
+Dieter Holz
+
+Windisch, 19. January 2018
+
 == Abstract / Management summary
 Developers do not like to program a preferences dialog.
 Why?
@@ -22,7 +39,7 @@ Easy, fast and good looking - `PreferencesFX`.
 
 == Introduction
 The `PreferenesFX API` creates a preferences window.
- This is done by simply writing a title and giving it a property and all the other work is done by the API itself.
+ This is done by simply writing a title and hand over a property for each `Setting` and all the other work is done by the API itself.
  Often developers have no time, energy or simply not mind to write a preferences window for their application.
  It’s a generic, boring work which nobody really wants to do.
  The picture below shows the final result of the PreferencesFX API in use.
@@ -531,4 +548,4 @@ All external sources have been named and quoted material has been attributed app
 
 The signatures are delivered separately.
 
-Windisch, January 19 2018
+Windisch, 19. January 2018
