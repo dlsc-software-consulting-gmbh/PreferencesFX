@@ -130,7 +130,7 @@ The following table shows how to create `Settings` using the current supported P
         <td><pre lang="java">
 StringProperty welcomeText = new SimpleStringProperty("Hello World");
 Setting.of("Welcome Text", welcomeText);</pre></td>
-        <td><img src="./docs/images/settings/string_setting.png"></td>
+        <td><img src="./docs/images/settings/string_setting.PNG"></td>
     </tr>
     <tr>
         <td><pre lang="java">
