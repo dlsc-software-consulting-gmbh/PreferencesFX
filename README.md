@@ -1,10 +1,10 @@
 # PreferencesFX
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
+![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
+
 ## What is PreferencesFX?
 Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preference dialogs with ease and creates well-designed and user-friendly preference dialogs by default.
-
-![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
 ## Advantages
 - Less error-prone
