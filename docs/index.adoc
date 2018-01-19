@@ -66,7 +66,9 @@ Or what about different types of applications? For example an application for fi
 In conclusion we discovered, that our primary persona was not the end user of an application, but we realized, that the developer of the application was our persona. Why? Well of course we would consider the layout of the preference dialog as important, but the developer of the application should be able to create a preferences window as fast and as simple as possible.
 
 ==== Layout
-As stated before, the layout of the preferences dialog was considered as important. For that reason we looked at various preferences windows and noted the usual best practices and the do's and dont's which are made through the last years. Intellij is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles". As a result of our research we created a paper prototype, which was also the minimal viable product (MVP). Our promise to our customer, that he gets at least this product from us. The MVP is shown in the picture below:
+As stated before, the layout of the preferences dialog was considered as important. For that reason we looked at various preferences windows and noted the usual best practices and the do's and dont's which are made through the last years.
+
+Intellij is one of the good examples, which does pretty much right. In contrary we discovered at other platforms a lot of visual displeasing layouts. For example were a lot of settings framed by a lot of borders, which is totally unnecessary if one would use the "gestalt principles". As a result of our research we created a paper prototype, which was also the minimal viable product (MVP). Our promise to our customer, that he gets at least this product from us. The MVP is shown in the picture below:
 
 image::images/minimal_viable_product.png[Minimal viable product]
 
@@ -122,6 +124,13 @@ We don't wanted to spend any more time researching. So we just started programmi
 
 === Challenges
 During our project we faced several challenges, which we needed to overcome. In the following chapters we'll have a look at the most important ones.
+
+==== Instant persistence
+We discovered that preferences windows often provide the user a lot of buttons, like close, discard, apply and more. All of this buttons have their reasons. But in general the huge amount of buttons disturbed us. For that reason we decided to build the API the way, that changes in the preferences are applied instant. This way we got rid of the buttons.
+
+In case a developer still wants to have buttons, the API provides the method `setButtonsVisible()` which allows him to define the visibility of the buttons. There are two button types available: `Close` and `Decline`. The close button just closes the window and leaves the preferences as they are. THe decline button discards all changes which are made during the time the dialog was last opened.
+
+The instant persistence brought up a new problem: What shall the application do, when a user wants to revert his last change? For this case we came up with an implementation of `undo/redo buttons`. This way a user can return all of his changes back to his first one.
 
 ==== FormsFX Bugs
 
