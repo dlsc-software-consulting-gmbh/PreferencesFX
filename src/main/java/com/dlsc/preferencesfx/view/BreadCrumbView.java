@@ -10,6 +10,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.BreadCrumbBar;
 
+/**
+ * Displays the {@link BreadCrumbBar} of all {@link Category} up to a certain hierarchy level.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class BreadCrumbView extends HBox implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(BreadCrumbView.class.getName());
@@ -18,6 +24,11 @@ public class BreadCrumbView extends HBox implements View {
   TreeItem<Category> breadcrumbsItm;
   BreadCrumbBar<Category> breadCrumbBar = new BreadCrumbBar<>();
 
+  /**
+   * Constructs a new view, which displays the {@link BreadCrumbBar}.
+   *
+   * @param model the model of PreferencesFX
+   */
   public BreadCrumbView(PreferencesFxModel model, UndoRedoBox undoRedoBox) {
     this.model = model;
     this.undoRedoBox = undoRedoBox;

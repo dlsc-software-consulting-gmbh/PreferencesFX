@@ -1,5 +1,11 @@
 package com.dlsc.preferencesfx.util;
 
+/**
+ * Stores all of the constants used in PreferencesFX.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class Constants {
   public static final String SELECTED_CATEGORY = "SELECTED_CATEGORY";
 

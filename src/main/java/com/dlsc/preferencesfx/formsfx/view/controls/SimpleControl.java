@@ -34,6 +34,8 @@ import javafx.scene.control.Tooltip;
  *
  * @author Sacha Schmid
  * @author Rinesch Murugathas
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public abstract class SimpleControl<F extends Field, N extends Node>
     extends com.dlsc.formsfx.view.controls.SimpleControl<F> {

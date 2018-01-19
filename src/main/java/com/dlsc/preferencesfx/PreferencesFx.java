@@ -20,6 +20,12 @@ import com.dlsc.preferencesfx.view.UndoRedoBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Represents the main PreferencesFX class.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class PreferencesFx {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFx.class.getName());

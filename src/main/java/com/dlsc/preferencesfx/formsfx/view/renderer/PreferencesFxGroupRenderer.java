@@ -10,6 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
+/**
+ * This class renders a group for a PreferencesFx form.
+ *
+ * @author Sacha Schmid
+ * @author Rinesch Murugathas
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class PreferencesFxGroupRenderer {
 
   /**
@@ -34,19 +42,25 @@ public class PreferencesFxGroupRenderer {
     init();
   }
 
+  /**
+   * Calls all the other methods for easier initialization.
+   */
   public void init() {
-    //this.initializeSelf();
     this.initializeParts();
     this.layoutParts();
-    //this.setupEventHandlers();
     this.setupBindings();
-    //this.setupValueChangedListeners();
   }
 
+  /**
+   * Initializes all parts of the rendered group.
+   */
   public void initializeParts() {
     titleLabel = new Label();
   }
 
+  /**
+   * Defines the layout of the rendered group.
+   */
   public void layoutParts() {
     StringBuilder styleClass = new StringBuilder("group");
 
@@ -95,6 +109,9 @@ public class PreferencesFxGroupRenderer {
     }
   }
 
+  /**
+   * Sets up bindings of the rendered group.
+   */
   public void setupBindings() {
     titleLabel.textProperty().bind(preferencesGroup.titleProperty());
   }

@@ -29,9 +29,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 
-/**
- * Created by François Martin on 30.10.17.
- */
 public class RootPane extends StackPane {
 
   public PreferencesFx preferencesFx;
@@ -106,7 +103,7 @@ public class RootPane extends StackPane {
                 Category.of("scaling_ordering",
                     Group.of(
                         Setting.of("scaling", scaling)
-                            .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1")),
+                            .validate(DoubleRangeValidator.atLeast(1, "scaling_validate")),
                         Setting.of("screen_name", screenName),
                         Setting.of("resolution", resolutionItems, resolutionSelection),
                         Setting.of("orientation", orientationItems, orientationSelection)
@@ -121,6 +118,6 @@ public class RootPane extends StackPane {
             Setting.of("favorites", favoritesItems, favoritesSelection),
             Setting.of("favorite_number", customControl, customControlProperty)
         )
-    ).debugHistoryMode(true).buttonsVisibility(true).i18n(rbs).persistApplicationState(true);
+    ).i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 }

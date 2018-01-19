@@ -12,8 +12,12 @@ import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_X;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_WIDTH;
 
+import com.dlsc.preferencesfx.model.Setting;
 import com.google.gson.Gson;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
@@ -21,6 +25,12 @@ import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Handles everything related to storing values of {@link Setting} using {@link Preferences}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class StorageHandler {
 
   private static final Logger LOGGER =
@@ -149,7 +159,7 @@ public class StorageHandler {
    * @param object     the Object which will be saved
    */
   public void saveObject(String breadcrumb, Object object) {
-    preferences.put(breadcrumb, gson.toJson(object));
+    preferences.put(hash(breadcrumb), gson.toJson(object));
   }
 
   /**
@@ -162,7 +172,7 @@ public class StorageHandler {
    */
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String serializedDefault = gson.toJson(defaultObject);
-    String json = preferences.get(breadcrumb, serializedDefault);
+    String json = preferences.get(hash(breadcrumb), serializedDefault);
     return gson.fromJson(json, Object.class);
   }
 
@@ -182,12 +192,13 @@ public class StorageHandler {
       ObservableList defaultObservableList
   ) {
     String serializedDefault = gson.toJson(defaultObservableList);
-    String json = preferences.get(breadcrumb, serializedDefault);
+    String json = preferences.get(hash(breadcrumb), serializedDefault);
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));
   }
 
   /**
    * Clears the preferences.
+   *
    * @return true if successful, false if there was an exception.
    */
   public boolean clearPreferences() {
@@ -199,11 +210,30 @@ public class StorageHandler {
     return true;
   }
 
+  /**
+   * Generates a SHA-256 hash of a String.
+   * Since {@link Preferences#MAX_KEY_LENGTH} is 80, if the breadcrumb is over 80 characters, it
+   * will lead to an exception while saving. This method generates a SHA-256 hash of the breadcrumb
+   * to save / load as the key in {@link Preferences}, since those are guaranteed to be
+   * maximum 64 chars long.
+   *
+   * @return SHA-256 representation of breadcrumb
+   */
+  public String hash(String key) {
+    Objects.requireNonNull(key);
+    MessageDigest messageDigest = null;
+    try {
+      messageDigest = MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException e) {
+      LOGGER.error("Hashing algorithm not found!");
+    }
+    messageDigest.update(key.getBytes());
+    return new String(messageDigest.digest());
+  }
+
   public Preferences getPreferences() {
     return preferences;
   }
-
-
 
 
 }

@@ -32,6 +32,8 @@ import javafx.scene.layout.StackPane;
  *
  * @author Sacha Schmid
  * @author Rinesch Murugathas
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField<V>, StackPane> {
 

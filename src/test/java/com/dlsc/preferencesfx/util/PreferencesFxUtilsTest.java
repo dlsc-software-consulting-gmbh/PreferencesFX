@@ -5,7 +5,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Created by François Martin on 30.11.17.
+ * Test class for {@link PreferencesFxUtils}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class PreferencesFxUtilsTest {
 

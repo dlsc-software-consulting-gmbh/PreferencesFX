@@ -32,6 +32,8 @@ import javafx.scene.control.SelectionMode;
  *
  * @author Sacha Schmid
  * @author Rinesch Murugathas
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class SimpleListViewControl<V>
     extends SimpleControl<MultiSelectionField<V>, ListView<String>> {

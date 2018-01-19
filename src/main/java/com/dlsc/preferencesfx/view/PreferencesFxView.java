@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
+import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.geometry.Side;
 import javafx.scene.layout.BorderPane;
@@ -10,6 +11,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
 
+/**
+ * Represents the master view, which is used to show all view parts in {@link PreferencesFxDialog}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class PreferencesFxView extends BorderPane implements View {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFxView.class.getName());
@@ -21,6 +28,15 @@ public class PreferencesFxView extends BorderPane implements View {
   private NavigationView navigationView;
   private BreadCrumbView breadCrumbView;
 
+  /**
+   * Displays all of the view parts, representing the master view.
+   *
+   * @param model              the model of PreferencesFX
+   * @param navigationView     left part of the view
+   * @param breadCrumbView     breadcrumb bar on the top of the {@code categoryController}
+   * @param categoryController shows the {@link CategoryView} of the
+   *                           currently selected {@link Category}
+   */
   public PreferencesFxView(
       PreferencesFxModel model,
       NavigationView navigationView,

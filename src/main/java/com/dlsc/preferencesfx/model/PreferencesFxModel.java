@@ -23,6 +23,12 @@ import javafx.beans.property.StringProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Represents the model which holds all of the data and logic which is not limited to presenters.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class PreferencesFxModel {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFxModel.class.getName());
@@ -45,6 +51,14 @@ public class PreferencesFxModel {
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
+  /**
+   * Initializes a new model.
+   *
+   * @param storageHandler the {@link StorageHandler} to use for saving and loading
+   * @param searchHandler  the {@link SearchHandler} to use for handling the searches
+   * @param history        the {@link History} in which to save the changes and handle undo / redo
+   * @param categories     the categories to be displayed, along with the groups and settings
+   */
   public PreferencesFxModel(
       StorageHandler storageHandler,
       SearchHandler searchHandler,
@@ -86,7 +100,6 @@ public class PreferencesFxModel {
       }
     });
   }
-
 
   public List<Category> getCategories() {
     return categories;
@@ -150,12 +163,19 @@ public class PreferencesFxModel {
         .findAny().orElse(defaultCategory);
   }
 
+  /**
+   * Saves all of the values of the settings using a {@link StorageHandler}.
+   */
   public void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
         getFlatCategoriesLst()
     ).forEach(setting -> setting.saveSettingValue(storageHandler));
   }
 
+  /**
+   * Load all of the values of the settings using a {@link StorageHandler} and attaches a
+   * listener for {@link History}, so that it will be notified of changes to the setting's values.
+   */
   public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
         .forEach(setting -> {

@@ -34,6 +34,8 @@ import javafx.beans.property.StringProperty;
  *
  * @author Sacha Schmid
  * @author Rinesch Murugathas
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class PreferencesFxGroup extends Group {
 
@@ -99,6 +101,12 @@ public class PreferencesFxGroup extends Group {
     this.renderer = renderer;
   }
 
+  /**
+   * Updates the title based on the titleKey for i18n.
+   * If there is no translationService, the title will be the same as the titleKey.
+   * If there is a translationService, the titleKey will be used to lookup the translated variant
+   * using the translationService and the title is set.
+   */
   public void translate() {
     if (translationService == null) {
       title.setValue(titleKey.getValue());

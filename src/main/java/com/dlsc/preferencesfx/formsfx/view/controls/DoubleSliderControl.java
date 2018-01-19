@@ -11,7 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
 /**
- * Created by François Martin on 24.11.17.
+ * Provides an implementation of a slider control for an {@link DoubleField}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
   public static final int VALUE_LABEL_PADDING = 25;
@@ -76,6 +79,10 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
     node.getStyleClass().add("double-slider-control");
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public void layoutParts() {
     node.getChildren().addAll(slider, valueLabel);
     HBox.setHgrow(slider, Priority.ALWAYS);

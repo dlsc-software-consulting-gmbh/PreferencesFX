@@ -8,12 +8,24 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.BreadCrumbBar;
 
+/**
+ * Contains presenter logic of the {@link BreadCrumbView}.
+ *
+ * @author François Martin
+ * @author Marco Sanfratello
+ */
 public class BreadCrumbPresenter implements Presenter {
   private static final Logger LOGGER =
       LogManager.getLogger(BreadCrumbPresenter.class.getName());
   private final PreferencesFxModel model;
   private final BreadCrumbView breadCrumbView;
 
+  /**
+   * Constructs a new presenter for the {@link BreadCrumbView}.
+   *
+   * @param model          the model of PreferencesFX
+   * @param breadCrumbView corresponding view to this presenter
+   */
   public BreadCrumbPresenter(PreferencesFxModel model, BreadCrumbView breadCrumbView) {
     this.model = model;
     this.breadCrumbView = breadCrumbView;

@@ -32,15 +32,11 @@ import javafx.scene.layout.StackPane;
  *
  * @author Rinesch Murugathas
  * @author Sacha Schmid
+ * @author François Martin
+ * @author Marco Sanfratello
  */
 public abstract class SimpleNumberControl<F extends DataField, D extends Number>
     extends SimpleControl<F, StackPane> {
-
-  /**
-   * This StackPane is needed for achieving the readonly effect by putting
-   * the {@code readOnlyLabel} over the {@code editableSpinner} on the change
-   * of the {@code visibleProperty}.
-   */
 
   /**
    * - The fieldLabel is the container that displays the label property of
