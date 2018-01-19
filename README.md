@@ -20,20 +20,22 @@ Feature | Description
 `Various pre-defined setting types` | e.g. Integer, Double, Boolean, String, Lists, Objects
 
 ## Documentation
-This project uses the plugin `asciidoctor` to create the necessary documentation. To generate them, run the following gradle tasks:
+This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following gradle tasks:
 ```Gradle
 asciidoctor html // HTML format
-asciidoctor pdf // PDF format
+asciidoctor pdf  // PDF format
 ```
-Afterwards, you will find them in the `build/doc/` subdirectory.
+Afterwards, you will find them in the `build/docs/` subdirectory.
 
 ## Semantics
-PreferencesFX contains different semantic layers. A preferences dialog can contain multiple Categories. Each `Category` can contain multiple Groups and each `Group`can contain multiple `Settings`.
+A preferences dialog can contain multiple `Categories`.  
+Each `Category` contains one to multiple `Groups`  
+Each `Group` contains one to multiple `Settings`  
 
-For better illustration, the basic concept of writing a dialog is shown below:
+For better illustration, the basic concept of writing a preferences dialog is shown below:
 ```Java
 PreferencesFx preferencesFx = 
-    PreferencesFx.of(AppStarter.class,
+    PreferencesFx.of(SaveClass.class,
         Category.of("Category Title",
             Group.of("Group Title",
                 Setting.of("Setting Title", new Property())
@@ -41,22 +43,27 @@ PreferencesFx preferencesFx =
         )
     );
 ```
-
-Note: The user can decide to add only `Settings` to a `Category` instead of a `Group`. In this case the API creates automatically a single `Group` and add it to the `Category`. But this works only when only one `Group` is needed.
+Note: It is also possible to omit the `Group` and declare all settings in a `Category` directly. However, in this case all settings will simply be displayed one after another without grouping. If you want more control, use `Group`.
 
 ## Demos
-We created several demos to visualize the possibility of the `PreferencesFX API`. To view any of them, one can change the import of the `RootPane.java` class in the `AppStarter.java` class. The class can be found following the path:
+We created several demos to visualize the capabilities of `PreferencesFX`.  
+To change between demos, simply uncomment the desired demo in the imports of `preferencesfx-demo/src/com/dlsc/preferencesfx/AppStarter.java`
+```Java
+// Change this import depending on the demo
+import com.dlsc.preferencesfx.standard.RootPane;
+//import com.dlsc.preferencesfx.i18n.RootPane;
+//import com.dlsc.preferencesfx.oneCategory.RootPane;
+//import com.dlsc.preferencesfx.extended.RootPane;
+```
 
-`../preferencesfx-demo/src/main/java/com/dlsc/preferencesfx/AppStarter.java`
-
-The user can choose between the following demo types:
+The following demos are available:
 
 Import | Description
 ------ | -----------
-`extended` | Just a full TreeView populated with a lot of categories, groups and settings without any bindings. To show how a full populated TreeView might look like. 
+`standard` | The standard demo with a few settings and fully working bindings.
 `i18n` | A demo which shows, that the preferences adapt to changing the language.
 `oneCategory` | To show the behaviour of the API when only one category is used: No breadcrumbs and no TreeView will be added.
-`standard` | The standard demo with a few settings and fully working bindings.
+`extended` | Just a full TreeView populated with a lot of categories, groups and settings without any bindings. To show how a full populated TreeView might look like. 
 
 ## Defining a preferences dialog
 Creating a preferences dialog is as simple as calling `FreferencesFx.of()`.
