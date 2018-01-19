@@ -122,6 +122,13 @@ Method | Class | Description
 ####Setting types
 The following table shows how to create `Settings` using the current supported Properties and how they look like:
 
+<head>
+<style>
+    td > img {
+        style="width:30%";
+    }
+</style>
+</head>
 <table>
     <tr>
         <th>Syntax</th>
@@ -133,7 +140,7 @@ The following table shows how to create `Settings` using the current supported P
 IntegerProperty brightness = new SimpleIntegerProperty(50);
 Setting.of("Brightness", brightness);</pre>
         </td>
-        <td><img src="./docs/images/settings/integer_setting.png"/></td>
+        <td><img width="300px" src="./docs/images/settings/integer_setting.png"/></td>
     </tr>
     <tr>
         <td><pre lang="java">
