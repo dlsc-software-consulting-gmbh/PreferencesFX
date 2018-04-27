@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.dlsc.preferencesfx</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>preferencesfx-demo</artifactId>
     <version>2.0.0</version>
 
     <properties>
