@@ -1,7 +1,28 @@
 # PreferencesFX
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
+[ ![Download](https://api.bintray.com/packages/dlsc-oss/repository/PreferencesFX/images/download.svg) ](https://bintray.com/dlsc-oss/repository/PreferencesFX/_latestVersion)
+
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
+
+## Maven
+
+To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
+
+```XML
+<repositories>
+  <repository>
+    <id>jcenter</id>
+    <url>http://jcenter.bintray.com</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.dlsc.preferencesfx</groupId>
+  <artifactId>preferencesfx-core</artifactId>
+  <version>2.0.0</version>
+</dependency>
+```
 
 ## What is PreferencesFX?
 Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preference dialogs with ease and creates well-designed and user-friendly preference dialogs by default.
