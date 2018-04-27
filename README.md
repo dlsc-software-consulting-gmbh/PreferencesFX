@@ -30,12 +30,11 @@ Nr. | Feature | Description
 - | `Instant persistance` | Any changes to the application are saved instantly.
 
 ## Documentation
-This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following gradle tasks:
-```Gradle
-asciidoctor html // HTML format
-asciidoctor pdf  // PDF format
+This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* task:
+```Maven
+process-resources
 ```
-Afterwards, you will find them in the `build/docs/` subdirectory.
+Afterwards, you will find the documentation in the `target/generated-docs/` subdirectory.
 
 ## Structure
 A preferences dialog can contain multiple `Categories`.  
