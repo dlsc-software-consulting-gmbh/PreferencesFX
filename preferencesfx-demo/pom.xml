@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.dlsc</groupId>
-        <artifactId>preferencesfx-parent</artifactId>
+        <groupId>com.dlsc.preferencesfx</groupId>
+        <artifactId>parent</artifactId>
         <version>2.0.0</version>
     </parent>
 
-    <groupId>com.dlsc</groupId>
-    <artifactId>preferencesfx-demo</artifactId>
+    <groupId>com.dlsc.preferencesfx</groupId>
+    <artifactId>demo</artifactId>
     <version>2.0.0</version>
 
     <properties>
@@ -48,8 +48,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.dlsc</groupId>
-            <artifactId>preferencesfx</artifactId>
+            <groupId>com.dlsc.preferencesfx</groupId>
+            <artifactId>core</artifactId>
             <version>2.0.0</version>
         </dependency>
     </dependencies>
