@@ -9,6 +9,34 @@
     <version>2.0.0</version>
     <packaging>jar</packaging>
 
+    <name>PreferencesFX</name>
+    <description>A framework for quickly creating a UI for setting application
+        preferences.
+    </description>
+    <url>https://github.com/dlemmermann/PreferencesFX</url>
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/dlemmermann/PreferencesFX</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Francois Martin</name>
+        </developer>
+        <developer>
+            <name>Marco Sanfratello</name>
+        </developer>
+        <developer>
+            <name>Dirk Lemmermann</name>
+            <url>http://www.dlsc.com</url>
+            <organization>DLSC Software &amp; Consulting</organization>
+        </developer>
+    </developers>
+
     <distributionManagement>
         <repository>
             <id>bintray-dlsc-oss-repository</id>
