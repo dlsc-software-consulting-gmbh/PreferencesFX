@@ -125,6 +125,7 @@ public class PreferencesFxDialog extends DialogPane {
   private void setupButtons() {
     LOGGER.trace("Setting Buttons up");
     final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
+    closeBtn.setText("Save & Close");
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
 
     History history = model.getHistory();
