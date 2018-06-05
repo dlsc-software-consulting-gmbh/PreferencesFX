@@ -34,6 +34,7 @@ public class PreferencesFxDialog extends DialogPane {
   private StorageHandler storageHandler;
   private boolean persistWindowState;
   private boolean saveSettings;
+  private boolean modalWindow;
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
   private ButtonType cancelBtnType = ButtonType.CANCEL;
 
@@ -43,9 +44,10 @@ public class PreferencesFxDialog extends DialogPane {
    * @param model             the model of PreferencesFX
    * @param preferencesFxView the master view to be display in this {@link DialogPane}
    */
-  public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferencesFxView) {
+  public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferencesFxView, boolean modal) {
     this.model = model;
     this.preferencesFxView = preferencesFxView;
+    this.modalWindow = modal;
     persistWindowState = model.isPersistWindowState();
     saveSettings = model.isSaveSettings();
     storageHandler = model.getStorageHandler();
@@ -64,7 +66,11 @@ public class PreferencesFxDialog extends DialogPane {
     dialog.setTitle("PreferencesFx");
     dialog.setResizable(true);
     getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
-    dialog.initModality(Modality.NONE);
+    if (modalWindow) {
+      dialog.initModality(Modality.APPLICATION_MODAL);
+    } else {
+      dialog.initModality(Modality.NONE);
+    }
     dialog.setDialogPane(this);
     setContent(preferencesFxView);
   }
