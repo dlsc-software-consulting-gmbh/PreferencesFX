@@ -104,7 +104,16 @@ public class PreferencesFx {
    * Shows the PreferencesFX dialog.
    */
   public void show() {
-    new PreferencesFxDialog(preferencesFxModel, preferencesFxView);
+    // by default, modal is false for retro-compatibility
+    show(false);
+  }
+
+  /**
+   * Show the PreferencesFX dialog.
+   * @param modal window or not modal, that's the question.
+   */
+  public void show(boolean modal) {
+    new PreferencesFxDialog(preferencesFxModel, preferencesFxView, modal);
   }
 
   /**
