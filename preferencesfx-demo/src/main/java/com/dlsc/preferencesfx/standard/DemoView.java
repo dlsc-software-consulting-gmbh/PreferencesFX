@@ -133,7 +133,7 @@ public class DemoView extends VBox {
   }
 
   private void setupEventHandlers() {
-    preferencesMenuItem.setOnAction(e -> preferencesFx.show(true));
+    preferencesMenuItem.setOnAction(e -> preferencesFx.show());
   }
 
   private void setupListeners() {
