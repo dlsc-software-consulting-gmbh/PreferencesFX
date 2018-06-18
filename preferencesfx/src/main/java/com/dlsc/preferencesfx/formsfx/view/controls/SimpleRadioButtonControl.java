@@ -57,11 +57,10 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
   public void initializeParts() {
     super.initializeParts();
 
+    node = new HBox();
     node.getStyleClass().add("simple-radio-control");
 
-    fieldLabel = new Label(field.labelProperty().getValue());
     toggleGroup = new ToggleGroup();
-    node = new VBox();
 
     createRadioButtons();
   }
