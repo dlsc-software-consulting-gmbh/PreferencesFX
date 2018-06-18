@@ -54,7 +54,7 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
   public void initializeParts() {
     super.initializeParts();
 
-    node = new HBox();
+    node = new VBox();
     node.getStyleClass().add("simple-radio-control");
 
     toggleGroup = new ToggleGroup();
