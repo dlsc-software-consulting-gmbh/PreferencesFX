@@ -10,6 +10,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.prefs.Preferences;
+
 public class AppStarter extends Application {
 
   public static void main(String[] args) {
@@ -27,5 +29,16 @@ public class AppStarter extends Application {
     primaryStage.setHeight(700);
     primaryStage.show();
     primaryStage.centerOnScreen();
+  }
+
+  public AppStarter() {
+    addPreferencesListener();
+  }
+
+  private void addPreferencesListener() {
+    Preferences prefs = Preferences.userNodeForPackage(AppStarter.class);
+    prefs.addPreferenceChangeListener(evt -> {
+      System.out.println("Preference has changed: " + evt.getKey() + " -> " + evt.getNewValue());
+    });
   }
 }

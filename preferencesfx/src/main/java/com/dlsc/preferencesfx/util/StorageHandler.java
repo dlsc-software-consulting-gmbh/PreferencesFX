@@ -160,7 +160,7 @@ public class StorageHandler {
    */
   // asciidoctor Documentation - tag::storageHandlerSave[]
   public void saveObject(String breadcrumb, Object object) {
-    preferences.put(hash(breadcrumb), gson.toJson(object));
+    preferences.put(breadcrumb, gson.toJson(object));
   }
   // asciidoctor Documentation - end::storageHandlerSave[]
 
@@ -175,7 +175,7 @@ public class StorageHandler {
   // asciidoctor Documentation - tag::storageHandlerLoad[]
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String serializedDefault = gson.toJson(defaultObject);
-    String json = preferences.get(hash(breadcrumb), serializedDefault);
+    String json = preferences.get(breadcrumb, serializedDefault);
     return gson.fromJson(json, Object.class);
   }
   // asciidoctor Documentation - end::storageHandlerLoad[]
@@ -196,7 +196,7 @@ public class StorageHandler {
       ObservableList defaultObservableList
   ) {
     String serializedDefault = gson.toJson(defaultObservableList);
-    String json = preferences.get(hash(breadcrumb), serializedDefault);
+    String json = preferences.get(breadcrumb, serializedDefault);
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));
   }
 
