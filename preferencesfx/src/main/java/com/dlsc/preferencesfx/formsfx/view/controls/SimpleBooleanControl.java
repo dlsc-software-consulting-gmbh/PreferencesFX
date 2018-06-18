@@ -36,24 +36,14 @@ import javafx.scene.control.Label;
 public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> {
 
   /**
-   * - fieldLabel is the container that displays the label property of the
-   * field.
-   * - node is the editable checkbox to set user input.
-   * - container holds the checkbox so that it can be styled properly.
-   */
-  private Label fieldLabel;
-
-  /**
    * {@inheritDoc}
    */
   @Override
   public void initializeParts() {
     super.initializeParts();
 
-    node.getStyleClass().add("simple-boolean-control");
-
-    fieldLabel = new Label(field.labelProperty().getValue());
     node = new CheckBox();
+    node.getStyleClass().add("simple-boolean-control");
     node.setSelected(field.getValue());
   }
 
