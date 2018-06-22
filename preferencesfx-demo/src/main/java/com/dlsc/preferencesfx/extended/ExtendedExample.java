@@ -27,7 +27,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 
-public class RootPane extends StackPane {
+public class ExtendedExample extends StackPane {
 
   public PreferencesFx preferencesFx;
 
@@ -70,7 +70,7 @@ public class RootPane extends StackPane {
   IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
   IntegerField customControl = setupCustomControl();
 
-  public RootPane() {
+  public ExtendedExample() {
     preferencesFx = createPreferences();
     getChildren().add(new DemoView(preferencesFx, this));
   }
