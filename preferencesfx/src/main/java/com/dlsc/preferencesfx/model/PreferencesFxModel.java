@@ -5,9 +5,11 @@ import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
+import com.dlsc.preferencesfx.util.AbstractStorageHandler;
+import com.dlsc.preferencesfx.util.DefaultStorageHandler;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
-import com.dlsc.preferencesfx.util.StorageHandler;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -39,7 +41,7 @@ public class PreferencesFxModel {
 
   private List<Category> categories;
   private List<Category> flatCategoriesLst;
-  private StorageHandler storageHandler;
+  private AbstractStorageHandler storageHandler;
   private SearchHandler searchHandler;
   private History history;
   private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
@@ -54,13 +56,13 @@ public class PreferencesFxModel {
   /**
    * Initializes a new model.
    *
-   * @param storageHandler the {@link StorageHandler} to use for saving and loading
+   * @param storageHandler the {@link AbstractStorageHandler} to use for saving and loading
    * @param searchHandler  the {@link SearchHandler} to use for handling the searches
    * @param history        the {@link History} in which to save the changes and handle undo / redo
    * @param categories     the categories to be displayed, along with the groups and settings
    */
   public PreferencesFxModel(
-      StorageHandler storageHandler,
+      AbstractStorageHandler storageHandler,
       SearchHandler searchHandler,
       History history,
       Category[] categories
@@ -125,7 +127,7 @@ public class PreferencesFxModel {
     return history;
   }
 
-  public StorageHandler getStorageHandler() {
+  public AbstractStorageHandler getStorageHandler() {
     return storageHandler;
   }
 
@@ -164,7 +166,7 @@ public class PreferencesFxModel {
   }
 
   /**
-   * Saves all of the values of the settings using a {@link StorageHandler}.
+   * Saves all of the values of the settings using a {@link DefaultStorageHandler}.
    */
   public void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
@@ -173,7 +175,7 @@ public class PreferencesFxModel {
   }
 
   /**
-   * Load all of the values of the settings using a {@link StorageHandler} and attaches a
+   * Load all of the values of the settings using a {@link DefaultStorageHandler} and attaches a
    * listener for {@link History}, so that it will be notified of changes to the setting's values.
    */
   public void loadSettingValues() {

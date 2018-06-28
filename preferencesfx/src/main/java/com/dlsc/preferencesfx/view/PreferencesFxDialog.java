@@ -3,8 +3,8 @@ package com.dlsc.preferencesfx.view;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
+import com.dlsc.preferencesfx.util.AbstractStorageHandler;
 import com.dlsc.preferencesfx.util.Constants;
-import com.dlsc.preferencesfx.util.StorageHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -31,7 +31,7 @@ public class PreferencesFxDialog extends DialogPane {
   private PreferencesFxView preferencesFxView;
 
   private Dialog dialog = new Dialog();
-  private StorageHandler storageHandler;
+  private AbstractStorageHandler storageHandler;
   private boolean persistWindowState;
   private boolean saveSettings;
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;

@@ -12,8 +12,10 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleIntegerControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleListViewControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
+import com.dlsc.preferencesfx.util.AbstractStorageHandler;
 import com.dlsc.preferencesfx.util.Constants;
-import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.util.DefaultStorageHandler;
+
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -334,23 +336,23 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * Saves the current value of this setting using a {@link StorageHandler}.
+   * Saves the current value of this setting using a {@link DefaultStorageHandler}.
    *
-   * @param storageHandler the {@link StorageHandler} to use
+   * @param storageHandler the {@link DefaultStorageHandler} to use
    */
-  public void saveSettingValue(StorageHandler storageHandler) {
+  public void saveSettingValue(AbstractStorageHandler storageHandler) {
     storageHandler.saveObject(getBreadcrumb(), value.getValue());
   }
 
   /**
-   * Loads the value of this setting using a {@link StorageHandler}.
+   * Loads the value of this setting using a {@link DefaultStorageHandler}.
    *
-   * @param storageHandler the {@link StorageHandler} to use
+   * @param storageHandler the {@link DefaultStorageHandler} to use
    * @implNote differentiates between a {@link ListProperty}, as found in multiselection settings,
    *           and all the other property types, since those need to be handled differently by
-   *           the {@link StorageHandler}.
+   *           the {@link DefaultStorageHandler}.
    */
-  public void loadSettingValue(StorageHandler storageHandler) {
+  public void loadSettingValue(AbstractStorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
           storageHandler.loadObservableList(getBreadcrumb(), (ObservableList) value.getValue())
