@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.preferencesfx</groupId>
     <artifactId>parent</artifactId>
-    <version>2.0.2</version>
+    <version>2.0.3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -20,6 +20,16 @@
         <asciidoctorj.version>1.5.6</asciidoctorj.version>
         <jruby.version>1.7.26</jruby.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.dlsc.preferencesfx</groupId>
+                <artifactId>preferencesfx-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

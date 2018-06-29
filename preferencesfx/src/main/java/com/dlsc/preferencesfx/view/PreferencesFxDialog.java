@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
+import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
@@ -34,7 +35,6 @@ public class PreferencesFxDialog extends DialogPane {
   private StorageHandler storageHandler;
   private boolean persistWindowState;
   private boolean saveSettings;
-  private boolean modalWindow;
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
   private ButtonType cancelBtnType = ButtonType.CANCEL;
 
@@ -43,12 +43,10 @@ public class PreferencesFxDialog extends DialogPane {
    *
    * @param model             the model of PreferencesFX
    * @param preferencesFxView the master view to be display in this {@link DialogPane}
-   * @param modal             flag to set the dialog as modal (true) or not
    */
-  public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferencesFxView, boolean modal) {
+  public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferencesFxView) {
     this.model = model;
     this.preferencesFxView = preferencesFxView;
-    this.modalWindow = modal;
     persistWindowState = model.isPersistWindowState();
     saveSettings = model.isSaveSettings();
     storageHandler = model.getStorageHandler();
@@ -57,9 +55,22 @@ public class PreferencesFxDialog extends DialogPane {
     setupDialogClose();
     loadLastWindowState();
     setupButtons();
-    dialog.show();
     if (model.getHistoryDebugState()) {
       setupDebugHistoryTable();
+    }
+  }
+
+  public void show() {
+    show(false);
+  }
+
+  public void show(boolean modal) {
+    if(modal) {
+      dialog.initModality(Modality.APPLICATION_MODAL);
+      dialog.showAndWait();
+    } else {
+      dialog.initModality(Modality.NONE);
+      dialog.show();
     }
   }
 
@@ -67,11 +78,6 @@ public class PreferencesFxDialog extends DialogPane {
     dialog.setTitle("PreferencesFx");
     dialog.setResizable(true);
     getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
-    if (modalWindow) {
-      dialog.initModality(Modality.APPLICATION_MODAL);
-    } else {
-      dialog.initModality(Modality.NONE);
-    }
     dialog.setDialogPane(this);
     setContent(preferencesFxView);
   }
@@ -83,6 +89,7 @@ public class PreferencesFxDialog extends DialogPane {
       }
       if (saveSettings) {
         model.saveSettingValues();
+        model.fireEvent(PreferencesFxEvent.preferencesSavedEvent());
       }
     });
   }
@@ -136,6 +143,7 @@ public class PreferencesFxDialog extends DialogPane {
       if (saveSettings) {
         model.saveSettingValues();
       }
+      model.fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
     });
     closeBtn.setOnAction(event -> {
       LOGGER.trace("Close Button was pressed");
