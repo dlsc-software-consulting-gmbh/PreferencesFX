@@ -113,7 +113,7 @@ public class PreferencesFx {
    * @param modal window or not modal, that's the question.
    */
   public void show(boolean modal) {
-    new PreferencesFxDialog(preferencesFxModel, preferencesFxView, modal);
+    new PreferencesFxDialog(preferencesFxModel, preferencesFxView).show(modal);
   }
 
   /**
