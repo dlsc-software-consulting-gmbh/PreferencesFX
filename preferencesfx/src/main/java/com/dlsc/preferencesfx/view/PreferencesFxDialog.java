@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
+import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
@@ -88,6 +89,7 @@ public class PreferencesFxDialog extends DialogPane {
       }
       if (saveSettings) {
         model.saveSettingValues();
+        model.fireEvent(PreferencesFxEvent.preferencesSavedEvent());
       }
     });
   }
@@ -141,6 +143,7 @@ public class PreferencesFxDialog extends DialogPane {
       if (saveSettings) {
         model.saveSettingValues();
       }
+      model.fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
     });
     closeBtn.setOnAction(event -> {
       LOGGER.trace("Close Button was pressed");

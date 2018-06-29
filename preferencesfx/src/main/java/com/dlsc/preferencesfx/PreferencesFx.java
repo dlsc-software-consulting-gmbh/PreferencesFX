@@ -17,8 +17,13 @@ import com.dlsc.preferencesfx.view.PreferencesFxDialog;
 import com.dlsc.preferencesfx.view.PreferencesFxPresenter;
 import com.dlsc.preferencesfx.view.PreferencesFxView;
 import com.dlsc.preferencesfx.view.UndoRedoBox;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Represents the main PreferencesFX class.
@@ -190,6 +195,17 @@ public class PreferencesFx {
    */
   public PreferencesFx i18n(TranslationService newValue) {
     preferencesFxModel.setTranslationService(newValue);
+    return this;
+  }
+
+
+  public PreferencesFx addEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
+    preferencesFxModel.addEventHandler(eventType,eventHandler);
+    return this;
+  }
+
+  public PreferencesFx removeEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
+    preferencesFxModel.removeEventHandler(eventType, eventHandler);
     return this;
   }
 }
