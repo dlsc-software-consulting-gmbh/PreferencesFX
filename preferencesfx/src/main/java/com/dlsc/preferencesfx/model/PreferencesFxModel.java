@@ -5,7 +5,7 @@ import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.util.AbstractStorageHandler;
+import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.DefaultStorageHandler;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
@@ -41,7 +41,7 @@ public class PreferencesFxModel {
 
   private List<Category> categories;
   private List<Category> flatCategoriesLst;
-  private AbstractStorageHandler storageHandler;
+  private StorageHandler storageHandler;
   private SearchHandler searchHandler;
   private History history;
   private ObjectProperty<TranslationService> translationService = new SimpleObjectProperty<>();
@@ -56,13 +56,13 @@ public class PreferencesFxModel {
   /**
    * Initializes a new model.
    *
-   * @param storageHandler the {@link AbstractStorageHandler} to use for saving and loading
+   * @param storageHandler the {@link StorageHandler} to use for saving and loading
    * @param searchHandler  the {@link SearchHandler} to use for handling the searches
    * @param history        the {@link History} in which to save the changes and handle undo / redo
    * @param categories     the categories to be displayed, along with the groups and settings
    */
   public PreferencesFxModel(
-      AbstractStorageHandler storageHandler,
+      StorageHandler storageHandler,
       SearchHandler searchHandler,
       History history,
       Category[] categories
@@ -127,7 +127,7 @@ public class PreferencesFxModel {
     return history;
   }
 
-  public AbstractStorageHandler getStorageHandler() {
+  public StorageHandler getStorageHandler() {
     return storageHandler;
   }
 

@@ -12,7 +12,7 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleIntegerControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleListViewControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
-import com.dlsc.preferencesfx.util.AbstractStorageHandler;
+import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.DefaultStorageHandler;
 
@@ -340,7 +340,7 @@ public class Setting<F extends Field, P extends Property> {
    *
    * @param storageHandler the {@link DefaultStorageHandler} to use
    */
-  public void saveSettingValue(AbstractStorageHandler storageHandler) {
+  public void saveSettingValue(StorageHandler storageHandler) {
     storageHandler.saveObject(getBreadcrumb(), value.getValue());
   }
 
@@ -352,7 +352,7 @@ public class Setting<F extends Field, P extends Property> {
    *           and all the other property types, since those need to be handled differently by
    *           the {@link DefaultStorageHandler}.
    */
-  public void loadSettingValue(AbstractStorageHandler storageHandler) {
+  public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
       value.setValue(
           storageHandler.loadObservableList(getBreadcrumb(), (ObservableList) value.getValue())

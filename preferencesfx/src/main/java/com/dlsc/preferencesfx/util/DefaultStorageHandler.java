@@ -31,7 +31,7 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class DefaultStorageHandler extends AbstractStorageHandler {
+public class DefaultStorageHandler implements StorageHandler {
 
   private static final Logger LOGGER =
       LogManager.getLogger(DefaultStorageHandler.class.getName());

@@ -4,7 +4,7 @@ import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import com.dlsc.preferencesfx.util.AbstractStorageHandler;
+import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.DefaultStorageHandler;
 import com.dlsc.preferencesfx.view.BreadCrumbPresenter;
@@ -54,7 +54,7 @@ public class PreferencesFx {
     // asciidoctor Documentation - end::testMock[]
   }
 
-  private PreferencesFx(AbstractStorageHandler storageHandler, Category... categories) {
+  private PreferencesFx(StorageHandler storageHandler, Category... categories) {
     // asciidoctor Documentation - tag::testMock[]
     preferencesFxModel = new PreferencesFxModel(
             storageHandler, new SearchHandler(), new History(), categories
@@ -102,11 +102,11 @@ public class PreferencesFx {
   /**
    * Creates the Preferences window.
    *
-   * @param customStorageHandler Custom implementation of the {@link AbstractStorageHandler}
+   * @param customStorageHandler Custom implementation of the {@link StorageHandler}
    * @param categories the items to be displayed in the TreeSearchView
    * @return the preferences window
    */
-  public static PreferencesFx of(AbstractStorageHandler customStorageHandler, Category... categories) {
+  public static PreferencesFx of(StorageHandler customStorageHandler, Category... categories) {
     return new PreferencesFx(customStorageHandler, categories);
   }
 

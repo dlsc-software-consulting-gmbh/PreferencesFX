@@ -23,7 +23,7 @@ public class DefaultStorageHandlerTest {
 
   @Test
   public void testClearPreferences() throws BackingStoreException {
-    AbstractStorageHandler storageHandler = new DefaultStorageHandler(DefaultStorageHandlerTest.class);
+    StorageHandler storageHandler = new DefaultStorageHandler(DefaultStorageHandlerTest.class);
     Preferences preferences = storageHandler.getPreferences();
     preferences.clear();
   }
