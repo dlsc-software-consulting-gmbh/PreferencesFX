@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
+import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
@@ -54,9 +55,22 @@ public class PreferencesFxDialog extends DialogPane {
     setupDialogClose();
     loadLastWindowState();
     setupButtons();
-    dialog.show();
     if (model.getHistoryDebugState()) {
       setupDebugHistoryTable();
+    }
+  }
+
+  public void show() {
+    show(false);
+  }
+
+  public void show(boolean modal) {
+    if(modal) {
+      dialog.initModality(Modality.APPLICATION_MODAL);
+      dialog.showAndWait();
+    } else {
+      dialog.initModality(Modality.NONE);
+      dialog.show();
     }
   }
 
@@ -64,7 +78,6 @@ public class PreferencesFxDialog extends DialogPane {
     dialog.setTitle("PreferencesFx");
     dialog.setResizable(true);
     getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
-    dialog.initModality(Modality.NONE);
     dialog.setDialogPane(this);
     setContent(preferencesFxView);
   }
@@ -76,6 +89,7 @@ public class PreferencesFxDialog extends DialogPane {
       }
       if (saveSettings) {
         model.saveSettingValues();
+        model.fireEvent(PreferencesFxEvent.preferencesSavedEvent());
       }
     });
   }
@@ -129,6 +143,7 @@ public class PreferencesFxDialog extends DialogPane {
       if (saveSettings) {
         model.saveSettingValues();
       }
+      model.fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
     });
     closeBtn.setOnAction(event -> {
       LOGGER.trace("Close Button was pressed");
