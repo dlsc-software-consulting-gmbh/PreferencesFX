@@ -14,7 +14,7 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.Constants;
-import com.dlsc.preferencesfx.util.DefaultStorageHandler;
+import com.dlsc.preferencesfx.util.StorageHandlerImpl;
 
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
@@ -336,21 +336,21 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * Saves the current value of this setting using a {@link DefaultStorageHandler}.
+   * Saves the current value of this setting using a {@link StorageHandlerImpl}.
    *
-   * @param storageHandler the {@link DefaultStorageHandler} to use
+   * @param storageHandler the {@link StorageHandlerImpl} to use
    */
   public void saveSettingValue(StorageHandler storageHandler) {
     storageHandler.saveObject(getBreadcrumb(), value.getValue());
   }
 
   /**
-   * Loads the value of this setting using a {@link DefaultStorageHandler}.
+   * Loads the value of this setting using a {@link StorageHandlerImpl}.
    *
-   * @param storageHandler the {@link DefaultStorageHandler} to use
+   * @param storageHandler the {@link StorageHandlerImpl} to use
    * @implNote differentiates between a {@link ListProperty}, as found in multiselection settings,
    *           and all the other property types, since those need to be handled differently by
-   *           the {@link DefaultStorageHandler}.
+   *           the {@link StorageHandlerImpl}.
    */
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {

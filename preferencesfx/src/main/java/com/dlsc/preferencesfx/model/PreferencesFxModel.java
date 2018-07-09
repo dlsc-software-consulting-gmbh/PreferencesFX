@@ -6,7 +6,7 @@ import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.StorageHandler;
-import com.dlsc.preferencesfx.util.DefaultStorageHandler;
+import com.dlsc.preferencesfx.util.StorageHandlerImpl;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
 
@@ -166,7 +166,7 @@ public class PreferencesFxModel {
   }
 
   /**
-   * Saves all of the values of the settings using a {@link DefaultStorageHandler}.
+   * Saves all of the values of the settings using a {@link StorageHandlerImpl}.
    */
   public void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
@@ -175,7 +175,7 @@ public class PreferencesFxModel {
   }
 
   /**
-   * Load all of the values of the settings using a {@link DefaultStorageHandler} and attaches a
+   * Load all of the values of the settings using a {@link StorageHandlerImpl} and attaches a
    * listener for {@link History}, so that it will be notified of changes to the setting's values.
    */
   public void loadSettingValues() {

@@ -6,7 +6,8 @@ import java.util.prefs.Preferences;
 
 /**
  * Abstraction for storing values of {@link Setting}.
- * Clients able to provide custom implementations by extending this class.
+ * API user able to provide custom implementations by creating a new class and
+ * implementing this interface.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -25,7 +26,7 @@ public interface StorageHandler {
     /**
      * Gets the last selected category in TreeSearchView.
      *
-     * @return the breadcrumb string of the selected category. null if none is found
+     * @return the breadcrumb string of the selected category
      */
     String loadSelectedCategory();
 
@@ -39,7 +40,7 @@ public interface StorageHandler {
     /**
      * Gets the stored divider position of the MasterDetailPane.
      *
-     * @return the double value of the divider position. 0.2 if none is found
+     * @return the double value of the divider position
      */
     double loadDividerPosition();
 
@@ -53,7 +54,7 @@ public interface StorageHandler {
     /**
      * Searches for the window width of the PreferencesFxDialog.
      *
-     * @return the double value of the window width. 1000 if none is found
+     * @return the double value of the window width
      */
     double loadWindowWidth();
 
@@ -67,7 +68,7 @@ public interface StorageHandler {
     /**
      * Searches for the window height of the PreferencesFxDialog.
      *
-     * @return the double value of the window height. 700 if none is found
+     * @return the double value of the window height
      */
     double loadWindowHeight();
 
