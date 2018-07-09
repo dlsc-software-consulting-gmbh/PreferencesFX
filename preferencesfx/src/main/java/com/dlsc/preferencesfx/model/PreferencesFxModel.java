@@ -270,16 +270,22 @@ public class PreferencesFxModel {
   }
 
   public void addEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
-    if (eventType == null || eventHandler == null) {
-      return;
+    if (eventType == null) {
+      throw new NullPointerException("Argument eventType must not be null");
+    }
+    if (eventHandler == null) {
+      throw new NullPointerException("Argument eventHandler must not be null");
     }
 
     this.eventHandlers.computeIfAbsent(eventType, k -> new CopyOnWriteArrayList<>()).add(eventHandler);
   }
 
   public void removeEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
-    if (eventType == null || eventHandler == null) {
-      return;
+    if (eventType == null) {
+      throw new NullPointerException("Argument eventType must not be null");
+    }
+    if (eventHandler == null) {
+      throw new NullPointerException("Argument eventHandler must not be null");
     }
 
     List<EventHandler<? super PreferencesFxEvent>> list = this.eventHandlers.get(eventType);
