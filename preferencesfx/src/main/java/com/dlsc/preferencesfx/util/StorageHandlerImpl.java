@@ -31,15 +31,15 @@ import org.apache.logging.log4j.Logger;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class DefaultStorageHandler implements StorageHandler {
+public class StorageHandlerImpl implements StorageHandler {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(DefaultStorageHandler.class.getName());
+      LogManager.getLogger(StorageHandlerImpl.class.getName());
 
   private Preferences preferences;
   private Gson gson;
 
-  public DefaultStorageHandler(Class<?> saveClass) {
+  public StorageHandlerImpl(Class<?> saveClass) {
     preferences = Preferences.userNodeForPackage(saveClass);
     gson = new Gson();
   }
