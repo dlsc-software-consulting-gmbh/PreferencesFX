@@ -198,12 +198,32 @@ public class PreferencesFx {
     return this;
   }
 
-
+  /**
+   * Registers an event handler with the model. The handler is called when the
+   * model receives an {@code Event} of the specified type during the bubbling
+   * phase of event delivery.
+   *
+   * @param eventType    the type of the events to receive by the handler
+   * @param eventHandler the handler to register
+   *
+   * @throws NullPointerException if either event type or handler are {@code null}.
+   */
   public PreferencesFx addEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
     preferencesFxModel.addEventHandler(eventType,eventHandler);
     return this;
   }
 
+  /**
+   * Unregisters a previously registered event handler from the model. One
+   * handler might have been registered for different event types, so the
+   * caller needs to specify the particular event type from which to
+   * unregister the handler.
+   *
+   * @param eventType    the event type from which to unregister
+   * @param eventHandler the handler to unregister
+   *
+   * @throws NullPointerException if either event type or handler are {@code null}.
+   */
   public PreferencesFx removeEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
     preferencesFxModel.removeEventHandler(eventType, eventHandler);
     return this;
