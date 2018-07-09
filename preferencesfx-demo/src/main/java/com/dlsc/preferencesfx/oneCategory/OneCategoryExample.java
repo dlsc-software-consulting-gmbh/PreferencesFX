@@ -26,7 +26,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 
-public class RootPane extends StackPane {
+public class OneCategoryExample extends StackPane {
 
   public PreferencesFx preferencesFx;
 
@@ -36,7 +36,7 @@ public class RootPane extends StackPane {
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
   DoubleProperty scaling = new SimpleDoubleProperty(1);
 
-  public RootPane() {
+  public OneCategoryExample() {
     preferencesFx = createPreferences();
     getChildren().add(new DemoView(preferencesFx, this));
   }

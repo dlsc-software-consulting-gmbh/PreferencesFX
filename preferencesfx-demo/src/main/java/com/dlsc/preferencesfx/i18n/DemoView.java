@@ -18,7 +18,7 @@ public class DemoView extends VBox {
   private MenuBar menuBar;
   private Menu menu;
   private MenuItem preferencesMenuItem;
-  private RootPane rootPane;
+  private InternationalizedExample rootPane;
 
   private Label welcomeLbl;
   private Label brightnessLbl;
@@ -36,7 +36,7 @@ public class DemoView extends VBox {
   private Button germanBtn;
 
 
-  public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
+  public DemoView(PreferencesFx preferencesFx, InternationalizedExample rootPane) {
     this.preferencesFx = preferencesFx;
     this.rootPane = rootPane;
 

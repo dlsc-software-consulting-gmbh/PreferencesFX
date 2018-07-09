@@ -2,8 +2,6 @@ package com.dlsc.preferencesfx.oneCategory;
 
 import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
-import java.util.stream.Collectors;
-import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -17,14 +15,14 @@ public class DemoView extends VBox {
   private MenuBar menuBar;
   private Menu menu;
   private MenuItem preferencesMenuItem;
-  private RootPane rootPane;
+  private OneCategoryExample rootPane;
 
   private Label welcomeLbl;
   private Label brightnessLbl;
   private Label nightModeLbl;
   private Label scalingLbl;
 
-  public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
+  public DemoView(PreferencesFx preferencesFx, OneCategoryExample rootPane) {
     this.preferencesFx = preferencesFx;
     this.rootPane = rootPane;
 
