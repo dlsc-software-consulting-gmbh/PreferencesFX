@@ -6,7 +6,7 @@ import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.SearchHandler;
-import com.dlsc.preferencesfx.util.DefaultStorageHandler;
+import com.dlsc.preferencesfx.util.StorageHandlerImpl;
 import com.dlsc.preferencesfx.view.BreadCrumbPresenter;
 import com.dlsc.preferencesfx.view.BreadCrumbView;
 import com.dlsc.preferencesfx.view.CategoryController;
@@ -49,7 +49,7 @@ public class PreferencesFx {
   private PreferencesFx(Class<?> saveClass, Category... categories) {
     // asciidoctor Documentation - tag::testMock[]
     preferencesFxModel = new PreferencesFxModel(
-        new DefaultStorageHandler(saveClass), new SearchHandler(), new History(), categories
+        new StorageHandlerImpl(saveClass), new SearchHandler(), new History(), categories
     );
     // asciidoctor Documentation - end::testMock[]
   }
