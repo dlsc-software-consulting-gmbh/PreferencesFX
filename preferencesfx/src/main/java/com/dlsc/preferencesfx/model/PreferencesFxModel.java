@@ -178,7 +178,7 @@ public class PreferencesFxModel {
   }
 
   /**
-   * Saves all of the values of the settings using a {@link StorageHandlerImpl}.
+   * Saves all of the values of the settings using a {@link StorageHandler}.
    */
   public void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
@@ -187,7 +187,7 @@ public class PreferencesFxModel {
   }
 
   /**
-   * Load all of the values of the settings using a {@link StorageHandlerImpl} and attaches a
+   * Load all of the values of the settings using a {@link StorageHandler} and attaches a
    * listener for {@link History}, so that it will be notified of changes to the setting's values.
    */
   public void loadSettingValues() {

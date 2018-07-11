@@ -336,21 +336,21 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * Saves the current value of this setting using a {@link StorageHandlerImpl}.
+   * Saves the current value of this setting using a {@link StorageHandler}.
    *
-   * @param storageHandler the {@link StorageHandlerImpl} to use
+   * @param storageHandler the {@link StorageHandler} to use
    */
   public void saveSettingValue(StorageHandler storageHandler) {
     storageHandler.saveObject(getBreadcrumb(), value.getValue());
   }
 
   /**
-   * Loads the value of this setting using a {@link StorageHandlerImpl}.
+   * Loads the value of this setting using a {@link StorageHandler}.
    *
-   * @param storageHandler the {@link StorageHandlerImpl} to use
+   * @param storageHandler the {@link StorageHandler} to use
    * @implNote differentiates between a {@link ListProperty}, as found in multiselection settings,
    *           and all the other property types, since those need to be handled differently by
-   *           the {@link StorageHandlerImpl}.
+   *           the {@link StorageHandler}.
    */
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
