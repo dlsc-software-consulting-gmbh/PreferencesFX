@@ -4,8 +4,9 @@ import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.util.SearchHandler;
+import com.dlsc.preferencesfx.util.StorageHandlerImpl;
 import com.dlsc.preferencesfx.view.BreadCrumbPresenter;
 import com.dlsc.preferencesfx.view.BreadCrumbView;
 import com.dlsc.preferencesfx.view.CategoryController;
@@ -53,10 +54,21 @@ public class PreferencesFx {
   private PreferencesFx(Class<?> saveClass, Category... categories) {
     // asciidoctor Documentation - tag::testMock[]
     preferencesFxModel = new PreferencesFxModel(
-        new StorageHandler(saveClass), new SearchHandler(), new History(), categories
+        new StorageHandlerImpl(saveClass), new SearchHandler(), new History(), categories
     );
     // asciidoctor Documentation - end::testMock[]
+  }
 
+  private PreferencesFx(StorageHandler storageHandler, Category... categories) {
+    // asciidoctor Documentation - tag::testMock[]
+    preferencesFxModel = new PreferencesFxModel(
+            storageHandler, new SearchHandler(), new History(), categories
+    );
+    // asciidoctor Documentation - end::testMock[]
+    init();
+  }
+
+  private void init() {
     // setting values are only loaded if they are present already
     preferencesFxModel.loadSettingValues();
 
@@ -67,6 +79,7 @@ public class PreferencesFx {
 
     categoryController = new CategoryController();
     initializeCategoryViews();
+
     // display initial category
     categoryController.setView(preferencesFxModel.getDisplayedCategory());
 
@@ -74,7 +87,7 @@ public class PreferencesFx {
     navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
 
     preferencesFxView = new PreferencesFxView(
-        preferencesFxModel, navigationView, breadCrumbView, categoryController
+            preferencesFxModel, navigationView, breadCrumbView, categoryController
     );
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
   }
@@ -89,6 +102,17 @@ public class PreferencesFx {
    */
   public static PreferencesFx of(Class<?> saveClass, Category... categories) {
     return new PreferencesFx(saveClass, categories);
+  }
+
+  /**
+   * Creates the Preferences window.
+   *
+   * @param customStorageHandler Custom implementation of the {@link StorageHandler}
+   * @param categories the items to be displayed in the TreeSearchView
+   * @return the preferences window
+   */
+  public static PreferencesFx of(StorageHandler customStorageHandler, Category... categories) {
+    return new PreferencesFx(customStorageHandler, categories);
   }
 
   /**

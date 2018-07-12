@@ -73,4 +73,5 @@ gradle-app.setting
 .idea/
 classes/
 
-/logs/
+logs/
+target/

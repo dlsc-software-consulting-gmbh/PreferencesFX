@@ -12,8 +12,10 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleIntegerControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleListViewControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
-import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.util.Constants;
+import com.dlsc.preferencesfx.util.StorageHandlerImpl;
+
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;

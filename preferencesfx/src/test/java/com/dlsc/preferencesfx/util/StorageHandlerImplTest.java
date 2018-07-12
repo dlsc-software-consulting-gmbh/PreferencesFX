@@ -7,12 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test class for {@link StorageHandler}.
+ * Test class for {@link StorageHandlerImpl}.
  *
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class StorageHandlerTest {
+public class StorageHandlerImplTest {
   @Before
   public void setUp() throws Exception {
   }
@@ -23,7 +23,7 @@ public class StorageHandlerTest {
 
   @Test
   public void testClearPreferences() throws BackingStoreException {
-    StorageHandler storageHandler = new StorageHandler(StorageHandlerTest.class);
+    StorageHandler storageHandler = new StorageHandlerImpl(StorageHandlerImplTest.class);
     Preferences preferences = storageHandler.getPreferences();
     preferences.clear();
   }
