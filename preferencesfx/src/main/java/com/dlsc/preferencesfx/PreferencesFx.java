@@ -56,6 +56,7 @@ public class PreferencesFx {
     preferencesFxModel = new PreferencesFxModel(
         new StorageHandlerImpl(saveClass), new SearchHandler(), new History(), categories
     );
+    init();
     // asciidoctor Documentation - end::testMock[]
   }
 
