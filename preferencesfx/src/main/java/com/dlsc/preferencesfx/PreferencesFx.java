@@ -52,12 +52,7 @@ public class PreferencesFx {
   private PreferencesFxPresenter preferencesFxPresenter;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
-    // asciidoctor Documentation - tag::testMock[]
-    preferencesFxModel = new PreferencesFxModel(
-        new StorageHandlerImpl(saveClass), new SearchHandler(), new History(), categories
-    );
-    init();
-    // asciidoctor Documentation - end::testMock[]
+    this(new StorageHandlerImpl(saveClass), categories);
   }
 
   private PreferencesFx(StorageHandler storageHandler, Category... categories) {
