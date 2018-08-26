@@ -87,10 +87,7 @@ public class PreferencesFxDialog extends DialogPane {
       if (persistWindowState) {
         saveWindowState();
       }
-      if (saveSettings) {
-        model.saveSettingValues();
-        model.fireEvent(PreferencesFxEvent.preferencesSavedEvent());
-      }
+     model.saveSettings();
     });
   }
 

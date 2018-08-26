@@ -310,4 +310,14 @@ public class PreferencesFxModel {
       }
     }
   }
+
+  /**
+   * Saves the settings, when {@link #isSaveSettings()} returns {@code true}.
+   */
+  public void saveSettings(){
+    if (isSaveSettings()) {
+      saveSettingValues();
+      fireEvent(PreferencesFxEvent.preferencesSavedEvent());
+    }
+  }
 }
