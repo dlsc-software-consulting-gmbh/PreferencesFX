@@ -248,4 +248,8 @@ public class PreferencesFx {
     preferencesFxModel.removeEventHandler(eventType, eventHandler);
     return this;
   }
+
+  public PreferencesFxView getPreferencesFxView(){
+    return new PreferencesFxView(preferencesFxModel,navigationView,breadCrumbView,categoryController);
+  }
 }
