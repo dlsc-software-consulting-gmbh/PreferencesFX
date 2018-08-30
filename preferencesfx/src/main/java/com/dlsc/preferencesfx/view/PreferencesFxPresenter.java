@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
+import javafx.application.Platform;
 import javafx.stage.WindowEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,7 +45,17 @@ public class PreferencesFxPresenter implements Presenter {
   @Override
   public void setupEventHandlers() {
     //When the Window is closed, the settings are saved beforehand.
-    preferencesFxView.getScene().getWindow().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST,event -> model.saveSettings());
+    preferencesFxView.sceneProperty().addListener((observable, oldScene, newScene) -> {
+      LOGGER.trace("new Scene: " + newScene);
+      if (newScene != null) {
+        LOGGER.trace("addEventHandler on Window close request to save settings");
+        newScene.getWindow()
+            .addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
+              LOGGER.trace("saveSettings");
+              model.saveSettings();
+            });
+      }
+    });
   }
 
   /**
