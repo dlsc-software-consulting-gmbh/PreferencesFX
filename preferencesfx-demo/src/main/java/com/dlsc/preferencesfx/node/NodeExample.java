@@ -8,27 +8,20 @@ import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
+import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
-import java.util.Arrays;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import com.dlsc.preferencesfx.util.StorageHandler;
+import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 
+import java.util.Arrays;
+
 public class NodeExample extends StackPane {
 
     public PreferencesFx preferencesFx;
+
 
     // General
     StringProperty welcomeText = new SimpleStringProperty("Hello World");
@@ -71,7 +64,12 @@ public class NodeExample extends StackPane {
 
     public NodeExample() {
         preferencesFx = createPreferences();
-        getChildren().add(preferencesFx.getPreferencesFxView());
+        getChildren().add(new NodeView(preferencesFx,this));
+        PreferencesFxModel model = preferencesFx.getPreferencesFxModel();
+        boolean saveSettings = model.isSaveSettings();
+        StorageHandler storageHandler = model.getStorageHandler();
+        model.loadSettingValues();
+
     }
 
     private IntegerField setupCustomControl() {

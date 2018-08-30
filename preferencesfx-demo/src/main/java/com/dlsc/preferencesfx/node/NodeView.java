@@ -3,6 +3,8 @@ package com.dlsc.preferencesfx.node;
 import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import java.util.stream.Collectors;
+
+import com.dlsc.preferencesfx.view.PreferencesFxView;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -12,6 +14,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+@SuppressWarnings("ALL")
 public class NodeView extends VBox {
     private PreferencesFx preferencesFx;
     private MenuBar menuBar;
@@ -65,6 +68,7 @@ public class NodeView extends VBox {
         menu.getItems().add(preferencesMenuItem);
         menuBar.getMenus().add(menu);
 
+
         // VBox with values
         VBox valueBox = new VBox(
                 welcomeLbl,
@@ -99,12 +103,14 @@ public class NodeView extends VBox {
         descriptionBox.setSpacing(20);
         descriptionBox.setPadding(new Insets(20, 0, 0, 20));
 
+        PreferencesFxView preferencesFxView = preferencesFx.getPreferencesFxView();
         // Put everything together
         getChildren().addAll(
                 menuBar,
                 new HBox(
                         descriptionBox,
-                        valueBox
+                        valueBox,
+                        preferencesFxView
                 )
         );
 
@@ -113,6 +119,7 @@ public class NodeView extends VBox {
         if (rootPane.nightMode.get()) {
             getStylesheets().add(AppStarter.class.getResource("darkTheme.css").toExternalForm());
         }
+
     }
 
     private void setupBindings() {
@@ -133,7 +140,7 @@ public class NodeView extends VBox {
     }
 
     private void setupEventHandlers() {
-        preferencesMenuItem.setOnAction(e -> preferencesFx.show(true));
+        preferencesMenuItem.setOnAction(e -> this.getChildren().add(preferencesFx.getPreferencesFxView()));
     }
 
     private void setupListeners() {
