@@ -23,7 +23,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
 import com.dlsc.formsfx.model.structure.SingleSelectionField;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;

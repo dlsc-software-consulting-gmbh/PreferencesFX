@@ -1,8 +1,8 @@
 package com.dlsc.preferencesfx.util;
 
 import com.dlsc.preferencesfx.model.Setting;
-import javafx.collections.ObservableList;
 import java.util.prefs.Preferences;
+import javafx.collections.ObservableList;
 
 /**
  * Abstraction for storing values of {@link Setting}.

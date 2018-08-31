@@ -111,10 +111,10 @@ public class NodeView extends VBox {
     BorderPane pane = new BorderPane();
     HBox hBox = new HBox(descriptionBox, valueBox);
     pane.setLeft(hBox);
-    hBox.setPadding(new Insets(0,20,0,0));
+    hBox.setPadding(new Insets(0, 20, 0, 0));
     pane.setRight(preferencesFxView);
     VBox.setVgrow(menuBar, Priority.ALWAYS);
-    VBox.setVgrow(pane,Priority.ALWAYS);
+    VBox.setVgrow(pane, Priority.ALWAYS);
     getChildren().addAll(
         menuBar,
         pane

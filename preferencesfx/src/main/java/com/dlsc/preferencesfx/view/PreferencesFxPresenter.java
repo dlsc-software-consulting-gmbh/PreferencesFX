@@ -1,7 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import javafx.application.Platform;
 import javafx.stage.WindowEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
