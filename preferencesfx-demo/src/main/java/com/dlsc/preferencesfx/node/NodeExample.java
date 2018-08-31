@@ -66,8 +66,6 @@ public class NodeExample extends StackPane {
         preferencesFx = createPreferences();
         getChildren().add(new NodeView(preferencesFx,this));
         PreferencesFxModel model = preferencesFx.getPreferencesFxModel();
-        boolean saveSettings = model.isSaveSettings();
-        StorageHandler storageHandler = model.getStorageHandler();
         model.loadSettingValues();
 
     }
