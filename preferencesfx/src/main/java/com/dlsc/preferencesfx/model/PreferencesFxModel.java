@@ -174,7 +174,7 @@ public class PreferencesFxModel {
   /**
    * Saves all of the values of the settings using a {@link StorageHandler}.
    */
-  public void saveSettingValues() {
+  private void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
         getFlatCategoriesLst()
     ).forEach(setting -> setting.saveSettingValue(storageHandler));
@@ -293,7 +293,7 @@ public class PreferencesFxModel {
     }
   }
 
-  public void fireEvent(PreferencesFxEvent event) {
+  private void fireEvent(PreferencesFxEvent event) {
     List<EventHandler<? super PreferencesFxEvent>> list = this.eventHandlers.get(event.getEventType());
     if (list == null) {
       return;

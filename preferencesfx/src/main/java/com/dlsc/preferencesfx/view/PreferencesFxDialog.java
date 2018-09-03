@@ -103,7 +103,7 @@ public class PreferencesFxDialog extends DialogPane {
   /**
    * Loads last saved size and position of the window.
    */
-  public void loadLastWindowState() {
+  private void loadLastWindowState() {
     if (persistWindowState) {
       setPrefSize(storageHandler.loadWindowWidth(), storageHandler.loadWindowHeight());
       getScene().getWindow().setX(storageHandler.loadWindowPosX());
