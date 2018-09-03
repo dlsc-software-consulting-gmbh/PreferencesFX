@@ -245,14 +245,30 @@ public class PreferencesFx {
     return this;
   }
 
+  /**
+   * Returns a PreferencesFxView, so that it can be used as a Node.
+   *
+   * @return a PreferencesFxView, so that it can be used as a Node.
+   */
   public PreferencesFxView getView() {
     return new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
   }
 
+  /**
+   * Saves all of the changed settings.
+   *
+   * Call this method when the preferences are shown by using {@link #getView()}.
+   */
   public void saveSettings(){
     preferencesFxModel.saveSettings();
   }
 
+
+  /**
+   * Discard all of the changed settings.
+   *
+   * Call this method when the preferences are shown by using {@link #getView()}
+   */
   public void discardChanges(){
     preferencesFxModel.discardChanges();
   }
