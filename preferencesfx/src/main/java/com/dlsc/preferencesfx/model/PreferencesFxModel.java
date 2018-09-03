@@ -313,5 +313,15 @@ public class PreferencesFxModel {
       saveSettingValues();
       fireEvent(PreferencesFxEvent.preferencesSavedEvent());
     }
+    history.clear(false);
+  }
+
+  public void discardChanges() {
+    history.clear(true);
+    // save settings after undoing them
+    if (saveSettings) {
+      saveSettingValues();
+    }
+    fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
   }
 }

@@ -135,12 +135,7 @@ public class PreferencesFxDialog extends DialogPane {
     History history = model.getHistory();
     cancelBtn.setOnAction(event -> {
       LOGGER.trace("Cancel Button was pressed");
-      history.clear(true);
-      // save settings after undoing them
-      if (saveSettings) {
-        model.saveSettingValues();
-      }
-      model.fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
+      model.discardChanges();
     });
     closeBtn.setOnAction(event -> {
       LOGGER.trace("Close Button was pressed");
