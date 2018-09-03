@@ -30,7 +30,6 @@ public class NodeExample extends StackPane {
 
   public PreferencesFx preferencesFx;
 
-
   // General
   StringProperty welcomeText = new SimpleStringProperty("Hello World");
   IntegerProperty brightness = new SimpleIntegerProperty(50);

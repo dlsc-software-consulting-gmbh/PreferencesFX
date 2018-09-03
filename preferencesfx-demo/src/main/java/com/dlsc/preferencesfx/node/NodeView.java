@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.dlsc.preferencesfx.view.PreferencesFxView;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -88,7 +89,10 @@ public class NodeView extends VBox {
     );
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
-
+    Button saveSettingsButton = new Button("Save Settings");
+    saveSettingsButton.setOnAction(event -> preferencesFx.saveSettings());
+    Button discardChangesButton = new Button("Discard Changes");
+    discardChangesButton.setOnAction(event -> preferencesFx.discardChanges());
     // VBox with descriptions
     VBox descriptionBox = new VBox(
         new Label("Welcome Text:"),
@@ -101,7 +105,9 @@ public class NodeView extends VBox {
         new Label("Favorites:"),
         new Label("Font Size:"),
         new Label("Line Spacing:"),
-        new Label("Favorite Number:")
+        new Label("Favorite Number:"),
+        saveSettingsButton,
+        discardChangesButton
     );
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
@@ -112,7 +118,7 @@ public class NodeView extends VBox {
     HBox hBox = new HBox(descriptionBox, valueBox);
     pane.setLeft(hBox);
     hBox.setPadding(new Insets(0, 20, 0, 0));
-    pane.setRight(preferencesFxView);
+    pane.setCenter(preferencesFxView);
     VBox.setVgrow(menuBar, Priority.ALWAYS);
     VBox.setVgrow(pane, Priority.ALWAYS);
     getChildren().addAll(
