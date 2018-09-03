@@ -249,7 +249,12 @@ public class PreferencesFx {
     return new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
   }
 
-  public PreferencesFxModel getPreferencesFxModel() {
-    return preferencesFxModel;
+  public void saveSettings(){
+    preferencesFxModel.saveSettings();
   }
+
+  public void discardChanges(){
+    preferencesFxModel.discardChanges();
+  }
+
 }
