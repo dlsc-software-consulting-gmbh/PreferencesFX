@@ -65,9 +65,6 @@ public class NodeExample extends StackPane {
   public NodeExample() {
     preferencesFx = createPreferences();
     getChildren().add(new NodeView(preferencesFx, this));
-    PreferencesFxModel model = preferencesFx.getPreferencesFxModel();
-    model.loadSettingValues();
-
   }
 
   private IntegerField setupCustomControl() {

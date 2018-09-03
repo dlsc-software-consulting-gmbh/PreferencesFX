@@ -245,7 +245,7 @@ public class PreferencesFx {
     return this;
   }
 
-  public PreferencesFxView getPreferencesFxView() {
+  public PreferencesFxView getView() {
     return new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
   }
 

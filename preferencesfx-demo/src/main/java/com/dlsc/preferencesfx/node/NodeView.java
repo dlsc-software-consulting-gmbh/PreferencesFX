@@ -106,7 +106,7 @@ public class NodeView extends VBox {
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
 
-    PreferencesFxView preferencesFxView = preferencesFx.getPreferencesFxView();
+    PreferencesFxView preferencesFxView = preferencesFx.getView();
     // Put everything together
     BorderPane pane = new BorderPane();
     HBox hBox = new HBox(descriptionBox, valueBox);
@@ -145,7 +145,7 @@ public class NodeView extends VBox {
   }
 
   private void setupEventHandlers() {
-    preferencesMenuItem.setOnAction(e -> this.getChildren().add(preferencesFx.getPreferencesFxView()));
+    preferencesMenuItem.setOnAction(e -> this.getChildren().add(preferencesFx.getView()));
   }
 
   private void setupListeners() {
