@@ -1,6 +1,5 @@
 package com.dlsc.preferencesfx.view;
 
-import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
