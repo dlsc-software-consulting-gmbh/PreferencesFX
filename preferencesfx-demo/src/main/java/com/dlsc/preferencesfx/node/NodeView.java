@@ -2,10 +2,8 @@ package com.dlsc.preferencesfx.node;
 
 import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
-
-import java.util.stream.Collectors;
-
 import com.dlsc.preferencesfx.view.PreferencesFxView;
+import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;

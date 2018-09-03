@@ -256,20 +256,19 @@ public class PreferencesFx {
 
   /**
    * Saves all of the changed settings.
-   *
+   * <p>
    * Call this method when the preferences are shown by using {@link #getView()}.
    */
-  public void saveSettings(){
+  public void saveSettings() {
     preferencesFxModel.saveSettings();
   }
 
-
   /**
    * Discard all of the changed settings.
-   *
+   * <p>
    * Call this method when the preferences are shown by using {@link #getView()}
    */
-  public void discardChanges(){
+  public void discardChanges() {
     preferencesFxModel.discardChanges();
   }
 
