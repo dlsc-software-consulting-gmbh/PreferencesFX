@@ -251,7 +251,7 @@ public class PreferencesFx {
    * @return a PreferencesFxView, so that it can be used as a Node.
    */
   public PreferencesFxView getView() {
-    return new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
+    return preferencesFxView;
   }
 
   /**
