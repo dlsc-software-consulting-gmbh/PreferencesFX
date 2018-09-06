@@ -16,7 +16,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-@SuppressWarnings("ALL")
 public class NodeView extends VBox {
   private PreferencesFx preferencesFx;
   private MenuBar menuBar;
