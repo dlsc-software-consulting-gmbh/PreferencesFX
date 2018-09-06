@@ -8,9 +8,6 @@ import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -18,9 +15,6 @@ import javafx.scene.layout.VBox;
 
 public class NodeView extends VBox {
   private PreferencesFx preferencesFx;
-  private MenuBar menuBar;
-  private Menu menu;
-  private MenuItem preferencesMenuItem;
   private NodeExample rootPane;
 
   private Label welcomeLbl;
@@ -42,15 +36,10 @@ public class NodeView extends VBox {
     initializeParts();
     layoutParts();
     setupBindings();
-    setupEventHandlers();
     setupListeners();
   }
 
   private void initializeParts() {
-    menuBar = new MenuBar();
-    menu = new Menu("Edit");
-    preferencesMenuItem = new MenuItem("Preferences");
-
     welcomeLbl = new Label();
     brightnessLbl = new Label();
     nightModeLbl = new Label();
@@ -65,11 +54,6 @@ public class NodeView extends VBox {
   }
 
   private void layoutParts() {
-    // MenuBar
-    menu.getItems().add(preferencesMenuItem);
-    menuBar.getMenus().add(menu);
-
-
     // VBox with values
     VBox valueBox = new VBox(
         welcomeLbl,
@@ -116,10 +100,8 @@ public class NodeView extends VBox {
     pane.setLeft(hBox);
     hBox.setPadding(new Insets(0, 20, 0, 0));
     pane.setCenter(preferencesFxView);
-    VBox.setVgrow(menuBar, Priority.ALWAYS);
     VBox.setVgrow(pane, Priority.ALWAYS);
     getChildren().addAll(
-        menuBar,
         pane
     );
 
@@ -145,10 +127,6 @@ public class NodeView extends VBox {
     fontSizeLbl.textProperty().bind(rootPane.fontSize.asString());
     lineSpacingLbl.textProperty().bind(rootPane.lineSpacing.asString());
     favoriteNumberLbl.textProperty().bind(rootPane.customControlProperty.asString());
-  }
-
-  private void setupEventHandlers() {
-    preferencesMenuItem.setOnAction(e -> this.getChildren().add(preferencesFx.getView()));
   }
 
   private void setupListeners() {
