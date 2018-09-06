@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.model.Setting;
+import com.dlsc.preferencesfx.util.SettingsListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -25,7 +26,7 @@ import java.util.Collection;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class History {
+public class History implements SettingsListener {
 
   private static final Logger LOGGER =
       LogManager.getLogger(History.class.getName());
@@ -38,12 +39,14 @@ public class History {
   private BooleanProperty redoAvailable = new SimpleBooleanProperty(false);
 
   private BooleanProperty listenerActive = new SimpleBooleanProperty(true);
+  private final Collection<SettingsListener> listeners = new ArrayList<>(2);
 
   /**
    * Initializes a new history object.
    */
   public History() {
     setupBindings();
+    listeners.add(this);
   }
 
   private void setupBindings() {
@@ -66,77 +69,48 @@ public class History {
    * @param setting the setting to observe for changes
    */
   public void attachChangeListener(Setting setting) {
-    ChangeListener changeEvent = (observable, oldValue, newValue) -> {
-      if (isListenerActive() && oldValue != newValue) {
-        LOGGER.trace("Change detected, old: " + oldValue + " new: " + newValue);
-        addChange(new Change(setting, oldValue, newValue));
-      }
-    };
-    ChangeListener listChangeEvent = (observable, oldValue, newValue) -> {
-      if (isListenerActive()) {
-        LOGGER.trace("List Change detected: " + oldValue);
-        addChange(new Change(setting, (ObservableList) oldValue, (ObservableList) newValue));
-      }
-    };
-
-    if (setting.valueProperty() instanceof SimpleListProperty) {
-      setting.valueProperty().addListener(listChangeEvent);
-    } else {
-      setting.valueProperty().addListener(changeEvent);
-    }
+    setting.valueProperty().addListener((p, oldValue, newValue) -> {
+      LOGGER.trace("Change detected, old: " + oldValue + " new: " + newValue);
+      listeners.forEach(l -> l.settingChanged(setting, oldValue, newValue));
+    });
   }
 
-  private void addChange(Change change) {
-    LOGGER.trace(
-        String.format("addChange for: %s, before, size: %s, pos: %s, validPos: %s",
-            change.setting, changes.size(), position.get(), validPosition.get()
-        )
-    );
+  public void settingChanged(Setting setting, Object oldValue, Object newValue) {
+    if(!isListenerActive() || oldValue == newValue)
+      return;
+    LOGGER.trace("addChange for: {}, before, size: {}, pos: {}, validPos: {}", setting, changes.size(), position.get(), validPosition.get());
 
-    int lastIndex = changes.size() - 1;
+    int pos = position.get();
+    Change previous = getChangeAt(pos);
 
-    // check if change is on same setting as the last change => compounded change
-    boolean compounded = changes.size() > 0 && position.get() != -1
-        && changes.get(position.get()).getSetting().equals(change.getSetting());
-
-    // check if the last added change has the same new and old value
-    boolean redundant = changes.size() > 0 && position.get() != -1
-        && changes.get(position.get()).isRedundant();
-
-    // if there is an element in the next position already => overwrite it instead of adding
-    boolean elementExists = position.get() < lastIndex;
-
-    if (compounded) {
-      LOGGER.trace("Compounded change");
-      if (change.isListChange()) {
-        changes.get(position.get()).setNewList(change.getNewList());
-      } else {
-        changes.get(position.get()).setNewValue(change.getNewValue());
-      }
-    } else if (redundant) {
-      LOGGER.trace("Redundant");
-      changes.set(position.get(), change);
-    } else if (elementExists) {
-      LOGGER.trace("Element exists");
-      changes.set(incrementPosition(), change);
+    if (previous != null && previous.setting.equals(setting)) {
+      LOGGER.trace("Compounding Change");
+      changes.set(pos, new Change<>(setting, previous.oldValue, newValue));
     } else {
-      LOGGER.trace("Add new");
-      changes.add(change);
-      incrementPosition();
+      Change change = new Change<>(setting, oldValue, newValue);
+      boolean redundant = previous != null && previous.isRedundant();
+      if(!redundant)
+        pos = incrementPosition();
+      if (pos < changes.size() - 1 || redundant) {
+        LOGGER.trace("Overwriting previous Change");
+        changes.set(pos, change);
+      } else {
+        LOGGER.trace("Adding new Change");
+        changes.add(change);
+      }
     }
 
-    lastIndex = changes.size() - 1;
+    int lastIndex = changes.size() - 1;
     // if there are changes after the currently added item
     if (position.get() != lastIndex) {
-      // invalidate all further changes in the list
-      LOGGER.trace("Invalidate rest");
+      LOGGER.trace("Invalidating obsolete Changes");
       changes.remove(position.get() + 1, changes.size());
     }
 
     // the last valid position is now equal to the current position
     validPosition.setValue(position.get());
 
-    LOGGER.trace("addChange for: {}, after, size: {}, pos: {}, validPos: {}", change.getSetting(), changes.size(), position.get(), validPosition.get());
+    LOGGER.trace("addChange for: {}, after, size: {}, pos: {}, validPos: {}", setting, changes.size(), position.get(), validPosition.get());
   }
 
   private Change getChangeAt(int pos) {
@@ -170,7 +144,7 @@ public class History {
         + " validPos: " + validPosition.get());
     Change lastChange = prev();
     if (lastChange != null) {
-      doWithoutListeners(lastChange.getSetting(), lastChange::undo);
+      doWithoutListeners(lastChange.setting, lastChange::undo);
       LOGGER.trace("undo, after, size: " + changes.size() + " pos: " + position.get()
           + " validPos: " + validPosition.get());
       return true;
@@ -196,7 +170,7 @@ public class History {
         + " validPos: " + validPosition.get());
     Change nextChange = next();
     if (nextChange != null) {
-      doWithoutListeners(nextChange.getSetting(), nextChange::redo);
+      doWithoutListeners(nextChange.setting, nextChange::redo);
       LOGGER.trace("redo, after, size: " + changes.size() + " pos: " + position.get()
           + " validPos: " + validPosition.get());
       return true;

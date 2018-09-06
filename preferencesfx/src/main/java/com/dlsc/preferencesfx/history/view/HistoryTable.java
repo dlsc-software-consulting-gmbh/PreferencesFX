@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.history.view;
 
 import com.dlsc.preferencesfx.history.Change;
 import com.dlsc.preferencesfx.history.History;
+import com.dlsc.preferencesfx.util.ImmutableObservable;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ObservableList;
@@ -30,14 +31,14 @@ public class HistoryTable extends TableView<Change> {
 
     TableColumn<Change, String> breadcrumb = new TableColumn<>("Setting");
     breadcrumb.setCellValueFactory(
-        change -> new ReadOnlyStringWrapper(change.getValue().getSetting().toString())
+        change -> new ReadOnlyStringWrapper(change.getValue().setting.toString())
     );
 
     TableColumn<Change, Object> oldValue = new TableColumn<>("Old Value");
-    oldValue.setCellValueFactory(change -> change.getValue().oldListProperty());
+    oldValue.setCellValueFactory(change -> new ImmutableObservable<>(change.getValue().oldValue));
 
     TableColumn<Change, Object> newValue = new TableColumn<>("New Value");
-    newValue.setCellValueFactory(change -> change.getValue().newListProperty());
+    newValue.setCellValueFactory(change -> new ImmutableObservable<>(change.getValue().newValue));
 
     setItems(changes);
     getColumns().addAll(timestamp, breadcrumb, oldValue, newValue);

@@ -163,6 +163,26 @@ public class PreferencesFx {
     return this;
   }
 
+  private boolean hasListeners = false;
+  private Collection<SettingsListener> listeners = new ArrayList<>(4);
+
+  /** Adds the {@code listener} to each Setting */
+  public void addSettingsListener(SettingsListener listener) {
+    listeners.add(listener);
+    if (!hasListeners) {
+      PreferencesFxUtils.categoriesToSettings(preferencesFxModel.getCategoriesFlat()).forEach(setting -> setting.valueProperty().addListener(
+          (p, oldVal, newVal) -> {
+            listeners.forEach(l -> l.settingChanged(setting, oldVal, newVal));
+          }));
+      hasListeners = true;
+    }
+  }
+
+  /** Removes the {@code listener} */
+  public void removeSettingsListener(SettingsListener listener) {
+    listeners.remove(listener);
+  }
+
   /**
    * Defines whether the table to debug the undo / redo history should be shown in a dialog
    * when pressing a key combination or not.
