@@ -102,7 +102,7 @@ public class SearchHandler {
   }
 
   private void initializeSearch() {
-    flatCategoriesLst = model.getFlatCategoriesLst();
+    flatCategoriesLst = model.getCategoriesFlat();
     settingCategoryMap = PreferencesFxUtils.mapSettingsToCategories(flatCategoriesLst);
     groupCategoryMap = PreferencesFxUtils.mapGroupsToCategories(flatCategoriesLst);
     flatSettingsLst = PreferencesFxUtils.categoriesToSettings(flatCategoriesLst);

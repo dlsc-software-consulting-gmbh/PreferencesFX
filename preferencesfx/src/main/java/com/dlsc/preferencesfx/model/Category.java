@@ -22,9 +22,7 @@ import org.apache.logging.log4j.Logger;
  * @author Marco Sanfratello
  */
 public class Category {
-
-  private static final Logger LOGGER =
-      LogManager.getLogger(Category.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(Category.class.getName());
 
   private StringProperty description = new SimpleStringProperty();
   private StringProperty descriptionKey = new SimpleStringProperty();
@@ -91,6 +89,13 @@ public class Category {
     this.children = Arrays.asList(children);
     return this;
   }
+  
+  /**
+   * Creates and defines all of the breadcrumbs for the children
+   */
+  public void createBreadcrumbs() {
+    createBreadcrumbs(getChildren());
+  }
 
   /**
    * Creates and defines all of the breadcrumbs for all of the categories.
@@ -104,15 +109,16 @@ public class Category {
         category.getGroups().forEach(group -> group.addToBreadcrumb(getBreadcrumb()));
       }
       if (!Objects.equals(category.getChildren(), null)) {
-        category.createBreadcrumbs(category.getChildren());
+        category.createBreadcrumbs();
       }
     });
   }
 
   /**
    * Unmarks all settings.
-   * Is used for the search, which marks and unmarks items depending on the match as a form of
-   * visual feedback.
+   *
+   * Used for the search, which marks and unmarks items depending on the match
+   * as a form of visual feedback.
    */
   public void unmarkSettings() {
     if (getGroups() != null) {
@@ -123,8 +129,9 @@ public class Category {
 
   /**
    * Unmarks all groups.
-   * Is used for the search, which marks and unmarks items depending on the match as a form of
-   * visual feedback.
+   *
+   * Used for the search, which marks and unmarks items depending on the match
+   * as a form of visual feedback.
    */
   public void unmarkGroups() {
     if (getGroups() != null) {
@@ -134,8 +141,9 @@ public class Category {
 
   /**
    * Unmarks all settings and groups.
-   * Is used for the search, which marks and unmarks items depending on the match as a form of
-   * visual feedback.
+   *
+   * Used for the search, which marks and unmarks items depending on the match
+   * as a form of visual feedback.
    */
   public void unmarkAll() {
     unmarkGroups();

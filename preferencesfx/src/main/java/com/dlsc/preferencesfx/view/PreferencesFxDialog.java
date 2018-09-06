@@ -33,9 +33,6 @@ public class PreferencesFxDialog extends DialogPane {
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
   private boolean persistWindowState;
-  private boolean saveSettings;
-  private ButtonType closeWindowBtnType = ButtonType.CLOSE;
-  private ButtonType cancelBtnType = ButtonType.CANCEL;
 
   /**
    * Initializes the {@link DialogPane} which shows the PreferencesFX window.
@@ -47,10 +44,9 @@ public class PreferencesFxDialog extends DialogPane {
     this.model = model;
     this.preferencesFxView = preferencesFxView;
     persistWindowState = model.isPersistWindowState();
-    saveSettings = model.isSaveSettings();
     storageHandler = model.getStorageHandler();
     model.loadSettingValues();
-    layoutForm();
+    layoutDialog();
     setupDialogClose();
     loadLastWindowState();
     setupButtons();
@@ -64,7 +60,7 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   public void show(boolean modal) {
-    if(modal) {
+    if (modal) {
       dialog.initModality(Modality.APPLICATION_MODAL);
       dialog.showAndWait();
     } else {
@@ -73,10 +69,9 @@ public class PreferencesFxDialog extends DialogPane {
     }
   }
 
-  private void layoutForm() {
+  private void layoutDialog() {
     dialog.setTitle("PreferencesFx");
     dialog.setResizable(true);
-    getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     dialog.setDialogPane(this);
     setContent(preferencesFxView);
   }
@@ -86,7 +81,7 @@ public class PreferencesFxDialog extends DialogPane {
       if (persistWindowState) {
         saveWindowState();
       }
-     model.saveSettings();
+      model.saveSettings();
     });
   }
 
@@ -99,9 +94,7 @@ public class PreferencesFxDialog extends DialogPane {
     model.saveSelectedCategory();
   }
 
-  /**
-   * Loads last saved size and position of the window.
-   */
+  /** Loads last saved size and position of the window. */
   private void loadLastWindowState() {
     if (persistWindowState) {
       setPrefSize(storageHandler.loadWindowWidth(), storageHandler.loadWindowHeight());
@@ -127,9 +120,10 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   private void setupButtons() {
-    LOGGER.trace("Setting Buttons up");
-    final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
-    final Button cancelBtn = (Button) lookupButton(cancelBtnType);
+    LOGGER.trace("Setting up Buttons");
+    getButtonTypes().setAll(ButtonType.OK, ButtonType.CANCEL);
+    final Button closeBtn = (Button) lookupButton(ButtonType.OK);
+    final Button cancelBtn = (Button) lookupButton(ButtonType.CANCEL);
 
     History history = model.getHistory();
     cancelBtn.setOnAction(event -> {
@@ -137,11 +131,11 @@ public class PreferencesFxDialog extends DialogPane {
       model.discardChanges();
     });
     closeBtn.setOnAction(event -> {
-      LOGGER.trace("Close Button was pressed");
+      LOGGER.trace("Ok Button was pressed");
       history.clear(false);
     });
 
-    cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
     closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
   }
 }

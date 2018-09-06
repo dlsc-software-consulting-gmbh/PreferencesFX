@@ -17,16 +17,12 @@ import javafx.scene.control.TableView;
  */
 public class HistoryTable extends TableView<Change> {
 
-  ObservableList<Change> changes;
-
   /**
    * Initializes a new table, showing the {@code changes}.
    *
    * @param changes to be shown in the table
    */
   public HistoryTable(ObservableList<Change> changes) {
-    this.changes = changes;
-
     TableColumn<Change, String> timestamp = new TableColumn<>("Time");
     timestamp.setCellValueFactory(
         change -> new ReadOnlyStringWrapper(change.getValue().getTimestamp())
@@ -43,7 +39,7 @@ public class HistoryTable extends TableView<Change> {
     TableColumn<Change, Object> newValue = new TableColumn<>("New Value");
     newValue.setCellValueFactory(change -> change.getValue().newListProperty());
 
-    setItems(this.changes);
+    setItems(changes);
     getColumns().addAll(timestamp, breadcrumb, oldValue, newValue);
   }
 

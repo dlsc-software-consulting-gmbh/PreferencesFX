@@ -23,7 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Represents a change, which is comprised of a new and an old value.
+ * Represents a change, which consists of a new and old value.
  *
  * @param <P> the data type of the change, which is reflected in a {@link ListProperty} for a
  *            list change and in a {@link ObjectProperty} for regular changes as well
@@ -36,9 +36,7 @@ import org.apache.logging.log4j.Logger;
  *           also set an {@link ObjectProperty} for easier handling.
  */
 public class Change<P> {
-
-  private static final Logger LOGGER =
-      LogManager.getLogger(Change.class.getName());
+  private static final Logger LOGGER = LogManager.getLogger(Change.class.getName());
 
   protected final Setting setting;
 
