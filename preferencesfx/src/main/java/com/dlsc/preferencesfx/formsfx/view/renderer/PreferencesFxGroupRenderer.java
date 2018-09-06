@@ -4,6 +4,7 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
@@ -74,7 +75,9 @@ public class PreferencesFxGroupRenderer {
       titleLabel.getStyleClass().add("group-title");
     }
 
-    List<Field> fields = preferencesGroup.getFields();
+    List<Field> fields = preferencesGroup.getElements().stream()
+        .map(Field.class::cast)
+        .collect(Collectors.toList());
     styleClass.append("-setting");
 
     int rowAmount = nextRow;

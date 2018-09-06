@@ -103,7 +103,7 @@ public class CategoryPresenter implements Presenter {
       formGroups.add(preferencesGroup);
       // fill groups with settings (as FormsFX fields)
       for (Setting setting : groups.get(i).getSettings()) {
-        formGroups.get(i).getFields().add(setting.getField());
+        formGroups.get(i).getElements().add(setting.getField());
       }
     }
 
