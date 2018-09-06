@@ -1,11 +1,10 @@
 package com.dlsc.preferencesfx.view;
 
-import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.Constants;
+import com.dlsc.preferencesfx.util.StorageHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -87,10 +86,7 @@ public class PreferencesFxDialog extends DialogPane {
       if (persistWindowState) {
         saveWindowState();
       }
-      if (saveSettings) {
-        model.saveSettingValues();
-        model.fireEvent(PreferencesFxEvent.preferencesSavedEvent());
-      }
+     model.saveSettings();
     });
   }
 
@@ -106,7 +102,7 @@ public class PreferencesFxDialog extends DialogPane {
   /**
    * Loads last saved size and position of the window.
    */
-  public void loadLastWindowState() {
+  private void loadLastWindowState() {
     if (persistWindowState) {
       setPrefSize(storageHandler.loadWindowWidth(), storageHandler.loadWindowHeight());
       getScene().getWindow().setX(storageHandler.loadWindowPosX());
@@ -138,12 +134,7 @@ public class PreferencesFxDialog extends DialogPane {
     History history = model.getHistory();
     cancelBtn.setOnAction(event -> {
       LOGGER.trace("Cancel Button was pressed");
-      history.clear(true);
-      // save settings after undoing them
-      if (saveSettings) {
-        model.saveSettingValues();
-      }
-      model.fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
+      model.discardChanges();
     });
     closeBtn.setOnAction(event -> {
       LOGGER.trace("Close Button was pressed");

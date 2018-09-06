@@ -4,8 +4,8 @@ import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.SearchHandler;
+import com.dlsc.preferencesfx.util.StorageHandler;
 import com.dlsc.preferencesfx.util.StorageHandlerImpl;
 import com.dlsc.preferencesfx.view.BreadCrumbPresenter;
 import com.dlsc.preferencesfx.view.BreadCrumbView;
@@ -22,9 +22,6 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Represents the main PreferencesFX class.
@@ -58,7 +55,7 @@ public class PreferencesFx {
   private PreferencesFx(StorageHandler storageHandler, Category... categories) {
     // asciidoctor Documentation - tag::testMock[]
     preferencesFxModel = new PreferencesFxModel(
-            storageHandler, new SearchHandler(), new History(), categories
+        storageHandler, new SearchHandler(), new History(), categories
     );
     // asciidoctor Documentation - end::testMock[]
     init();
@@ -83,7 +80,7 @@ public class PreferencesFx {
     navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
 
     preferencesFxView = new PreferencesFxView(
-            preferencesFxModel, navigationView, breadCrumbView, categoryController
+        preferencesFxModel, navigationView, breadCrumbView, categoryController
     );
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
   }
@@ -104,7 +101,7 @@ public class PreferencesFx {
    * Creates the Preferences window.
    *
    * @param customStorageHandler Custom implementation of the {@link StorageHandler}
-   * @param categories the items to be displayed in the TreeSearchView
+   * @param categories           the items to be displayed in the TreeSearchView
    * @return the preferences window
    */
   public static PreferencesFx of(StorageHandler customStorageHandler, Category... categories) {
@@ -135,6 +132,7 @@ public class PreferencesFx {
 
   /**
    * Show the PreferencesFX dialog.
+   *
    * @param modal window or not modal, that's the question.
    */
   public void show(boolean modal) {
@@ -225,11 +223,10 @@ public class PreferencesFx {
    *
    * @param eventType    the type of the events to receive by the handler
    * @param eventHandler the handler to register
-   *
    * @throws NullPointerException if either event type or handler are {@code null}.
    */
   public PreferencesFx addEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
-    preferencesFxModel.addEventHandler(eventType,eventHandler);
+    preferencesFxModel.addEventHandler(eventType, eventHandler);
     return this;
   }
 
@@ -241,11 +238,36 @@ public class PreferencesFx {
    *
    * @param eventType    the event type from which to unregister
    * @param eventHandler the handler to unregister
-   *
    * @throws NullPointerException if either event type or handler are {@code null}.
    */
   public PreferencesFx removeEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
     preferencesFxModel.removeEventHandler(eventType, eventHandler);
     return this;
   }
+
+  /**
+   * Returns a PreferencesFxView, so that it can be used as a Node.
+   *
+   * @return a PreferencesFxView, so that it can be used as a Node.
+   */
+  public PreferencesFxView getView() {
+    return preferencesFxView;
+  }
+
+  /**
+   * Call this method to manually save the changed settings
+   * when showing the preferences by using {@link #getView()}.
+   */
+  public void saveSettings() {
+    preferencesFxModel.saveSettings();
+  }
+
+  /**
+   * Call this method to undo all changes made in the settings
+   * when showing the preferences by using {@link #getView()}.
+   */
+  public void discardChanges() {
+    preferencesFxModel.discardChanges();
+  }
+
 }

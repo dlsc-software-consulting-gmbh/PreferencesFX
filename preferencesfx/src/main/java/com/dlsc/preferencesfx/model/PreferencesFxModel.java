@@ -1,16 +1,20 @@
 package com.dlsc.preferencesfx.model;
 
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
+import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
+
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
-import com.dlsc.preferencesfx.util.StorageHandler;
-import com.dlsc.preferencesfx.util.StorageHandlerImpl;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
+import com.dlsc.preferencesfx.util.StorageHandler;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import com.dlsc.preferencesfx.util.StorageHandler;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
@@ -24,16 +28,6 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
-import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
 /**
  * Represents the model which holds all of the data and logic which is not limited to presenters.
@@ -63,7 +57,7 @@ public class PreferencesFxModel {
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
-  private final Map<EventType<PreferencesFxEvent>,List<EventHandler<? super PreferencesFxEvent>>> eventHandlers = new ConcurrentHashMap<>();
+  private final Map<EventType<PreferencesFxEvent>, List<EventHandler<? super PreferencesFxEvent>>> eventHandlers = new ConcurrentHashMap<>();
 
   /**
    * Initializes a new model.
@@ -180,7 +174,7 @@ public class PreferencesFxModel {
   /**
    * Saves all of the values of the settings using a {@link StorageHandler}.
    */
-  public void saveSettingValues() {
+  private void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
         getFlatCategoriesLst()
     ).forEach(setting -> setting.saveSettingValue(storageHandler));
@@ -299,15 +293,35 @@ public class PreferencesFxModel {
     }
   }
 
-  public void fireEvent(PreferencesFxEvent event) {
+  private void fireEvent(PreferencesFxEvent event) {
     List<EventHandler<? super PreferencesFxEvent>> list = this.eventHandlers.get(event.getEventType());
     if (list == null) {
       return;
     }
-    for (EventHandler<? super PreferencesFxEvent> eventHandler: list) {
+    for (EventHandler<? super PreferencesFxEvent> eventHandler : list) {
       if (!event.isConsumed()) {
         eventHandler.handle(event);
       }
     }
+  }
+
+  /**
+   * Saves the settings, when {@link #isSaveSettings()} returns {@code true}.
+   */
+  public void saveSettings() {
+    if (isSaveSettings()) {
+      saveSettingValues();
+      fireEvent(PreferencesFxEvent.preferencesSavedEvent());
+    }
+    history.clear(false);
+  }
+
+  public void discardChanges() {
+    history.clear(true);
+    // save settings after undoing them
+    if (saveSettings) {
+      saveSettingValues();
+    }
+    fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
   }
 }

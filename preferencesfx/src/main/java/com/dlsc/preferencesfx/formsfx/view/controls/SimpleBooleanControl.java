@@ -22,7 +22,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.BooleanField;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 
 /**
  * This class provides the base implementation for a simple control to edit
