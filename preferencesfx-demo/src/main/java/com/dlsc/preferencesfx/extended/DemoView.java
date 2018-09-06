@@ -17,7 +17,7 @@ public class DemoView extends VBox {
   private MenuBar menuBar;
   private Menu menu;
   private MenuItem preferencesMenuItem;
-  private RootPane rootPane;
+  private ExtendedExample rootPane;
 
   private Label welcomeLbl;
   private Label brightnessLbl;
@@ -31,7 +31,7 @@ public class DemoView extends VBox {
   private Label lineSpacingLbl;
   private Label favoriteNumberLbl;
 
-  public DemoView(PreferencesFx preferencesFx, RootPane rootPane) {
+  public DemoView(PreferencesFx preferencesFx, ExtendedExample rootPane) {
     this.preferencesFx = preferencesFx;
     this.rootPane = rootPane;
 

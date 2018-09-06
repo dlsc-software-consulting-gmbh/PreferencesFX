@@ -1,7 +1,29 @@
 # PreferencesFX
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
+[ ![Download](https://api.bintray.com/packages/dlsc-oss/repository/PreferencesFX/images/download.svg) ](https://bintray.com/dlsc-oss/repository/PreferencesFX/_latestVersion)
+[ ![Develop Branch](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=develop)](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=master)
+
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
+
+## Maven
+
+To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
+
+```XML
+<repositories>
+  <repository>
+    <id>jcenter</id>
+    <url>http://jcenter.bintray.com</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.dlsc.preferencesfx</groupId>
+  <artifactId>preferencesfx-core</artifactId>
+  <version>2.0.3</version>
+</dependency>
+```
 
 ## What is PreferencesFX?
 Creating preference dialogs in JavaFX is a tedious and very error-prone task. PreferencesFX is a framework which solves this problem. It enables the developer to create preference dialogs with ease and creates well-designed and user-friendly preference dialogs by default.
@@ -30,12 +52,11 @@ Nr. | Feature | Description
 - | `Instant persistance` | Any changes to the application are saved instantly.
 
 ## Documentation
-This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following gradle tasks:
-```Gradle
-asciidoctor html // HTML format
-asciidoctor pdf  // PDF format
+This project uses the `asciidoctor` plugin to generate the necessary documentation. Run the following *maven* task:
+```Maven
+process-resources
 ```
-Afterwards, you will find them in the `build/docs/` subdirectory.
+Afterwards, you will find the documentation in the `target/generated-docs/` subdirectory.
 
 ## Structure
 A preferences dialog can contain multiple `Categories`.  
@@ -58,24 +79,17 @@ Notes:
 - A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space inbetween them, to ensure they can be differentiated.
 
 ## Demos
-We created several demos to visualize the capabilities of `PreferencesFX`.  
-To change between demos, simply uncomment the desired demo in the imports of `preferencesfx-demo/src/com/dlsc/preferencesfx/AppStarter.java`
-```Java
-// Change this import depending on the demo
-import com.dlsc.preferencesfx.standard.RootPane;
-//import com.dlsc.preferencesfx.i18n.RootPane;
-//import com.dlsc.preferencesfx.oneCategory.RootPane;
-//import com.dlsc.preferencesfx.extended.RootPane;
-```
+We created several demos to visualize the capabilities of PreferencesFX.  
+Simply launch `preferencesfx-demo/src/com/dlsc/preferencesfx/AppStarter.java` and look into the different Tabs.
 
 The following demos are available:
 
 Import | Description
 ------ | -----------
-`standard` | The standard demo with a few settings and fully working bindings.
-`i18n` | Shows how to define preference dialogs in multiple languages, using internationalization.
-`oneCategory` | Shows the behavior of the API when only one category is used: The Breadcrumb Bar and TreeView will be omitted from the GUI.
-`extended` | A demo, populated with lots of categories, groups and settings without any bindings. Designed to show usage in a big project.
+`Standard` | The standard demo with a few settings and fully working bindings.
+`Internationalized` | Shows how to define preference dialogs in multiple languages, using internationalization.
+`OneCategory` | Shows the behavior of the API when only one category is used: The Breadcrumb Bar and TreeView will be omitted from the GUI.
+`Extended` | A demo, populated with lots of categories, groups and settings without any bindings. Designed to show usage in a big project.
 
 ## Defining a preferences dialog
 Creating a preferences dialog is as simple as calling `PreferencesFx.of()`.
@@ -113,7 +127,7 @@ This code snippet results in the following preferences window, containing three 
 To create a `Setting`, you only need to define a title and a `Property`. `PreferencesFX` does the rest.  
 You can then integrate this `Property` in your application. Changes of values in the preferences dialog will be persisted instantly, however it's up to you to decide whether you want to persist them instantly in your application as well.
 
-#### Must haves
+#### Required arguments
 You have a lot of options to influence the behavior and layout of the preferences dialog.  
 The following parameters are the absolute minimum, needed for the proper functioning of `PreferencesFX`:
 
@@ -129,7 +143,7 @@ For testing purposes, to clear the saved preferences of the demo, run the method
 preferencesfx-demo/src/test/java/PreferencesStorageReset.java
 ```
 
-#### Optionals
+#### Optional arguments
 The following parameters are optionally available to further configure the dialog created by `PreferencesFX`:
 
 Method | Class | Description

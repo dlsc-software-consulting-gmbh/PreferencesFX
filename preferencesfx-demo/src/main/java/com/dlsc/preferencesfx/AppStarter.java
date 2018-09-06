@@ -1,13 +1,15 @@
 package com.dlsc.preferencesfx;
 
-// Change this import depending on the demo
-import com.dlsc.preferencesfx.standard.RootPane;
-//import com.dlsc.preferencesfx.i18n.RootPane;
-//import com.dlsc.preferencesfx.oneCategory.RootPane;
-//import com.dlsc.preferencesfx.extended.RootPane;
-
+import com.dlsc.preferencesfx.extended.ExtendedExample;
+import com.dlsc.preferencesfx.i18n.InternationalizedExample;
+import com.dlsc.preferencesfx.node.NodeExample;
+import com.dlsc.preferencesfx.oneCategory.OneCategoryExample;
+import com.dlsc.preferencesfx.standard.StandardExample;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class AppStarter extends Application {
@@ -18,9 +20,11 @@ public class AppStarter extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    RootPane rootPane = new RootPane();
-    Scene myScene = new Scene(rootPane);
-
+    TabPane tabPane = new TabPane();
+    Pane[] examples = new Pane[]{new StandardExample(), new InternationalizedExample(), new OneCategoryExample(), new ExtendedExample(),new NodeExample()};
+    for(Pane pane : examples)
+      tabPane.getTabs().add(new Tab(pane.getClass().getSimpleName().replace("Example", ""), pane));
+    Scene myScene = new Scene(tabPane);
     primaryStage.setTitle("PreferencesFx Demo");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(1000);
@@ -28,4 +32,5 @@ public class AppStarter extends Application {
     primaryStage.show();
     primaryStage.centerOnScreen();
   }
+
 }
