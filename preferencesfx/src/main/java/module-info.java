@@ -9,6 +9,8 @@ module com.dlsc.preferencesfx {
     requires gson;
     requires org.eclipse.fx.ui.controls;
     requires commons.collections4;
+    requires com.google.guava;
+    requires java.sql;
 
     exports com.dlsc.preferencesfx;
     exports com.dlsc.preferencesfx.formsfx.view.controls;
