@@ -21,7 +21,7 @@ To use this framework as part of your Maven build simply add the jcentral reposi
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>2.0.3</version>
+  <version>2.1.0</version>
 </dependency>
 ```
 
