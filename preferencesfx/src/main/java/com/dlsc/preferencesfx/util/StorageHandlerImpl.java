@@ -175,8 +175,16 @@ public class StorageHandlerImpl implements StorageHandler {
   // asciidoctor Documentation - tag::storageHandlerLoad[]
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String serializedDefault = gson.toJson(defaultObject);
-    String json = preferences.get(hash(breadcrumb), serializedDefault);
-    return gson.fromJson(json, Object.class);
+
+    try {
+      String json = preferences.get(hash(breadcrumb), serializedDefault);
+      return gson.fromJson(json, Object.class);
+    } catch (IllegalArgumentException e) { // catches: Key contains code point U+0000
+      LOGGER.error("Preferences are stored in an incorrect format, clearing preferences.");
+      clearPreferences();
+      return defaultObject;
+    }
+
   }
   // asciidoctor Documentation - end::storageHandlerLoad[]
 
