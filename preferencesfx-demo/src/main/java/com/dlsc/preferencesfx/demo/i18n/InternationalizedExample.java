@@ -4,15 +4,12 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.model.util.ResourceBundleService;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
-import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
+import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -28,6 +25,10 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
+
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class InternationalizedExample extends StackPane {
 
@@ -73,8 +74,8 @@ public class InternationalizedExample extends StackPane {
   IntegerField customControl = setupCustomControl();
 
   // i18n
-  ResourceBundle rbDE = ResourceBundle.getBundle("preferencesfxx.preferencesfx.demo-locale", new Locale("de", "CH"));
-  ResourceBundle rbEN = ResourceBundle.getBundle("preferencesfxx.preferencesfx.demo-locale", new Locale("en", "US"));
+  ResourceBundle rbDE = ResourceBundle.getBundle("demo-locale", new Locale("de", "CH"));
+  ResourceBundle rbEN = ResourceBundle.getBundle("demo-locale", new Locale("en", "US"));
   ResourceBundleService rbs = new ResourceBundleService(rbEN);
 
   public InternationalizedExample() {
