@@ -1,11 +1,10 @@
 package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.history.History;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import org.controlsfx.glyphfont.FontAwesome;
-import org.controlsfx.glyphfont.GlyphFont;
-import org.controlsfx.glyphfont.GlyphFontRegistry;
 
 /**
  * Displays undo and redo buttons and also defines their behavior.
@@ -14,9 +13,9 @@ import org.controlsfx.glyphfont.GlyphFontRegistry;
  * @author Marco Sanfratello
  */
 public class UndoRedoBox extends HBox {
-  GlyphFont fontAwesome = GlyphFontRegistry.font("FontAwesome");
-  Button undoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.UNDO));
-  Button redoBtn = new Button("", fontAwesome.create(FontAwesome.Glyph.REPEAT));
+
+  Button undoBtn = FontAwesomeIconFactory.get().createIconButton(FontAwesomeIcon.UNDO);
+  Button redoBtn = FontAwesomeIconFactory.get().createIconButton(FontAwesomeIcon.REPEAT);
   private History history;
 
   /**
