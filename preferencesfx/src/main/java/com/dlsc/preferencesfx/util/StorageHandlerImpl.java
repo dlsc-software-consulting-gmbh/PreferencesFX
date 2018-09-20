@@ -161,12 +161,7 @@ public class StorageHandlerImpl implements StorageHandler {
      */
     // asciidoctor Documentation - tag::storageHandlerSave[]
     public void saveObject(String breadcrumb, Object object) {
-        try {
-            preferences.put(hash(breadcrumb), gson.toJson(object));
-        } catch (IllegalArgumentException ex) {
-            LOGGER.error("Preferences are stored in an incorrect format.");
-            throw ex;
-        }
+        preferences.put(hash(breadcrumb), gson.toJson(object));
     }
     // asciidoctor Documentation - end::storageHandlerSave[]
 
