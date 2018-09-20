@@ -161,7 +161,12 @@ public class StorageHandlerImpl implements StorageHandler {
      */
     // asciidoctor Documentation - tag::storageHandlerSave[]
     public void saveObject(String breadcrumb, Object object) {
-        preferences.put(hash(breadcrumb), gson.toJson(object));
+        try {
+            preferences.put(hash(breadcrumb), gson.toJson(object));
+        } catch (IllegalArgumentException ex) {
+            LOGGER.error("Preferences are stored in an incorrect format.");
+            throw ex;
+        }
     }
     // asciidoctor Documentation - end::storageHandlerSave[]
 
@@ -247,7 +252,8 @@ public class StorageHandlerImpl implements StorageHandler {
             LOGGER.error("Hashing algorithm not found!");
         }
         messageDigest.update(key.getBytes());
-        return new String(messageDigest.digest());
+        String result = new String(messageDigest.digest());
+        return result.replace("\u0000", "");
     }
 
     public Preferences getPreferences() {
