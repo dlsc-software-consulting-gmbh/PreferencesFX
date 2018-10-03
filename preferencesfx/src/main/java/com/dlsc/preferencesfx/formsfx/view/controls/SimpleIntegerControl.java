@@ -22,6 +22,10 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.IntegerField;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 /**
  * This class provides a specific implementation to edit integer values.
@@ -41,9 +45,25 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
     super.initializeParts();
 
     getStyleClass().addAll("simple-integer-control");
-    editableSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(
-        Integer.MIN_VALUE, Integer.MAX_VALUE, field.getValue()
-    ));
+    final SpinnerValueFactory.IntegerSpinnerValueFactory factory =
+            new SpinnerValueFactory.IntegerSpinnerValueFactory(
+            Integer.MIN_VALUE, Integer.MAX_VALUE, field.getValue()
+    );
+
+    // override old converter (IntegerStringConverter) because it throws
+    // NumberFormatException if value can not be parsed to Integer
+    factory.setConverter(new NoExceptionStringConverter());
+    editableSpinner.setValueFactory(factory);
+
+    editableSpinner.addEventHandler(KeyEvent.ANY, event -> {
+        if(event.getCode() == KeyCode.ENTER) {
+          try {
+            Integer.parseInt(editableSpinner.getEditor().getText());
+          } catch(NumberFormatException ex) {
+            editableSpinner.getEditor().setText("0");
+          }
+        }
+    });
   }
 
   /**
@@ -61,4 +81,24 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
     );
   }
 
+  private class NoExceptionStringConverter extends StringConverter<Integer> {
+
+    @Override
+    public String toString(Integer object) {
+      try {
+        return new IntegerStringConverter().toString(object);
+      } catch(NumberFormatException ex) {
+        return "0";
+      }
+    }
+
+    @Override
+    public Integer fromString(String string) {
+      try {
+        return new IntegerStringConverter().fromString(string);
+      } catch(NumberFormatException ex) {
+        return 0;
+      }
+    }
+  }
 }
