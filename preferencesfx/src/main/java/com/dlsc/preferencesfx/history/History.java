@@ -16,6 +16,9 @@ import javafx.collections.ObservableList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * Manages a list of changes, so undo / redo functionality can be used with {@link Setting}.
  *
@@ -133,11 +136,11 @@ public class History {
     // the last valid position is now equal to the current position
     validPosition.setValue(position.get());
 
-    LOGGER.trace(
-        String.format("addChange for: %s, before, size: %s, pos: %s, validPos: %s",
-            change.setting, changes.size(), position.get(), validPosition.get()
-        )
-    );
+    LOGGER.trace("addChange for: {}, after, size: {}, pos: {}, validPos: {}", change.getSetting(), changes.size(), position.get(), validPosition.get());
+  }
+
+  private Change getChangeAt(int pos) {
+    return pos > -1 && changes.size() > 0 ? changes.get(pos) : null;
   }
 
   /**
@@ -148,7 +151,7 @@ public class History {
    * @param action  the action to be performed
    */
   public void doWithoutListeners(Setting setting, Runnable action) {
-    LOGGER.trace(String.format("doWithoutListeners: setting: %s", setting));
+    LOGGER.trace("doWithoutListeners: setting: {}", setting);
     setListenerActive(false);
     LOGGER.trace("removed listener");
     action.run();
@@ -293,15 +296,12 @@ public class History {
     return currentChange;
   }
 
-  public boolean isListenerActive() {
+  private boolean isListenerActive() {
     return listenerActive.get();
   }
 
-  public ReadOnlyBooleanProperty listenerActiveProperty() {
-    return listenerActive;
-  }
-
-  public void setListenerActive(boolean listenerActive) {
+  private void setListenerActive(boolean listenerActive) {
     this.listenerActive.set(listenerActive);
   }
+
 }

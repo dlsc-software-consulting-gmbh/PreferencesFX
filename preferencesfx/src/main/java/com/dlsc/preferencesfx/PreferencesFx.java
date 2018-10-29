@@ -4,24 +4,15 @@ import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
-import com.dlsc.preferencesfx.util.SearchHandler;
-import com.dlsc.preferencesfx.util.StorageHandler;
-import com.dlsc.preferencesfx.util.StorageHandlerImpl;
-import com.dlsc.preferencesfx.view.BreadCrumbPresenter;
-import com.dlsc.preferencesfx.view.BreadCrumbView;
-import com.dlsc.preferencesfx.view.CategoryController;
-import com.dlsc.preferencesfx.view.CategoryPresenter;
-import com.dlsc.preferencesfx.view.CategoryView;
-import com.dlsc.preferencesfx.view.NavigationPresenter;
-import com.dlsc.preferencesfx.view.NavigationView;
-import com.dlsc.preferencesfx.view.PreferencesFxDialog;
-import com.dlsc.preferencesfx.view.PreferencesFxPresenter;
-import com.dlsc.preferencesfx.view.PreferencesFxView;
-import com.dlsc.preferencesfx.view.UndoRedoBox;
+import com.dlsc.preferencesfx.util.*;
+import com.dlsc.preferencesfx.view.*;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Represents the main PreferencesFX class.
@@ -33,20 +24,10 @@ public class PreferencesFx {
   private static final Logger LOGGER =
       LogManager.getLogger(PreferencesFx.class.getName());
 
-  private PreferencesFxModel preferencesFxModel;
-
-  private NavigationView navigationView;
-  private NavigationPresenter navigationPresenter;
-
-  private UndoRedoBox undoRedoBox;
-
-  private BreadCrumbView breadCrumbView;
   private BreadCrumbPresenter breadCrumbPresenter;
-
   private CategoryController categoryController;
-
+  private PreferencesFxModel preferencesFxModel;
   private PreferencesFxView preferencesFxView;
-  private PreferencesFxPresenter preferencesFxPresenter;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
     this(new StorageHandlerImpl(saveClass), categories);
@@ -65,9 +46,8 @@ public class PreferencesFx {
     // setting values are only loaded if they are present already
     preferencesFxModel.loadSettingValues();
 
-    undoRedoBox = new UndoRedoBox(preferencesFxModel.getHistory());
-
-    breadCrumbView = new BreadCrumbView(preferencesFxModel, undoRedoBox);
+    UndoRedoBox undoRedoBox = new UndoRedoBox(preferencesFxModel.getHistory());
+    BreadCrumbView breadCrumbView = new BreadCrumbView(preferencesFxModel, undoRedoBox);
     breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
 
     categoryController = new CategoryController();
@@ -76,20 +56,17 @@ public class PreferencesFx {
     // display initial category
     categoryController.setView(preferencesFxModel.getDisplayedCategory());
 
-    navigationView = new NavigationView(preferencesFxModel);
-    navigationPresenter = new NavigationPresenter(preferencesFxModel, navigationView);
+    NavigationView navigationView = new NavigationView(preferencesFxModel);
+    new NavigationPresenter(preferencesFxModel, navigationView);
 
-    preferencesFxView = new PreferencesFxView(
-        preferencesFxModel, navigationView, breadCrumbView, categoryController
-    );
-    preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
+    preferencesFxView = new PreferencesFxView(preferencesFxModel, navigationView, breadCrumbView, categoryController);
+    new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
   }
 
   /**
    * Creates the Preferences window.
    *
-   * @param saveClass  the class which the preferences are saved as
-   *                   Must be unique to the application using the preferences
+   * @param saveClass  the classpath of this class is used as the Preferences path
    * @param categories the items to be displayed in the TreeSearchView
    * @return the preferences window
    */
@@ -113,7 +90,7 @@ public class PreferencesFx {
    * all Categories and loading them into the CategoryController.
    */
   private void initializeCategoryViews() {
-    preferencesFxModel.getFlatCategoriesLst().forEach(category -> {
+    preferencesFxModel.getCategoriesFlat().forEach(category -> {
       CategoryView categoryView = new CategoryView(preferencesFxModel, category);
       CategoryPresenter categoryPresenter = new CategoryPresenter(
           preferencesFxModel, category, categoryView, breadCrumbPresenter
@@ -123,7 +100,8 @@ public class PreferencesFx {
   }
 
   /**
-   * Shows the PreferencesFX dialog.
+   * Shows a non-modal PreferencesFX dialog.
+   * Equivalent to {@code show(false)}.
    */
   public void show() {
     // by default, modal is false for retro-compatibility
@@ -133,7 +111,7 @@ public class PreferencesFx {
   /**
    * Show the PreferencesFX dialog.
    *
-   * @param modal window or not modal, that's the question.
+   * @param modal whether the Dialog should be modal
    */
   public void show(boolean modal) {
     new PreferencesFxDialog(preferencesFxModel, preferencesFxView).show(modal);

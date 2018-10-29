@@ -283,9 +283,10 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * Marks a setting.
-   * Is used for the search, which marks and unmarks items depending on the match as a form of
-   * visual feedback.
+   * Marks this Setting.
+   *
+   * Used for the search, which marks and unmarks items depending on the match
+   * as a form of visual feedback.
    */
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
@@ -299,12 +300,12 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * Unmarks a setting.
-   * Is used for the search, which marks and unmarks items depending on the match as a form of
-   * visual feedback.
+   * Unmarks this Setting.
+   *
+   * Used for the search, which marks and unmarks items depending on the match
+   * as a form of visual feedback.
    */
   public void unmark() {
-    // check if it's marked before removing the style class
     if (marked) {
       SimpleControl renderer = (SimpleControl) getField().getRenderer();
       Node markNode = renderer.getFieldLabel();

@@ -75,7 +75,7 @@ public class BreadCrumbPresenter implements Presenter {
    * @return a matching category or null if nothing is found
    */
   private Category searchCategory(String breadcrumb) {
-    return model.getFlatCategoriesLst().stream().filter(
+    return model.getCategoriesFlat().stream().filter(
         cat -> cat.getBreadcrumb().equals(breadcrumb)
     ).findAny().orElse(null);
   }

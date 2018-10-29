@@ -44,7 +44,7 @@ public class PreferencesFxModel {
   private StringProperty searchText = new SimpleStringProperty();
 
   private List<Category> categories;
-  private List<Category> flatCategoriesLst;
+  private List<Category> categoriesFlat;
   private StorageHandler storageHandler;
   private SearchHandler searchHandler;
   private History history;
@@ -53,7 +53,7 @@ public class PreferencesFxModel {
   private boolean persistWindowState = false;
   private boolean saveSettings = true;
   private boolean historyDebugState = false;
-  private boolean oneCategoryLayout;
+  private boolean isOneCategoryLayout;
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
@@ -77,8 +77,8 @@ public class PreferencesFxModel {
     this.searchHandler = searchHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
-    oneCategoryLayout = categories.length == 1;
-    flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
+    isOneCategoryLayout = categories.length == 1;
+    categoriesFlat = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
     setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
     createBreadcrumbs(this.categories);
@@ -89,22 +89,20 @@ public class PreferencesFxModel {
    * translated properly according to the TranslationService used.
    */
   private void initializeCategoryTranslation() {
-    flatCategoriesLst.forEach(category -> {
-      translationServiceProperty().addListener((observable, oldValue, newValue) -> {
-        category.translate(newValue);
-        // listen for i18n changes in the TranslationService for this Category
-        newValue.addListener(() -> category.translate(newValue));
-      });
-    });
+    categoriesFlat.forEach(category -> translationServiceProperty().addListener((observable, oldValue, newValue) -> {
+	  category.translate(newValue);
+	  // listen for i18n changes in the TranslationService for this Category
+	  newValue.addListener(() -> category.translate(newValue));
+	}));
   }
 
   private void createBreadcrumbs(List<Category> categories) {
     categories.forEach(category -> {
-      if (!Objects.equals(category.getGroups(), null)) {
+      if (category.getGroups() != null) {
         category.getGroups().forEach(group -> group.addToBreadcrumb(category.getBreadcrumb()));
       }
-      if (!Objects.equals(category.getChildren(), null)) {
-        category.createBreadcrumbs(category.getChildren());
+      if (category.getChildren() != null) {
+        category.createBreadcrumbs();
       }
     });
   }
@@ -166,7 +164,7 @@ public class PreferencesFxModel {
     if (breadcrumb == null) {
       return defaultCategory;
     }
-    return flatCategoriesLst.stream()
+    return categoriesFlat.stream()
         .filter(category -> category.getBreadcrumb().equals(breadcrumb))
         .findAny().orElse(defaultCategory);
   }
@@ -176,7 +174,7 @@ public class PreferencesFxModel {
    */
   private void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
-        getFlatCategoriesLst()
+        getCategoriesFlat()
     ).forEach(setting -> setting.saveSettingValue(storageHandler));
   }
 
@@ -185,7 +183,7 @@ public class PreferencesFxModel {
    * listener for {@link History}, so that it will be notified of changes to the setting's values.
    */
   public void loadSettingValues() {
-    PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
+    PreferencesFxUtils.categoriesToSettings(categoriesFlat)
         .forEach(setting -> {
           LOGGER.trace("Loading: " + setting.getBreadcrumb());
           if (saveSettings) {
@@ -220,8 +218,8 @@ public class PreferencesFxModel {
     return searchText;
   }
 
-  public List<Category> getFlatCategoriesLst() {
-    return flatCategoriesLst;
+  public List<Category> getCategoriesFlat() {
+    return categoriesFlat;
   }
 
   public SearchHandler getSearchHandler() {
@@ -265,7 +263,7 @@ public class PreferencesFxModel {
   }
 
   public boolean isOneCategoryLayout() {
-    return oneCategoryLayout;
+    return isOneCategoryLayout;
   }
 
   public void addEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
@@ -324,4 +322,5 @@ public class PreferencesFxModel {
     }
     fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
   }
+
 }
