@@ -54,16 +54,24 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
     // NumberFormatException if value can not be parsed to Integer
     factory.setConverter(new NoExceptionStringConverter());
     editableSpinner.setValueFactory(factory);
-
+    editableSpinner.focusedProperty().addListener((observable, wasFocused, isFocused) -> {
+      if (wasFocused && !isFocused) {
+        overrideNonIntegerSpinnerValues();
+      }
+    });
     editableSpinner.addEventHandler(KeyEvent.ANY, event -> {
         if(event.getCode() == KeyCode.ENTER) {
-          try {
-            Integer.parseInt(editableSpinner.getEditor().getText());
-          } catch(NumberFormatException ex) {
-            editableSpinner.getEditor().setText("0");
-          }
+          overrideNonIntegerSpinnerValues();
         }
     });
+  }
+
+  private void overrideNonIntegerSpinnerValues() {
+    try {
+      Integer.parseInt(editableSpinner.getEditor().getText());
+    } catch (NumberFormatException ex) {
+      editableSpinner.getEditor().setText("0");
+    }
   }
 
   /**
