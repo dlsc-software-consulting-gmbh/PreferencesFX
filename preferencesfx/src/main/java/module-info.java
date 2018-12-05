@@ -5,7 +5,7 @@ module com.dlsc.preferencesfx {
 
     requires de.jensd.fx.glyphs.fontawesome;
 
-    requires controlsfx;
+    requires org.controlsfx.controls;
     requires org.apache.logging.log4j;
     requires java.prefs;
     requires gson;
