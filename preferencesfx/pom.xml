@@ -48,19 +48,24 @@
     </distributionManagement>
 
     <repositories>
-
+        <repository>
+            <id>oss-sonatype</id>
+            <name>oss-sonatype</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
         <repository>
             <id>bintray-dlsc-oss-repository</id>
             <name>bintray</name>
             <url>https://dl.bintray.com/dlsc-oss/repository</url>
         </repository>
-
         <repository>
             <name>BestSolution e(fx)clipse releases</name>
             <id>efxclipse-releases</id>
             <url>http://maven.bestsolution.at/efxclipse-releases/</url>
         </repository>
-
     </repositories>
 
     <build>
@@ -127,7 +132,7 @@
 
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
+            <artifactId>javafx-web</artifactId>
             <version>11</version>
         </dependency>
 
