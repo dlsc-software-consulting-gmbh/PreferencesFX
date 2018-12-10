@@ -91,6 +91,11 @@ Import | Description
 `OneCategory` | Shows the behavior of the API when only one category is used: The Breadcrumb Bar and TreeView will be omitted from the GUI.
 `Extended` | A demo, populated with lots of categories, groups and settings without any bindings. Designed to show usage in a big project.
 
+**Important:** To run the demos, execute the maven task 
+```XML
+mvn exec:java
+```
+
 ## Defining a preferences dialog
 Creating a preferences dialog is as simple as calling `PreferencesFx.of()`.
 
