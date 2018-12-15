@@ -6,6 +6,22 @@
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
+## Table of Contents
+- [Maven](#maven)
+- [What is PreferencesFX](#what-is-preferencesfx)
+- [Advantages](#advantages)
+- [Main Features](#main-features)
+- [Documentation](#documentation)
+- [Structure](#structure)
+- [Demos](#demos)
+- [Defining a preferences dialog](#defining-a-preferences-dialog)
+   - [Required arguments](#required-arguments)
+   - [Optional arguments](#optional-arguments)
+   - [Setting types](#setting-types)
+- [Localisation](#localisation)
+- [Validation](#validation)
+- [Team](#team)
+
 ## Maven
 
 To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
