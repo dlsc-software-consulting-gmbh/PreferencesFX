@@ -5,7 +5,6 @@ module com.dlsc.preferencesfx {
 
     requires de.jensd.fx.glyphs.fontawesome;
 
-    requires org.apache.logging.log4j;
     requires java.prefs;
     requires gson;
     requires org.eclipse.fx.ui.controls;
@@ -13,6 +12,8 @@ module com.dlsc.preferencesfx {
     requires com.google.guava;
     requires java.sql;
     requires org.controlsfx.controls;
+    requires org.apache.logging.log4j;
+    requires org.apache.logging.log4j.core;
 
     exports com.dlsc.preferencesfx;
     exports com.dlsc.preferencesfx.formsfx.view.controls;
