@@ -100,7 +100,7 @@
                 <version>3.0.1</version>
                 <configuration>
                     <windowtitle>PreferencesFX API</windowtitle>
-                    <failOnError>false</failOnError>
+                    <failOnError>true</failOnError>
                     <javadocExecutable>/Library/Java/JavaVirtualMachines/jdk-11.jdk/Contents/Home/bin/javadoc</javadocExecutable>
                     <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
                     <docfilessubdirs>true</docfilessubdirs>
