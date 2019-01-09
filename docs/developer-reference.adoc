@@ -7,7 +7,7 @@ This document contains information that may be valuable to a developer of Prefer
 === compareMatches()
 This method is being used in `SearchHandler`:
 
-:sourcedir: ../src/main/java
+:sourcedir: ../preferencesfx/src/main/java
 
 [source,java]
 ----
