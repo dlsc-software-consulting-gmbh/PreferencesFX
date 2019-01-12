@@ -12,6 +12,7 @@ import java.util.Objects;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +32,7 @@ public class Category {
   private List<Group> groups;
   private List<Category> children;
   private final StringProperty breadcrumb = new SimpleStringProperty("");
+  private Node itemIcon;
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -46,6 +48,19 @@ public class Category {
   private Category(String description, Group... groups) {
     this(description);
     this.groups = Arrays.asList(groups);
+  }
+
+  private Category(String description, Node itemIcon) {
+    descriptionKey.setValue(description);
+    translate(null);
+    setBreadcrumb(description);
+    this.itemIcon = itemIcon;
+  }
+
+  private Category(String description, Node itemIcon, Group... groups) {
+    this(description);
+    this.groups = Arrays.asList(groups);
+    this.itemIcon = itemIcon;
   }
 
   /**
@@ -79,6 +94,42 @@ public class Category {
    */
   public static Category of(String description, Setting... settings) {
     return new Category(description, Group.of(settings));
+  }
+
+  /**
+   * Creates an empty category.
+   * Can be used for top-level categories without {@link Setting}.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param itemIcon    Icon to be shown next to the category name
+   * @return initialized Category object
+   */
+  public static Category of(String description, Node itemIcon) {
+    return new Category(description, itemIcon);
+  }
+
+  /**
+   * Creates a new category from groups.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param itemIcon    Icon to be shown next to the category name
+   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link CategoryView}
+   * @return initialized Category object
+   */
+  public static Category of(String description, Node itemIcon, Group... groups) {
+    return new Category(description, itemIcon, groups);
+  }
+
+  /**
+   * Creates a new category from settings, if the settings shouldn't be individually grouped.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param itemIcon    Icon to be shown next to the category name
+   * @param settings    {@link Setting} to be shown in the {@link CategoryView}
+   * @return initialized Category object
+   */
+  public static Category of(String description, Node itemIcon, Setting... settings) {
+    return new Category(description, itemIcon, Group.of(settings));
   }
 
   /**
@@ -200,5 +251,9 @@ public class Category {
 
   public ReadOnlyStringProperty descriptionProperty() {
     return description;
+  }
+
+  public Node getItemIcon() {
+    return itemIcon;
   }
 }
