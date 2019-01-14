@@ -50,6 +50,7 @@ public class Setting<F extends Field, P extends Property> {
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private final StringProperty breadcrumb = new SimpleStringProperty("");
+  private String key = "";
 
   private Setting(String description, F field, P value) {
     this.description = description;
@@ -339,7 +340,7 @@ public class Setting<F extends Field, P extends Property> {
    * @param storageHandler the {@link StorageHandler} to use
    */
   public void saveSettingValue(StorageHandler storageHandler) {
-    storageHandler.saveObject(getBreadcrumb(), value.getValue());
+    storageHandler.saveObject(key.isEmpty() ? getBreadcrumb() : key, value.getValue());
   }
 
   /**
@@ -401,5 +402,10 @@ public class Setting<F extends Field, P extends Property> {
   @Override
   public String toString() {
     return getBreadcrumb();
+  }
+
+  public Setting setCustomSettingKey(String key) {
+    this.key = key;
+    return this;
   }
 }
