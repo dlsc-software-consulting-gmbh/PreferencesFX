@@ -24,6 +24,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class NodeExample extends StackPane {
@@ -91,7 +93,7 @@ public class NodeExample extends StackPane {
                 Setting.of("Night mode", nightMode)
             )
         ),
-        Category.of("Screen")
+        Category.of("Screen", new ImageView(new Image("file:preferencesfx-demo/src/main/resources/com/dlsc/preferencesfx/screen_icon.png")))
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(

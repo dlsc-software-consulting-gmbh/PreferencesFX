@@ -51,15 +51,12 @@ public class Category {
   }
 
   private Category(String description, Node itemIcon) {
-    descriptionKey.setValue(description);
-    translate(null);
-    setBreadcrumb(description);
+    this(description);
     this.itemIcon = itemIcon;
   }
 
   private Category(String description, Node itemIcon, Group... groups) {
-    this(description);
-    this.groups = Arrays.asList(groups);
+    this(description, groups);
     this.itemIcon = itemIcon;
   }
 
