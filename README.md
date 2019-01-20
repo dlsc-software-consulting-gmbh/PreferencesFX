@@ -92,7 +92,8 @@ PreferencesFx preferencesFx =
 ```
 Notes:
 - It is also possible to omit the `Group` and declare all settings in a `Category` directly. However, in this case all settings will simply be displayed one after another without grouping. If you want more control, use `Group`.
-- A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space inbetween them, to ensure they can be differentiated.
+- A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space in between them, to ensure they can be differentiated.
+- A `Category` can also take a graphic node to be used as an icon as the second argument, e.g. `Category.of("Category Title", new ImageView(new Image("file:icon.png")),`
 
 ## Demos
 We created several demos to visualize the capabilities of PreferencesFX.  

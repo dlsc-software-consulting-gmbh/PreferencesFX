@@ -155,6 +155,7 @@ public class NavigationPresenter implements Presenter {
           setGraphic(null);
         } else {
           textProperty().bind(category.descriptionProperty());
+          setGraphic(category.getItemIcon());
         }
       }
     });
