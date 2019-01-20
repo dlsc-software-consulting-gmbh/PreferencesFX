@@ -206,7 +206,7 @@ public class StorageHandlerImpl implements StorageHandler {
       // try to get preferences value with legacy hashing method
       json = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
       if (json != serializedDefault) {
-        LOGGER.warn("Preferences value of %s was loaded using the legacy hashing method. "
+        LOGGER.warn("Preferences value of {} was loaded using the legacy hashing method. "
             + "Value will be saved using the new hashing method with next save.", breadcrumb);
       }
     }
