@@ -73,7 +73,7 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   private void layoutForm() {
-    dialog.setTitle("PreferencesFx");
+    dialog.setTitle("Preferences");
     dialog.setResizable(true);
     getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     dialog.setDialogPane(this);
