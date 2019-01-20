@@ -93,7 +93,7 @@ public class NodeExample extends StackPane {
                 Setting.of("Night mode", nightMode)
             )
         ),
-        Category.of("Screen", new ImageView(new Image("file:preferencesfx-demo/src/main/resources/com/dlsc/preferencesfx/screen_icon.png")))
+        Category.of("Screen", new ImageView(new Image(AppStarter.class.getResource("screen_icon.png").toExternalForm())))
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(
