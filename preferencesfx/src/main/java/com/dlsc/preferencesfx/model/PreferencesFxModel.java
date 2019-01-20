@@ -309,6 +309,7 @@ public class PreferencesFxModel {
    * Saves the settings, when {@link #isSaveSettings()} returns {@code true}.
    */
   public void saveSettings() {
+    LOGGER.trace("Save");
     if (isSaveSettings()) {
       saveSettingValues();
       fireEvent(PreferencesFxEvent.preferencesSavedEvent());
@@ -317,6 +318,7 @@ public class PreferencesFxModel {
   }
 
   public void discardChanges() {
+    LOGGER.trace("Discard");
     history.clear(true);
     // save settings after undoing them
     if (saveSettings) {
