@@ -26,8 +26,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the model which holds all of the data and logic which is not limited to presenters.
@@ -37,7 +37,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class PreferencesFxModel {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesFxModel.class.getName());
+      LoggerFactory.getLogger(PreferencesFxModel.class.getName());
 
   private ObjectProperty<Category> displayedCategory = new SimpleObjectProperty<>();
 

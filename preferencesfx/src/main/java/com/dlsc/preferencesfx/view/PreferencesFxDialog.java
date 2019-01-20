@@ -14,8 +14,8 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the dialog which is used to show the PreferencesFX window.
@@ -25,7 +25,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class PreferencesFxDialog extends DialogPane {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesFxDialog.class.getName());
+      LoggerFactory.getLogger(PreferencesFxDialog.class.getName());
 
   private PreferencesFxModel model;
   private PreferencesFxView preferencesFxView;
