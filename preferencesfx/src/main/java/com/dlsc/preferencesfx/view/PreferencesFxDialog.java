@@ -64,7 +64,7 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   public void show(boolean modal) {
-    if(modal) {
+    if (modal) {
       dialog.initModality(Modality.APPLICATION_MODAL);
       dialog.showAndWait();
     } else {
@@ -86,7 +86,7 @@ public class PreferencesFxDialog extends DialogPane {
       if (persistWindowState) {
         saveWindowState();
       }
-     model.saveSettings();
+      model.saveSettings();
     });
   }
 

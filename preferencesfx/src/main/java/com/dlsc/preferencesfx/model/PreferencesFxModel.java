@@ -57,7 +57,8 @@ public class PreferencesFxModel {
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
-  private final Map<EventType<PreferencesFxEvent>, List<EventHandler<? super PreferencesFxEvent>>> eventHandlers = new ConcurrentHashMap<>();
+  private final Map<EventType<PreferencesFxEvent>, List<EventHandler<? super PreferencesFxEvent>>>
+      eventHandlers = new ConcurrentHashMap<>();
 
   /**
    * Initializes a new model.
@@ -181,8 +182,8 @@ public class PreferencesFxModel {
   }
 
   /**
-   * Load all of the values of the settings using a {@link StorageHandler} and attaches a
-   * listener for {@link History}, so that it will be notified of changes to the setting's values.
+   * Load all of the values of the settings using a {@link StorageHandler} and attaches a listener
+   * for {@link History}, so that it will be notified of changes to the setting's values.
    */
   public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
@@ -268,7 +269,8 @@ public class PreferencesFxModel {
     return oneCategoryLayout;
   }
 
-  public void addEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
+  public void addEventHandler(EventType<PreferencesFxEvent> eventType,
+                              EventHandler<? super PreferencesFxEvent> eventHandler) {
     if (eventType == null) {
       throw new NullPointerException("Argument eventType must not be null");
     }
@@ -276,10 +278,12 @@ public class PreferencesFxModel {
       throw new NullPointerException("Argument eventHandler must not be null");
     }
 
-    this.eventHandlers.computeIfAbsent(eventType, k -> new CopyOnWriteArrayList<>()).add(eventHandler);
+    this.eventHandlers.computeIfAbsent(eventType, k -> new CopyOnWriteArrayList<>()).add(
+        eventHandler);
   }
 
-  public void removeEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
+  public void removeEventHandler(EventType<PreferencesFxEvent> eventType,
+                                 EventHandler<? super PreferencesFxEvent> eventHandler) {
     if (eventType == null) {
       throw new NullPointerException("Argument eventType must not be null");
     }
@@ -294,7 +298,8 @@ public class PreferencesFxModel {
   }
 
   private void fireEvent(PreferencesFxEvent event) {
-    List<EventHandler<? super PreferencesFxEvent>> list = this.eventHandlers.get(event.getEventType());
+    List<EventHandler<? super PreferencesFxEvent>> list =
+        this.eventHandlers.get(event.getEventType());
     if (list == null) {
       return;
     }
