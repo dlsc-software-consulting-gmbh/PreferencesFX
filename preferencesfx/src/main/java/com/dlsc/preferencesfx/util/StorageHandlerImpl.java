@@ -178,6 +178,14 @@ public class StorageHandlerImpl implements StorageHandler {
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String serializedDefault = gson.toJson(defaultObject);
     String json = preferences.get(hash(breadcrumb), serializedDefault);
+    if (json == serializedDefault) {
+      // try to get preferences value with legacy hashing method
+      json = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
+      if (json != serializedDefault) {
+        LOGGER.warn("Preferences value of %s was loaded using the legacy hashing method. "
+            + "Value will be saved using the new hashing method with next save.", breadcrumb);
+      }
+    }
     return gson.fromJson(json, Object.class);
   }
   // asciidoctor Documentation - end::storageHandlerLoad[]
@@ -199,6 +207,14 @@ public class StorageHandlerImpl implements StorageHandler {
   ) {
     String serializedDefault = gson.toJson(defaultObservableList);
     String json = preferences.get(hash(breadcrumb), serializedDefault);
+    if (json == serializedDefault) {
+      // try to get preferences value with legacy hashing method
+      json = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
+      if (json != serializedDefault) {
+        LOGGER.warn("Preferences value of %s was loaded using the legacy hashing method. "
+            + "Value will be saved using the new hashing method with next save.", breadcrumb);
+      }
+    }
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));
   }
 
