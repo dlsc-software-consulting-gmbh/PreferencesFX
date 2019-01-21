@@ -59,11 +59,11 @@ public class PreferencesFxDialog extends DialogPane {
     }
   }
 
-  public void show() {
-    show(false);
+  public Dialog show() {
+    return show(false);
   }
 
-  public void show(boolean modal) {
+  public Dialog show(boolean modal) {
     if(modal) {
       dialog.initModality(Modality.APPLICATION_MODAL);
       dialog.showAndWait();
@@ -71,6 +71,7 @@ public class PreferencesFxDialog extends DialogPane {
       dialog.initModality(Modality.NONE);
       dialog.show();
     }
+    return dialog;
   }
 
   private void layoutForm() {
@@ -143,5 +144,9 @@ public class PreferencesFxDialog extends DialogPane {
 
     cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
     closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+  }
+
+  public Dialog getDialog() {
+    return dialog;
   }
 }

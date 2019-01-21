@@ -20,6 +20,7 @@ import com.dlsc.preferencesfx.view.PreferencesFxView;
 import com.dlsc.preferencesfx.view.UndoRedoBox;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.control.Dialog;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,6 +48,8 @@ public class PreferencesFx {
 
   private PreferencesFxView preferencesFxView;
   private PreferencesFxPresenter preferencesFxPresenter;
+
+  private PreferencesFxDialog preferencesFxDialog;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
     this(new StorageHandlerImpl(saveClass), categories);
@@ -83,6 +86,8 @@ public class PreferencesFx {
         preferencesFxModel, navigationView, breadCrumbView, categoryController
     );
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
+
+    preferencesFxDialog = new PreferencesFxDialog(preferencesFxModel, preferencesFxView);
   }
 
   /**
@@ -125,9 +130,9 @@ public class PreferencesFx {
   /**
    * Shows the PreferencesFX dialog.
    */
-  public void show() {
+  public Dialog show() {
     // by default, modal is false for retro-compatibility
-    show(false);
+    return show(false);
   }
 
   /**
@@ -135,8 +140,8 @@ public class PreferencesFx {
    *
    * @param modal window or not modal, that's the question.
    */
-  public void show(boolean modal) {
-    new PreferencesFxDialog(preferencesFxModel, preferencesFxView).show(modal);
+  public Dialog show(boolean modal) {
+    return preferencesFxDialog.show(modal);
   }
 
   /**
@@ -252,6 +257,15 @@ public class PreferencesFx {
    */
   public PreferencesFxView getView() {
     return preferencesFxView;
+  }
+
+  /**
+   *Returns a PreferencesFxDialog, so that it can variables as title and icon can be set.
+   *
+   * @return a PreferencesFxDialog, so that it can variables as title and icon can be set.
+   */
+  public PreferencesFxDialog getPreferenceFxDialog() {
+    return preferencesFxDialog;
   }
 
   /**
