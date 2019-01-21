@@ -46,9 +46,9 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
 
     getStyleClass().addAll("simple-integer-control");
     final SpinnerValueFactory.IntegerSpinnerValueFactory factory =
-            new SpinnerValueFactory.IntegerSpinnerValueFactory(
+        new SpinnerValueFactory.IntegerSpinnerValueFactory(
             Integer.MIN_VALUE, Integer.MAX_VALUE, field.getValue()
-    );
+        );
 
     // override old converter (IntegerStringConverter) because it throws
     // NumberFormatException if value can not be parsed to Integer
@@ -60,9 +60,9 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
       }
     });
     editableSpinner.addEventHandler(KeyEvent.ANY, event -> {
-        if(event.getCode() == KeyCode.ENTER) {
-          overrideNonIntegerSpinnerValues();
-        }
+      if (event.getCode() == KeyCode.ENTER) {
+        overrideNonIntegerSpinnerValues();
+      }
     });
   }
 
@@ -95,7 +95,7 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
     public String toString(Integer object) {
       try {
         return new IntegerStringConverter().toString(object);
-      } catch(NumberFormatException ex) {
+      } catch (NumberFormatException ex) {
         return "0";
       }
     }
@@ -104,7 +104,7 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
     public Integer fromString(String string) {
       try {
         return new IntegerStringConverter().fromString(string);
-      } catch(NumberFormatException ex) {
+      } catch (NumberFormatException ex) {
         return 0;
       }
     }

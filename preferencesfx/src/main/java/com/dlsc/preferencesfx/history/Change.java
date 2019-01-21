@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -18,7 +19,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -129,7 +129,7 @@ public class Change<P> {
    */
   public boolean isRedundant() {
     if (isListChange()) {
-      return CollectionUtils.isEqualCollection(oldList.get(), newList.get());
+      return Objects.equals(oldList.get(),newList.get());
     }
     return oldValue.get().equals(newValue.get());
   }

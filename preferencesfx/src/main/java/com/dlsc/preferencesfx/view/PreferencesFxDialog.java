@@ -1,5 +1,6 @@
 package com.dlsc.preferencesfx.view;
 
+import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
@@ -59,12 +60,23 @@ public class PreferencesFxDialog extends DialogPane {
     }
   }
 
+  /**
+   * Opens {@link PreferencesFx} in a non-modal dialog window.
+   * A non-modal dialog window means the user is able to interact with the original application
+   * while the dialog is open.
+   */
   public void show() {
     show(false);
   }
 
+  /**
+   * Opens {@link PreferencesFx} in a dialog window.
+   *
+   * @param modal if true, will not allow the user to interact with any other window than
+   *              the {@link PreferencesFxDialog}, as long as it is open.
+   */
   public void show(boolean modal) {
-    if(modal) {
+    if (modal) {
       dialog.initModality(Modality.APPLICATION_MODAL);
       dialog.showAndWait();
     } else {
@@ -86,7 +98,7 @@ public class PreferencesFxDialog extends DialogPane {
       if (persistWindowState) {
         saveWindowState();
       }
-     model.saveSettings();
+      model.saveSettings();
     });
   }
 
