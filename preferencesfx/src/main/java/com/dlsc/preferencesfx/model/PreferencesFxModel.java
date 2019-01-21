@@ -9,6 +9,7 @@ import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.view.PreferencesFxDialog;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -269,6 +270,14 @@ public class PreferencesFxModel {
     return oneCategoryLayout;
   }
 
+  /**
+   * Registers an event handler. The handler is called when a {@link PreferencesFxEvent} of the
+   * specified type is being fired.
+   *
+   * @param eventType the type of the events to receive by the handler
+   * @param eventHandler the handler to register
+   * @throws NullPointerException if the event type or handler is null
+   */
   public void addEventHandler(EventType<PreferencesFxEvent> eventType,
                               EventHandler<? super PreferencesFxEvent> eventHandler) {
     if (eventType == null) {
@@ -282,6 +291,15 @@ public class PreferencesFxModel {
         eventHandler);
   }
 
+  /**
+   * Unregisters a previously registered event handler. One handler might have been registered for
+   * different event types, so the caller needs to specify the particular event type from which to
+   * unregister the handler.
+   *
+   * @param eventType the event type from which to unregister
+   * @param eventHandler the handler to unregister
+   * @throws NullPointerException if the event type or handler is null
+   */
   public void removeEventHandler(EventType<PreferencesFxEvent> eventType,
                                  EventHandler<? super PreferencesFxEvent> eventHandler) {
     if (eventType == null) {
@@ -321,6 +339,11 @@ public class PreferencesFxModel {
     history.clear(false);
   }
 
+  /**
+   * Undos all changes made, clears the history and saves the settings.
+   * Typically called when the cancel button of the {@link PreferencesFxDialog} is pressed.
+   * Can also be called explicity in case of using PreferencesFX as a node to undo all changes.
+   */
   public void discardChanges() {
     history.clear(true);
     // save settings after undoing them
