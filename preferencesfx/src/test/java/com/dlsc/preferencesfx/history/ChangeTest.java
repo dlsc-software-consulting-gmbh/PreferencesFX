@@ -22,4 +22,16 @@ public class ChangeTest {
   @Test
   public void redo() {
   }
+
+  @Test
+  public void isRedundant() {
+  }
+
+  @Test
+  public void isListChange() {
+  }
+
+  @Test
+  public void getTimestamp() {
+  }
 }
