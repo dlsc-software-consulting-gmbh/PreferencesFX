@@ -352,12 +352,12 @@ public class Setting<F extends Field, P extends Property> {
    *           the {@link StorageHandler}.
    */
   public void loadSettingValue(StorageHandler storageHandler) {
-    if (value instanceof ListProperty) {
+  if (value instanceof ListProperty) {
       value.setValue(
-          storageHandler.loadObservableList(getBreadcrumb(), (ObservableList) value.getValue())
+          storageHandler.loadObservableList(key.isEmpty() ? getBreadcrumb() : key, (ObservableList) value.getValue())
       );
     } else {
-      value.setValue(storageHandler.loadObject(getBreadcrumb(), value.getValue()));
+      value.setValue(storageHandler.loadObject(key.isEmpty() ? getBreadcrumb() : key, value.getValue()));
     }
   }
 
