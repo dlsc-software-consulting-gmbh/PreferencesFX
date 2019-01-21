@@ -125,6 +125,17 @@
                 </executions>
             </plugin>
 
+            <!-- JUnit Tests -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <!-- Only Java 9+
+                <configuration>
+                    <forkCount>0</forkCount>
+                </configuration>
+                -->
+            </plugin>
+
             <!-- Checkstyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
