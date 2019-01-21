@@ -404,7 +404,7 @@ public class Setting<F extends Field, P extends Property> {
     return getBreadcrumb();
   }
 
-  public Setting setCustomSettingKey(String key) {
+  public Setting customKey(String key) {
     this.key = key;
     return this;
   }
