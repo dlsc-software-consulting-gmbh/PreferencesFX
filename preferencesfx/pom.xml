@@ -156,6 +156,7 @@
                     <includeTestSourceDirectory>false</includeTestSourceDirectory>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
+                    <excludes>**/module-info.java</excludes>
                 </configuration>
                 <executions>
                     <execution>
