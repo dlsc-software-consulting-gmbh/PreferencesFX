@@ -6,6 +6,22 @@
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
+## Table of Contents
+- [Maven](#maven)
+- [What is PreferencesFX](#what-is-preferencesfx)
+- [Advantages](#advantages)
+- [Main Features](#main-features)
+- [Documentation](#documentation)
+- [Structure](#structure)
+- [Demos](#demos)
+- [Defining a preferences dialog](#defining-a-preferences-dialog)
+   - [Required arguments](#required-arguments)
+   - [Optional arguments](#optional-arguments)
+   - [Setting types](#setting-types)
+- [Localisation](#localisation)
+- [Validation](#validation)
+- [Team](#team)
+
 ## Maven
 
 To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
@@ -76,7 +92,8 @@ PreferencesFx preferencesFx =
 ```
 Notes:
 - It is also possible to omit the `Group` and declare all settings in a `Category` directly. However, in this case all settings will simply be displayed one after another without grouping. If you want more control, use `Group`.
-- A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space inbetween them, to ensure they can be differentiated.
+- A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space in between them, to ensure they can be differentiated.
+- A `Category` can also take a graphic node to be used as an icon as the second argument, e.g. `Category.of("Category Title", new ImageView(new Image("file:icon.png")),`
 
 ## Demos
 We created several demos to visualize the capabilities of PreferencesFX.  

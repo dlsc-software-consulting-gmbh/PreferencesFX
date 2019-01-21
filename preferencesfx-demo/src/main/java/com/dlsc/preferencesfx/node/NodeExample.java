@@ -24,6 +24,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class NodeExample extends StackPane {
@@ -38,6 +40,8 @@ public class NodeExample extends StackPane {
   // Screen
   DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
+  ImageView screenIcon = new ImageView(
+      new Image(AppStarter.class.getResource("screen_icon.png").toExternalForm()));
 
   ObservableList<String> resolutionItems = FXCollections.observableArrayList(Arrays.asList(
       "1024x768", "1280x1024", "1440x900", "1920x1080")
@@ -91,7 +95,7 @@ public class NodeExample extends StackPane {
                 Setting.of("Night mode", nightMode)
             )
         ),
-        Category.of("Screen")
+        Category.of("Screen", screenIcon)
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(
