@@ -30,8 +30,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a setting, which holds the field to be displayed and the property which is bound.
@@ -41,7 +41,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Setting<F extends Field, P extends Property> {
   private static final Logger LOGGER =
-      LogManager.getLogger(Setting.class.getName());
+      LoggerFactory.getLogger(Setting.class.getName());
 
   public static final String MARKED_STYLE_CLASS = "simple-control-marked";
   private String description;

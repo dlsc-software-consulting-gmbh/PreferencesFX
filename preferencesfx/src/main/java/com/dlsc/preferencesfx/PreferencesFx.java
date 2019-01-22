@@ -20,8 +20,8 @@ import com.dlsc.preferencesfx.view.PreferencesFxView;
 import com.dlsc.preferencesfx.view.UndoRedoBox;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the main PreferencesFX class.
@@ -31,7 +31,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class PreferencesFx {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesFx.class.getName());
+      LoggerFactory.getLogger(PreferencesFx.class.getName());
 
   private PreferencesFxModel preferencesFxModel;
 
