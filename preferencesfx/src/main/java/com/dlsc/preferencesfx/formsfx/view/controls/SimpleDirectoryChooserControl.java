@@ -36,7 +36,7 @@ import javax.annotation.Nullable;
 import java.io.File;
 
 /**
- * This class provides the base implementation for a simple control to select a directory path.
+ * This class provides the base implementation for a simple control to select or enter a directory path.
  *
  * @author Rinesch Murugathas
  * @author Sacha Schmid
