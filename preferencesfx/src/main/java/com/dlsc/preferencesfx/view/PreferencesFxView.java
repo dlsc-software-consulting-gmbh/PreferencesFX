@@ -7,9 +7,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.MasterDetailPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.controlsfx.control.MasterDetailPane;
 
 /**
  * Represents the master view, which is used to show all view parts in {@link PreferencesFxDialog}.

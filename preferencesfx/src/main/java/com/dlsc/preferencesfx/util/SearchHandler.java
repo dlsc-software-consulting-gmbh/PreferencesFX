@@ -19,10 +19,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles everything related to searching in the{@link Category}, {@link Group}

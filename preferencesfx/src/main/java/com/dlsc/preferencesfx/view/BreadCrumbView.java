@@ -6,9 +6,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.controlsfx.control.BreadCrumbBar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.controlsfx.control.BreadCrumbBar;
 
 /**
  * Displays the {@link BreadCrumbBar} of all {@link Category} up to a certain hierarchy level.
