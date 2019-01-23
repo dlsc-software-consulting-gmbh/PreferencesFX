@@ -9,11 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -59,11 +61,11 @@ public class PreferencesFxDialog extends DialogPane {
     }
   }
 
-  public Dialog show() {
-    return show(false);
+  public void show() {
+    show(false);
   }
 
-  public Dialog show(boolean modal) {
+  public void show(boolean modal) {
     if(modal) {
       dialog.initModality(Modality.APPLICATION_MODAL);
       dialog.showAndWait();
@@ -71,7 +73,6 @@ public class PreferencesFxDialog extends DialogPane {
       dialog.initModality(Modality.NONE);
       dialog.show();
     }
-    return dialog;
   }
 
   private void layoutForm() {
@@ -146,7 +147,11 @@ public class PreferencesFxDialog extends DialogPane {
     closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
   }
 
-  public Dialog getDialog() {
-    return dialog;
+  public void setDialogTitle(String title) {
+    dialog.setTitle(title);
+  }
+
+  public void setDialogIcon(Image image) {
+      ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(image);
   }
 }

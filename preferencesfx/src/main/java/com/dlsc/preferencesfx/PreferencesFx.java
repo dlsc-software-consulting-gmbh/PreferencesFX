@@ -20,7 +20,7 @@ import com.dlsc.preferencesfx.view.PreferencesFxView;
 import com.dlsc.preferencesfx.view.UndoRedoBox;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import javafx.scene.control.Dialog;
+import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -130,9 +130,9 @@ public class PreferencesFx {
   /**
    * Shows the PreferencesFX dialog.
    */
-  public Dialog show() {
+  public void show() {
     // by default, modal is false for retro-compatibility
-    return show(false);
+    show(false);
   }
 
   /**
@@ -140,8 +140,8 @@ public class PreferencesFx {
    *
    * @param modal window or not modal, that's the question.
    */
-  public Dialog show(boolean modal) {
-    return preferencesFxDialog.show(modal);
+  public void show(boolean modal) {
+    preferencesFxDialog.show(modal);
   }
 
   /**
@@ -260,12 +260,18 @@ public class PreferencesFx {
   }
 
   /**
-   *Returns a PreferencesFxDialog, so that it can variables as title and icon can be set.
-   *
-   * @return a PreferencesFxDialog, so that it can variables as title and icon can be set.
+   * Sets the dialog title.
    */
-  public PreferencesFxDialog getPreferenceFxDialog() {
-    return preferencesFxDialog;
+  public void setTitle(String title) {
+    preferencesFxDialog.setDialogTitle(title);
+  }
+
+  /**
+   * Sets the dialog icon.
+   * @param image the image to be used as the dialog icon.
+   */
+  public void setIcon(Image image) {
+    preferencesFxDialog.setDialogIcon(image);
   }
 
   /**
