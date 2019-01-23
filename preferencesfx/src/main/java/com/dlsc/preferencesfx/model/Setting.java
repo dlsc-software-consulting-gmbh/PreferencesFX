@@ -404,6 +404,11 @@ public class Setting<F extends Field, P extends Property> {
     return getBreadcrumb();
   }
 
+  /**
+   * Sets the Preference key to be used instead of the breadcrumb. Can be used without hash in a custom {@link StorageHandler}.
+   * @param key the string key to be used for the preference
+   * @return this Setting
+   */
   public Setting customKey(String key) {
     this.key = key;
     return this;
