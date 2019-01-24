@@ -347,6 +347,9 @@ public class PreferencesFxModel {
    */
   public void saveSettings() {
     if (isSaveSettings()) {
+      if (!isInstantPersistent()) {
+        applyChanges();
+      }
       saveSettingValues();
       fireEvent(PreferencesFxEvent.preferencesSavedEvent());
     }
