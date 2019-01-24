@@ -348,7 +348,7 @@ public class PreferencesFxModel {
   public void saveSettings() {
     if (isSaveSettings()) {
       if (!isInstantPersistent()) {
-        applyChanges();
+        applyFieldChanges();
       }
       saveSettingValues();
       fireEvent(PreferencesFxEvent.preferencesSavedEvent());
@@ -374,7 +374,7 @@ public class PreferencesFxModel {
     fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
   }
 
-  public void applyChanges() {
+  public void applyFieldChanges() {
     PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
         .forEach(FormElement::persist);
   }
