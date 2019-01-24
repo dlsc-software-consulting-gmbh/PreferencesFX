@@ -215,7 +215,8 @@ public class PreferencesFx {
   }
 
   /**
-   * Defines whether changes should be instantly persisted or only on demand. TODO
+   * Defines whether changes should be instantly persisted or not.
+   * When {@code instantPersistent} is false, call {@link #saveSettings()} to apply the changes.
    *
    * @param instantPersistent if true, will instantly persist changes
    * @return this object for fluent API
