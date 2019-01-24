@@ -346,6 +346,7 @@ public class PreferencesFxModel {
    * Saves the settings, when {@link #isSaveSettings()} returns {@code true}.
    */
   public void saveSettings() {
+    LOGGER.trace("Save");
     if (isSaveSettings()) {
       if (!isInstantPersistent()) {
         applyFieldChanges();
@@ -362,6 +363,7 @@ public class PreferencesFxModel {
    * Can also be called explicity in case of using PreferencesFX as a node to undo all changes.
    */
   public void discardChanges() {
+    LOGGER.trace("Discard");
     if (!isInstantPersistent()) {
       discardFieldChanges();
     } else {
