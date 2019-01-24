@@ -1,11 +1,11 @@
 package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.PreferencesFx;
-import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.history.view.HistoryDialog;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -37,6 +37,8 @@ public class PreferencesFxDialog extends DialogPane {
   private boolean saveSettings;
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
   private ButtonType cancelBtnType = ButtonType.CANCEL;
+  private ButtonType okBtnType = ButtonType.OK;
+  private ButtonType applyBtnType = ButtonType.APPLY;
 
   /**
    * Initializes the {@link DialogPane} which shows the PreferencesFX window.
@@ -88,7 +90,11 @@ public class PreferencesFxDialog extends DialogPane {
   private void layoutForm() {
     dialog.setTitle("Preferences");
     dialog.setResizable(true);
-    getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
+    if (model.isInstantPersistent()) {
+      getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
+    } else {
+      getButtonTypes().addAll(cancelBtnType, applyBtnType, okBtnType);
+    }
     dialog.setDialogPane(this);
     setContent(preferencesFxView);
   }
@@ -150,8 +156,16 @@ public class PreferencesFxDialog extends DialogPane {
     LOGGER.trace("Setting Buttons up");
     final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
+    final Button applyBtn = (Button) lookupButton(applyBtnType);
 
-    cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
-    closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
+      event.consume();
+      model.saveSettings();
+    });
+
+    if (model.isInstantPersistent()) {
+      cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+      closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    }
   }
 }
