@@ -374,12 +374,12 @@ public class PreferencesFxModel {
     fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
   }
 
-  public void applyFieldChanges() {
+  private void applyFieldChanges() {
     PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
         .forEach(FormElement::persist);
   }
 
-  public void discardFieldChanges() {
+  private void discardFieldChanges() {
     PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
         .forEach(FormElement::reset);
   }
