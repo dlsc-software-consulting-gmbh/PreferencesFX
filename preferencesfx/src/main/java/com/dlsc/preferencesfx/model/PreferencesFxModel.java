@@ -3,7 +3,7 @@ package com.dlsc.preferencesfx.model;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
-import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.FormElement;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
@@ -375,14 +375,12 @@ public class PreferencesFxModel {
   }
 
   public void applyChanges() {
-    PreferencesFxUtils.categoriesToSettings(getFlatCategoriesLst()).stream()
-        .map(Setting::getField)
-        .forEach(field -> ((Field) field).persist());
+    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+        .forEach(FormElement::persist);
   }
 
   public void discardFieldChanges() {
-    PreferencesFxUtils.categoriesToSettings(getFlatCategoriesLst()).stream()
-        .map(Setting::getField)
-        .forEach(field -> ((Field) field).reset());
+    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+        .forEach(FormElement::reset);
   }
 }
