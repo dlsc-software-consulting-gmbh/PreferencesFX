@@ -55,6 +55,7 @@ public class PreferencesFxModel {
   private boolean saveSettings = true;
   private boolean historyDebugState = false;
   private boolean oneCategoryLayout;
+  private BooleanProperty instantPersistent = new SimpleBooleanProperty(true);
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
@@ -240,6 +241,18 @@ public class PreferencesFxModel {
 
   public void setButtonsVisible(boolean buttonsVisible) {
     this.buttonsVisible.set(buttonsVisible);
+  }
+
+  public boolean isInstantPersistent() {
+    return instantPersistent.get();
+  }
+
+  public BooleanProperty instantPersistentProperty() {
+    return instantPersistent;
+  }
+
+  public void setInstantPersistent(boolean instantPersistent) {
+    this.instantPersistent.set(instantPersistent);
   }
 
   public TranslationService getTranslationService() {
