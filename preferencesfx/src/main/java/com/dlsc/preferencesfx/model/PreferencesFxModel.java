@@ -362,10 +362,14 @@ public class PreferencesFxModel {
    * Can also be called explicity in case of using PreferencesFX as a node to undo all changes.
    */
   public void discardChanges() {
-    history.clear(true);
-    // save settings after undoing them
-    if (saveSettings) {
-      saveSettingValues();
+    if (!isInstantPersistent()) {
+      discardFieldChanges();
+    } else {
+      history.clear(true);
+      // save settings after undoing them
+      if (saveSettings) {
+        saveSettingValues();
+      }
     }
     fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
   }
@@ -374,5 +378,11 @@ public class PreferencesFxModel {
     PreferencesFxUtils.categoriesToSettings(getFlatCategoriesLst()).stream()
         .map(Setting::getField)
         .forEach(field -> ((Field) field).persist());
+  }
+
+  public void discardFieldChanges() {
+    PreferencesFxUtils.categoriesToSettings(getFlatCategoriesLst()).stream()
+        .map(Setting::getField)
+        .forEach(field -> ((Field) field).reset());
   }
 }
