@@ -158,14 +158,14 @@ public class PreferencesFxDialog extends DialogPane {
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
     final Button applyBtn = (Button) lookupButton(applyBtnType);
 
-    applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
-      event.consume();
-      model.saveSettings();
-    });
-
     if (model.isInstantPersistent()) {
       cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
       closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    } else {
+      applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
+        event.consume();
+        model.saveSettings();
+      });
     }
   }
 }
