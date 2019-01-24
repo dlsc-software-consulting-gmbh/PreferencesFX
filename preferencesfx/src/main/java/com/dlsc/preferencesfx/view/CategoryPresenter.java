@@ -107,8 +107,16 @@ public class CategoryPresenter implements Presenter {
       }
     }
 
-    // ensures instant persistance of value changes
-    form.binding(BindingMode.CONTINUOUS);
+    BindingMode persistence;
+    if (model.isInstantPersistent()) {
+      // instant persistence is on
+      persistence = BindingMode.CONTINUOUS;
+    } else {
+      // instant persistence is off
+      persistence = BindingMode.PERSISTENT;
+    }
+    form.binding(persistence);
+
     return form;
   }
 
