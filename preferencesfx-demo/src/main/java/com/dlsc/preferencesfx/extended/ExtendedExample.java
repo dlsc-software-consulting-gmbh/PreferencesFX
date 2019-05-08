@@ -26,6 +26,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 public class ExtendedExample extends StackPane {
 
@@ -129,6 +130,9 @@ public class ExtendedExample extends StackPane {
   );
   ObjectProperty<String> closingToolObj = new SimpleObjectProperty<>("Ask");
 
+  // Color picker
+  ObjectProperty<Color> colorProperty = new SimpleObjectProperty<>(Color.PAPAYAWHIP);
+
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(AppStarter.class,
         Category.of("General",
@@ -152,6 +156,7 @@ public class ExtendedExample extends StackPane {
                     ).description("Screen Options"),
                     Group.of(
                         Setting.of("Font Size", fontSize, 6, 36),
+                        Setting.of("Font Color", colorProperty),
                         Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
                     )
                 )
