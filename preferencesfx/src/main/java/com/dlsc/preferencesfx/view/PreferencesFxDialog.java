@@ -86,7 +86,7 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   private void layoutForm() {
-    dialog.setTitle("PreferencesFx");
+    dialog.setTitle("Preferences");
     dialog.setResizable(true);
     getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     dialog.setDialogPane(this);
@@ -95,10 +95,18 @@ public class PreferencesFxDialog extends DialogPane {
 
   private void setupDialogClose() {
     dialog.setOnCloseRequest(e -> {
-      if (persistWindowState) {
-        saveWindowState();
+      LOGGER.trace("Closing because of dialog close request");
+      ButtonType resultButton = (ButtonType) dialog.resultProperty().getValue();
+      if (ButtonType.CANCEL.equals(resultButton)) {
+        LOGGER.trace("Dialog - Cancel Button was pressed");
+        model.discardChanges();
+      } else {
+        LOGGER.trace("Dialog - Close Button or 'x' was pressed");
+        if (persistWindowState) {
+          saveWindowState();
+        }
+        model.saveSettings();
       }
-      model.saveSettings();
     });
   }
 
@@ -142,16 +150,6 @@ public class PreferencesFxDialog extends DialogPane {
     LOGGER.trace("Setting Buttons up");
     final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
-
-    History history = model.getHistory();
-    cancelBtn.setOnAction(event -> {
-      LOGGER.trace("Cancel Button was pressed");
-      model.discardChanges();
-    });
-    closeBtn.setOnAction(event -> {
-      LOGGER.trace("Close Button was pressed");
-      history.clear(false);
-    });
 
     cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
     closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
