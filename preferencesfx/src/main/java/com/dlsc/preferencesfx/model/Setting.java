@@ -352,9 +352,9 @@ public class Setting<F extends Field, P extends Property> {
    *           the {@link StorageHandler}.
    */
   public void loadSettingValue(StorageHandler storageHandler) {
-  if (value instanceof ListProperty) {
+    if (value instanceof ListProperty) {
       value.setValue(
-          storageHandler.loadObservableList(key.isEmpty() ? getBreadcrumb() : key, (ObservableList) value.getValue())
+        storageHandler.loadObservableList(key.isEmpty() ? getBreadcrumb() : key, (ObservableList) value.getValue())
       );
     } else {
       value.setValue(storageHandler.loadObject(key.isEmpty() ? getBreadcrumb() : key, value.getValue()));
@@ -405,7 +405,8 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * Sets the Preference key to be used instead of the breadcrumb. Can be used without hash in a custom {@link StorageHandler}.
+   * Sets the Preference key to be used instead of the breadcrumb.
+   * Can be used without hash in a custom {@link StorageHandler}.
    * @param key the string key to be used for the preference
    * @return this Setting
    */
