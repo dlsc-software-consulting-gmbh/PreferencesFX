@@ -130,7 +130,7 @@ public class ExtendedExample extends StackPane {
   ObjectProperty<String> closingToolObj = new SimpleObjectProperty<>("Ask");
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(ExtendedExample.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)

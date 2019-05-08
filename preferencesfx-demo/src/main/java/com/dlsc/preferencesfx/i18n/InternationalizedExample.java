@@ -88,7 +88,7 @@ public class InternationalizedExample extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(InternationalizedExample.class,
         Category.of("general",
             Group.of("greeting",
                 Setting.of("welcome", welcomeText)
