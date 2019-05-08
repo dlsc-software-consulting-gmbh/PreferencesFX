@@ -278,8 +278,9 @@ public class PreferencesFx {
    *
    * @param title the dialog title
    */
-  public void setTitle(String title) {
+  public PreferencesFx dialogTitle(String title) {
     preferencesFxDialog.setDialogTitle(title);
+    return this;
   }
 
   /**
@@ -287,8 +288,9 @@ public class PreferencesFx {
    *
    * @param image the image to be used as the dialog icon.
    */
-  public void setIcon(Image image) {
+  public PreferencesFx dialogIcon(Image image) {
     preferencesFxDialog.setDialogIcon(image);
+    return this;
   }
 
 }
