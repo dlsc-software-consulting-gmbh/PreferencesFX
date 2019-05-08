@@ -8,8 +8,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.ScrollPane;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Acts as a proxy for the CategoryViews.
@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class CategoryController extends ScrollPane {
   private static final Logger LOGGER =
-      LogManager.getLogger(CategoryController.class.getName());
+      LoggerFactory.getLogger(CategoryController.class.getName());
 
   private ObjectProperty<CategoryView> displayedCategoryView = new SimpleObjectProperty<>();
   private ObjectProperty<CategoryPresenter> displayedCategoryPresenter =

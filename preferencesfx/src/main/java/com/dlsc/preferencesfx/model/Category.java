@@ -13,8 +13,8 @@ import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a category, which is used to structure one to multiple groups with settings in a page.
@@ -25,7 +25,7 @@ import org.apache.logging.log4j.Logger;
 public class Category {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(Category.class.getName());
+      LoggerFactory.getLogger(Category.class.getName());
 
   private StringProperty description = new SimpleStringProperty();
   private StringProperty descriptionKey = new SimpleStringProperty();
