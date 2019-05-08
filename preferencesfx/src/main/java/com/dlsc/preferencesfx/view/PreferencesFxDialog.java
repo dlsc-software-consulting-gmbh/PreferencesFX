@@ -157,11 +157,21 @@ public class PreferencesFxDialog extends DialogPane {
     closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
   }
 
+  /**
+   * Sets the dialog title.
+   *
+   * @param title the dialog title
+   */
   public void setDialogTitle(String title) {
     dialog.setTitle(title);
   }
 
+  /**
+   * Sets the dialog icon.
+   *
+   * @param image the image to be used as the dialog icon.
+   */
   public void setDialogIcon(Image image) {
-      ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(image);
+    ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(image);
   }
 }
