@@ -7,9 +7,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.MasterDetailPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the master view, which is used to show all view parts in {@link PreferencesFxDialog}.
@@ -19,7 +19,7 @@ import org.controlsfx.control.MasterDetailPane;
  */
 public class PreferencesFxView extends BorderPane implements View {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesFxView.class.getName());
+      LoggerFactory.getLogger(PreferencesFxView.class.getName());
 
   CategoryController categoryController;
   MasterDetailPane preferencesPane;

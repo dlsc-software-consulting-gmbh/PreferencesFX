@@ -33,8 +33,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.StringConverter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a setting, which holds the field to be displayed and the property which is bound.
@@ -44,7 +44,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Setting<F extends Field, P extends Property> {
   private static final Logger LOGGER =
-      LogManager.getLogger(Setting.class.getName());
+      LoggerFactory.getLogger(Setting.class.getName());
 
   public static final String MARKED_STYLE_CLASS = "simple-control-marked";
   private String description;
@@ -53,6 +53,7 @@ public class Setting<F extends Field, P extends Property> {
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private final StringProperty breadcrumb = new SimpleStringProperty("");
+  private String key = "";
 
   private Setting(String description, F field, P value) {
     this.description = description;
@@ -376,7 +377,7 @@ public class Setting<F extends Field, P extends Property> {
    * @param storageHandler the {@link StorageHandler} to use
    */
   public void saveSettingValue(StorageHandler storageHandler) {
-    storageHandler.saveObject(getBreadcrumb(), value.getValue());
+    storageHandler.saveObject(key.isEmpty() ? getBreadcrumb() : key, value.getValue());
   }
 
   /**
@@ -389,11 +390,13 @@ public class Setting<F extends Field, P extends Property> {
    */
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
-      value.setValue(
-          storageHandler.loadObservableList(getBreadcrumb(), (ObservableList) value.getValue())
-      );
+      value.setValue(storageHandler.loadObservableList(
+          key.isEmpty() ? getBreadcrumb() : key, (ObservableList) value.getValue()
+      ));
     } else {
-      value.setValue(storageHandler.loadObject(getBreadcrumb(), value.getValue()));
+      value.setValue(storageHandler.loadObject(
+          key.isEmpty() ? getBreadcrumb() : key, value.getValue()
+      ));
     }
   }
 
@@ -438,5 +441,16 @@ public class Setting<F extends Field, P extends Property> {
   @Override
   public String toString() {
     return getBreadcrumb();
+  }
+
+  /**
+   * Sets the Preference key to be used instead of the breadcrumb.
+   * Can be used without hash in a custom {@link StorageHandler}.
+   * @param key the string key to be used for the preference
+   * @return this Setting
+   */
+  public Setting customKey(String key) {
+    this.key = key;
+    return this;
   }
 }

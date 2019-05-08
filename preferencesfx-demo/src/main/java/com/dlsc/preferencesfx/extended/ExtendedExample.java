@@ -134,7 +134,7 @@ public class ExtendedExample extends StackPane {
   ObjectProperty<Color> colorProperty = new SimpleObjectProperty<>(Color.PAPAYAWHIP);
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(ExtendedExample.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)

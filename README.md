@@ -283,6 +283,8 @@ Setting.of("Favorite Number", customControl, customControlProperty);</pre>
     </tr>
 </table>
 
+Note: By default, PreferencesFX saves the settings under a key which consists of the breadcrumb to the setting, delimited by `#` signs. If you want to define your own key to be used for saving, use the method `setting.customKey("key")`
+
 ## Localisation
 All displayed strings can be internationalized. You can use [resource bundles](https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html) to define different locales and use the key instead of the descriptions. Adding i18n support is simply done by calling the method `.i18n()` at the end when creating the preferences:
 
