@@ -162,6 +162,6 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   public void setDialogIcon(Image image) {
-      ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(image);
+    ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(image);
   }
 }
