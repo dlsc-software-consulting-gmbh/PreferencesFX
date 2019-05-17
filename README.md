@@ -20,10 +20,21 @@ To use this framework as part of your Maven build simply add the jcentral reposi
 
 ## Gradle
 
-To use this framework as part of your gradle build simply add the jcentral repository to your build.gradle file and use the following dependency definition.
+To use this framework as part of your gradle build simply add the following to your build.gradle file and use the following dependency definition.
 
 ```groovy
-compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '10.1.0'
+repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+    maven {
+        url 'http://maven.bestsolution.at/efxclipse-releases/'
+    }
+}
+
+dependencies {
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '10.1.0'
+}
 ```
 
 ## What is PreferencesFX?
