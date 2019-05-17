@@ -6,23 +6,25 @@
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
+
 ## Maven
 
 To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
 
 ```XML
-<repositories>
-  <repository>
-    <id>jcenter</id>
-    <url>http://jcenter.bintray.com</url>
-  </repository>
-</repositories>
-
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
   <version>2.1.0</version>
 </dependency>
+```
+
+## Gradle
+
+To use this framework as part of your gradle build simply add the jcentral repository to your build.gradle file and use the following dependency definition.
+
+```groovy
+compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '2.1.0'
 ```
 
 ## What is PreferencesFX?
