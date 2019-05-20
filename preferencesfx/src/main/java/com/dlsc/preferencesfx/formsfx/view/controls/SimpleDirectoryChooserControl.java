@@ -20,6 +20,7 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.StringField;
+import java.io.File;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -31,12 +32,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Window;
-
 import javax.annotation.Nullable;
-import java.io.File;
 
 /**
- * This class provides the base implementation for a simple control to select or enter a directory path.
+ * This class provides the base implementation for a simple control to select or enter a directory
+ * path.
  *
  * @author Rinesch Murugathas
  * @author Sacha Schmid
@@ -47,9 +47,9 @@ import java.io.File;
 public class SimpleDirectoryChooserControl extends SimpleControl<StringField, StackPane> {
 
     /**
-     * - The fieldLabel is the container that displays the label property of the field.
-     * - The editableField allows users to modify the field's value.
-     * - The readOnlyLabel displays the field's value if it is not editable.
+     * - The fieldLabel is the container that displays the label property of the field. - The
+     * editableField allows users to modify the field's value. - The readOnlyLabel displays the
+     * field's value if it is not editable.
      */
     private TextField editableField;
     private TextArea editableArea;
@@ -57,18 +57,19 @@ public class SimpleDirectoryChooserControl extends SimpleControl<StringField, St
     private Label fieldLabel;
     private Button directoryChooserButton = new Button();
     private Window windowOwner;
-    private HBox hBox = new HBox();
+    private HBox contentBox = new HBox();
     private String buttonText;
     private File initialDirectory;
 
     /**
      * Create a new SimpleDirectoryChooserControl.
      *
-     * @param windowOwner      A windowOwner that is needed to show the DirectoryChooser
-     * @param buttonText       Text for the button to show, e.g. "Browse"
+     * @param windowOwner A windowOwner that is needed to show the DirectoryChooser
+     * @param buttonText Text for the button to show, e.g. "Browse"
      * @param initialDirectory An optional initial path, can be null.
      */
-    public SimpleDirectoryChooserControl(Window windowOwner, String buttonText, @Nullable File initialDirectory) {
+    public SimpleDirectoryChooserControl(Window windowOwner, String buttonText,
+                                         @Nullable File initialDirectory) {
         this.windowOwner = windowOwner;
         this.buttonText = buttonText;
         this.initialDirectory = initialDirectory;
@@ -93,8 +94,9 @@ public class SimpleDirectoryChooserControl extends SimpleControl<StringField, St
 
         DirectoryChooser directoryChooser = new DirectoryChooser();
 
-        if (field.valueProperty().get().equals("null"))
+        if (field.valueProperty().get().equals("null")) {
             field.valueProperty().set("");
+        }
 
         directoryChooserButton.setOnAction(event -> {
             if (initialDirectory != null) {
@@ -116,7 +118,7 @@ public class SimpleDirectoryChooserControl extends SimpleControl<StringField, St
         fieldStackPane.setAlignment(Pos.CENTER_LEFT);
         HBox.setHgrow(fieldStackPane, Priority.ALWAYS);
 
-        hBox.getChildren().addAll(fieldStackPane, directoryChooserButton);
+        contentBox.getChildren().addAll(fieldStackPane, directoryChooserButton);
     }
 
     /**
@@ -138,7 +140,7 @@ public class SimpleDirectoryChooserControl extends SimpleControl<StringField, St
             readOnlyLabel.setPrefHeight(80);
         }
 
-        node.getChildren().add(hBox);
+        node.getChildren().add(contentBox);
 
         node.setAlignment(Pos.CENTER_LEFT);
     }
