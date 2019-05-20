@@ -25,6 +25,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 
 public class ExtendedExample extends StackPane {
@@ -128,6 +129,9 @@ public class ExtendedExample extends StackPane {
       )
   );
   ObjectProperty<String> closingToolObj = new SimpleObjectProperty<>("Ask");
+
+  // Custom dialog icon
+  Image dialogIcon = new Image(AppStarter.class.getResource("screen_icon.png").toExternalForm());
 
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(ExtendedExample.class,
@@ -342,6 +346,7 @@ public class ExtendedExample extends StackPane {
                 Category.of("XPath Viewer")
             ),
         Category.of("Other Settings")
-    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true)
+        .dialogTitle("Settings").dialogIcon(dialogIcon);
   }
 }

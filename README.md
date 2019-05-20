@@ -174,6 +174,8 @@ Method | Class | Description
 `.debugHistoryMode` | `PreferencesFx` | Makes it possible to enable or disable the keycombination to open a debug view of the list of all actions in the history (undo / redo). Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the undo / redo history, shown in a table. Defaults to false.
 `.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the cancel and close buttons in the `PreferencesFxDialog`. Defaults to true.
 `.i18n` | `PreferencesFx` | Sets the translation service of the preferences dialog for internationalization.
+`.dialogTitle` | `PreferencesFx` | Allows to specify a custom dialog title.
+`.dialogIcon` | `PreferencesFx` | Allows to specify a custom dialog icon.
 
 #### Setting types
 The following table shows how to create `Settings` using the predefined controls and how they look like:

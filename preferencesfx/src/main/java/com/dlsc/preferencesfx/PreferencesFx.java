@@ -20,6 +20,7 @@ import com.dlsc.preferencesfx.view.PreferencesFxView;
 import com.dlsc.preferencesfx.view.UndoRedoBox;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.image.Image;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +48,8 @@ public class PreferencesFx {
 
   private PreferencesFxView preferencesFxView;
   private PreferencesFxPresenter preferencesFxPresenter;
+
+  private PreferencesFxDialog preferencesFxDialog;
 
   private PreferencesFx(Class<?> saveClass, Category... categories) {
     this(new StorageHandlerImpl(saveClass), categories);
@@ -83,6 +86,8 @@ public class PreferencesFx {
         preferencesFxModel, navigationView, breadCrumbView, categoryController
     );
     preferencesFxPresenter = new PreferencesFxPresenter(preferencesFxModel, preferencesFxView);
+
+    preferencesFxDialog = new PreferencesFxDialog(preferencesFxModel, preferencesFxView);
   }
 
   /**
@@ -136,7 +141,7 @@ public class PreferencesFx {
    * @param modal window or not modal, that's the question.
    */
   public void show(boolean modal) {
-    new PreferencesFxDialog(preferencesFxModel, preferencesFxView).show(modal);
+    preferencesFxDialog.show(modal);
   }
 
   /**
@@ -266,6 +271,26 @@ public class PreferencesFx {
    */
   public PreferencesFxView getView() {
     return preferencesFxView;
+  }
+
+  /**
+   * Sets the dialog title.
+   *
+   * @param title the dialog title
+   */
+  public PreferencesFx dialogTitle(String title) {
+    preferencesFxDialog.setDialogTitle(title);
+    return this;
+  }
+
+  /**
+   * Sets the dialog icon.
+   *
+   * @param image the image to be used as the dialog icon.
+   */
+  public PreferencesFx dialogIcon(Image image) {
+    preferencesFxDialog.setDialogIcon(image);
+    return this;
   }
 
 }
