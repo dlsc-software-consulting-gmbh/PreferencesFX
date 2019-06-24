@@ -79,7 +79,11 @@ public class PreferencesFxModel {
     this.searchHandler = searchHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
-    oneCategoryLayout = categories.length == 1;
+    // Fix for Issue #72 - This should not go to one-category layout if the category has sub-categories
+    if (categories.length == 1 && (categories[0].getChildren() == null || categories[0].getChildren().isEmpty()))
+      oneCategoryLayout = true;
+    else
+      oneCategoryLayout = false;
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
     setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
