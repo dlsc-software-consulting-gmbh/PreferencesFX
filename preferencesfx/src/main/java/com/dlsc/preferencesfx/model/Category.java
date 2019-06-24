@@ -33,6 +33,7 @@ public class Category {
   private List<Category> children;
   private final StringProperty breadcrumb = new SimpleStringProperty("");
   private Node itemIcon;
+  private boolean expand = false;
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -137,6 +138,16 @@ public class Category {
    */
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
+    return this;
+  }
+
+  /**
+   * Sets category to be expanded when added to the tree view.
+   *
+   * @return  this object for chaining with the fluent API
+   */
+  public Category expand()  {
+    this.expand = true;
     return this;
   }
 
@@ -252,5 +263,9 @@ public class Category {
 
   public Node getItemIcon() {
     return itemIcon;
+  }
+
+  public boolean autoExpand() {
+    return expand;
   }
 }

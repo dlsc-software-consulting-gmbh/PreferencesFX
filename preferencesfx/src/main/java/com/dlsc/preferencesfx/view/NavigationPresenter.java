@@ -111,6 +111,9 @@ public class NavigationPresenter implements Presenter {
   private void addRecursive(FilterableTreeItem treeItem, List<Category> categories) {
     for (Category category : categories) {
       FilterableTreeItem<Category> item = new FilterableTreeItem<>(category);
+      if (category.autoExpand()) {
+        item.setExpanded(true);
+      }
       // If there are subcategries, add them recursively.
       if (!Objects.equals(category.getChildren(), null)) {
         addRecursive(item, category.getChildren());
