@@ -5,7 +5,6 @@ import static com.dlsc.preferencesfx.util.Ascii.containsIgnoreCase;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
-import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
