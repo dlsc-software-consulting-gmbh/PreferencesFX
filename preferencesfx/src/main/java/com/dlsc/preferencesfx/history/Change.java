@@ -1,10 +1,10 @@
 package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.model.Setting;
-import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 import javafx.beans.binding.Bindings;
@@ -87,8 +87,8 @@ public class Change<P> {
    */
   public Change(Setting setting, P oldValue, P newValue) {
     this(setting, false);
-    this.oldList.set(FXCollections.observableArrayList(Lists.newArrayList(oldValue)));
-    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
+    this.oldList.set(FXCollections.observableArrayList(Arrays.asList(oldValue)));
+    this.newList.set(FXCollections.observableArrayList(Arrays.asList(newValue)));
   }
 
   private void setupBindings() {
@@ -192,7 +192,7 @@ public class Change<P> {
   }
 
   public void setNewValue(P newValue) {
-    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
+    this.newList.set(FXCollections.observableArrayList(Arrays.asList(newValue)));
   }
 
   public Setting getSetting() {
