@@ -44,6 +44,10 @@ public class OneCategoryExample extends StackPane {
                     .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1"))
             )
         )
-    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+    ).persistWindowState(false)
+     .saveSettings(true)
+     .debugHistoryMode(false)
+     .buttonsVisibility(true)
+     .instantPersistent(false);
   }
 }
