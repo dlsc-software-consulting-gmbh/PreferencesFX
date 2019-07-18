@@ -32,7 +32,7 @@ public class OneCategoryExample extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(OneCategoryExample.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)

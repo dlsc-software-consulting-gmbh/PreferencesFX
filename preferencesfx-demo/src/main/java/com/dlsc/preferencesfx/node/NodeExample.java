@@ -85,7 +85,7 @@ public class NodeExample extends StackPane {
 
   private PreferencesFx createPreferences() {
     // asciidoctor Documentation - tag::setupPreferences[]
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(NodeExample.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)

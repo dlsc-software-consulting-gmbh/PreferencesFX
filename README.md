@@ -175,6 +175,8 @@ Method | Class | Description
 `.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the cancel and close buttons in the `PreferencesFxDialog`. Defaults to true.
 `.instantPersistent` | `PreferencesFx` | If set to true, it will instantly apply any changes that are being made in the `PreferencesFxDialog`. If set to false, it will only apply changes when the `Save` button is pressed. Defaults to true.
 `.i18n` | `PreferencesFx` | Sets the translation service of the preferences dialog for internationalization.
+`.dialogTitle` | `PreferencesFx` | Allows to specify a custom dialog title.
+`.dialogIcon` | `PreferencesFx` | Allows to specify a custom dialog icon.
 
 #### Setting types
 The following table shows how to create `Settings` using the predefined controls and how they look like:
@@ -283,6 +285,8 @@ Setting.of("Favorite Number", customControl, customControlProperty);</pre>
         <td><img src="./docs/images/settings/custom_setting.png"/></td>
     </tr>
 </table>
+
+Note: By default, PreferencesFX saves the settings under a key which consists of the breadcrumb to the setting, delimited by `#` signs. If you want to define your own key to be used for saving, use the method `setting.customKey("key")`
 
 ## Localisation
 All displayed strings can be internationalized. You can use [resource bundles](https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html) to define different locales and use the key instead of the descriptions. Adding i18n support is simply done by calling the method `.i18n()` at the end when creating the preferences:
