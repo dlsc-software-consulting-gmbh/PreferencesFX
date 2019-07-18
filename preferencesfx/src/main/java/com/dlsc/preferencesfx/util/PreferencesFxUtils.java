@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.util;
 
 import static com.dlsc.preferencesfx.util.Ascii.containsIgnoreCase;
 
+import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
@@ -34,6 +35,23 @@ public class PreferencesFxUtils {
         .map(Group::getSettings)      // get settings from groups
         .filter(Objects::nonNull)     // remove all null
         .flatMap(Collection::stream)  // recursively flatten all settings
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Returns a list of all the settings which are contained in a list of {@code categories}
+   * recursively.
+   */
+  public static List<Field> categoriesToFields(List<Category> categories) {
+    return categories.stream()
+        .map(Category::getGroups)     // get groups from categories
+        .filter(Objects::nonNull)     // remove all null
+        .flatMap(Collection::stream)  // recursively flatten all categories
+        .map(Group::getSettings)      // get settings from groups
+        .filter(Objects::nonNull)     // remove all null
+        .flatMap(Collection::stream)  // recursively flatten all settings
+        .map(Setting::getField)
+        .map(Field.class::cast)
         .collect(Collectors.toList());
   }
 

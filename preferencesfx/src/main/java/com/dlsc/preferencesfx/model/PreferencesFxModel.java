@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.model;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
+import com.dlsc.formsfx.model.structure.FormElement;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
@@ -55,6 +56,7 @@ public class PreferencesFxModel {
   private boolean saveSettings = true;
   private boolean historyDebugState = false;
   private boolean oneCategoryLayout;
+  private BooleanProperty instantPersistent = new SimpleBooleanProperty(true);
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
@@ -242,6 +244,18 @@ public class PreferencesFxModel {
     this.buttonsVisible.set(buttonsVisible);
   }
 
+  public boolean isInstantPersistent() {
+    return instantPersistent.get();
+  }
+
+  public BooleanProperty instantPersistentProperty() {
+    return instantPersistent;
+  }
+
+  public void setInstantPersistent(boolean instantPersistent) {
+    this.instantPersistent.set(instantPersistent);
+  }
+
   public TranslationService getTranslationService() {
     return translationService.get();
   }
@@ -334,6 +348,9 @@ public class PreferencesFxModel {
   public void saveSettings() {
     LOGGER.trace("Save");
     if (isSaveSettings()) {
+      if (!isInstantPersistent()) {
+        applyFieldChanges();
+      }
       saveSettingValues();
       fireEvent(PreferencesFxEvent.preferencesSavedEvent());
     }
@@ -347,11 +364,25 @@ public class PreferencesFxModel {
    */
   public void discardChanges() {
     LOGGER.trace("Discard");
-    history.clear(true);
-    // save settings after undoing them
-    if (saveSettings) {
-      saveSettingValues();
+    if (!isInstantPersistent()) {
+      discardFieldChanges();
+    } else {
+      history.clear(true);
+      // save settings after undoing them
+      if (saveSettings) {
+        saveSettingValues();
+      }
     }
     fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
+  }
+
+  private void applyFieldChanges() {
+    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+        .forEach(FormElement::persist);
+  }
+
+  private void discardFieldChanges() {
+    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+        .forEach(FormElement::reset);
   }
 }

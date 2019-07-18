@@ -219,6 +219,18 @@ public class PreferencesFx {
     return this;
   }
 
+  /**
+   * Defines whether changes should be instantly persisted or not.
+   * When {@code instantPersistent} is false, call {@link #saveSettings()} to apply the changes.
+   *
+   * @param instantPersistent if true, will instantly persist changes
+   * @return this object for fluent API
+   */
+  public PreferencesFx instantPersistent(boolean instantPersistent) {
+    preferencesFxModel.setInstantPersistent(instantPersistent);
+    return this;
+  }
+
   public PreferencesFx buttonsVisibility(boolean isVisible) {
     preferencesFxModel.setButtonsVisible(isVisible);
     return this;
