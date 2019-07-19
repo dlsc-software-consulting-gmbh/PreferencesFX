@@ -307,6 +307,37 @@ public class Setting<F extends Field, P extends Property> {
    *
    * @param description       the title of this setting
    * @param fileProperty      the property to which the chosen file / directory should be set to
+   * @param directory         true, if only directories are allowed
+   * @return the constructed setting
+   */
+  public static Setting of(String description,
+                           ObjectProperty<File> fileProperty,
+                           boolean directory) {
+    return of(description, fileProperty, "Browse", null, directory);
+  }
+
+  /**
+   * Creates a file/directory chooser control.
+   *
+   * @param description       the title of this setting
+   * @param fileProperty      the property to which the chosen file / directory should be set to
+   * @param initialDirectory  An optional initial path, can be null. If null, will use the path from
+   *                          the previously chosen file if present.
+   * @param directory         true, if only directories are allowed
+   * @return the constructed setting
+   */
+  public static Setting of(String description,
+                           ObjectProperty<File> fileProperty,
+                           File initialDirectory,
+                           boolean directory) {
+    return of(description, fileProperty, initialDirectory, directory);
+  }
+
+  /**
+   * Creates a file/directory chooser control.
+   *
+   * @param description       the title of this setting
+   * @param fileProperty      the property to which the chosen file / directory should be set to
    * @param buttonText        text of the button to open the file / directory chooser
    * @param initialDirectory  An optional initial path, can be null. If null, will use the path from
    *                          the previously chosen file if present.
