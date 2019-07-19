@@ -26,6 +26,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 public class ExtendedExample extends StackPane {
 
@@ -132,6 +133,9 @@ public class ExtendedExample extends StackPane {
   // Custom dialog icon
   Image dialogIcon = new Image(AppStarter.class.getResource("screen_icon.png").toExternalForm());
 
+  // Color picker
+  ObjectProperty<Color> colorProperty = new SimpleObjectProperty<>(Color.PAPAYAWHIP);
+
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(ExtendedExample.class,
         Category.of("General",
@@ -155,6 +159,7 @@ public class ExtendedExample extends StackPane {
                     ).description("Screen Options"),
                     Group.of(
                         Setting.of("Font Size", fontSize, 6, 36),
+                        Setting.of("Font Color", colorProperty),
                         Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
                     )
                 )
