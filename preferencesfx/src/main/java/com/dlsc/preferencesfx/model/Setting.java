@@ -8,6 +8,7 @@ import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleColorPickerControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleComboBoxControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleChooserControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleDoubleControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleIntegerControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleListViewControl;
@@ -15,6 +16,7 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import java.io.File;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -299,6 +301,49 @@ public class Setting<F extends Field, P extends Property> {
         stringProperty
     );
   }
+
+  /**
+   * Creates a custom file/directory chooser control.
+   *
+   * @param description   the title of this setting
+   * @param fileProperty  the property to which the chosen file / directory should be set to
+   * @param directory     true, if only directories are allowed
+   * @return the constructed setting
+   */
+  public static Setting of(String description,
+                           ObjectProperty<File> fileProperty,
+                           String buttonText,
+                           File initialDirectory,
+                           boolean directory) {
+    StringProperty stringProperty = new SimpleStringProperty();
+    stringProperty.bindBidirectional(
+        fileProperty, new StringConverter<File>() {
+          @Override
+          public String toString(File file) {
+            if (Objects.isNull(file)) {
+              return "";
+            }
+            return file.getAbsolutePath();
+          }
+
+          @Override
+          public File fromString(String value) {
+            return new File(value);
+          }
+        }
+    );
+
+    return new Setting<>(
+        description,
+        Field.ofStringType(stringProperty)
+            .label(description)
+            .render(new SimpleChooserControl(buttonText, initialDirectory, directory)
+            ),
+        stringProperty
+    );
+  }
+
+
 
   /**
    * Sets the list of validators for the current field. This overrides all
