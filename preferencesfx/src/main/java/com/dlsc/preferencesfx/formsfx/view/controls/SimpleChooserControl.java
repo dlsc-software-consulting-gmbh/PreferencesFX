@@ -31,8 +31,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Window;
-import javax.annotation.Nullable;
+import javafx.stage.FileChooser;
 
 /**
  * This class provides the base implementation for a simple control to select or enter a directory
@@ -44,7 +43,7 @@ import javax.annotation.Nullable;
  * @author Marco Sanfratello
  * @author Arvid Nyström
  */
-public class SimpleDirectoryChooserControl extends SimpleControl<StringField, StackPane> {
+public class SimpleChooserControl extends SimpleControl<StringField, StackPane> {
 
     /**
      * - The fieldLabel is the container that displays the label property of the field. - The
@@ -55,24 +54,27 @@ public class SimpleDirectoryChooserControl extends SimpleControl<StringField, St
     private TextArea editableArea;
     private Label readOnlyLabel;
     private Label fieldLabel;
-    private Button directoryChooserButton = new Button();
-    private Window windowOwner;
+    private Button chooserButton = new Button();
     private HBox contentBox = new HBox();
     private String buttonText;
     private File initialDirectory;
+    private boolean directory;
 
     /**
-     * Create a new SimpleDirectoryChooserControl.
+     * Create a new SimpleChooserControl.
      *
-     * @param windowOwner A windowOwner that is needed to show the DirectoryChooser
      * @param buttonText Text for the button to show, e.g. "Browse"
      * @param initialDirectory An optional initial path, can be null.
+     *                         If null, will use the path from the previously
+     *                         chosen file if present.
+     * @param directory  true, if only directories are allowed
      */
-    public SimpleDirectoryChooserControl(Window windowOwner, String buttonText,
-                                         @Nullable File initialDirectory) {
-        this.windowOwner = windowOwner;
+    public SimpleChooserControl(String buttonText,
+                                File initialDirectory,
+                                boolean directory) {
         this.buttonText = buttonText;
         this.initialDirectory = initialDirectory;
+        this.directory = directory;
     }
 
     /**
@@ -92,33 +94,43 @@ public class SimpleDirectoryChooserControl extends SimpleControl<StringField, St
         fieldLabel = new Label(field.labelProperty().getValue());
         editableField.setPromptText(field.placeholderProperty().getValue());
 
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-
         if (field.valueProperty().get().equals("null")) {
             field.valueProperty().set("");
         }
 
-        directoryChooserButton.setOnAction(event -> {
-            if (initialDirectory != null) {
-                directoryChooser.setInitialDirectory(initialDirectory);
-            } else if (!field.valueProperty().get().trim().isEmpty()) {
-                directoryChooser.setInitialDirectory(new File(field.valueProperty().get()));
+        chooserButton.setOnAction(event -> {
+            File currentInitialDirectory = initialDirectory;
+            boolean fileChosen = !field.valueProperty().get().trim().isEmpty();
+            if (initialDirectory == null && fileChosen) {
+                // define previously chosen path as initial directory
+                currentInitialDirectory = new File(field.valueProperty().get());
             }
 
-            File dir = directoryChooser.showDialog(windowOwner);
-            if (dir != null) {
-                editableField.setText(dir.getAbsolutePath());
+            File chosen;
+
+            if (directory) {
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                directoryChooser.setInitialDirectory(currentInitialDirectory);
+                chosen = directoryChooser.showDialog(getNode().getScene().getWindow());
+            } else {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setInitialDirectory(currentInitialDirectory);
+                chosen = fileChooser.showOpenDialog(getNode().getScene().getWindow());
+            }
+
+            if (chosen != null) {
+                editableField.setText(chosen.getAbsolutePath());
             }
         });
 
-        directoryChooserButton.setText(buttonText);
+        chooserButton.setText(buttonText);
 
         StackPane fieldStackPane = new StackPane();
         fieldStackPane.getChildren().addAll(editableField, editableArea, readOnlyLabel);
         fieldStackPane.setAlignment(Pos.CENTER_LEFT);
         HBox.setHgrow(fieldStackPane, Priority.ALWAYS);
 
-        contentBox.getChildren().addAll(fieldStackPane, directoryChooserButton);
+        contentBox.getChildren().addAll(fieldStackPane, chooserButton);
     }
 
     /**
