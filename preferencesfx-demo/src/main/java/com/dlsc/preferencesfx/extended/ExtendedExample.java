@@ -171,10 +171,10 @@ public class ExtendedExample extends StackPane {
                         Setting.of("Font Size", fontSize, 6, 36),
                         Setting.of("Font Color", colorProperty),
                         Setting.of("Line Spacing", lineSpacing, 0, 3, 1),
-                        Setting.of("File", fileProperty, "Browse", null, false),
+                        Setting.of("File", fileProperty, false),
                         Setting.of("Folder", directoryProperty, "Browse", null, true),
-                        Setting.of("File with Default", fileDefaultProperty, "Browse", new File("/"), false),
-                        Setting.of("Folder with Default", directoryDefaultProperty, "Browse", new File("/"), true)
+                        Setting.of("File with Default", fileDefaultProperty, new File("/"), false),
+                        Setting.of("Folder with Default", directoryDefaultProperty, new File("/"), true)
                         )
                 )
             ),
