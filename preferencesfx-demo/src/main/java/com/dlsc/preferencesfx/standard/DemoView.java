@@ -5,6 +5,7 @@ import com.dlsc.preferencesfx.PreferencesFx;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -30,6 +31,9 @@ public class DemoView extends VBox {
   private Label fontSizeLbl;
   private Label lineSpacingLbl;
   private Label favoriteNumberLbl;
+
+  // VBox with descriptions
+  private CheckBox instantPersistence = new CheckBox("Instant Persistence");
 
   public DemoView(PreferencesFx preferencesFx, StandardExample rootPane) {
     this.preferencesFx = preferencesFx;
@@ -82,7 +86,6 @@ public class DemoView extends VBox {
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
 
-    // VBox with descriptions
     VBox descriptionBox = new VBox(
         new Label("Welcome Text:"),
         new Label("Brightness:"),
@@ -94,8 +97,10 @@ public class DemoView extends VBox {
         new Label("Favorites:"),
         new Label("Font Size:"),
         new Label("Line Spacing:"),
-        new Label("Favorite Number:")
+        new Label("Favorite Number:"),
+        instantPersistence
     );
+    instantPersistence.setSelected(true);
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
 
@@ -143,6 +148,10 @@ public class DemoView extends VBox {
       } else {
         getStylesheets().remove(AppStarter.class.getResource("darkTheme.css").toExternalForm());
       }
+    });
+
+    instantPersistence.selectedProperty().addListener((observable, oldPersistence, newPersistence) -> {
+      preferencesFx.instantPersistent(newPersistence);
     });
   }
 

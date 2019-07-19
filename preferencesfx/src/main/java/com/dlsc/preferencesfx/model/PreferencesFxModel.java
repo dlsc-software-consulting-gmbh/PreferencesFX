@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.model;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
+import com.dlsc.formsfx.model.structure.FormElement;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
@@ -55,6 +56,7 @@ public class PreferencesFxModel {
   private boolean saveSettings = true;
   private boolean historyDebugState = false;
   private boolean oneCategoryLayout;
+  private BooleanProperty instantPersistent = new SimpleBooleanProperty(true);
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
@@ -79,7 +81,12 @@ public class PreferencesFxModel {
     this.searchHandler = searchHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
-    oneCategoryLayout = categories.length == 1;
+    if (categories.length == 1 && (categories[0].getChildren() == null
+            || categories[0].getChildren().isEmpty())) {
+      oneCategoryLayout = true;
+    } else {
+      oneCategoryLayout = false;
+    }
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
     setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
@@ -242,6 +249,18 @@ public class PreferencesFxModel {
     this.buttonsVisible.set(buttonsVisible);
   }
 
+  public boolean isInstantPersistent() {
+    return instantPersistent.get();
+  }
+
+  public BooleanProperty instantPersistentProperty() {
+    return instantPersistent;
+  }
+
+  public void setInstantPersistent(boolean instantPersistent) {
+    this.instantPersistent.set(instantPersistent);
+  }
+
   public TranslationService getTranslationService() {
     return translationService.get();
   }
@@ -332,7 +351,11 @@ public class PreferencesFxModel {
    * Saves the settings, when {@link #isSaveSettings()} returns {@code true}.
    */
   public void saveSettings() {
+    LOGGER.trace("Save");
     if (isSaveSettings()) {
+      if (!isInstantPersistent()) {
+        applyFieldChanges();
+      }
       saveSettingValues();
       fireEvent(PreferencesFxEvent.preferencesSavedEvent());
     }
@@ -345,11 +368,26 @@ public class PreferencesFxModel {
    * Can also be called explicity in case of using PreferencesFX as a node to undo all changes.
    */
   public void discardChanges() {
-    history.clear(true);
-    // save settings after undoing them
-    if (saveSettings) {
-      saveSettingValues();
+    LOGGER.trace("Discard");
+    if (!isInstantPersistent()) {
+      discardFieldChanges();
+    } else {
+      history.clear(true);
+      // save settings after undoing them
+      if (saveSettings) {
+        saveSettingValues();
+      }
     }
     fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
+  }
+
+  private void applyFieldChanges() {
+    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+        .forEach(FormElement::persist);
+  }
+
+  private void discardFieldChanges() {
+    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+        .forEach(FormElement::reset);
   }
 }

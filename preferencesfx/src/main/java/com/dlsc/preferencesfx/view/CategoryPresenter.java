@@ -59,6 +59,13 @@ public class CategoryPresenter implements Presenter {
     form = createForm();
     categoryView.initializeFormRenderer(form);
     addI18nListener();
+    addInstantPersistenceListener();
+  }
+
+  private void addInstantPersistenceListener() {
+    model.instantPersistentProperty().addListener((observable, oldPersistence, newPersistence) -> {
+      applyInstantPersistence(newPersistence, form);
+    });
   }
 
   /**
@@ -107,9 +114,21 @@ public class CategoryPresenter implements Presenter {
       }
     }
 
-    // ensures instant persistance of value changes
-    form.binding(BindingMode.CONTINUOUS);
+    applyInstantPersistence(model.isInstantPersistent(), form);
+
     return form;
+  }
+
+  private void applyInstantPersistence(boolean instantPersistent, Form form) {
+    BindingMode persistence;
+    if (instantPersistent) {
+      // instant persistence is on
+      persistence = BindingMode.CONTINUOUS;
+    } else {
+      // instant persistence is off
+      persistence = BindingMode.PERSISTENT;
+    }
+    form.binding(persistence);
   }
 
   /**
