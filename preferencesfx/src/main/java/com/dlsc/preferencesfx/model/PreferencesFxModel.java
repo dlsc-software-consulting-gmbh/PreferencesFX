@@ -3,12 +3,14 @@ package com.dlsc.preferencesfx.model;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
+import com.dlsc.formsfx.model.structure.FormElement;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
 import com.dlsc.preferencesfx.history.History;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import com.dlsc.preferencesfx.view.PreferencesFxDialog;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +28,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents the model which holds all of the data and logic which is not limited to presenters.
@@ -37,7 +39,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class PreferencesFxModel {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesFxModel.class.getName());
+      LoggerFactory.getLogger(PreferencesFxModel.class.getName());
 
   private ObjectProperty<Category> displayedCategory = new SimpleObjectProperty<>();
 
@@ -54,10 +56,12 @@ public class PreferencesFxModel {
   private boolean saveSettings = true;
   private boolean historyDebugState = false;
   private boolean oneCategoryLayout;
+  private BooleanProperty instantPersistent = new SimpleBooleanProperty(true);
   private BooleanProperty buttonsVisible = new SimpleBooleanProperty(true);
   private DoubleProperty dividerPosition = new SimpleDoubleProperty(DEFAULT_DIVIDER_POSITION);
 
-  private final Map<EventType<PreferencesFxEvent>, List<EventHandler<? super PreferencesFxEvent>>> eventHandlers = new ConcurrentHashMap<>();
+  private final Map<EventType<PreferencesFxEvent>, List<EventHandler<? super PreferencesFxEvent>>>
+      eventHandlers = new ConcurrentHashMap<>();
 
   /**
    * Initializes a new model.
@@ -77,7 +81,12 @@ public class PreferencesFxModel {
     this.searchHandler = searchHandler;
     this.history = history;
     this.categories = Arrays.asList(categories);
-    oneCategoryLayout = categories.length == 1;
+    if (categories.length == 1 && (categories[0].getChildren() == null
+            || categories[0].getChildren().isEmpty())) {
+      oneCategoryLayout = true;
+    } else {
+      oneCategoryLayout = false;
+    }
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
     setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
@@ -181,8 +190,8 @@ public class PreferencesFxModel {
   }
 
   /**
-   * Load all of the values of the settings using a {@link StorageHandler} and attaches a
-   * listener for {@link History}, so that it will be notified of changes to the setting's values.
+   * Load all of the values of the settings using a {@link StorageHandler} and attaches a listener
+   * for {@link History}, so that it will be notified of changes to the setting's values.
    */
   public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
@@ -240,6 +249,18 @@ public class PreferencesFxModel {
     this.buttonsVisible.set(buttonsVisible);
   }
 
+  public boolean isInstantPersistent() {
+    return instantPersistent.get();
+  }
+
+  public BooleanProperty instantPersistentProperty() {
+    return instantPersistent;
+  }
+
+  public void setInstantPersistent(boolean instantPersistent) {
+    this.instantPersistent.set(instantPersistent);
+  }
+
   public TranslationService getTranslationService() {
     return translationService.get();
   }
@@ -268,7 +289,16 @@ public class PreferencesFxModel {
     return oneCategoryLayout;
   }
 
-  public void addEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
+  /**
+   * Registers an event handler. The handler is called when a {@link PreferencesFxEvent} of the
+   * specified type is being fired.
+   *
+   * @param eventType the type of the events to receive by the handler
+   * @param eventHandler the handler to register
+   * @throws NullPointerException if the event type or handler is null
+   */
+  public void addEventHandler(EventType<PreferencesFxEvent> eventType,
+                              EventHandler<? super PreferencesFxEvent> eventHandler) {
     if (eventType == null) {
       throw new NullPointerException("Argument eventType must not be null");
     }
@@ -276,10 +306,21 @@ public class PreferencesFxModel {
       throw new NullPointerException("Argument eventHandler must not be null");
     }
 
-    this.eventHandlers.computeIfAbsent(eventType, k -> new CopyOnWriteArrayList<>()).add(eventHandler);
+    this.eventHandlers.computeIfAbsent(eventType, k -> new CopyOnWriteArrayList<>()).add(
+        eventHandler);
   }
 
-  public void removeEventHandler(EventType<PreferencesFxEvent> eventType, EventHandler<? super PreferencesFxEvent> eventHandler) {
+  /**
+   * Unregisters a previously registered event handler. One handler might have been registered for
+   * different event types, so the caller needs to specify the particular event type from which to
+   * unregister the handler.
+   *
+   * @param eventType the event type from which to unregister
+   * @param eventHandler the handler to unregister
+   * @throws NullPointerException if the event type or handler is null
+   */
+  public void removeEventHandler(EventType<PreferencesFxEvent> eventType,
+                                 EventHandler<? super PreferencesFxEvent> eventHandler) {
     if (eventType == null) {
       throw new NullPointerException("Argument eventType must not be null");
     }
@@ -294,7 +335,8 @@ public class PreferencesFxModel {
   }
 
   private void fireEvent(PreferencesFxEvent event) {
-    List<EventHandler<? super PreferencesFxEvent>> list = this.eventHandlers.get(event.getEventType());
+    List<EventHandler<? super PreferencesFxEvent>> list =
+        this.eventHandlers.get(event.getEventType());
     if (list == null) {
       return;
     }
@@ -309,19 +351,43 @@ public class PreferencesFxModel {
    * Saves the settings, when {@link #isSaveSettings()} returns {@code true}.
    */
   public void saveSettings() {
+    LOGGER.trace("Save");
     if (isSaveSettings()) {
+      if (!isInstantPersistent()) {
+        applyFieldChanges();
+      }
       saveSettingValues();
       fireEvent(PreferencesFxEvent.preferencesSavedEvent());
     }
     history.clear(false);
   }
 
+  /**
+   * Undos all changes made, clears the history and saves the settings.
+   * Typically called when the cancel button of the {@link PreferencesFxDialog} is pressed.
+   * Can also be called explicity in case of using PreferencesFX as a node to undo all changes.
+   */
   public void discardChanges() {
-    history.clear(true);
-    // save settings after undoing them
-    if (saveSettings) {
-      saveSettingValues();
+    LOGGER.trace("Discard");
+    if (!isInstantPersistent()) {
+      discardFieldChanges();
+    } else {
+      history.clear(true);
+      // save settings after undoing them
+      if (saveSettings) {
+        saveSettingValues();
+      }
     }
     fireEvent(PreferencesFxEvent.preferencesNotSavedEvent());
+  }
+
+  private void applyFieldChanges() {
+    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+        .forEach(FormElement::persist);
+  }
+
+  private void discardFieldChanges() {
+    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+        .forEach(FormElement::reset);
   }
 }

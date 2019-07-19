@@ -5,6 +5,7 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.validators.Validator;
 import com.dlsc.preferencesfx.formsfx.view.controls.DoubleSliderControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleColorPickerControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleComboBoxControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleDoubleControl;
@@ -30,8 +31,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import javafx.scene.paint.Color;
+import javafx.util.StringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a setting, which holds the field to be displayed and the property which is bound.
@@ -41,7 +44,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class Setting<F extends Field, P extends Property> {
   private static final Logger LOGGER =
-      LogManager.getLogger(Setting.class.getName());
+      LoggerFactory.getLogger(Setting.class.getName());
 
   public static final String MARKED_STYLE_CLASS = "simple-control-marked";
   private String description;
@@ -50,6 +53,7 @@ public class Setting<F extends Field, P extends Property> {
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private final StringProperty breadcrumb = new SimpleStringProperty("");
+  private String key = "";
 
   private Setting(String description, F field, P value) {
     this.description = description;
@@ -263,6 +267,40 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
+   * Creates a custom color picker control.
+   *
+   * @param description   the title of this setting
+   * @param colorProperty the current selected color value
+   * @return the constructed setting
+   */
+  public static Setting of(String description, ObjectProperty<Color> colorProperty) {
+    StringProperty stringProperty = new SimpleStringProperty();
+    stringProperty.bindBidirectional(
+        colorProperty, new StringConverter<Color>() {
+          @Override
+          public String toString(Color color) {
+            return color.toString();
+          }
+
+          @Override
+          public Color fromString(String value) {
+            return Color.valueOf(value);
+          }
+        }
+    );
+
+    return new Setting<>(
+        description,
+        Field.ofStringType(stringProperty)
+            .label(description)
+            .render(new SimpleColorPickerControl(
+                Objects.isNull(colorProperty.get()) ? Color.BLACK : colorProperty.get())
+            ),
+        stringProperty
+    );
+  }
+
+  /**
    * Sets the list of validators for the current field. This overrides all
    * validators that have previously been added.
    *
@@ -339,7 +377,7 @@ public class Setting<F extends Field, P extends Property> {
    * @param storageHandler the {@link StorageHandler} to use
    */
   public void saveSettingValue(StorageHandler storageHandler) {
-    storageHandler.saveObject(getBreadcrumb(), value.getValue());
+    storageHandler.saveObject(key.isEmpty() ? getBreadcrumb() : key, value.getValue());
   }
 
   /**
@@ -352,11 +390,13 @@ public class Setting<F extends Field, P extends Property> {
    */
   public void loadSettingValue(StorageHandler storageHandler) {
     if (value instanceof ListProperty) {
-      value.setValue(
-          storageHandler.loadObservableList(getBreadcrumb(), (ObservableList) value.getValue())
-      );
+      value.setValue(storageHandler.loadObservableList(
+          key.isEmpty() ? getBreadcrumb() : key, (ObservableList) value.getValue()
+      ));
     } else {
-      value.setValue(storageHandler.loadObject(getBreadcrumb(), value.getValue()));
+      value.setValue(storageHandler.loadObject(
+          key.isEmpty() ? getBreadcrumb() : key, value.getValue()
+      ));
     }
   }
 
@@ -401,5 +441,16 @@ public class Setting<F extends Field, P extends Property> {
   @Override
   public String toString() {
     return getBreadcrumb();
+  }
+
+  /**
+   * Sets the Preference key to be used instead of the breadcrumb.
+   * Can be used without hash in a custom {@link StorageHandler}.
+   * @param key the string key to be used for the preference
+   * @return this Setting
+   */
+  public Setting customKey(String key) {
+    this.key = key;
+    return this;
   }
 }

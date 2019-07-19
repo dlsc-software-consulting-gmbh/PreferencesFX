@@ -22,8 +22,8 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles everything related to storing values of {@link Setting} using {@link Preferences}.
@@ -34,7 +34,7 @@ import org.apache.logging.log4j.Logger;
 public class StorageHandlerImpl implements StorageHandler {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(StorageHandlerImpl.class.getName());
+      LoggerFactory.getLogger(StorageHandlerImpl.class.getName());
 
   private Preferences preferences;
   private Gson gson;
@@ -174,8 +174,7 @@ public class StorageHandlerImpl implements StorageHandler {
    */
   // asciidoctor Documentation - tag::storageHandlerLoad[]
   public Object loadObject(String breadcrumb, Object defaultObject) {
-    String serializedDefault = gson.toJson(defaultObject);
-    String json = preferences.get(hash(breadcrumb), serializedDefault);
+    String json = getSerializedPreferencesValue(breadcrumb, gson.toJson(defaultObject));
     return gson.fromJson(json, Object.class);
   }
   // asciidoctor Documentation - end::storageHandlerLoad[]
@@ -195,9 +194,21 @@ public class StorageHandlerImpl implements StorageHandler {
       String breadcrumb,
       ObservableList defaultObservableList
   ) {
-    String serializedDefault = gson.toJson(defaultObservableList);
-    String json = preferences.get(hash(breadcrumb), serializedDefault);
+    String json = getSerializedPreferencesValue(breadcrumb, gson.toJson(defaultObservableList));
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));
+  }
+
+  private String getSerializedPreferencesValue(String breadcrumb, String serializedDefault) {
+    String json = preferences.get(hash(breadcrumb), serializedDefault);
+    if (json == serializedDefault) {
+      // try to get preferences value with legacy hashing method
+      json = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
+      if (json != serializedDefault) {
+        LOGGER.warn("Preferences value of {} was loaded using the legacy hashing method. "
+            + "Value will be saved using the new hashing method with next save.", breadcrumb);
+      }
+    }
+    return json;
   }
 
   /**
@@ -215,15 +226,18 @@ public class StorageHandlerImpl implements StorageHandler {
   }
 
   /**
-   * Generates a SHA-256 hash of a String.
-   * Since {@link Preferences#MAX_KEY_LENGTH} is 80, if the breadcrumb is over 80 characters, it
-   * will lead to an exception while saving. This method generates a SHA-256 hash of the breadcrumb
-   * to save / load as the key in {@link Preferences}, since those are guaranteed to be
-   * maximum 64 chars long.
+   * Legacy hashing method to calculate the SHA256 hash of a key.
+   * In some circumstances, this approach produces hashes with incorrect encoding, leading to issues
+   * with loading preferences (see #53).
+   * This method is only present for migration reasons, to ensure preferences with the old
+   * hashing format can still be loaded and then saved using the new hashing method
+   * ({@link #hash(String)}).
+   * This method may get removed in a later release, so DON'T use this method to save settings!
    *
    * @return SHA-256 representation of breadcrumb
    */
-  public String hash(String key) {
+  @Deprecated
+  private String deprecatedHash(String key) {
     Objects.requireNonNull(key);
     MessageDigest messageDigest = null;
     try {
@@ -233,6 +247,19 @@ public class StorageHandlerImpl implements StorageHandler {
     }
     messageDigest.update(key.getBytes());
     return new String(messageDigest.digest());
+  }
+
+  /**
+   * Generates a SHA-256 hash of a String.
+   * Since {@link Preferences#MAX_KEY_LENGTH} is 80, if the breadcrumb is over 80 characters, it
+   * will lead to an exception while saving. This method generates a SHA-256 hash of the breadcrumb
+   * to save / load as the key in {@link Preferences}, since those are guaranteed to be
+   * maximum 64 chars long.
+   *
+   * @return SHA-256 representation of breadcrumb
+   */
+  public String hash(String key) {
+    return Strings.sha256(key);
   }
 
   public Preferences getPreferences() {

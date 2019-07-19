@@ -10,8 +10,8 @@ import com.dlsc.preferencesfx.model.Setting;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Contains presenter logic of the {@link CategoryView}.
@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class CategoryPresenter implements Presenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(CategoryPresenter.class.getName());
+      LoggerFactory.getLogger(CategoryPresenter.class.getName());
 
   private PreferencesFxModel model;
   private Category categoryModel;
@@ -59,6 +59,13 @@ public class CategoryPresenter implements Presenter {
     form = createForm();
     categoryView.initializeFormRenderer(form);
     addI18nListener();
+    addInstantPersistenceListener();
+  }
+
+  private void addInstantPersistenceListener() {
+    model.instantPersistentProperty().addListener((observable, oldPersistence, newPersistence) -> {
+      applyInstantPersistence(newPersistence, form);
+    });
   }
 
   /**
@@ -107,9 +114,21 @@ public class CategoryPresenter implements Presenter {
       }
     }
 
-    // ensures instant persistance of value changes
-    form.binding(BindingMode.CONTINUOUS);
+    applyInstantPersistence(model.isInstantPersistent(), form);
+
     return form;
+  }
+
+  private void applyInstantPersistence(boolean instantPersistent, Form form) {
+    BindingMode persistence;
+    if (instantPersistent) {
+      // instant persistence is on
+      persistence = BindingMode.CONTINUOUS;
+    } else {
+      // instant persistence is off
+      persistence = BindingMode.PERSISTENT;
+    }
+    form.binding(persistence);
   }
 
   /**
