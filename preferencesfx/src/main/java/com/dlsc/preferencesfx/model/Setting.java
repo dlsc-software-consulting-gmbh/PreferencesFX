@@ -303,11 +303,14 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * Creates a custom file/directory chooser control.
+   * Creates a file/directory chooser control.
    *
-   * @param description   the title of this setting
-   * @param fileProperty  the property to which the chosen file / directory should be set to
-   * @param directory     true, if only directories are allowed
+   * @param description       the title of this setting
+   * @param fileProperty      the property to which the chosen file / directory should be set to
+   * @param buttonText        text of the button to open the file / directory chooser
+   * @param initialDirectory  An optional initial path, can be null. If null, will use the path from
+   *                          the previously chosen file if present.
+   * @param directory         true, if only directories are allowed
    * @return the constructed setting
    */
   public static Setting of(String description,
