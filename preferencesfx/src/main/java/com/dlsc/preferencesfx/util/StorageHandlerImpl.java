@@ -13,9 +13,7 @@ import static com.dlsc.preferencesfx.util.Constants.WINDOW_POS_Y;
 import static com.dlsc.preferencesfx.util.Constants.WINDOW_WIDTH;
 
 import com.dlsc.preferencesfx.model.Setting;
-import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -261,10 +259,7 @@ public class StorageHandlerImpl implements StorageHandler {
    * @return SHA-256 representation of breadcrumb
    */
   public String hash(String key) {
-    Objects.requireNonNull(key);
-    return Hashing.sha256()
-        .hashString(key, StandardCharsets.UTF_8)
-        .toString();
+    return Strings.sha256(key);
   }
 
   public Preferences getPreferences() {

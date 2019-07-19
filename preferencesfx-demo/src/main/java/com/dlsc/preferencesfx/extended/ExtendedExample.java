@@ -9,7 +9,6 @@ import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
-import com.google.common.collect.Lists;
 import java.util.Arrays;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -25,6 +24,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
@@ -85,7 +85,7 @@ public class ExtendedExample extends StackPane {
 //  Theme
   ListProperty<String> themesLst = new SimpleListProperty<>(
       FXCollections.observableArrayList(
-          Lists.newArrayList("IntelliJ", "Darkula", "Windows")
+          Arrays.asList("IntelliJ", "Darkula", "Windows")
       )
   );
   ObjectProperty<String> themesObj = new SimpleObjectProperty<>("IntelliJ");
@@ -93,7 +93,7 @@ public class ExtendedExample extends StackPane {
   //  IDE
   ListProperty<String> ideLst = new SimpleListProperty<>(
       FXCollections.observableArrayList(
-          Lists.newArrayList("Subpixel", "Greyscale", "No Antializing")
+          Arrays.asList("Subpixel", "Greyscale", "No Antializing")
       )
   );
   ObjectProperty<String> ideObj = new SimpleObjectProperty<>("Subpixel");
@@ -101,7 +101,7 @@ public class ExtendedExample extends StackPane {
   //  Editor
   ListProperty<String> editorLst = new SimpleListProperty<>(
       FXCollections.observableArrayList(
-          Lists.newArrayList("Subpixel", "Greyscale", "No Antializing")
+          Arrays.asList("Subpixel", "Greyscale", "No Antializing")
       )
   );
   ObjectProperty<String> editorObj = new SimpleObjectProperty<>("Subpixel");
@@ -109,7 +109,7 @@ public class ExtendedExample extends StackPane {
   //  Font size
   ListProperty<String> fontLst = new SimpleListProperty<>(
       FXCollections.observableArrayList(
-          Lists.newArrayList("8", "10", "12", "14", "18", "20", "22", "24", "36", "72")
+          Arrays.asList("8", "10", "12", "14", "18", "20", "22", "24", "36", "72")
       )
   );
   ObjectProperty<String> fontObj = new SimpleObjectProperty<>("24");
@@ -117,7 +117,7 @@ public class ExtendedExample extends StackPane {
   //  Project opening
   ListProperty<String> projectOpeningLst = new SimpleListProperty<>(
       FXCollections.observableArrayList(
-          Lists.newArrayList("Open project in new window", "Open project in the same window", "Confirm window to open project in")
+          Arrays.asList("Open project in new window", "Open project in the same window", "Confirm window to open project in")
       )
   );
   ObjectProperty<String> projectOpeningObj = new SimpleObjectProperty<>("Open project in new window");
@@ -125,10 +125,13 @@ public class ExtendedExample extends StackPane {
   //  Closing tool window
   ListProperty<String> closingToolLst = new SimpleListProperty<>(
       FXCollections.observableArrayList(
-          Lists.newArrayList("Terminate process", "Disconnect (if available)", "Ask")
+          Arrays.asList("Terminate process", "Disconnect (if available)", "Ask")
       )
   );
   ObjectProperty<String> closingToolObj = new SimpleObjectProperty<>("Ask");
+
+  // Custom dialog icon
+  Image dialogIcon = new Image(AppStarter.class.getResource("screen_icon.png").toExternalForm());
 
   // Color picker
   ObjectProperty<Color> colorProperty = new SimpleObjectProperty<>(Color.PAPAYAWHIP);
@@ -347,6 +350,7 @@ public class ExtendedExample extends StackPane {
                 Category.of("XPath Viewer")
             ),
         Category.of("Other Settings")
-    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true)
+        .dialogTitle("Settings").dialogIcon(dialogIcon);
   }
 }
