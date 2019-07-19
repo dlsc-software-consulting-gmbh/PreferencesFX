@@ -21,6 +21,8 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.StringField;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -103,7 +105,13 @@ public class SimpleChooserControl extends SimpleControl<StringField, StackPane> 
             boolean fileChosen = !field.valueProperty().get().trim().isEmpty();
             if (initialDirectory == null && fileChosen) {
                 // define previously chosen path as initial directory
-                currentInitialDirectory = new File(field.valueProperty().get());
+                String previousPath = field.valueProperty().get();
+                // initial directory must be a folder
+                if (!new File(previousPath).isDirectory()) {
+                    Path path = Paths.get(previousPath);
+                    previousPath = path.getParent().toAbsolutePath().toString();
+                }
+                currentInitialDirectory = new File(previousPath);
             }
 
             File chosen;
