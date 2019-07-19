@@ -21,12 +21,12 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.StringField;
+import java.util.Objects;
 import javafx.geometry.Pos;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javax.annotation.Nonnull;
 
 /**
  * This class provides the base implementation for a simple control to edit ColorPicker values.
@@ -51,7 +51,8 @@ public class SimpleColorPickerControl extends SimpleControl<StringField, StackPa
    *
    * @param initialValue The initial color, cannot be null.
    */
-  public SimpleColorPickerControl(@Nonnull Color initialValue) {
+  public SimpleColorPickerControl(Color initialValue) {
+    Objects.requireNonNull(initialValue);
     this.initialValue = initialValue;
   }
 
