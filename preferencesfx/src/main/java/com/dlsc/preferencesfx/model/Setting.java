@@ -313,7 +313,7 @@ public class Setting<F extends Field, P extends Property> {
   public static Setting of(String description,
                            ObjectProperty<File> fileProperty,
                            boolean directory) {
-    return of(description, fileProperty, "Browse", null, directory);
+    return of(description, fileProperty, null, directory);
   }
 
   /**
@@ -330,7 +330,7 @@ public class Setting<F extends Field, P extends Property> {
                            ObjectProperty<File> fileProperty,
                            File initialDirectory,
                            boolean directory) {
-    return of(description, fileProperty, initialDirectory, directory);
+    return of(description, fileProperty, "Browse", initialDirectory, directory);
   }
 
   /**
