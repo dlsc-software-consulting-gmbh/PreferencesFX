@@ -139,9 +139,11 @@ public class ExtendedExample extends StackPane {
 
   // File Chooser
   ObjectProperty<File> fileProperty = new SimpleObjectProperty<>();
+  ObjectProperty<File> fileDefaultProperty = new SimpleObjectProperty<>();
 
   // Directory Chooser
   ObjectProperty<File> directoryProperty = new SimpleObjectProperty<>();
+  ObjectProperty<File> directoryDefaultProperty = new SimpleObjectProperty<>();
 
 
   private PreferencesFx createPreferences() {
@@ -171,9 +173,9 @@ public class ExtendedExample extends StackPane {
                         Setting.of("Line Spacing", lineSpacing, 0, 3, 1),
                         Setting.of("File", fileProperty, "Browse", null, false),
                         Setting.of("Folder", directoryProperty, "Browse", null, true),
-                        Setting.of("Folder with Default", directoryProperty, "Browse", new File("/"), true),
-                        Setting.of("File with Default", fileProperty, "Browse", new File("/"), false)
-                    )
+                        Setting.of("File with Default", fileDefaultProperty, "Browse", new File("/"), false),
+                        Setting.of("Folder with Default", directoryDefaultProperty, "Browse", new File("/"), true)
+                        )
                 )
             ),
         Category.of("Favorites",
