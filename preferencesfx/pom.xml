@@ -207,7 +207,7 @@
         <dependency>
             <groupId>com.dlsc.formsfx</groupId>
             <artifactId>formsfx-core</artifactId>
-            <version>11.3.3</version>
+            <version>11.3.2</version>
         </dependency>
 
         <dependency>
