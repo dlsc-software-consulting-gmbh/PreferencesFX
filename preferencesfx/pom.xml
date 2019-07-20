@@ -65,6 +65,10 @@
         </repository>
     </repositories>
 
+    <properties>
+        <checkstyle.path>../config/checkstyle/checkstyle.xml</checkstyle.path>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
