@@ -278,6 +278,23 @@ Setting.of("Favorites", favoritesItems, favoritesSelection);</pre>
     </tr>
     <tr>
         <td><pre lang="java">
+// Color
+ObjectProperty<Color> colorProperty = new SimpleObjectProperty<>(Color.PAPAYAWHIP);
+Setting.of("Font Color", colorProperty);</pre>
+        </td>
+        <td><img src="./docs/images/settings/color_setting.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
+// FileChooser / DirectoryChooser
+ObjectProperty<File> fileProperty = new SimpleObjectProperty<>();
+Setting.of("File", fileProperty, false);     // FileChooser
+Setting.of("Directory", fileProperty, true); // DirectoryChooser</pre>
+        </td>
+        <td><img src="./docs/images/settings/chooser_setting.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
 // Custom Control
 IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
 IntegerField customControl = Field.ofIntegerType(customControlProperty).render(

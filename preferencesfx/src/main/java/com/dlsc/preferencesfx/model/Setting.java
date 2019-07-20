@@ -5,6 +5,7 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.validators.Validator;
 import com.dlsc.preferencesfx.formsfx.view.controls.DoubleSliderControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleChooserControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleColorPickerControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleComboBoxControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
@@ -15,6 +16,7 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
+import java.io.File;
 import java.util.Objects;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -299,6 +301,83 @@ public class Setting<F extends Field, P extends Property> {
         stringProperty
     );
   }
+
+  /**
+   * Creates a file/directory chooser control.
+   *
+   * @param description       the title of this setting
+   * @param fileProperty      the property to which the chosen file / directory should be set to
+   * @param directory         true, if only directories are allowed
+   * @return the constructed setting
+   */
+  public static Setting of(String description,
+                           ObjectProperty<File> fileProperty,
+                           boolean directory) {
+    return of(description, fileProperty, null, directory);
+  }
+
+  /**
+   * Creates a file/directory chooser control.
+   *
+   * @param description       the title of this setting
+   * @param fileProperty      the property to which the chosen file / directory should be set to
+   * @param initialDirectory  An optional initial path, can be null. If null, will use the path from
+   *                          the previously chosen file if present.
+   * @param directory         true, if only directories are allowed
+   * @return the constructed setting
+   */
+  public static Setting of(String description,
+                           ObjectProperty<File> fileProperty,
+                           File initialDirectory,
+                           boolean directory) {
+    return of(description, fileProperty, "Browse", initialDirectory, directory);
+  }
+
+  /**
+   * Creates a file/directory chooser control.
+   *
+   * @param description       the title of this setting
+   * @param fileProperty      the property to which the chosen file / directory should be set to
+   * @param buttonText        text of the button to open the file / directory chooser
+   * @param initialDirectory  An optional initial path, can be null. If null, will use the path from
+   *                          the previously chosen file if present.
+   * @param directory         true, if only directories are allowed
+   * @return the constructed setting
+   */
+  public static Setting of(String description,
+                           ObjectProperty<File> fileProperty,
+                           String buttonText,
+                           File initialDirectory,
+                           boolean directory) {
+    StringProperty stringProperty = new SimpleStringProperty();
+    stringProperty.bindBidirectional(
+        fileProperty, new StringConverter<File>() {
+          @Override
+          public String toString(File file) {
+            if (Objects.isNull(file)) {
+              return "";
+            }
+            return file.getAbsolutePath();
+          }
+
+          @Override
+          public File fromString(String value) {
+            return new File(value);
+          }
+        }
+    );
+
+    return new Setting<>(
+        description,
+        Field.ofStringType(stringProperty)
+            .label(description)
+            .render(new SimpleChooserControl(buttonText, initialDirectory, directory)
+            ),
+        stringProperty
+    );
+  }
+
+
 
   /**
    * Sets the list of validators for the current field. This overrides all

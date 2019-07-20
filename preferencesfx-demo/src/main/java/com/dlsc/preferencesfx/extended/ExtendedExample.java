@@ -9,6 +9,7 @@ import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
+import java.io.File;
 import java.util.Arrays;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -136,6 +137,15 @@ public class ExtendedExample extends StackPane {
   // Color picker
   ObjectProperty<Color> colorProperty = new SimpleObjectProperty<>(Color.PAPAYAWHIP);
 
+  // File Chooser
+  ObjectProperty<File> fileProperty = new SimpleObjectProperty<>();
+  ObjectProperty<File> fileDefaultProperty = new SimpleObjectProperty<>();
+
+  // Directory Chooser
+  ObjectProperty<File> directoryProperty = new SimpleObjectProperty<>();
+  ObjectProperty<File> directoryDefaultProperty = new SimpleObjectProperty<>();
+
+
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(ExtendedExample.class,
         Category.of("General",
@@ -160,8 +170,12 @@ public class ExtendedExample extends StackPane {
                     Group.of(
                         Setting.of("Font Size", fontSize, 6, 36),
                         Setting.of("Font Color", colorProperty),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
-                    )
+                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1),
+                        Setting.of("File", fileProperty, false),
+                        Setting.of("Folder", directoryProperty, "Browse", null, true),
+                        Setting.of("File with Default", fileDefaultProperty, new File("/"), false),
+                        Setting.of("Folder with Default", directoryDefaultProperty, new File("/"), true)
+                        )
                 )
             ),
         Category.of("Favorites",
