@@ -1,7 +1,6 @@
-package com.dlsc.preferencesfx.oneCategory;
+package com.dlsc.preferencesfx.demo.oneCategory;
 
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
-import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
