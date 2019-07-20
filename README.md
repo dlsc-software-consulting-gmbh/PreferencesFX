@@ -2,12 +2,13 @@
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
 [ ![Download](https://api.bintray.com/packages/dlsc-oss/repository/PreferencesFX/images/download.svg) ](https://bintray.com/dlsc-oss/repository/PreferencesFX/_latestVersion)
-[ ![Develop Branch](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=develop)](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=master)
+[ ![Develop Branch](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=develop)](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=develop)
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
 ## Table of Contents
 - [Maven](#maven)
+- [Gradle](#gradle)
 - [What is PreferencesFX](#what-is-preferencesfx)
 - [Advantages](#advantages)
 - [Main Features](#main-features)
@@ -24,21 +25,54 @@
 
 ## Maven
 
-To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
+To use this framework as part of your Maven build simply add the following dependency to your pom.xml file:
 
+### Java 8
 ```XML
-<repositories>
-  <repository>
-    <id>jcenter</id>
-    <url>http://jcenter.bintray.com</url>
-  </repository>
-</repositories>
-
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>2.1.0</version>
+  <version>8.3.0</version>
 </dependency>
+```
+
+### Java 11
+```XML
+<dependency>
+  <groupId>com.dlsc.preferencesfx</groupId>
+  <artifactId>preferencesfx-core</artifactId>
+  <version>11.3.0</version>
+</dependency>
+```
+
+## Gradle
+
+To use this framework as part of your gradle build simply add the following to your build.gradle file and use the following dependency definition:
+
+### Java 8
+```groovy
+repositories {
+    maven {
+        url 'http://maven.bestsolution.at/efxclipse-releases/'
+    }
+}
+
+dependencies {
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.3.0'
+}
+```
+
+### Java 11
+```groovy
+repositories {
+    maven {
+        url 'http://maven.bestsolution.at/efxclipse-releases/'
+    }
+}
+
+dependencies {
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.3.0'
+}
 ```
 
 ## What is PreferencesFX?
