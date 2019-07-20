@@ -1,15 +1,17 @@
-package com.dlsc.preferencesfx.standard;
+package com.dlsc.preferencesfx.demo.i18n;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.formsfx.model.util.ResourceBundleService;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
-import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -26,7 +28,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 
-public class StandardExample extends StackPane {
+public class InternationalizedExample extends StackPane {
 
   public PreferencesFx preferencesFx;
 
@@ -69,7 +71,12 @@ public class StandardExample extends StackPane {
   IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
   IntegerField customControl = setupCustomControl();
 
-  public StandardExample() {
+  // i18n
+  ResourceBundle rbDE = ResourceBundle.getBundle("demo-locale", new Locale("de", "CH"));
+  ResourceBundle rbEN = ResourceBundle.getBundle("demo-locale", new Locale("en", "US"));
+  ResourceBundleService rbs = new ResourceBundleService(rbEN);
+
+  public InternationalizedExample() {
     preferencesFx = createPreferences();
     getChildren().add(new DemoView(preferencesFx, this));
   }
@@ -80,40 +87,39 @@ public class StandardExample extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    // asciidoctor Documentation - tag::setupPreferences[]
-    return PreferencesFx.of(AppStarter.class,
-        Category.of("General",
-            Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
+    return PreferencesFx.of(InternationalizedExample.class,
+        Category.of("general",
+            Group.of("greeting",
+                Setting.of("welcome", welcomeText)
             ),
-            Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
+            Group.of("display",
+                Setting.of("brightness", brightness),
+                Setting.of("night_mode", nightMode)
             )
         ),
-        Category.of("Screen")
+        Category.of("screen")
+            .expand()
             .subCategories(
-                Category.of("Scaling & Ordering",
+                Category.of("scaling_ordering",
                     Group.of(
-                        Setting.of("Scaling", scaling)
-                            .validate(DoubleRangeValidator
-                                .atLeast(1, "Scaling needs to be at least 1")
-                            ),
-                        Setting.of("Screen name", screenName),
-                        Setting.of("Resolution", resolutionItems, resolutionSelection),
-                        Setting.of("Orientation", orientationItems, orientationSelection)
-                    ).description("Screen Options"),
+                        Setting.of("scaling", scaling)
+                            .validate(DoubleRangeValidator.atLeast(1, "scaling_validate")),
+                        Setting.of("screen_name", screenName),
+                        Setting.of("resolution", resolutionItems, resolutionSelection),
+                        Setting.of("orientation", orientationItems, orientationSelection)
+                    ).description("screen_options"),
                     Group.of(
-                        Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
+                        Setting.of("font_size", fontSize, 6, 36),
+                        Setting.of("line_spacing", lineSpacing, 0, 3, 1)
                     )
                 )
             ),
-        Category.of("Favorites",
-            Setting.of("Favorites", favoritesItems, favoritesSelection),
-            Setting.of("Favorite Number", customControl, customControlProperty)
+        Category.of("favorites",
+            Setting.of("favorites", favoritesItems, favoritesSelection),
+            Setting.of("favorite_number", customControl, customControlProperty)
         )
-    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
-    // asciidoctor Documentation - end::setupPreferences[]
+    ).i18n(rbs).persistWindowState(false)
+     .saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
+
 }

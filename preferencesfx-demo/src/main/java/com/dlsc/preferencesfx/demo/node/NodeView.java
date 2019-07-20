@@ -1,23 +1,21 @@
-package com.dlsc.preferencesfx.extended;
+package com.dlsc.preferencesfx.demo.node;
 
-import com.dlsc.preferencesfx.AppStarter;
+import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
+import com.dlsc.preferencesfx.view.PreferencesFxView;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class DemoView extends VBox {
+public class NodeView extends VBox {
   private PreferencesFx preferencesFx;
-  private MenuBar menuBar;
-  private Menu menu;
-  private MenuItem preferencesMenuItem;
-  private ExtendedExample rootPane;
+  private NodeExample rootPane;
 
   private Label welcomeLbl;
   private Label brightnessLbl;
@@ -31,22 +29,17 @@ public class DemoView extends VBox {
   private Label lineSpacingLbl;
   private Label favoriteNumberLbl;
 
-  public DemoView(PreferencesFx preferencesFx, ExtendedExample rootPane) {
+  public NodeView(PreferencesFx preferencesFx, NodeExample rootPane) {
     this.preferencesFx = preferencesFx;
     this.rootPane = rootPane;
 
     initializeParts();
     layoutParts();
     setupBindings();
-    setupEventHandlers();
     setupListeners();
   }
 
   private void initializeParts() {
-    menuBar = new MenuBar();
-    menu = new Menu("Edit");
-    preferencesMenuItem = new MenuItem("Preferences");
-
     welcomeLbl = new Label();
     brightnessLbl = new Label();
     nightModeLbl = new Label();
@@ -61,10 +54,6 @@ public class DemoView extends VBox {
   }
 
   private void layoutParts() {
-    // MenuBar
-    menu.getItems().add(preferencesMenuItem);
-    menuBar.getMenus().add(menu);
-
     // VBox with values
     VBox valueBox = new VBox(
         welcomeLbl,
@@ -81,7 +70,10 @@ public class DemoView extends VBox {
     );
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
-
+    Button saveSettingsButton = new Button("Save Settings");
+    saveSettingsButton.setOnAction(event -> preferencesFx.saveSettings());
+    Button discardChangesButton = new Button("Discard Changes");
+    discardChangesButton.setOnAction(event -> preferencesFx.discardChanges());
     // VBox with descriptions
     VBox descriptionBox = new VBox(
         new Label("Welcome Text:"),
@@ -94,18 +86,23 @@ public class DemoView extends VBox {
         new Label("Favorites:"),
         new Label("Font Size:"),
         new Label("Line Spacing:"),
-        new Label("Favorite Number:")
+        new Label("Favorite Number:"),
+        saveSettingsButton,
+        discardChangesButton
     );
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
 
+    PreferencesFxView preferencesFxView = preferencesFx.getView();
     // Put everything together
+    BorderPane pane = new BorderPane();
+    HBox hBox = new HBox(descriptionBox, valueBox);
+    pane.setLeft(hBox);
+    hBox.setPadding(new Insets(0, 20, 0, 0));
+    pane.setCenter(preferencesFxView);
+    VBox.setVgrow(pane, Priority.ALWAYS);
     getChildren().addAll(
-        menuBar,
-        new HBox(
-            descriptionBox,
-            valueBox
-        )
+        pane
     );
 
     // Styling
@@ -132,10 +129,6 @@ public class DemoView extends VBox {
     favoriteNumberLbl.textProperty().bind(rootPane.customControlProperty.asString());
   }
 
-  private void setupEventHandlers() {
-    preferencesMenuItem.setOnAction(e -> preferencesFx.show());
-  }
-
   private void setupListeners() {
     rootPane.nightMode.addListener((observable, oldValue, newValue) -> {
       if (newValue) {
@@ -145,5 +138,4 @@ public class DemoView extends VBox {
       }
     });
   }
-
 }
