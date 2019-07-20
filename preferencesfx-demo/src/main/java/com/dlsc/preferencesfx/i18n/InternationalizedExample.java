@@ -99,6 +99,7 @@ public class InternationalizedExample extends StackPane {
             )
         ),
         Category.of("screen")
+            .expand()
             .subCategories(
                 Category.of("scaling_ordering",
                     Group.of(
@@ -118,7 +119,8 @@ public class InternationalizedExample extends StackPane {
             Setting.of("favorites", favoritesItems, favoritesSelection),
             Setting.of("favorite_number", customControl, customControlProperty)
         )
-    ).i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+    ).i18n(rbs).persistWindowState(false)
+     .saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 
 }

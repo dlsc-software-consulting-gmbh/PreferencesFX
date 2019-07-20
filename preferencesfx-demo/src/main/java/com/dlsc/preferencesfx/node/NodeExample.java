@@ -96,6 +96,7 @@ public class NodeExample extends StackPane {
             )
         ),
         Category.of("Screen", screenIcon)
+            .expand()
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(

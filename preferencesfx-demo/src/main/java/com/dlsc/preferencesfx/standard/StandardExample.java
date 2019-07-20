@@ -92,6 +92,7 @@ public class StandardExample extends StackPane {
             )
         ),
         Category.of("Screen")
+            .expand()
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(
