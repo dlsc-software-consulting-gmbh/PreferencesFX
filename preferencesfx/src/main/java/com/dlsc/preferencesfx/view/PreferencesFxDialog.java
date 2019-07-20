@@ -37,6 +37,7 @@ public class PreferencesFxDialog extends DialogPane {
   private StorageHandler storageHandler;
   private boolean persistWindowState;
   private boolean saveSettings;
+  private boolean modalityInitialized;
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
   private ButtonType cancelBtnType = ButtonType.CANCEL;
   private ButtonType okBtnType = ButtonType.OK;
@@ -80,11 +81,17 @@ public class PreferencesFxDialog extends DialogPane {
    *              the {@link PreferencesFxDialog}, as long as it is open.
    */
   public void show(boolean modal) {
+    if (!modalityInitialized) {
+      // only set modality once to avoid exception:
+      // java.lang.IllegalStateException: Cannot set modality once stage has been set visible
+      Modality modality = modal ? Modality.APPLICATION_MODAL : Modality.NONE;
+      dialog.initModality(modality);
+      modalityInitialized = true;
+    }
+
     if (modal) {
-      dialog.initModality(Modality.APPLICATION_MODAL);
       dialog.showAndWait();
     } else {
-      dialog.initModality(Modality.NONE);
       dialog.show();
     }
   }
