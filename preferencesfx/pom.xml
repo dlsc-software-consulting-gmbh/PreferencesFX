@@ -72,7 +72,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -86,7 +86,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -96,7 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.1.1</version>
                 <configuration>
                     <failOnError>false</failOnError>
                     <force>true</force>
@@ -140,12 +140,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>8.16</version>
+                        <version>8.22</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -156,7 +156,6 @@
                     <includeTestSourceDirectory>false</includeTestSourceDirectory>
                     <failOnViolation>true</failOnViolation>
                     <violationSeverity>warning</violationSeverity>
-                    <excludes>**/module-info.java</excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -200,7 +199,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
+            <version>1.7.26</version>
         </dependency>
 
         <!-- Testing -->
@@ -214,7 +213,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.23.4</version>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
