@@ -49,12 +49,9 @@
 
     <repositories>
         <repository>
-            <id>oss-sonatype</id>
-            <name>oss-sonatype</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
+            <id>bintray-jerady-maven</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/jerady/maven</url>
         </repository>
         <repository>
             <id>bintray-dlsc-oss-repository</id>
@@ -159,7 +156,7 @@
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <version>9.0.1-SNAPSHOT</version>
+            <version>11.0.0</version>
         </dependency>
 
         <dependency>
@@ -203,13 +200,13 @@
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-commons</artifactId>
-            <version>9.1.2</version>
+            <version>11.0</version>
         </dependency>
 
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-fontawesome</artifactId>
-            <version>4.7.0-9.1.2</version>
+            <version>4.7.0-11</version>
         </dependency>
     </dependencies>
 

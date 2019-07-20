@@ -3,7 +3,8 @@ module com.dlsc.preferencesfx {
     requires transitive javafx.controls;
     requires transitive com.dlsc.formsfx;
 
-    requires de.jensd.fx.glyphs.fontawesome;
+    requires de.jensd.fx.fontawesomefx.fontawesome;
+    requires de.jensd.fx.fontawesomefx.commons;
 
     requires java.prefs;
     requires gson;
