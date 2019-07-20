@@ -2,8 +2,8 @@ package com.dlsc.preferencesfx.view;
 
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import javafx.stage.WindowEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Contains presenter logic of the {@link PreferencesFxView}.
@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class PreferencesFxPresenter implements Presenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(PreferencesFxPresenter.class.getName());
+      LoggerFactory.getLogger(PreferencesFxPresenter.class.getName());
 
   private PreferencesFxModel model;
   private PreferencesFxView preferencesFxView;
@@ -51,7 +51,7 @@ public class PreferencesFxPresenter implements Presenter {
         LOGGER.trace("addEventHandler on Window close request to save settings");
         newScene.getWindow()
             .addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
-              LOGGER.trace("saveSettings");
+              LOGGER.trace("saveSettings because of WINDOW_CLOSE_REQUEST");
               model.saveSettings();
             });
       }

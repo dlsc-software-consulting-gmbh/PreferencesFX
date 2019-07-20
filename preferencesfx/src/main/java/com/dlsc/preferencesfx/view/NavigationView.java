@@ -7,14 +7,14 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
 import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Displays a {@link TreeView} of all {@link Category} including a search bar.
@@ -24,7 +24,7 @@ import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
  */
 public class NavigationView extends VBox implements View {
   private static final Logger LOGGER =
-      LogManager.getLogger(NavigationView.class.getName());
+      LoggerFactory.getLogger(NavigationView.class.getName());
 
   CustomTextField searchFld;
   TreeView<Category> treeView;

@@ -13,8 +13,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Manages a list of changes, so undo / redo functionality can be used with {@link Setting}.
@@ -25,7 +25,7 @@ import org.apache.logging.log4j.Logger;
 public class History {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(History.class.getName());
+      LoggerFactory.getLogger(History.class.getName());
 
   private ObservableList<Change> changes = FXCollections.observableArrayList();
   private SimpleObjectProperty<Change> currentChange = new SimpleObjectProperty<>();

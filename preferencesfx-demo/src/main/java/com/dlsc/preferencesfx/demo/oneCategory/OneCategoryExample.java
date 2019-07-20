@@ -32,7 +32,7 @@ public class OneCategoryExample extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(OneCategoryExample.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)
@@ -44,6 +44,10 @@ public class OneCategoryExample extends StackPane {
                     .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1"))
             )
         )
-    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+    ).persistWindowState(false)
+     .saveSettings(true)
+     .debugHistoryMode(false)
+     .buttonsVisibility(true)
+     .instantPersistent(false);
   }
 }

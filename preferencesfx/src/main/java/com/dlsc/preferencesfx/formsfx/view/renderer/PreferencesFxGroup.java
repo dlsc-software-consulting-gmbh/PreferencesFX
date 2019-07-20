@@ -23,7 +23,7 @@ package com.dlsc.preferencesfx.formsfx.view.renderer;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.util.TranslationService;
-import com.google.common.base.Strings;
+import com.dlsc.preferencesfx.util.Strings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
