@@ -175,6 +175,9 @@ public class StorageHandlerImpl implements StorageHandler {
   // asciidoctor Documentation - tag::storageHandlerLoad[]
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String json = getSerializedPreferencesValue(breadcrumb, gson.toJson(defaultObject));
+    if (json == null) {
+      return defaultObject;
+    }
     return gson.fromJson(json, Object.class);
   }
   // asciidoctor Documentation - end::storageHandlerLoad[]
@@ -195,19 +198,31 @@ public class StorageHandlerImpl implements StorageHandler {
       ObservableList defaultObservableList
   ) {
     String json = getSerializedPreferencesValue(breadcrumb, gson.toJson(defaultObservableList));
+    if (json == null) {
+      return defaultObservableList;
+    }
     return FXCollections.observableArrayList(gson.fromJson(json, ArrayList.class));
   }
 
   private String getSerializedPreferencesValue(String breadcrumb, String serializedDefault) {
     String json = preferences.get(hash(breadcrumb), serializedDefault);
+
+    // Note: comparing addresses since get() will return the exact object we passed in
     if (json == serializedDefault) {
       // try to get preferences value with legacy hashing method
-      json = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
+      try {
+        json = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
+      } catch (IllegalArgumentException e) {
+        // key contains null control character, code point U+0000, which is not allowed
+        // return default instead
+      }
+      // check if we were able to successfully load the value using the deprecated hashing method
       if (json != serializedDefault) {
         LOGGER.warn("Preferences value of {} was loaded using the legacy hashing method. "
             + "Value will be saved using the new hashing method with next save.", breadcrumb);
       }
     }
+
     return json;
   }
 
@@ -220,6 +235,7 @@ public class StorageHandlerImpl implements StorageHandler {
     try {
       preferences.clear();
     } catch (BackingStoreException e) {
+      LOGGER.error("Error during clearing of preferences: " + e.getMessage());
       return false;
     }
     return true;
