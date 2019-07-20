@@ -265,7 +265,12 @@ public class Category {
     return itemIcon;
   }
 
-  public boolean autoExpand() {
+  /**
+   * Gets the property whether to auto-expand the Category or not.
+   *
+   * @return  the property showing if Category should be expanded or not
+   */
+  public boolean isExpand() {
     return expand;
   }
 }
