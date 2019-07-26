@@ -1,10 +1,11 @@
 package com.dlsc.preferencesfx.history;
 
 import com.dlsc.preferencesfx.model.Setting;
-import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
@@ -18,9 +19,8 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a change, which is comprised of a new and an old value.
@@ -38,7 +38,7 @@ import org.apache.logging.log4j.Logger;
 public class Change<P> {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(Change.class.getName());
+      LoggerFactory.getLogger(Change.class.getName());
 
   protected final Setting setting;
 
@@ -87,8 +87,8 @@ public class Change<P> {
    */
   public Change(Setting setting, P oldValue, P newValue) {
     this(setting, false);
-    this.oldList.set(FXCollections.observableArrayList(Lists.newArrayList(oldValue)));
-    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
+    this.oldList.set(FXCollections.observableArrayList(Arrays.asList(oldValue)));
+    this.newList.set(FXCollections.observableArrayList(Arrays.asList(newValue)));
   }
 
   private void setupBindings() {
@@ -129,7 +129,7 @@ public class Change<P> {
    */
   public boolean isRedundant() {
     if (isListChange()) {
-      return CollectionUtils.isEqualCollection(oldList.get(), newList.get());
+      return Objects.equals(oldList.get(),newList.get());
     }
     return oldValue.get().equals(newValue.get());
   }
@@ -192,7 +192,7 @@ public class Change<P> {
   }
 
   public void setNewValue(P newValue) {
-    this.newList.set(FXCollections.observableArrayList(Lists.newArrayList(newValue)));
+    this.newList.set(FXCollections.observableArrayList(Arrays.asList(newValue)));
   }
 
   public Setting getSetting() {
