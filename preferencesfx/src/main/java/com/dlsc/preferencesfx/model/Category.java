@@ -4,8 +4,8 @@ import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
 
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx.util.Strings;
 import com.dlsc.preferencesfx.view.CategoryView;
-import com.google.common.base.Strings;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -13,8 +13,8 @@ import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a category, which is used to structure one to multiple groups with settings in a page.
@@ -25,7 +25,7 @@ import org.apache.logging.log4j.Logger;
 public class Category {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(Category.class.getName());
+      LoggerFactory.getLogger(Category.class.getName());
 
   private StringProperty description = new SimpleStringProperty();
   private StringProperty descriptionKey = new SimpleStringProperty();
@@ -33,6 +33,7 @@ public class Category {
   private List<Category> children;
   private final StringProperty breadcrumb = new SimpleStringProperty("");
   private Node itemIcon;
+  private boolean expand = false;
 
   /**
    * Creates a category without groups, for top-level categories without any settings.
@@ -137,6 +138,16 @@ public class Category {
    */
   public Category subCategories(Category... children) {
     this.children = Arrays.asList(children);
+    return this;
+  }
+
+  /**
+   * Sets category to be expanded when added to the tree view.
+   *
+   * @return  this object for chaining with the fluent API
+   */
+  public Category expand()  {
+    this.expand = true;
     return this;
   }
 
@@ -252,5 +263,14 @@ public class Category {
 
   public Node getItemIcon() {
     return itemIcon;
+  }
+
+  /**
+   * Gets the property whether to auto-expand the Category or not.
+   *
+   * @return  the property showing if Category should be expanded or not
+   */
+  public boolean isExpand() {
+    return expand;
   }
 }

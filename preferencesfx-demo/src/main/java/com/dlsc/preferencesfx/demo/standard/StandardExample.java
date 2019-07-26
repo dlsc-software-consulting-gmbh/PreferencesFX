@@ -1,18 +1,14 @@
-package com.dlsc.preferencesfx.i18n;
+package com.dlsc.preferencesfx.demo.standard;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.formsfx.model.util.ResourceBundleService;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
-import com.dlsc.preferencesfx.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
 import java.util.Arrays;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -29,7 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.StackPane;
 
-public class InternationalizedExample extends StackPane {
+public class StandardExample extends StackPane {
 
   public PreferencesFx preferencesFx;
 
@@ -72,12 +68,7 @@ public class InternationalizedExample extends StackPane {
   IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
   IntegerField customControl = setupCustomControl();
 
-  // i18n
-  ResourceBundle rbDE = ResourceBundle.getBundle("demo-locale", new Locale("de", "CH"));
-  ResourceBundle rbEN = ResourceBundle.getBundle("demo-locale", new Locale("en", "US"));
-  ResourceBundleService rbs = new ResourceBundleService(rbEN);
-
-  public InternationalizedExample() {
+  public StandardExample() {
     preferencesFx = createPreferences();
     getChildren().add(new DemoView(preferencesFx, this));
   }
@@ -88,37 +79,41 @@ public class InternationalizedExample extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(AppStarter.class,
-        Category.of("general",
-            Group.of("greeting",
-                Setting.of("welcome", welcomeText)
+    // asciidoctor Documentation - tag::setupPreferences[]
+    return PreferencesFx.of(StandardExample.class,
+        Category.of("General",
+            Group.of("Greeting",
+                Setting.of("Welcome Text", welcomeText)
             ),
-            Group.of("display",
-                Setting.of("brightness", brightness),
-                Setting.of("night_mode", nightMode)
+            Group.of("Display",
+                Setting.of("Brightness", brightness),
+                Setting.of("Night mode", nightMode)
             )
         ),
-        Category.of("screen")
+        Category.of("Screen")
+            .expand()
             .subCategories(
-                Category.of("scaling_ordering",
+                Category.of("Scaling & Ordering",
                     Group.of(
-                        Setting.of("scaling", scaling)
-                            .validate(DoubleRangeValidator.atLeast(1, "scaling_validate")),
-                        Setting.of("screen_name", screenName),
-                        Setting.of("resolution", resolutionItems, resolutionSelection),
-                        Setting.of("orientation", orientationItems, orientationSelection)
-                    ).description("screen_options"),
+                        Setting.of("Scaling", scaling)
+                            .validate(DoubleRangeValidator
+                                .atLeast(1, "Scaling needs to be at least 1")
+                            ),
+                        Setting.of("Screen name", screenName),
+                        Setting.of("Resolution", resolutionItems, resolutionSelection),
+                        Setting.of("Orientation", orientationItems, orientationSelection)
+                    ).description("Screen Options"),
                     Group.of(
-                        Setting.of("font_size", fontSize, 6, 36),
-                        Setting.of("line_spacing", lineSpacing, 0, 3, 1)
+                        Setting.of("Font Size", fontSize, 6, 36),
+                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
                     )
                 )
             ),
-        Category.of("favorites",
-            Setting.of("favorites", favoritesItems, favoritesSelection),
-            Setting.of("favorite_number", customControl, customControlProperty)
+        Category.of("Favorites",
+            Setting.of("Favorites", favoritesItems, favoritesSelection),
+            Setting.of("Favorite Number", customControl, customControlProperty)
         )
-    ).i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+    ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+    // asciidoctor Documentation - end::setupPreferences[]
   }
-
 }

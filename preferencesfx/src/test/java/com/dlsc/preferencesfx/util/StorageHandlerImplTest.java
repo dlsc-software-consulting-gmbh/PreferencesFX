@@ -1,5 +1,8 @@
 package com.dlsc.preferencesfx.util;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import org.junit.After;
@@ -86,5 +89,12 @@ public class StorageHandlerImplTest {
 
   @Test
   public void loadObservableList() {
+  }
+
+  @Test
+  public void shaHashing() {
+    StorageHandlerImpl storageHandler = new StorageHandlerImpl(StorageHandlerImplTest.class);
+    final String result = storageHandler.hash("test");
+    assertThat(result, is("9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"));
   }
 }

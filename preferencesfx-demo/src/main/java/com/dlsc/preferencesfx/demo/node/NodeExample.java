@@ -1,9 +1,9 @@
-package com.dlsc.preferencesfx.node;
+package com.dlsc.preferencesfx.demo.node;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
-import com.dlsc.preferencesfx.AppStarter;
+import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
@@ -85,7 +85,7 @@ public class NodeExample extends StackPane {
 
   private PreferencesFx createPreferences() {
     // asciidoctor Documentation - tag::setupPreferences[]
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(NodeExample.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)
@@ -96,6 +96,7 @@ public class NodeExample extends StackPane {
             )
         ),
         Category.of("Screen", screenIcon)
+            .expand()
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(
