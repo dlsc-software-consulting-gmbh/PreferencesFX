@@ -48,21 +48,19 @@
     </distributionManagement>
 
     <repositories>
-        <repository>
-            <id>bintray-jerady-maven</id>
-            <name>bintray</name>
-            <url>https://dl.bintray.com/jerady/maven</url>
-        </repository>
+
         <repository>
             <id>bintray-dlsc-oss-repository</id>
             <name>bintray</name>
             <url>https://dl.bintray.com/dlsc-oss/repository</url>
         </repository>
+
         <repository>
             <name>BestSolution e(fx)clipse releases</name>
             <id>efxclipse-releases</id>
             <url>http://maven.bestsolution.at/efxclipse-releases/</url>
         </repository>
+
     </repositories>
 
     <properties>

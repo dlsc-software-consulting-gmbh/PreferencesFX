@@ -1,7 +1,8 @@
 package com.dlsc.preferencesfx.demo.i18n;
 
-import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.demo.AppStarter;
+import com.dlsc.preferencesfx.PreferencesFx;
+import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -11,8 +12,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-import java.util.stream.Collectors;
 
 public class DemoView extends VBox {
   private PreferencesFx preferencesFx;

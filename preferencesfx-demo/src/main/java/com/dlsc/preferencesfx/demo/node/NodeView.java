@@ -1,8 +1,9 @@
 package com.dlsc.preferencesfx.demo.node;
 
-import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.demo.AppStarter;
+import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.view.PreferencesFxView;
+import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -11,8 +12,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
-import java.util.stream.Collectors;
 
 public class NodeView extends VBox {
   private PreferencesFx preferencesFx;
