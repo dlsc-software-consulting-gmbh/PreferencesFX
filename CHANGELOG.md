@@ -1,5 +1,8 @@
 # Change Log
 
+## [11.3.2](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.3.2) (2019-07-30)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.3.1...11.3.2)
+
 ## [11.3.1](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.3.1) (2019-07-30)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.3.2...11.3.1)
 
