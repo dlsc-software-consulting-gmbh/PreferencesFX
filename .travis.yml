@@ -50,6 +50,7 @@ deploy:
       - javadoc.zip
       - /**/target/*.jar
     skip_cleanup: true
+    name: Release $TRAVIS_TAG
     body: See [CHANGELOG.md](https://github.com/$TRAVIS_REPO_SLUG/blob/master/CHANGELOG.md)
     on: &on
       repo: $TRAVIS_REPO_SLUG
