@@ -1,5 +1,16 @@
 # Change Log
 
+## [11.3.1](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.3.1) (2019-07-30)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.3.2...11.3.1)
+
+## [8.3.2](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.3.2) (2019-07-30)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.3.1...8.3.2)
+
+**Fixed bugs:**
+
+- Show\(\) cannot be called twice? [\#80](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/80)
+- Fix "Show\(\) cannot be called twice" [\#82](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/82) ([martinfrancois](https://github.com/martinfrancois))
+
 ## [8.3.1](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.3.1) (2019-07-30)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/v8.3.0...8.3.1)
 
