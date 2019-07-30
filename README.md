@@ -1,7 +1,7 @@
 # PreferencesFX
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
-[ ![Download](https://api.bintray.com/packages/dlsc-oss/repository/PreferencesFX/images/download.svg) ](https://bintray.com/dlsc-oss/repository/PreferencesFX/_latestVersion)
+[![Maven Central](https://img.shields.io/maven-central/v/com.dlsc.preferencesfx/preferencesfx-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.dlsc.preferencesfx%22%20AND%20a:%22preferencesfx-core%22)
 [![Build Status](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX.svg?branch=master)](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX)
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
