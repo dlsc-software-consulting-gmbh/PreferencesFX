@@ -25,7 +25,7 @@ public class AppStarter extends Application {
     for(Pane pane : examples)
       tabPane.getTabs().add(new Tab(pane.getClass().getSimpleName().replace("Example", ""), pane));
     Scene myScene = new Scene(tabPane);
-    primaryStage.setTitle("PreferencesFx Demo");
+    primaryStage.setTitle("PreferencesFX Demo");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(1000);
     primaryStage.setHeight(700);

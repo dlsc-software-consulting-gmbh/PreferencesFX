@@ -3,17 +3,16 @@ module com.dlsc.preferencesfx {
     requires transitive javafx.controls;
     requires transitive com.dlsc.formsfx;
 
-    requires de.jensd.fx.glyphs.fontawesome;
+    requires de.jensd.fx.fontawesomefx.fontawesome;
+    requires de.jensd.fx.fontawesomefx.commons;
 
     requires java.prefs;
     requires gson;
     requires org.eclipse.fx.ui.controls;
-    requires commons.collections4;
     requires com.google.guava;
     requires java.sql;
     requires org.controlsfx.controls;
-    requires org.apache.logging.log4j;
-    requires org.apache.logging.log4j.core;
+    requires slf4j.api;
 
     exports com.dlsc.preferencesfx;
     exports com.dlsc.preferencesfx.formsfx.view.controls;

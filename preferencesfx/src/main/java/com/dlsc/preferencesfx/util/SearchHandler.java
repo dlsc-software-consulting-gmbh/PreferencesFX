@@ -6,7 +6,6 @@ import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
-import com.google.common.base.Strings;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +18,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Handles everything related to searching in the{@link Category}, {@link Group}
@@ -34,7 +33,7 @@ import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 public class SearchHandler {
 
   private static final Logger LOGGER =
-      LogManager.getLogger(SearchHandler.class.getName());
+      LoggerFactory.getLogger(SearchHandler.class.getName());
 
   private PreferencesFxModel model;
 

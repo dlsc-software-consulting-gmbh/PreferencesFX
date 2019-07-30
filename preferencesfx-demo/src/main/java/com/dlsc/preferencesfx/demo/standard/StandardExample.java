@@ -81,7 +81,7 @@ public class StandardExample extends StackPane {
 
   private PreferencesFx createPreferences() {
     // asciidoctor Documentation - tag::setupPreferences[]
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(StandardExample.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)
@@ -92,6 +92,7 @@ public class StandardExample extends StackPane {
             )
         ),
         Category.of("Screen")
+            .expand()
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(

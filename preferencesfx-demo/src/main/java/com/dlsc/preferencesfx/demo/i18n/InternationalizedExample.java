@@ -89,7 +89,7 @@ public class InternationalizedExample extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(InternationalizedExample.class,
         Category.of("general",
             Group.of("greeting",
                 Setting.of("welcome", welcomeText)
@@ -100,6 +100,7 @@ public class InternationalizedExample extends StackPane {
             )
         ),
         Category.of("screen")
+            .expand()
             .subCategories(
                 Category.of("scaling_ordering",
                     Group.of(
@@ -119,7 +120,8 @@ public class InternationalizedExample extends StackPane {
             Setting.of("favorites", favoritesItems, favoritesSelection),
             Setting.of("favorite_number", customControl, customControlProperty)
         )
-    ).i18n(rbs).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
+    ).i18n(rbs).persistWindowState(false)
+     .saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }
 
 }

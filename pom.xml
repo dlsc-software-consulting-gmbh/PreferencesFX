@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.preferencesfx</groupId>
     <artifactId>parent</artifactId>
-    <version>11.1.1</version>
+    <version>11.3.0</version>
     <packaging>pom</packaging>
 
     <modules>
