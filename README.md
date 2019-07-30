@@ -2,7 +2,7 @@
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
 [ ![Download](https://api.bintray.com/packages/dlsc-oss/repository/PreferencesFX/images/download.svg) ](https://bintray.com/dlsc-oss/repository/PreferencesFX/_latestVersion)
-[![Build Status](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=master)](https://travis-ci.org/dlemmermann/PreferencesFX)
+[![Build Status](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX.svg?branch=master)](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX)
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
