@@ -48,6 +48,11 @@
     </distributionManagement>
 
     <repositories>
+        <repository>
+            <id>bintray-jerady-maven</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/jerady/maven</url>
+        </repository>
 
         <repository>
             <id>bintray-dlsc-oss-repository</id>
