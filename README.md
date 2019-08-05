@@ -1,8 +1,8 @@
 # PreferencesFX
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
-[ ![Download](https://api.bintray.com/packages/dlsc-oss/repository/PreferencesFX/images/download.svg) ](https://bintray.com/dlsc-oss/repository/PreferencesFX/_latestVersion)
-[![Build Status](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=develop)](https://travis-ci.org/dlemmermann/PreferencesFX)
+[![Maven Central](https://img.shields.io/maven-central/v/com.dlsc.preferencesfx/preferencesfx-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.dlsc.preferencesfx%22%20AND%20a:%22preferencesfx-core%22)
+[![Build Status](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX.svg?branch=master)](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX)
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
@@ -32,7 +32,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>8.3.0</version>
+  <version>8.3.2</version>
 </dependency>
 ```
 
@@ -41,7 +41,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>11.3.0</version>
+  <version>11.3.1</version>
 </dependency>
 ```
 
@@ -58,7 +58,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.3.0'
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.3.2'
 }
 ```
 
@@ -71,7 +71,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.3.0'
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.3.1'
 }
 ```
 
