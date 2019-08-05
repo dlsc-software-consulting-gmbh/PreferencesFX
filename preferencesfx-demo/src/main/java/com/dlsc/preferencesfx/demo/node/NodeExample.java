@@ -1,9 +1,9 @@
-package com.dlsc.preferencesfx.node;
+package com.dlsc.preferencesfx.demo.node;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
-import com.dlsc.preferencesfx.AppStarter;
+import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
 import com.dlsc.preferencesfx.model.Category;
@@ -24,6 +24,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class NodeExample extends StackPane {
@@ -38,6 +40,8 @@ public class NodeExample extends StackPane {
   // Screen
   DoubleProperty scaling = new SimpleDoubleProperty(1);
   StringProperty screenName = new SimpleStringProperty("PreferencesFx Monitor");
+  ImageView screenIcon = new ImageView(
+      new Image(AppStarter.class.getResource("screen_icon.png").toExternalForm()));
 
   ObservableList<String> resolutionItems = FXCollections.observableArrayList(Arrays.asList(
       "1024x768", "1280x1024", "1440x900", "1920x1080")
@@ -81,7 +85,7 @@ public class NodeExample extends StackPane {
 
   private PreferencesFx createPreferences() {
     // asciidoctor Documentation - tag::setupPreferences[]
-    return PreferencesFx.of(AppStarter.class,
+    return PreferencesFx.of(NodeExample.class,
         Category.of("General",
             Group.of("Greeting",
                 Setting.of("Welcome Text", welcomeText)
@@ -91,7 +95,8 @@ public class NodeExample extends StackPane {
                 Setting.of("Night mode", nightMode)
             )
         ),
-        Category.of("Screen")
+        Category.of("Screen", screenIcon)
+            .expand()
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(

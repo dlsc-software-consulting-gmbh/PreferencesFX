@@ -1,28 +1,78 @@
 # PreferencesFX
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
-[ ![Download](https://api.bintray.com/packages/dlsc-oss/repository/PreferencesFX/images/download.svg) ](https://bintray.com/dlsc-oss/repository/PreferencesFX/_latestVersion)
-[ ![Develop Branch](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=develop)](https://travis-ci.org/dlemmermann/PreferencesFX.svg?branch=master)
+[![Maven Central](https://img.shields.io/maven-central/v/com.dlsc.preferencesfx/preferencesfx-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.dlsc.preferencesfx%22%20AND%20a:%22preferencesfx-core%22)
+[![Build Status](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX.svg?branch=master)](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX)
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
+## Table of Contents
+- [Maven](#maven)
+- [Gradle](#gradle)
+- [What is PreferencesFX](#what-is-preferencesfx)
+- [Advantages](#advantages)
+- [Main Features](#main-features)
+- [Documentation](#documentation)
+- [Structure](#structure)
+- [Demos](#demos)
+- [Defining a preferences dialog](#defining-a-preferences-dialog)
+   - [Required arguments](#required-arguments)
+   - [Optional arguments](#optional-arguments)
+   - [Setting types](#setting-types)
+- [Localisation](#localisation)
+- [Validation](#validation)
+- [Team](#team)
+
 ## Maven
 
-To use this framework as part of your Maven build simply add the jcentral repository to your pom.xml file and use the following dependency definition.
+To use this framework as part of your Maven build simply add the following dependency to your pom.xml file:
 
+### Java 8
 ```XML
-<repositories>
-  <repository>
-    <id>jcenter</id>
-    <url>http://jcenter.bintray.com</url>
-  </repository>
-</repositories>
-
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>2.1.0</version>
+  <version>8.3.2</version>
 </dependency>
+```
+
+### Java 11
+```XML
+<dependency>
+  <groupId>com.dlsc.preferencesfx</groupId>
+  <artifactId>preferencesfx-core</artifactId>
+  <version>11.3.1</version>
+</dependency>
+```
+
+## Gradle
+
+To use this framework as part of your gradle build simply add the following to your build.gradle file and use the following dependency definition:
+
+### Java 8
+```groovy
+repositories {
+    maven {
+        url 'http://maven.bestsolution.at/efxclipse-releases/'
+    }
+}
+
+dependencies {
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.3.2'
+}
+```
+
+### Java 11
+```groovy
+repositories {
+    maven {
+        url 'http://maven.bestsolution.at/efxclipse-releases/'
+    }
+}
+
+dependencies {
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.3.1'
+}
 ```
 
 ## What is PreferencesFX?
@@ -76,7 +126,8 @@ PreferencesFx preferencesFx =
 ```
 Notes:
 - It is also possible to omit the `Group` and declare all settings in a `Category` directly. However, in this case all settings will simply be displayed one after another without grouping. If you want more control, use `Group`.
-- A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space inbetween them, to ensure they can be differentiated.
+- A `Group` can also be defined without a title. In this case, the individual groups are displayed with more space in between them, to ensure they can be differentiated.
+- A `Category` can also take a graphic node to be used as an icon as the second argument, e.g. `Category.of("Category Title", new ImageView(new Image("file:icon.png")),`
 
 ## Demos
 We created several demos to visualize the capabilities of PreferencesFX.  
@@ -107,6 +158,7 @@ PreferencesFx preferencesFx =
             Setting.of("Setting title 2", booleanProperty) // which contains both settings
         ),
         Category.of("Category title 2")
+            .expand()                                       // Expand the parent category in the tree-view
             .subCategories( // adds a subcategory to "Category title 2"
                 Category.of("Category title 3",
                     Group.of("Group title 1",
@@ -149,6 +201,7 @@ The following parameters are optionally available to further configure the dialo
 Method | Class | Description
 ------ | ----- | -----------
 `.subCategories` | `Category` | Subcategories allow a `Category` to have additional subcategories as children. Those are also displayed in the tree.
+`.expand` | `Category` | Allows to specify if the `Category` should be expanded in the Tree-View by default.
 `.description` | `Group` | If you decide not to add the description of a group in the constructor, you can still add it after the creation of the group.
 `.validate` | `Setting` | Allows to add a [Validator](http://dlsc.com/wp-content/html/formsfx/apidocs/com/dlsc/formsfx/model/validators/Validator.html) to a setting, to set constraints to the values that can be entered.
 `.persistApplicationState` | `PreferencesFx` | Defines if the Preferences API should save the application states. This includes the state persistence of the dialog window, as well as the values of each Setting.
@@ -156,7 +209,10 @@ Method | Class | Description
 `.saveSettings` | `PreferencesFx` | Defines whether the changed settings in the Preferences window should be saved or not. Defaults to true.
 `.debugHistoryMode` | `PreferencesFx` | Makes it possible to enable or disable the keycombination to open a debug view of the list of all actions in the history (undo / redo). Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the undo / redo history, shown in a table. Defaults to false.
 `.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the cancel and close buttons in the `PreferencesFxDialog`. Defaults to true.
+`.instantPersistent` | `PreferencesFx` | If set to true, it will instantly apply any changes that are being made in the `PreferencesFxDialog`. If set to false, it will only apply changes when the `Save` button is pressed. Defaults to true.
 `.i18n` | `PreferencesFx` | Sets the translation service of the preferences dialog for internationalization.
+`.dialogTitle` | `PreferencesFx` | Allows to specify a custom dialog title.
+`.dialogIcon` | `PreferencesFx` | Allows to specify a custom dialog icon.
 
 #### Setting types
 The following table shows how to create `Settings` using the predefined controls and how they look like:
@@ -256,6 +312,23 @@ Setting.of("Favorites", favoritesItems, favoritesSelection);</pre>
     </tr>
     <tr>
         <td><pre lang="java">
+// Color
+ObjectProperty<Color> colorProperty = new SimpleObjectProperty<>(Color.PAPAYAWHIP);
+Setting.of("Font Color", colorProperty);</pre>
+        </td>
+        <td><img src="./docs/images/settings/color_setting.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
+// FileChooser / DirectoryChooser
+ObjectProperty<File> fileProperty = new SimpleObjectProperty<>();
+Setting.of("File", fileProperty, false);     // FileChooser
+Setting.of("Directory", fileProperty, true); // DirectoryChooser</pre>
+        </td>
+        <td><img src="./docs/images/settings/chooser_setting.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
 // Custom Control
 IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
 IntegerField customControl = Field.ofIntegerType(customControlProperty).render(
@@ -265,6 +338,8 @@ Setting.of("Favorite Number", customControl, customControlProperty);</pre>
         <td><img src="./docs/images/settings/custom_setting.png"/></td>
     </tr>
 </table>
+
+Note: By default, PreferencesFX saves the settings under a key which consists of the breadcrumb to the setting, delimited by `#` signs. If you want to define your own key to be used for saving, use the method `setting.customKey("key")`
 
 ## Localisation
 All displayed strings can be internationalized. You can use [resource bundles](https://docs.oracle.com/javase/8/docs/api/java/util/ResourceBundle.html) to define different locales and use the key instead of the descriptions. Adding i18n support is simply done by calling the method `.i18n()` at the end when creating the preferences:

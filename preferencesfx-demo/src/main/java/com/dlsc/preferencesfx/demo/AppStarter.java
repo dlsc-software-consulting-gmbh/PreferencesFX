@@ -1,10 +1,10 @@
-package com.dlsc.preferencesfx;
+package com.dlsc.preferencesfx.demo;
 
-import com.dlsc.preferencesfx.extended.ExtendedExample;
-import com.dlsc.preferencesfx.i18n.InternationalizedExample;
-import com.dlsc.preferencesfx.node.NodeExample;
-import com.dlsc.preferencesfx.oneCategory.OneCategoryExample;
-import com.dlsc.preferencesfx.standard.StandardExample;
+import com.dlsc.preferencesfx.demo.extended.ExtendedExample;
+import com.dlsc.preferencesfx.demo.i18n.InternationalizedExample;
+import com.dlsc.preferencesfx.demo.node.NodeExample;
+import com.dlsc.preferencesfx.demo.oneCategory.OneCategoryExample;
+import com.dlsc.preferencesfx.demo.standard.StandardExample;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -25,7 +25,7 @@ public class AppStarter extends Application {
     for(Pane pane : examples)
       tabPane.getTabs().add(new Tab(pane.getClass().getSimpleName().replace("Example", ""), pane));
     Scene myScene = new Scene(tabPane);
-    primaryStage.setTitle("PreferencesFx Demo");
+    primaryStage.setTitle("PreferencesFX Demo");
     primaryStage.setScene(myScene);
     primaryStage.setWidth(1000);
     primaryStage.setHeight(700);

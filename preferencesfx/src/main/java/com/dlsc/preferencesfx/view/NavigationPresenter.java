@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Objects;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Contains presenter logic of the {@link NavigationView}.
@@ -20,7 +20,7 @@ import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
  */
 public class NavigationPresenter implements Presenter {
   private static final Logger LOGGER =
-      LogManager.getLogger(NavigationPresenter.class.getName());
+      LoggerFactory.getLogger(NavigationPresenter.class.getName());
 
   private PreferencesFxModel model;
   private SearchHandler searchHandler;
@@ -111,6 +111,9 @@ public class NavigationPresenter implements Presenter {
   private void addRecursive(FilterableTreeItem treeItem, List<Category> categories) {
     for (Category category : categories) {
       FilterableTreeItem<Category> item = new FilterableTreeItem<>(category);
+      if (category.isExpand()) {
+        item.setExpanded(true);
+      }
       // If there are subcategries, add them recursively.
       if (!Objects.equals(category.getChildren(), null)) {
         addRecursive(item, category.getChildren());
@@ -155,6 +158,7 @@ public class NavigationPresenter implements Presenter {
           setGraphic(null);
         } else {
           textProperty().bind(category.descriptionProperty());
+          setGraphic(category.getItemIcon());
         }
       }
     });

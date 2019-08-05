@@ -1,4 +1,4 @@
-import com.dlsc.preferencesfx.AppStarter;
+import com.dlsc.preferencesfx.demo.AppStarter;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
