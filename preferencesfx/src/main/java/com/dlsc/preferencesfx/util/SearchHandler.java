@@ -6,6 +6,7 @@ import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
+import com.dlsc.preferencesfx.view.FilterableTreeItem;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -18,8 +19,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
-import org.eclipse.fx.ui.controls.tree.TreeItemPredicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,7 +91,7 @@ public class SearchHandler {
   public void init(
       PreferencesFxModel model,
       StringProperty searchText,
-      ObjectProperty<TreeItemPredicate<Category>> predicateProperty
+      ObjectProperty<Predicate<Category>> predicateProperty
   ) {
     this.model = model;
     initializeSearch();
@@ -149,12 +148,12 @@ public class SearchHandler {
    *
    * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
    */
-  public void bindFilterPredicate(ObjectProperty<TreeItemPredicate<Category>> predicateProperty) {
+  public void bindFilterPredicate(ObjectProperty<Predicate<Category>> predicateProperty) {
     predicateProperty.bind(Bindings.createObjectBinding(() -> {
       if (searchText.get() == null || searchText.get().isEmpty()) {
         return null;
       }
-      return TreeItemPredicate.create(filterPredicate);
+      return filterPredicate;
     }, searchText));
   }
 
