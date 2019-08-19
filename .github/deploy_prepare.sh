@@ -14,7 +14,6 @@ fi
 rev=$(git rev-parse --short HEAD)
 
 echo "Install Dependencies for Changelog Generation"
-gem install rack -v 1.6.4
 gem install github_changelog_generator
 echo "Finished Install Dependencies for Changelog Generation"
 
