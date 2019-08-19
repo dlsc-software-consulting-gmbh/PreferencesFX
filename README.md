@@ -51,12 +51,6 @@ To use this framework as part of your gradle build simply add the following to y
 
 ### Java 8
 ```groovy
-repositories {
-    maven {
-        url 'http://maven.bestsolution.at/efxclipse-releases/'
-    }
-}
-
 dependencies {
     compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.3.2'
 }
@@ -64,12 +58,6 @@ dependencies {
 
 ### Java 11
 ```groovy
-repositories {
-    maven {
-        url 'http://maven.bestsolution.at/efxclipse-releases/'
-    }
-}
-
 dependencies {
     compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.3.1'
 }
