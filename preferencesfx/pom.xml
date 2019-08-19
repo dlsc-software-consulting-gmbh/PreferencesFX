@@ -60,12 +60,6 @@
             <url>https://dl.bintray.com/dlsc-oss/repository</url>
         </repository>
 
-        <repository>
-            <name>BestSolution e(fx)clipse releases</name>
-            <id>efxclipse-releases</id>
-            <url>http://maven.bestsolution.at/efxclipse-releases/</url>
-        </repository>
-
     </repositories>
 
     <properties>
