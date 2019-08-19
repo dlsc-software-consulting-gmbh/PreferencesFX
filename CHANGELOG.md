@@ -1,5 +1,20 @@
 # Change Log
 
+## [11.4.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.4.0) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.4.0...11.4.0)
+
+**Closed issues:**
+
+- Set default view/Show first subcategory [\#83](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/83)
+
+## [8.4.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.4.0) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.3.2...8.4.0)
+
+**Merged pull requests:**
+
+- Automatically select first subcategory if a category is empty [\#86](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/86) ([ArvidNy](https://github.com/ArvidNy))
+- remove dependency to efxclipse [\#84](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/84) ([sclassen](https://github.com/sclassen))
+
 ## [11.3.2](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.3.2) (2019-07-30)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.3.1...11.3.2)
 
@@ -20,6 +35,10 @@
 **Implemented enhancements:**
 
 - Deploy CI/CD with Travis CI [\#81](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/81) ([martinfrancois](https://github.com/martinfrancois))
+
+**Fixed bugs:**
+
+- Snapshot repo for ControlsFX 10 [\#45](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/45) ([Genron](https://github.com/Genron))
 
 ## [v8.3.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/v8.3.0) (2019-07-20)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/v11.3.0...v8.3.0)
@@ -44,7 +63,6 @@
 - Make cancel cancel again [\#56](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/56) ([martinfrancois](https://github.com/martinfrancois))
 - Fix hashing method [\#55](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/55) ([martinfrancois](https://github.com/martinfrancois))
 - Snapshot repo for ControlsFX 11 [\#46](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/46) ([Genron](https://github.com/Genron))
-- Snapshot repo for ControlsFX 10 [\#45](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/45) ([Genron](https://github.com/Genron))
 
 **Closed issues:**
 
