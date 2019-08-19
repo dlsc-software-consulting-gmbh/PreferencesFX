@@ -8,7 +8,6 @@ module com.dlsc.preferencesfx {
 
     requires java.prefs;
     requires gson;
-    requires org.eclipse.fx.ui.controls;
     requires com.google.guava;
     requires java.sql;
     requires org.controlsfx.controls;
