@@ -89,9 +89,9 @@ public class PreferencesFxModel {
     }
     flatCategoriesLst = PreferencesFxUtils.flattenCategories(this.categories);
     initializeCategoryTranslation();
-    if (getCategories().get(DEFAULT_CATEGORY).getGroups() == null &&
-            getCategories().get(DEFAULT_CATEGORY).getChildren() != null &&
-            getCategories().get(DEFAULT_CATEGORY).getChildren().size() > 0) {
+    if (getCategories().get(DEFAULT_CATEGORY).getGroups() == null
+            && getCategories().get(DEFAULT_CATEGORY).getChildren() != null
+            && getCategories().get(DEFAULT_CATEGORY).getChildren().size() > 0) {
       setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY).getChildren().get(0));
     } else {
       setDisplayedCategory(getCategories().get(DEFAULT_CATEGORY));
