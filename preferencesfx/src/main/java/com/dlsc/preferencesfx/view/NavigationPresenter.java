@@ -79,8 +79,12 @@ public class NavigationPresenter implements Presenter {
     navigationView.treeView.getSelectionModel().selectedItemProperty().addListener(
         (observable, oldTreeItem, newTreeItem) -> {
           if (newTreeItem != null) {
-            if (!newTreeItem.isLeaf() && newTreeItem.getValue().getGroups() == null && newTreeItem.getValue().getChildren() != null && newTreeItem.getValue().getChildren().size() > 0) {
-              Platform.runLater(() -> navigationView.treeView.getSelectionModel().select(newTreeItem.getChildren().get(0)));
+            if (!newTreeItem.isLeaf() &&
+                    newTreeItem.getValue().getGroups() == null &&
+                    newTreeItem.getValue().getChildren() != null &&
+                    newTreeItem.getValue().getChildren().size() > 0) {
+                Platform.runLater(() ->
+                        navigationView.treeView.getSelectionModel().select(newTreeItem.getChildren().get(0)));
             } else {
               model.setDisplayedCategory(newTreeItem.getValue());
             }

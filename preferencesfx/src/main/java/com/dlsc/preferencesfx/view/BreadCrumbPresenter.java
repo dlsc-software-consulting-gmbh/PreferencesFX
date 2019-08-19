@@ -43,8 +43,11 @@ public class BreadCrumbPresenter implements Presenter {
 
     // Sets the displayed category when clicking on a breadcrumb
     breadCrumbView.breadCrumbBar.setOnCrumbAction(event -> {
-      if (event.getSelectedCrumb().getValue().getGroups() == null && event.getSelectedCrumb().getValue().getChildren() != null && event.getSelectedCrumb().getValue().getChildren().size() > 0) {
-        Platform.runLater(() -> model.setDisplayedCategory(event.getSelectedCrumb().getValue().getChildren().get(0)));
+      if (event.getSelectedCrumb().getValue().getGroups() == null &&
+              event.getSelectedCrumb().getValue().getChildren() != null &&
+              event.getSelectedCrumb().getValue().getChildren().size() > 0) {
+          Platform.runLater(() ->
+                  model.setDisplayedCategory(event.getSelectedCrumb().getValue().getChildren().get(0)));
       } else {
         model.setDisplayedCategory(event.getSelectedCrumb().getValue());
       }
