@@ -75,7 +75,7 @@ public class NavigationPresenter implements Presenter {
     navigationView.treeView.getSelectionModel().selectedItemProperty().addListener(
         (observable, oldTreeItem, newTreeItem) -> {
           if (newTreeItem != null) {
-            model.setDisplayedCategory(newTreeItem.getValue());
+              model.setDisplayedCategory(newTreeItem.getValue());
           }
         }
     );

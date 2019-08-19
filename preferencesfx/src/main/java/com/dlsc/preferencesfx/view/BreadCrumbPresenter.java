@@ -4,6 +4,7 @@ import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
+import javafx.application.Platform;
 import org.controlsfx.control.BreadCrumbBar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +42,9 @@ public class BreadCrumbPresenter implements Presenter {
     model.displayedCategoryProperty().addListener(e -> setupBreadCrumbBar());
 
     // Sets the displayed category when clicking on a breadcrumb
-    breadCrumbView.breadCrumbBar.setOnCrumbAction(event ->
-        model.setDisplayedCategory(event.getSelectedCrumb().getValue())
+    breadCrumbView.breadCrumbBar.setOnCrumbAction(event -> {
+      model.setDisplayedCategory(event.getSelectedCrumb().getValue());
+    }
     );
   }
 
