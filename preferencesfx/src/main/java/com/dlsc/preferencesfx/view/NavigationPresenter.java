@@ -10,7 +10,6 @@ import java.util.Objects;
 import javafx.application.Platform;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
-import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,17 +109,17 @@ public class NavigationPresenter implements Presenter {
 
   }
 
-  private void addRecursive(FilterableTreeItem treeItem, List<Category> categories) {
+  private void addRecursive(FilterableTreeItem<Category> treeItem, List<Category> categories) {
     for (Category category : categories) {
       FilterableTreeItem<Category> item = new FilterableTreeItem<>(category);
       if (category.isExpand()) {
         item.setExpanded(true);
       }
-      // If there are subcategries, add them recursively.
-      if (!Objects.equals(category.getChildren(), null)) {
+      // If there are subcategories, add them recursively.
+      if (category.getChildren() != null) {
         addRecursive(item, category.getChildren());
       }
-      treeItem.getInternalChildren().add(item);
+      treeItem.add(item);
       categoryTreeItemMap.put(category, item);
     }
   }

@@ -12,7 +12,6 @@ import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
 import org.controlsfx.glyphfont.GlyphFont;
 import org.controlsfx.glyphfont.GlyphFontRegistry;
-import org.eclipse.fx.ui.controls.tree.FilterableTreeItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,7 +97,7 @@ public class NavigationView extends VBox implements View {
    *
    * @param categoryTreeItem the category TreeItem to be selected
    */
-  protected void setSelectedItem(FilterableTreeItem categoryTreeItem) {
+  protected void setSelectedItem(FilterableTreeItem<Category> categoryTreeItem) {
     if (categoryTreeItem != null) {
       treeView.getSelectionModel().select(categoryTreeItem);
     }
