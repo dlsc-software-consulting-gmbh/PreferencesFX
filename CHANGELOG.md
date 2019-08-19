@@ -1,5 +1,41 @@
 # Change Log
 
+## [11.4.3](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.4.3) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.4.3...11.4.3)
+
+## [8.4.3](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.4.3) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.4.2...8.4.3)
+
+## [8.4.2](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.4.2) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.4.1...8.4.2)
+
+## [8.4.1](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.4.1) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.4.1...8.4.1)
+
+## [11.4.1](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.4.1) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.4.0...11.4.1)
+
+## [11.4.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.4.0) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.4.0...11.4.0)
+
+**Closed issues:**
+
+- Set default view/Show first subcategory [\#83](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/83)
+
+## [8.4.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.4.0) (2019-08-19)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.3.2...8.4.0)
+
+**Merged pull requests:**
+
+- Automatically select first subcategory if a category is empty [\#86](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/86) ([ArvidNy](https://github.com/ArvidNy))
+- remove dependency to efxclipse [\#84](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/84) ([sclassen](https://github.com/sclassen))
+
+## [11.3.2](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.3.2) (2019-07-30)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.3.1...11.3.2)
+
+## [11.3.1](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.3.1) (2019-07-30)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.3.2...11.3.1)
+
 ## [8.3.2](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.3.2) (2019-07-30)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.3.1...8.3.2)
 
@@ -16,10 +52,7 @@
 - Deploy CI/CD with Travis CI [\#81](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/81) ([martinfrancois](https://github.com/martinfrancois))
 
 ## [v8.3.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/v8.3.0) (2019-07-20)
-[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.3.1...v8.3.0)
-
-## [11.3.1](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.3.1) (2019-07-20)
-[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/v11.3.0...11.3.1)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/v11.3.0...v8.3.0)
 
 ## [v11.3.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/v11.3.0) (2019-07-20)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/v11.1.0...v11.3.0)
