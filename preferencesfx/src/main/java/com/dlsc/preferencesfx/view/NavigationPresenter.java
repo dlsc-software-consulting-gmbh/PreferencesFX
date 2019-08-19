@@ -5,6 +5,9 @@ import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+
+import javafx.application.Platform;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import org.slf4j.Logger;
@@ -75,7 +78,7 @@ public class NavigationPresenter implements Presenter {
     navigationView.treeView.getSelectionModel().selectedItemProperty().addListener(
         (observable, oldTreeItem, newTreeItem) -> {
           if (newTreeItem != null) {
-            model.setDisplayedCategory(newTreeItem.getValue());
+              model.setDisplayedCategory(newTreeItem.getValue());
           }
         }
     );
