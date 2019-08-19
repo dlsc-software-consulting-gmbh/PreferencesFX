@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.preferencesfx</groupId>
     <artifactId>preferencesfx-core</artifactId>
-    <version>8.4.2</version>
+    <version>8.4.3</version>
     <packaging>jar</packaging>
 
     <name>PreferencesFX</name>
