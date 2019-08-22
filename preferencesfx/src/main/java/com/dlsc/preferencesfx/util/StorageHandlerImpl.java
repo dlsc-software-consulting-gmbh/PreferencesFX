@@ -256,6 +256,7 @@ public class StorageHandlerImpl implements StorageHandler {
    * to save / load as the key in {@link Preferences}, since those are guaranteed to be
    * maximum 64 chars long.
    *
+   * @param key the string to generate the hash from
    * @return SHA-256 representation of breadcrumb
    */
   public String hash(String key) {

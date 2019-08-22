@@ -126,6 +126,8 @@ public class NavigationPresenter implements Presenter {
 
   /**
    * Retrieves the currently selected category in the TreeSearchView.
+   *
+   * @return the currently selected category
    */
   public Category getSelectedCategory() {
     TreeItem<Category> selectedTreeItem =

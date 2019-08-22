@@ -24,6 +24,8 @@ public class PreferencesFxEvent extends Event {
   /**
    * Creates a new instance of {@code PreferencesFxEvent} with event type set to {@code
    * EVENT_PREFERENCES_SAVED}.
+   *
+   * @return the newly created PreferencesFxEvent.
    */
   public static PreferencesFxEvent preferencesSavedEvent() {
     return new PreferencesFxEvent(EVENT_PREFERENCES_SAVED);
@@ -32,6 +34,8 @@ public class PreferencesFxEvent extends Event {
   /**
    * Creates a new instance of {@code PreferencesFxEvent} with event type set to {@code
    * EVENT_PREFERENCES_NOT_SAVED}.
+   *
+   * @return the newly created PreferencesFxEvent.
    */
   public static PreferencesFxEvent preferencesNotSavedEvent() {
     return new PreferencesFxEvent(EVENT_PREFERENCES_NOT_SAVED);

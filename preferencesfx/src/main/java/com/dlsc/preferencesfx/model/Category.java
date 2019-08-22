@@ -206,6 +206,7 @@ public class Category {
    * service or its locale changes. Also applies the translation to all
    * contained sections.
    *
+   * @param translationService the translation service
    * @see com.dlsc.formsfx.model.structure.Group ::translate
    */
   public void translate(TranslationService translationService) {
