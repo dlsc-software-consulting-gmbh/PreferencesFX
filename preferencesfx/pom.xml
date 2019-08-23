@@ -16,7 +16,9 @@
     <url>https://github.com/dlemmermann/PreferencesFX</url>
     <licenses>
         <license>
-            <name>Apache 2.0</name>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
     <scm>
