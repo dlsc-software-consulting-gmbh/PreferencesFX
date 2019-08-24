@@ -41,6 +41,7 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
     preferences = Preferences.userNodeForPackage(saveClass);
   }
 
+  // asciidoctor Documentation - tag::serializationDeserialization[]
   /**
    * Serializes an object to a string for storage.
    *
@@ -73,6 +74,7 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * @return string representation of the object for storage
    */
   protected abstract <T> T deserialize(String serialized, Class<? extends T> type);
+  // asciidoctor Documentation - end::serializationDeserialization[]
 
 
   /**
@@ -189,11 +191,9 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * @param breadcrumb the key which is used to save the serialized Object
    * @param object     the Object which will be saved
    */
-  // asciidoctor Documentation - tag::storageHandlerSave[]
   public void saveObject(String breadcrumb, Object object) {
     preferences.put(hash(breadcrumb), serialize(object));
   }
-  // asciidoctor Documentation - end::storageHandlerSave[]
 
   /**
    * Searches in the preferences after a serialized Object using the given key,
@@ -203,12 +203,10 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * @param defaultObject the Object which will be returned if nothing is found
    * @return the deserialized Object or the default Object if nothing is found
    */
-  // asciidoctor Documentation - tag::storageHandlerLoad[]
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String json = getSerializedPreferencesValue(breadcrumb, serialize(defaultObject));
     return deserialize(json, Object.class);
   }
-  // asciidoctor Documentation - end::storageHandlerLoad[]
 
   /**
    * Searches in the preferences after a serialized ArrayList using the given key,

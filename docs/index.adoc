@@ -348,17 +348,17 @@ This is also a lesson learned for the next project.
 ==== StorageHandler
 We used the `Preferences API` for storing all the data our API requires.
 Such as window position and size and all the setting values.
-For that reason we implemented a class called `StorageHandler.java`.
+For that reason we provide an interface called `StorageHandler`.
 The API can store all primitive data types and character arrays.
 In some cases for example when storing an `ObjectProperty` we faced the challenge to save an object.
 The only solution to do this was to serialize the object, save it as character array and when loading, deserialize it.
 
 We tried serializing objects using several plugins but none of them worked reliably.
-Finally we found a plugin which satisfied all of our needs:
-The https://github.com/google/gson/blob/master/UserGuide.md[`Google GSON`] plugin is used in a very effective easy way and works well.
+Finally we found a library which satisfied all of our needs:
+The https://github.com/google/gson/blob/master/UserGuide.md[`Google GSON`] library is used in a very effective easy way and works well.
 
 Using the API is very simple:
-One hands over an `Object` and gets a `String`:
+One hands over an `Object` and gets back a `String`:
 
 [source,java]
 ----
@@ -392,8 +392,17 @@ include::{sourcedir}/com/dlsc/preferencesfx/util/StorageHandler.java[tags=storag
 include::{sourcedir}/com/dlsc/preferencesfx/util/StorageHandler.java[tags=storageHandlerLoad]
 ----
 
+The usage of GSON is hidden behind two abstract methods in the class `PreferencesBasedStorageHandler`.
+This allows users of PreferenceFX to easily replace GSON with a different library if the have the need to do so.
+
+[source,java]
+----
+include::{sourcedir}/com/dlsc/preferencesfx/util/PreferencesBasedStorageHandler.java[tags=serializationDeserialization]
+----
+
+
 Well the method is working.
-But another problem occured.
+But another problem occurred.
 Where does `PreferencesFX` know which setting has which value?
 We decided to give each `Setting` a `breadcrumb` which represents the path from the `Category` and the `Group` it belongs to, separated with a delimiter.
 The actual challenge was to create them.
