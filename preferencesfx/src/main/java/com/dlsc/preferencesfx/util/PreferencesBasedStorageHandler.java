@@ -205,7 +205,22 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    */
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String serialized = getSerializedPreferencesValue(breadcrumb, serialize(defaultObject));
-    return deserialize(serialized, Object.class);
+    final Class<?> type = defaultObject == null ? Object.class : defaultObject.getClass();
+    return deserialize(serialized, type);
+  }
+
+  /**
+   * Searches in the preferences after a serialized Object using the given key,
+   * deserializes and returns it. Returns a default Object if nothing is found.
+   *
+   * @param breadcrumb    the key which is used to search the serialized Object
+   * @param type          the type of object used for deserialization
+   * @param defaultObject the Object which will be returned if nothing is found
+   * @return the deserialized Object or the default Object if nothing is found
+   */
+  public <T> T loadObject(String breadcrumb, Class<T> type, T defaultObject) {
+    String serialized = getSerializedPreferencesValue(breadcrumb, serialize(defaultObject));
+    return deserialize(serialized, type);
   }
 
   /**
