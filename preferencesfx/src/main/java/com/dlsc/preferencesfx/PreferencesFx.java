@@ -208,7 +208,7 @@ public class PreferencesFx {
 
   /**
    * Defines whether the table to debug the undo / redo history should be shown in a dialog when
-   * pressing a key combination or not. <br/> Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H
+   * pressing a key combination or not. <br> Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H
    * (Mac) opens a dialog with the undo / redo history, shown in a table.
    *
    * @param debugState if true, pressing the key combination will open the dialog
