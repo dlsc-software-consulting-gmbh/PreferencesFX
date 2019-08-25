@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx.demo.oneCategory;
 
-import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
+import com.dlsc.preferencesfx.demo.AppStarter;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
