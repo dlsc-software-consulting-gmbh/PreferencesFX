@@ -1,5 +1,19 @@
 # Change Log
 
+## [11.5.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.5.0) (2019-08-25)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.5.0...11.5.0)
+
+## [8.5.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/8.5.0) (2019-08-25)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.4.3...8.5.0)
+
+**Merged pull requests:**
+
+- extract PreferencesBasedStorageHandler from StorageHandlerImpl [\#93](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/93) ([sclassen](https://github.com/sclassen))
+- add more license details to pom.xml [\#92](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/92) ([sclassen](https://github.com/sclassen))
+- fix javadoc errors [\#90](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/90) ([sclassen](https://github.com/sclassen))
+- remove Ascii class [\#89](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/89) ([sclassen](https://github.com/sclassen))
+- explicitly set file encoding to prevent maven warning [\#88](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/88) ([sclassen](https://github.com/sclassen))
+
 ## [11.4.3](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.4.3) (2019-08-19)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.4.3...11.4.3)
 
