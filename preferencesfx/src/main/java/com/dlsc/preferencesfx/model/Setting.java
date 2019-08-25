@@ -255,6 +255,8 @@ public class Setting<F extends Field, P extends Property> {
   /**
    * Creates a setting of a custom defined field.
    *
+   * @param <F>         the field type
+   * @param <P>         the property type
    * @param description the title of this setting
    * @param field       custom Field object from FormsFX
    * @param property    to be bound, saved / loaded and used for undo / redo
@@ -434,6 +436,8 @@ public class Setting<F extends Field, P extends Property> {
   /**
    * Returns the description of this setting or if i18n is used, it will return the translated
    * description in the current locale.
+   *
+   * @return the description
    */
   public String getDescription() {
     if (field != null) {

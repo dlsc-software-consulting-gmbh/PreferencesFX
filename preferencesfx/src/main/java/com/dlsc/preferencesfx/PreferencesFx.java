@@ -208,7 +208,7 @@ public class PreferencesFx {
 
   /**
    * Defines whether the table to debug the undo / redo history should be shown in a dialog when
-   * pressing a key combination or not. <\br> Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H
+   * pressing a key combination or not. <br> Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H
    * (Mac) opens a dialog with the undo / redo history, shown in a table.
    *
    * @param debugState if true, pressing the key combination will open the dialog
@@ -253,6 +253,7 @@ public class PreferencesFx {
    *
    * @param eventType    the type of the events to receive by the handler
    * @param eventHandler the handler to register
+   * @return PreferencesFx to allow for chaining.
    * @throws NullPointerException if either event type or handler are {@code null}.
    */
   public PreferencesFx addEventHandler(EventType<PreferencesFxEvent> eventType,
@@ -268,6 +269,7 @@ public class PreferencesFx {
    *
    * @param eventType    the event type from which to unregister
    * @param eventHandler the handler to unregister
+   * @return PreferencesFx to allow for chaining.
    * @throws NullPointerException if either event type or handler are {@code null}.
    */
   public PreferencesFx removeEventHandler(EventType<PreferencesFxEvent> eventType,
@@ -289,6 +291,7 @@ public class PreferencesFx {
    * Sets the dialog title.
    *
    * @param title the dialog title
+   * @return PreferencesFx to allow for chaining.
    */
   public PreferencesFx dialogTitle(String title) {
     preferencesFxDialog.setDialogTitle(title);
@@ -299,6 +302,7 @@ public class PreferencesFx {
    * Sets the dialog icon.
    *
    * @param image the image to be used as the dialog icon.
+   * @return PreferencesFx to allow for chaining.
    */
   public PreferencesFx dialogIcon(Image image) {
     preferencesFxDialog.setDialogIcon(image);

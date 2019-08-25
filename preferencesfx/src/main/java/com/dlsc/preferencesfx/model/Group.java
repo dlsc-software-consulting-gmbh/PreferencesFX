@@ -70,6 +70,8 @@ public class Group {
   /**
    * Returns the description of this group or if i18n is used, it will return the translated
    * description in the current locale.
+   *
+   * @return the description
    */
   public String getDescription() {
     if (preferencesGroup != null) {

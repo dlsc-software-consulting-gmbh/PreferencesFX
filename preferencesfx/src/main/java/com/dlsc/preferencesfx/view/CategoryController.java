@@ -49,6 +49,10 @@ public class CategoryController extends ScrollPane {
 
   /**
    * Adds a view / presenter pair to the respective HashMaps.
+   *
+   * @param category of the categoryView
+   * @param view the view to add to the map
+   * @param presenter the presenter to add to the map
    */
   public void addView(Category category, CategoryView view, CategoryPresenter presenter) {
     views.put(category, view);
