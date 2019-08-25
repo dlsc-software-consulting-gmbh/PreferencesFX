@@ -11,6 +11,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.google.gson.internal.LinkedTreeMap;
+import java.util.Objects;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -116,6 +118,10 @@ public class StorageHandlerImplTest {
     final Object defaultEnum = storageHandler.loadObject("foo", TestEnum.BAR);
     assertThat(defaultEnum, is(TestEnum.BAR));
     assertThat(defaultEnum, is(instanceOf(TestEnum.class)));
+
+    final Object defaultObject = storageHandler.loadObject("foo", new SomeObject(5, "x"));
+    assertThat(defaultObject, is(new SomeObject(5, "x")));
+    assertThat(defaultObject, is(instanceOf(SomeObject.class)));
   }
 
   @Test
@@ -134,6 +140,11 @@ public class StorageHandlerImplTest {
     final Object loadedEnum = storageHandler.loadObject("foo", TestEnum.BAR);
     assertThat(loadedEnum, is(TestEnum.FOO));
     assertThat(loadedEnum, is(instanceOf(TestEnum.class)));
+
+    storageHandler.saveObject("foo", new SomeObject(6, "y"));
+    final Object defaultObject = storageHandler.loadObject("foo", new SomeObject(5, "x"));
+    assertThat(defaultObject, is(new SomeObject(6, "y")));
+    assertThat(defaultObject, is(instanceOf(SomeObject.class)));
   }
 
   @Test
@@ -152,6 +163,10 @@ public class StorageHandlerImplTest {
     final Object loadedEnum = storageHandler.loadObject("foo", null);
     assertThat(loadedEnum, is("FOO"));
     assertThat(loadedEnum, is(instanceOf(String.class)));
+
+    storageHandler.saveObject("foo", new SomeObject(6, "y"));
+    final Object defaultObject = storageHandler.loadObject("foo", null);
+    assertThat(defaultObject, is(instanceOf(LinkedTreeMap.class)));
   }
 
   @Test
@@ -170,6 +185,11 @@ public class StorageHandlerImplTest {
     final Object loadedEnum = storageHandler.loadObject("foo", TestEnum.class, TestEnum.BAR);
     assertThat(loadedEnum, is(TestEnum.FOO));
     assertThat(loadedEnum, is(instanceOf(TestEnum.class)));
+
+    storageHandler.saveObject("foo", new SomeObject(6, "y"));
+    final Object defaultObject = storageHandler.loadObject("foo", SomeObject.class, new SomeObject(5, "x"));
+    assertThat(defaultObject, is(new SomeObject(6, "y")));
+    assertThat(defaultObject, is(instanceOf(SomeObject.class)));
   }
 
   @Test
@@ -188,6 +208,11 @@ public class StorageHandlerImplTest {
     final Object loadedEnum = storageHandler.loadObject("foo", TestEnum.class, null);
     assertThat(loadedEnum, is(TestEnum.FOO));
     assertThat(loadedEnum, is(instanceOf(TestEnum.class)));
+
+    storageHandler.saveObject("foo", new SomeObject(6, "y"));
+    final Object defaultObject = storageHandler.loadObject("foo", SomeObject.class, null);
+    assertThat(defaultObject, is(new SomeObject(6, "y")));
+    assertThat(defaultObject, is(instanceOf(SomeObject.class)));
   }
 
   @Test
@@ -203,5 +228,29 @@ public class StorageHandlerImplTest {
 
   public enum TestEnum {
     FOO, BAR
+  }
+
+  public static class SomeObject {
+    final int foo;
+    final String bar;
+
+    SomeObject(int foo, String bar) {
+      this.foo = foo;
+      this.bar = bar;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      SomeObject that = (SomeObject) o;
+      return foo == that.foo &&
+          bar.equals(that.bar);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(foo, bar);
+    }
   }
 }
