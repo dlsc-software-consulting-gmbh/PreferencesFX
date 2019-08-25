@@ -28,6 +28,7 @@ public class BreadCrumbView extends HBox implements View {
    * Constructs a new view, which displays the {@link BreadCrumbBar}.
    *
    * @param model the model of PreferencesFX
+   * @param undoRedoBox the box containing undo and redo buttons.
    */
   public BreadCrumbView(PreferencesFxModel model, UndoRedoBox undoRedoBox) {
     this.model = model;

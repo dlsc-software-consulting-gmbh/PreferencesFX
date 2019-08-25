@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx.demo.node;
 
-import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
+import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.view.PreferencesFxView;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;

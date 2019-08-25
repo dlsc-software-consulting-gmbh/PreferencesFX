@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.util;
 
-import static com.dlsc.preferencesfx.util.Ascii.containsIgnoreCase;
+import static com.dlsc.preferencesfx.util.Strings.containsIgnoreCase;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.preferencesfx.model.Category;
@@ -26,6 +26,9 @@ public class PreferencesFxUtils {
   /**
    * Returns a list of all the settings which are contained in a list of {@code categories}
    * recursively.
+   *
+   * @param categories the categories to fetch the settings from
+   * @return all settings of the categories
    */
   public static List<Setting> categoriesToSettings(List<Category> categories) {
     return categories.stream()
@@ -41,6 +44,9 @@ public class PreferencesFxUtils {
   /**
    * Returns a list of all the settings which are contained in a list of {@code categories}
    * recursively.
+   *
+   * @param categories the categories to fetch the fields from
+   * @return all fields of the categories
    */
   public static List<Field> categoriesToFields(List<Category> categories) {
     return categories.stream()
@@ -130,6 +136,9 @@ public class PreferencesFxUtils {
   /**
    * Returns a list of all the settings which are contained in a list of {@code groups}
    * recursively.
+   *
+   * @param groups the groups to fetch the settings from
+   * @return all settings of the groups
    */
   public static List<Setting> groupsToSettings(List<Group> groups) {
     return groups.stream()
@@ -155,6 +164,9 @@ public class PreferencesFxUtils {
   /**
    * Returns a list of all the groups which are contained in a list of {@code categories}
    * recursively.
+   *
+   * @param categories the categories to fetch the groups from
+   * @return all groups of the categories
    */
   public static List<Group> categoriesToGroups(List<Category> categories) {
     return categories.stream()
@@ -166,6 +178,10 @@ public class PreferencesFxUtils {
 
   /**
    * Returns the amount of rows of a given {@code gridPane}, if present, -1 else.
+   *
+   * @param gridPane the grid pane to count the rows in
+   * @return the number of rows in the grid pane
+   *     or {@code -1} to indicate no children in the grid pane
    */
   public static int getRowCount(GridPane gridPane) {
     return gridPane.getChildren().stream().mapToInt(n -> {

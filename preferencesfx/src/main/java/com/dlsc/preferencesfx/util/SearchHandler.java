@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.util;
 
-import static com.dlsc.preferencesfx.util.Ascii.containsIgnoreCase;
+import static com.dlsc.preferencesfx.util.Strings.containsIgnoreCase;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
@@ -84,6 +84,7 @@ public class SearchHandler {
    * Initializes the SearchHandler by initially creating all necessary lists
    * for filtering and setting up the bindings.
    *
+   * @param model             the model of PreferencesFx
    * @param searchText        textProperty of a TextField where the search string is being input
    * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
    * @apiNote Must be called to make the filtering work.
@@ -109,6 +110,8 @@ public class SearchHandler {
 
   /**
    * Initializes the search text by binding it and then adding a listener to react to changes.
+   *
+   * @param searchText the property of the search text UI element
    */
   public void initializeSearchText(StringProperty searchText) {
     bindSearchText(searchText);
@@ -216,7 +219,7 @@ public class SearchHandler {
 
   /**
    * Compares three categories with decreasing priority from the first to the last category.
-   * {@see developer reference} for further information
+   * See developer reference for further information.
    *
    * @param setting       category to return, if settingsMatch is chosen
    * @param group         category to return, if groupMatch is chosen

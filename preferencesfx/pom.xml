@@ -13,14 +13,16 @@
     <description>A framework for quickly creating a UI for setting application
         preferences.
     </description>
-    <url>https://github.com/dlemmermann/PreferencesFX</url>
+    <url>https://github.com/dlsc-software-consulting-gmbh/PreferencesFX</url>
     <licenses>
         <license>
-            <name>Apache 2.0</name>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/dlemmermann/PreferencesFX</url>
+        <url>https://github.com/dlsc-software-consulting-gmbh/PreferencesFX</url>
     </scm>
 
     <developers>
@@ -64,6 +66,7 @@
 
     <properties>
         <checkstyle.path>../config/checkstyle/checkstyle.xml</checkstyle.path>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
@@ -87,8 +90,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <target>9</target>
-                    <source>9</source>
+                    <target>11</target>
+                    <source>11</source>
                 </configuration>
             </plugin>
 
@@ -176,64 +179,63 @@
     </build>
 
     <dependencies>
+      <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-web</artifactId>
+        <version>11.0.2</version>
+      </dependency>
 
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>11.0.2</version>
-        </dependency>
+      <dependency>
+        <groupId>org.controlsfx</groupId>
+        <artifactId>controlsfx</artifactId>
+        <version>11.0.0</version>
+      </dependency>
 
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>11.0.0</version>
-        </dependency>
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.8.5</version>
+      </dependency>
 
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.5</version>
-        </dependency>
+      <dependency>
+        <groupId>com.dlsc.formsfx</groupId>
+        <artifactId>formsfx-core</artifactId>
+        <version>11.3.2</version>
+      </dependency>
 
-        <dependency>
-            <groupId>com.dlsc.formsfx</groupId>
-            <artifactId>formsfx-core</artifactId>
-            <version>11.3.2</version>
-        </dependency>
+      <dependency>
+        <groupId>de.jensd</groupId>
+        <artifactId>fontawesomefx-commons</artifactId>
+        <version>11.0</version>
+      </dependency>
 
-        <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-commons</artifactId>
-            <version>11.0</version>
-        </dependency>
+      <dependency>
+        <groupId>de.jensd</groupId>
+        <artifactId>fontawesomefx-fontawesome</artifactId>
+        <version>4.7.0-11</version>
+      </dependency>
 
-        <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-fontawesome</artifactId>
-            <version>4.7.0-11</version>
-        </dependency>
+      <!-- Logging -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.26</version>
+      </dependency>
 
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.26</version>
-        </dependency>
+      <!-- Testing -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+      </dependency>
 
-        <!-- Testing -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>3.0.0</version>
-            <scope>test</scope>
-        </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>3.0.0</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
 
 </project>
