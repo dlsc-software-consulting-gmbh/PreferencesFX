@@ -204,8 +204,8 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * @return the deserialized Object or the default Object if nothing is found
    */
   public Object loadObject(String breadcrumb, Object defaultObject) {
-    String json = getSerializedPreferencesValue(breadcrumb, serialize(defaultObject));
-    return deserialize(json, Object.class);
+    String serialized = getSerializedPreferencesValue(breadcrumb, serialize(defaultObject));
+    return deserialize(serialized, Object.class);
   }
 
   /**
@@ -223,21 +223,21 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
       String breadcrumb,
       ObservableList defaultObservableList
   ) {
-    String json = getSerializedPreferencesValue(breadcrumb, serialize(defaultObservableList));
-    return FXCollections.observableArrayList(deserialize(json, ArrayList.class));
+    String serialized = getSerializedPreferencesValue(breadcrumb, serialize(defaultObservableList));
+    return FXCollections.observableArrayList(deserialize(serialized, ArrayList.class));
   }
 
   private String getSerializedPreferencesValue(String breadcrumb, String serializedDefault) {
-    String json = preferences.get(hash(breadcrumb), serializedDefault);
-    if (json == serializedDefault) {
+    String serialized = preferences.get(hash(breadcrumb), serializedDefault);
+    if (serialized == serializedDefault) {
       // try to get preferences value with legacy hashing method
-      json = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
-      if (json != serializedDefault) {
+      serialized = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
+      if (serialized != serializedDefault) {
         LOGGER.warn("Preferences value of {} was loaded using the legacy hashing method. "
             + "Value will be saved using the new hashing method with next save.", breadcrumb);
       }
     }
-    return json;
+    return serialized;
   }
 
   /**
