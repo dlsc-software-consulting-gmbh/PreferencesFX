@@ -135,10 +135,8 @@ public interface StorageHandler {
   <T, U extends T> T loadObject(String breadcrumb, Class<T> type, U defaultObject);
 
   /**
-   * Searches in the storage after a serialized ArrayList using the given key, deserializes and
-   * returns it as ObservableArrayList. When an ObservableList is deserialzed, Gson returns an
-   * ArrayList and needs to be wrapped into an ObservableArrayList. This is only needed for
-   * loading.
+   * Searches in the storage after a serialized List using the given key, deserializes and
+   * returns it as ObservableList.
    *
    * @param breadcrumb            the key which is used to search the serialized ArrayList
    * @param defaultObservableList the default ObservableList which will be returned if nothing is
@@ -146,6 +144,24 @@ public interface StorageHandler {
    * @return the deserialized ObservableList or the default ObservableList if nothing is found
    */
   ObservableList loadObservableList(String breadcrumb, ObservableList defaultObservableList);
+
+  /**
+   * Searches in the storage after a serialized List using the given key, deserializes and
+   * returns it as ObservableList.
+   *
+   * @param <T>                   the type inside the list returned by this method
+   * @param <U>                   the type inside the the default list
+   * @param breadcrumb            the key which is used to search the serialized ArrayList
+   * @param type                  the of object used for deserialization the objects inside the list
+   * @param defaultObservableList the default ObservableList which will be returned if nothing is
+   *                              found
+   * @return the deserialized ObservableList or the default ObservableList if nothing is found
+   */
+  <T, U extends T> ObservableList<T> loadObservableList(
+      String breadcrumb,
+      Class<T> type,
+      ObservableList<U> defaultObservableList
+  );
 
   /**
    * Clears the storage.

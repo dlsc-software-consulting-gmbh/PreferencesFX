@@ -5,6 +5,9 @@ import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_HEIGHT;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_POS_X;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_POS_Y;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_WIDTH;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static javafx.collections.FXCollections.observableList;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -13,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.google.gson.internal.LinkedTreeMap;
 import java.util.Objects;
+import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -217,6 +221,80 @@ public class StorageHandlerImplTest {
 
   @Test
   public void loadObservableList() {
+    final ObservableList emptyList = storageHandler.loadObservableList("foo", observableList(emptyList()));
+    assertThat(emptyList, is(observableList(emptyList())));
+
+    final ObservableList nullList = storageHandler.loadObservableList("foo", observableList(asList(null, null, null)));
+    assertThat(nullList, is(observableList(asList(null, null, null))));
+
+    final ObservableList stringList = storageHandler.loadObservableList("foo", observableList(asList("a", "b", "c")));
+    assertThat(stringList, is(observableList(asList("a", "b", "c"))));
+
+    final ObservableList intList = storageHandler.loadObservableList("foo", observableList(asList(1, 2, 3)));
+    assertThat(intList, is(observableList(asList(1, 2, 3))));
+
+    final ObservableList enumList = storageHandler.loadObservableList("foo", observableList(asList(TestEnum.FOO, TestEnum.BAR)));
+    assertThat(enumList, is(observableList(asList(TestEnum.FOO, TestEnum.BAR))));
+  }
+
+  @Test
+  public void saveAndLoadObservableList() {
+    storageHandler.saveObject("foo", asList("a", "b", "c"));
+    final ObservableList stringList = storageHandler.loadObservableList("foo", observableList(asList("x")));
+    assertThat(stringList, is(observableList(asList("a", "b", "c"))));
+
+    storageHandler.saveObject("foo", asList(1, 2, 3));
+    final ObservableList intList = storageHandler.loadObservableList("foo", observableList(asList(99)));
+    assertThat(intList, is(observableList(asList(1, 2, 3))));
+
+    storageHandler.saveObject("foo", asList(TestEnum.FOO, TestEnum.BAR));
+    final ObservableList enumList = storageHandler.loadObservableList("foo", observableList(asList(TestEnum.BAZ)));
+    assertThat(enumList, is(observableList(asList(TestEnum.FOO, TestEnum.BAR))));
+  }
+
+  @Test
+  public void saveAndLoadObservableListWithEmptyDefault() {
+    storageHandler.saveObject("foo", asList("a", "b", "c"));
+    final ObservableList stringList = storageHandler.loadObservableList("foo", observableList(emptyList()));
+    assertThat(stringList, is(observableList(asList("a", "b", "c"))));
+
+    storageHandler.saveObject("foo", asList(1, 2, 3));
+    final ObservableList intList = storageHandler.loadObservableList("foo", observableList(emptyList()));
+    assertThat(intList, is(observableList(asList(1.0, 2.0, 3.0))));
+
+    storageHandler.saveObject("foo", asList(TestEnum.FOO, TestEnum.BAR));
+    final ObservableList enumList = storageHandler.loadObservableList("foo", observableList(emptyList()));
+    assertThat(enumList, is(observableList(asList("FOO", "BAR"))));
+  }
+
+  @Test
+  public void saveAndLoadObservableListWithType() {
+    storageHandler.saveObject("foo", asList("a", "b", "c"));
+    final ObservableList stringList = storageHandler.loadObservableList("foo", String.class, observableList(asList("x")));
+    assertThat(stringList, is(observableList(asList("a", "b", "c"))));
+
+    storageHandler.saveObject("foo", asList(1, 2, 3));
+    final ObservableList intList = storageHandler.loadObservableList("foo", Integer.class, observableList(asList(99)));
+    assertThat(intList, is(observableList(asList(1, 2, 3))));
+
+    storageHandler.saveObject("foo", asList(TestEnum.FOO, TestEnum.BAR));
+    final ObservableList enumList = storageHandler.loadObservableList("foo", TestEnum.class, observableList(asList(TestEnum.BAZ)));
+    assertThat(enumList, is(observableList(asList(TestEnum.FOO, TestEnum.BAR))));
+  }
+
+  @Test
+  public void saveAndLoadObservableListWithTypeAndEmptyDefault() {
+    storageHandler.saveObject("foo", asList("a", "b", "c"));
+    final ObservableList stringList = storageHandler.loadObservableList("foo", String.class, observableList(emptyList()));
+    assertThat(stringList, is(observableList(asList("a", "b", "c"))));
+
+    storageHandler.saveObject("foo", asList(1, 2, 3));
+    final ObservableList intList = storageHandler.loadObservableList("foo", Integer.class, observableList(emptyList()));
+    assertThat(intList, is(observableList(asList(1, 2, 3))));
+
+    storageHandler.saveObject("foo", asList(TestEnum.FOO, TestEnum.BAR));
+    final ObservableList enumList = storageHandler.loadObservableList("foo", TestEnum.class, observableList(emptyList()));
+    assertThat(enumList, is(observableList(asList(TestEnum.FOO, TestEnum.BAR))));
   }
 
   @Test
@@ -227,7 +305,7 @@ public class StorageHandlerImplTest {
   }
 
   public enum TestEnum {
-    FOO, BAR
+    FOO, BAR, BAZ
   }
 
   public static class SomeObject {
