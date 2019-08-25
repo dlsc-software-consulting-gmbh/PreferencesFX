@@ -1,6 +1,0 @@
-version: "2"
-plugins:
-  checkstyle:
-    enabled: true
-    config:
-      file: "config/checkstyle/checkstyle.xml"
