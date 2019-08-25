@@ -13,7 +13,7 @@
     <description>A framework for quickly creating a UI for setting application
         preferences.
     </description>
-    <url>https://github.com/dlemmermann/PreferencesFX</url>
+    <url>https://github.com/dlsc-software-consulting-gmbh/PreferencesFX</url>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -22,7 +22,7 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/dlemmermann/PreferencesFX</url>
+        <url>https://github.com/dlsc-software-consulting-gmbh/PreferencesFX</url>
     </scm>
 
     <developers>
