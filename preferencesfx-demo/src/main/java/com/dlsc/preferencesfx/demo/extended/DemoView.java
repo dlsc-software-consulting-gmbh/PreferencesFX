@@ -1,7 +1,7 @@
 package com.dlsc.preferencesfx.demo.extended;
 
-import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.PreferencesFx;
+import com.dlsc.preferencesfx.demo.AppStarter;
 import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
