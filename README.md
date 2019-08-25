@@ -32,7 +32,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>8.4.3</version>
+  <version>8.5.0</version>
 </dependency>
 ```
 
@@ -41,7 +41,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>11.4.3</version>
+  <version>11.5.0</version>
 </dependency>
 ```
 
@@ -52,14 +52,14 @@ To use this framework as part of your gradle build simply add the following to y
 ### Java 8
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.4.3'
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.5.0'
 }
 ```
 
 ### Java 11
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.4.3'
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.5.0'
 }
 ```
 
