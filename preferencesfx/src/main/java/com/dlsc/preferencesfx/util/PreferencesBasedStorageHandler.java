@@ -70,8 +70,9 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    *   Objects.equals(x, deserialize(serialize(x), X.class)
    * </pre>
    *
+   * @param <T>        the type of object into which to deserialze the string
    * @param serialized the string to deserialze
-   * @param type the class into which to deserialize the string
+   * @param type       the class into which to deserialize the string
    * @return the deserialized object
    */
   protected abstract <T> T deserialize(String serialized, Class<T> type);
@@ -354,6 +355,7 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * to save / load as the key in {@link Preferences}, since those are guaranteed to be
    * maximum 64 chars long.
    *
+   * @param key the string for which to calculate the hash
    * @return SHA-256 representation of breadcrumb
    */
   public String hash(String key) {
