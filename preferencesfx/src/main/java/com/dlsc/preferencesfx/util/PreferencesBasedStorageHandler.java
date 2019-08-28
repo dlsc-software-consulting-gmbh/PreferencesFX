@@ -93,7 +93,7 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * @param type       the class into which to deserialize the string
    * @return deserialized list
    */
-  protected abstract  <T> List<T> deserializeList(String serialized, Class<T> type);
+  protected abstract <T> List<T> deserializeList(String serialized, Class<T> type);
   // asciidoctor Documentation - end::serializationDeserialization[]
 
 
@@ -234,13 +234,12 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * deserializes and returns it. Returns a default Object if nothing is found.
    *
    * @param <T>           the type of object returned by this method
-   * @param <U>           the type of the default object
    * @param breadcrumb    the key which is used to search the serialized Object
    * @param type          the type of object used for deserialization
    * @param defaultObject the Object which will be returned if nothing is found
    * @return the deserialized Object or the default Object if nothing is found
    */
-  public <T, U extends T> T loadObject(String breadcrumb, Class<T> type, U defaultObject) {
+  public <T> T loadObject(String breadcrumb, Class<T> type, T defaultObject) {
     String serialized = getSerializedPreferencesValue(breadcrumb, serialize(defaultObject));
     return deserialize(serialized, type);
   }
@@ -269,16 +268,15 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * returns it as ObservableList.
    *
    * @param <T>                   the type inside the list returned by this method
-   * @param <U>                   the type inside the the default list
    * @param breadcrumb            the key which is used to search the serialized ArrayList
    * @param defaultObservableList the default ObservableList which will be returned if nothing is
    *                              found
    * @return the deserialized ObservableList or the default ObservableList if nothing is found
    */
-  public <T, U extends T> ObservableList<T> loadObservableList(
+  public <T> ObservableList<T> loadObservableList(
       String breadcrumb,
       Class<T> type,
-      ObservableList<U> defaultObservableList
+      ObservableList<T> defaultObservableList
   ) {
     final String serializedDefault = serialize(defaultObservableList);
     final String serialized = getSerializedPreferencesValue(breadcrumb, serializedDefault);

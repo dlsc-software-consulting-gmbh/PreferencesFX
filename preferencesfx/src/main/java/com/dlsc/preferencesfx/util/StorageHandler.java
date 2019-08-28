@@ -126,13 +126,12 @@ public interface StorageHandler {
    * it. Returns a default Object if nothing is found.
    *
    * @param <T>           the type of object returned by this method
-   * @param <U>           the type of the default object
    * @param breadcrumb    the key which is used to search the serialized Object
    * @param type          the type of object used for deserialization
    * @param defaultObject the Object which will be returned if nothing is found
    * @return the deserialized Object or the default Object if nothing is found
    */
-  <T, U extends T> T loadObject(String breadcrumb, Class<T> type, U defaultObject);
+  <T> T loadObject(String breadcrumb, Class<T> type, T defaultObject);
 
   /**
    * Searches in the storage after a serialized List using the given key, deserializes and
@@ -150,17 +149,16 @@ public interface StorageHandler {
    * returns it as ObservableList.
    *
    * @param <T>                   the type inside the list returned by this method
-   * @param <U>                   the type inside the the default list
    * @param breadcrumb            the key which is used to search the serialized ArrayList
    * @param type                  the of object used for deserialization the objects inside the list
    * @param defaultObservableList the default ObservableList which will be returned if nothing is
    *                              found
    * @return the deserialized ObservableList or the default ObservableList if nothing is found
    */
-  <T, U extends T> ObservableList<T> loadObservableList(
+  <T> ObservableList<T> loadObservableList(
       String breadcrumb,
       Class<T> type,
-      ObservableList<U> defaultObservableList
+      ObservableList<T> defaultObservableList
   );
 
   /**
