@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.model;
 import com.dlsc.formsfx.model.structure.DataField;
 import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.formsfx.model.validators.Validator;
 import com.dlsc.preferencesfx.formsfx.view.controls.DoubleSliderControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
@@ -254,20 +255,20 @@ public class Setting<E extends Element, P extends Property> {
   }
 
   /**
-   * Creates a setting of a custom defined element.
+   * Creates a setting of a custom defined field.
    *
-   * @param <E>         the element type
+   * @param <F>         the field type
    * @param <P>         the property type
    * @param description the title of this setting
-   * @param element       custom element object from FormsFX
+   * @param field       custom Field object from FormsFX
    * @param property    to be bound, saved / loaded and used for undo / redo
    * @return the constructed setting
    */
-  public static <E extends Element<E>, P extends Property> Setting of(
-      String description, E element, P property) {
+  public static <F extends Field<F>, P extends Property> Setting of(
+      String description, F field, P property) {
     return new Setting<>(
         description,
-        element.label(description),
+        field.label(description),
         property);
   }
 
