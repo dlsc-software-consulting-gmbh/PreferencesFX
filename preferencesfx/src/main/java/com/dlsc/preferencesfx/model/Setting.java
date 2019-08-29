@@ -428,9 +428,14 @@ public class Setting<E extends Element, P extends Property> {
    * visual feedback.
    */
   public void mark() {
+    if (!(element instanceof Field)) {
+      throw new UnsupportedOperationException(
+          "Only Fields can be marked, since they have a description."
+      );
+    }
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
-      SimpleControl renderer = (SimpleControl) getElement().getRenderer();
+      SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
       Node markNode = renderer.getFieldLabel();
       markNode.getStyleClass().add(MARKED_STYLE_CLASS);
       markNode.setOnMouseExited(unmarker);
@@ -444,9 +449,14 @@ public class Setting<E extends Element, P extends Property> {
    * visual feedback.
    */
   public void unmark() {
+    if (!(element instanceof Field)) {
+      throw new UnsupportedOperationException(
+          "Only Fields can be unmarked, since they have a description."
+      );
+    }
     // check if it's marked before removing the style class
     if (marked) {
-      SimpleControl renderer = (SimpleControl) getElement().getRenderer();
+      SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
       Node markNode = renderer.getFieldLabel();
       markNode.getStyleClass().remove(MARKED_STYLE_CLASS);
       markNode.removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
@@ -461,8 +471,13 @@ public class Setting<E extends Element, P extends Property> {
    * @return the description
    */
   public String getDescription() {
+    if (!(element instanceof Field)) {
+      throw new UnsupportedOperationException(
+          "Cannot get description of an Element which is not a field"
+      );
+    }
     if (element != null) {
-      return element.getLabel();
+      return ((Field) element).getLabel();
     }
     return description;
   }
