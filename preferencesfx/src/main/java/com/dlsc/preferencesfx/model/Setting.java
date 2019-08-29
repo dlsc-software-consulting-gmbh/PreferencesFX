@@ -273,6 +273,25 @@ public class Setting<E extends Element, P extends Property> {
   }
 
   /**
+   * Creates a setting of a custom defined node element.
+   *
+   * This allows for custom elements which just consist of a Node, without showing a description.
+   *
+   * @param <N>         the node element type
+   * @param <P>         the property type
+   * @param nodeElement       custom element object from FormsFX
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @return the constructed setting
+   */
+  public static <N extends NodeElement<? extends Node>, P extends Property> Setting of(
+      N nodeElement, P property) {
+    return new Setting<>(
+        null, // TODO: replace with ""?
+        nodeElement,
+        property);
+  }
+
+  /**
    * Creates a custom color picker control.
    *
    * @param description   the title of this setting
