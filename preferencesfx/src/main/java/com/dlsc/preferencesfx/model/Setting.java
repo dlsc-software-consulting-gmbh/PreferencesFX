@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.model;
 
 import com.dlsc.formsfx.model.structure.DataField;
+import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.validators.Validator;
 import com.dlsc.preferencesfx.formsfx.view.controls.DoubleSliderControl;
@@ -44,22 +45,22 @@ import org.slf4j.LoggerFactory;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class Setting<F extends Field, P extends Property> {
+public class Setting<E extends Element, P extends Property> {
   private static final Logger LOGGER =
       LoggerFactory.getLogger(Setting.class.getName());
 
   public static final String MARKED_STYLE_CLASS = "simple-control-marked";
   private String description;
-  private F field;
+  private E element;
   private P value;
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private final StringProperty breadcrumb = new SimpleStringProperty("");
   private String key = "";
 
-  private Setting(String description, F field, P value) {
+  private Setting(String description, E element, P value) {
     this.description = description;
-    this.field = field;
+    this.element = element;
     this.value = value;
   }
 
@@ -253,20 +254,20 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
-   * Creates a setting of a custom defined field.
+   * Creates a setting of a custom defined element.
    *
-   * @param <F>         the field type
+   * @param <E>         the element type
    * @param <P>         the property type
    * @param description the title of this setting
-   * @param field       custom Field object from FormsFX
+   * @param element       custom element object from FormsFX
    * @param property    to be bound, saved / loaded and used for undo / redo
    * @return the constructed setting
    */
-  public static <F extends Field<F>, P extends Property> Setting of(
-      String description, F field, P property) {
+  public static <E extends Element<E>, P extends Property> Setting of(
+      String description, E element, P property) {
     return new Setting<>(
         description,
-        field.label(description),
+        element.label(description),
         property);
   }
 
@@ -393,8 +394,8 @@ public class Setting<F extends Field, P extends Property> {
    */
   @SafeVarargs
   public final Setting validate(Validator... newValue) {
-    if (field instanceof DataField) {
-      ((DataField) field).validate(newValue);
+    if (element instanceof DataField) {
+        ((DataField) element).validate(newValue);
     } else {
       throw new UnsupportedOperationException("Field type must be instance of DataField");
     }
@@ -409,7 +410,7 @@ public class Setting<F extends Field, P extends Property> {
   public void mark() {
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
-      SimpleControl renderer = (SimpleControl) getField().getRenderer();
+      SimpleControl renderer = (SimpleControl) getElement().getRenderer();
       Node markNode = renderer.getFieldLabel();
       markNode.getStyleClass().add(MARKED_STYLE_CLASS);
       markNode.setOnMouseExited(unmarker);
@@ -425,7 +426,7 @@ public class Setting<F extends Field, P extends Property> {
   public void unmark() {
     // check if it's marked before removing the style class
     if (marked) {
-      SimpleControl renderer = (SimpleControl) getField().getRenderer();
+      SimpleControl renderer = (SimpleControl) getElement().getRenderer();
       Node markNode = renderer.getFieldLabel();
       markNode.getStyleClass().remove(MARKED_STYLE_CLASS);
       markNode.removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
@@ -440,8 +441,8 @@ public class Setting<F extends Field, P extends Property> {
    * @return the description
    */
   public String getDescription() {
-    if (field != null) {
-      return field.getLabel();
+    if (element != null) {
+      return element.getLabel();
     }
     return description;
   }
@@ -450,8 +451,8 @@ public class Setting<F extends Field, P extends Property> {
     return value;
   }
 
-  public F getField() {
-    return field;
+  public E getElement() {
+    return element;
   }
 
   /**

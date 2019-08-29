@@ -1,6 +1,6 @@
 package com.dlsc.preferencesfx.formsfx.view.renderer;
 
-import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.List;
@@ -75,17 +75,17 @@ public class PreferencesFxGroupRenderer {
       titleLabel.getStyleClass().add("group-title");
     }
 
-    List<Field> fields = preferencesGroup.getElements().stream()
-        .map(Field.class::cast)
+    List<Element> elements = preferencesGroup.getElements().stream()
+        .map(Element.class::cast)
         .collect(Collectors.toList());
     styleClass.append("-setting");
 
     int rowAmount = nextRow;
-    for (int i = 0; i < fields.size(); i++) {
+    for (int i = 0; i < elements.size(); i++) {
       // add to GridPane
-      Field field = fields.get(i);
-      SimpleControl c = (SimpleControl) field.getRenderer();
-      c.setField(field);
+      Element element = elements.get(i);
+      SimpleControl c = (SimpleControl) element.getRenderer();
+      c.setField(element);
       grid.add(c.getFieldLabel(), 0, i + rowAmount, 1, 1);
       grid.add(c.getNode(), 1, i + rowAmount, 1, 1);
 
@@ -95,7 +95,7 @@ public class PreferencesFxGroupRenderer {
       GridPane.setValignment(c.getFieldLabel(), VPos.CENTER);
 
       // additional styling for the last setting
-      if (i == fields.size() - 1) {
+      if (i == elements.size() - 1) {
         styleClass.append("-last");
         GridPane.setMargin(
             c.getNode(),

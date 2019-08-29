@@ -388,12 +388,12 @@ public class PreferencesFxModel {
   }
 
   private void applyFieldChanges() {
-    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+    PreferencesFxUtils.categoriesToElements(getFlatCategoriesLst())
         .forEach(FormElement::persist);
   }
 
   private void discardFieldChanges() {
-    PreferencesFxUtils.categoriesToFields(getFlatCategoriesLst())
+    PreferencesFxUtils.categoriesToElements(getFlatCategoriesLst())
         .forEach(FormElement::reset);
   }
 }
