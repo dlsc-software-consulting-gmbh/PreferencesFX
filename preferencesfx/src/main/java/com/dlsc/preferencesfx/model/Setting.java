@@ -274,7 +274,7 @@ public class Setting<E extends Element, P extends Property> {
 
   /**
    * Creates a setting of a custom defined node element.
-   *
+   * <br>
    * This allows for custom elements which just consist of a Node, without showing a description.
    * @apiNote Changed state of the {@link Node} will NOT be saved!
    *          Only use this for {@link Node}s with static content!
@@ -414,7 +414,7 @@ public class Setting<E extends Element, P extends Property> {
   @SafeVarargs
   public final Setting validate(Validator... newValue) {
     if (element instanceof DataField) {
-        ((DataField) element).validate(newValue);
+      ((DataField) element).validate(newValue);
     } else {
       throw new UnsupportedOperationException("Field type must be instance of DataField");
     }
@@ -529,7 +529,7 @@ public class Setting<E extends Element, P extends Property> {
 
   /**
    * Returns whether or not this {@link Setting} has a value.
-   *
+   * <br>
    * For example, if {@code element} is a {@link Field}, {@code value} is defined, however, since
    * if if {@code element} is a {@link NodeElement}, {@code value} will be null, since there is
    * nothing to persist.
