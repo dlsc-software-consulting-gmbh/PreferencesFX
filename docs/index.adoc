@@ -4,7 +4,7 @@ François Martin; Marco Sanfratello
 //Table of contents
 :toc:
 // Path to the code references
-:sourcedir: ../src/main/java
+:sourcedir: ../preferencesfx/src/main/java
 :sourcedirdemo: ../preferencesfx-demo/src/main/java
 
 == Front page
@@ -83,7 +83,7 @@ java`, shows how the preferences are set up and the fluent API is used:
 
 [source,java]
 ----
-include::{sourcedirdemo}/com/dlsc/preferencesfx/standard/RootPane.java[tags=setupPreferences]
+include::{sourcedirdemo}/com/dlsc/preferencesfx/demo/standard/StandardExample.java[tags=setupPreferences]
 ----
 
 The whole code snippet uses the fluent API, but to explain it the best let's have a look at the last line of code.
