@@ -528,6 +528,19 @@ public class Setting<E extends Element, P extends Property> {
     setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
   }
 
+  /**
+   * Returns whether or not this {@link Setting} has a value.
+   *
+   * For example, if {@code element} is a {@link Field}, {@code value} is defined, however, since
+   * if if {@code element} is a {@link NodeElement}, {@code value} will be null, since there is
+   * nothing to persist.
+   *
+   * @return true if value is not null
+   */
+  public boolean hasValue() {
+    return !Objects.isNull(value);
+  }
+
   public String getBreadcrumb() {
     return breadcrumb.get();
   }
