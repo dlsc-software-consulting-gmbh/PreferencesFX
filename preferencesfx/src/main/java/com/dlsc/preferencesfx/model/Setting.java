@@ -280,14 +280,13 @@ public class Setting<E extends Element, P extends Property> {
    *          Only use this for {@link Node}s with static content!
    *
    * @param <N>         the node element type
-   * @param nodeElement       custom element object from FormsFX
+   * @param node        custom node
    * @return the constructed setting
    */
-  public static <N extends NodeElement<? extends Node>> Setting of(
-      N nodeElement) {
+  public static <N extends Node> Setting of(N node) {
     return new Setting<>(
         null,
-        nodeElement,
+        NodeElement.of(node),
         null);
   }
 

@@ -280,7 +280,7 @@ public class ExtendedExample extends StackPane {
                         Category.of("Android SDK")
                     ),
                 Category.of("File Colors",
-                    Setting.of(NodeElement.of(new Label("This can be your very own placeholder!")))),
+                    Setting.of(new Label("This can be your very own placeholder!"))),
                 Category.of("Scopes"),
                 Category.of("Notifications"),
                 Category.of("Quick Lists"),
