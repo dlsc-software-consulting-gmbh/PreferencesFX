@@ -470,12 +470,14 @@ public class Setting<E extends Element, P extends Property> {
    * @return the description
    */
   public String getDescription() {
-    if (!(element instanceof Field)) {
-      throw new UnsupportedOperationException(
-          "Cannot get description of an Element which is not a field"
-      );
-    }
     if (element != null) {
+
+      if (!(element instanceof Field)) {
+        throw new UnsupportedOperationException(
+            "Cannot get description of an Element which is not a field"
+        );
+      }
+
       return ((Field) element).getLabel();
     }
     return description;
