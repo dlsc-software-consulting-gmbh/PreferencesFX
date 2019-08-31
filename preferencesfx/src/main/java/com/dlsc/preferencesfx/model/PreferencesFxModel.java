@@ -203,11 +203,13 @@ public class PreferencesFxModel {
   public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
         .forEach(setting -> {
-          LOGGER.trace("Loading: " + setting.getBreadcrumb());
-          if (saveSettings) {
-            setting.loadSettingValue(storageHandler);
+          if (setting.hasValue()) {
+            LOGGER.trace("Loading: " + setting.getBreadcrumb());
+            if (saveSettings) {
+              setting.loadSettingValue(storageHandler);
+            }
+            history.attachChangeListener(setting);
           }
-          history.attachChangeListener(setting);
         });
   }
 
