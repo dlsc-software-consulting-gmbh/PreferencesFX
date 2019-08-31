@@ -193,7 +193,11 @@ public class PreferencesFxModel {
   private void saveSettingValues() {
     PreferencesFxUtils.categoriesToSettings(
         getFlatCategoriesLst()
-    ).forEach(setting -> setting.saveSettingValue(storageHandler));
+    ).forEach(setting -> {
+      if (setting.hasValue()) {
+        setting.saveSettingValue(storageHandler);
+      }
+    });
   }
 
   /**
