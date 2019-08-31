@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.model;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_CATEGORY;
 import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
 
+import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.FormElement;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.PreferencesFxEvent;
@@ -389,11 +390,17 @@ public class PreferencesFxModel {
 
   private void applyFieldChanges() {
     PreferencesFxUtils.categoriesToElements(getFlatCategoriesLst())
+        .stream()
+        .filter(element -> element instanceof Field) // only Fields can be persisted
+        .map(Field.class::cast)
         .forEach(FormElement::persist);
   }
 
   private void discardFieldChanges() {
     PreferencesFxUtils.categoriesToElements(getFlatCategoriesLst())
+        .stream()
+        .filter(element -> element instanceof Field) // only Fields can be persisted
+        .map(Field.class::cast)
         .forEach(FormElement::reset);
   }
 }
