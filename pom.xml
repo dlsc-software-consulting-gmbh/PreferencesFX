@@ -18,9 +18,9 @@
         <maven.deploy.skip>true</maven.deploy.skip>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <asciidoctor.maven.plugin.version>1.5.7.1</asciidoctor.maven.plugin.version>
-        <asciidoctorj.version>1.6.0</asciidoctorj.version>
-        <jruby.version>9.2.5.0</jruby.version>
+        <asciidoctor.maven.plugin.version>1.6.0</asciidoctor.maven.plugin.version>
+        <asciidoctorj.version>1.6.2</asciidoctorj.version>
+        <jruby.version>9.2.6.0</jruby.version>
     </properties>
 
     <dependencyManagement>
@@ -56,7 +56,6 @@
                 <configuration>
                     <sourceDirectory>docs</sourceDirectory>
                     <attributes>
-                        <sourcedir>${project.build.sourceDirectory}</sourcedir>
                         <project-version>${project.version}</project-version>
                     </attributes>
                 </configuration>

@@ -21,7 +21,7 @@ To help us review your change, please follow the instructions in the template.
 ## What is the new behavior?
 <!-- Describe the changes -->
 
-Fixes/Implements/Closes #[Issue Number].
+Fixes/Resolves/Closes #[Issue Number]
 
 ## Breaking Change:
 <!-- What is breaking and why we have to break it. Remove this section only if it was NOT a breaking change. -->
