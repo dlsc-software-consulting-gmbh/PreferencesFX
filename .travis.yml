@@ -37,7 +37,7 @@ cache:
   directories:
     - $HOME/.m2
 
-script: mvn package
+script: mvn package -q
 
 after_success:
   - chmod +x .github/deploy_prepare.sh
