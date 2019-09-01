@@ -19,7 +19,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>1.5.6</asciidoctor.maven.plugin.version>
-        <asciidoctorj.version>1.5.6</asciidoctorj.version>
+        <asciidoctorj.version>2.1.0</asciidoctorj.version>
         <jruby.version>9.2.8.0</jruby.version>
     </properties>
 
