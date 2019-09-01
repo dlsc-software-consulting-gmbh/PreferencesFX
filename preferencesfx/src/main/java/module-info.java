@@ -10,7 +10,7 @@ module com.dlsc.preferencesfx {
     requires gson;
     requires java.sql;
     requires org.controlsfx.controls;
-    requires slf4j.api;
+    requires org.slf4j;
 
     exports com.dlsc.preferencesfx;
     exports com.dlsc.preferencesfx.formsfx.view.controls;
