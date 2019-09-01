@@ -56,6 +56,10 @@
             <name>bintray</name>
             <url>https://dl.bintray.com/dlsc-oss/repository</url>
         </repository>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
 
     </repositories>
 
