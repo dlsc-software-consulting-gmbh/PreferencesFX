@@ -103,9 +103,36 @@
                     <failOnWarnings>true</failOnWarnings>
                     <force>true</force>
                     <windowtitle>PreferencesFX API</windowtitle>
-                    <additionalJOption>-J-Djavafx.javadoc=true
-                    </additionalJOption>
+                    <additionalJOptions>
+                        <additionalJOption>-J-Djavafx.javadoc=true</additionalJOption>
+                        <additionalJOption>-html5</additionalJOption>
+                    </additionalJOptions>
                     <docfilessubdirs>true</docfilessubdirs>
+                    <tags>
+                        <tag>
+                            <name>defaultValue</name>
+                            <placement>a</placement>
+                            <head>Default Value:</head>
+                        </tag>
+                        <tag>
+                            <name>apiNote</name>
+                            <placement>a</placement>
+                            <head>API Note:</head>
+                        </tag>
+                        <tag>
+                            <name>implSpec</name>
+                            <placement>a</placement>
+                            <head>Implementation Requirements:</head>
+                        </tag>
+                        <tag>
+                            <name>implNote</name>
+                            <placement>a</placement>
+                            <head>Implementation Note:</head>
+                        </tag>
+                    </tags>
+                    <sourceFileExcludes>
+                        <sourceFileExclude>**\/\module-info.java</sourceFileExclude>
+                    </sourceFileExcludes>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -117,6 +144,7 @@
                 <executions>
                     <execution>
                         <id>make-docs
+
                         </id> <!-- this is used for inheritance merges -->
                         <phase>package
                         </phase> <!-- bind to the packaging phase -->
