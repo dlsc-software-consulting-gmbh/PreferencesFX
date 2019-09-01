@@ -79,8 +79,10 @@ public class ExtendedExample extends StackPane {
     FIRST, SECOND, THIRD
   }
   private ObjectProperty<MyEnum> myEnumSettingValue = new SimpleObjectProperty<>(MyEnum.FIRST);
+  private SimpleListProperty<MyEnum> enumList =
+      new SimpleListProperty<>(FXCollections.observableArrayList(Arrays.asList(MyEnum.values())));
   private SingleSelectionField<MyEnum> myEnumControl =
-      Field.ofSingleSelectionType(Arrays.asList(MyEnum.values()), 0).render(new SimpleComboBoxControl<>());
+      Field.ofSingleSelectionType(enumList, myEnumSettingValue).render(new SimpleComboBoxControl<>());
 
   public ExtendedExample() {
     preferencesFx = createPreferences();
