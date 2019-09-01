@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.util;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public class StorageHandlerImpl extends PreferencesBasedStorageHandler {
     final List<JsonElement> list = gson.fromJson(serialized, typeToken.getType());
 
     if (list == null) {
-      return null;
+      return Collections.emptyList();
     }
 
     return list.stream()
