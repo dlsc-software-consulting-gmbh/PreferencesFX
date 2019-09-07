@@ -427,7 +427,7 @@ public class Setting<E extends Element, P extends Property> {
    * visual feedback.
    */
   public void mark() {
-    if (!(element instanceof Field)) {
+    if (!hasDescription()) {
       throw new UnsupportedOperationException(
           "Only Fields can be marked, since they have a description."
       );
@@ -448,7 +448,7 @@ public class Setting<E extends Element, P extends Property> {
    * visual feedback.
    */
   public void unmark() {
-    if (!(element instanceof Field)) {
+    if (!hasDescription()) {
       throw new UnsupportedOperationException(
           "Only Fields can be unmarked, since they have a description."
       );
