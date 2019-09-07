@@ -183,30 +183,42 @@ public class PreferencesFxDialog extends DialogPane {
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
     final Button applyBtn = (Button) lookupButton(applyBtnType);
 
+    unbindVisibility(closeBtn, cancelBtn);
+
+    if (model.isInstantPersistent()) {
+      bindButtonVisibility(closeBtn, cancelBtn);
+    } else {
+      addApplyEventFilterSaveSettings(applyBtn);
+    }
+  }
+
+  private void addApplyEventFilterSaveSettings(Button applyBtn) {
+    // check if we already added an event filter to the apply button, to avoid adding it twice
+    if (applyBtn != applyWithEventBtn) {
+      LOGGER.trace("Adding event filter to apply button");
+      applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
+        event.consume();
+        model.saveSettings();
+      });
+
+      applyWithEventBtn = applyBtn;
+    } else {
+      LOGGER.trace("Event filter was already added previously to apply button");
+    }
+  }
+
+  private void bindButtonVisibility(Button closeBtn, Button cancelBtn) {
+    cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+  }
+
+  private void unbindVisibility(Button closeBtn, Button cancelBtn) {
     // make sure if visibleProperty was bound in a previous call to unbind it first
     if (closeBtn != null) {
       closeBtn.visibleProperty().unbind();
     }
     if (cancelBtn != null) {
       cancelBtn.visibleProperty().unbind();
-    }
-
-    if (model.isInstantPersistent()) {
-      cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
-      closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
-    } else {
-      // check if we already added an event filter to the apply button, to avoid adding it twice
-      if (applyBtn != applyWithEventBtn) {
-        LOGGER.trace("Adding event filter to apply button");
-        applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
-          event.consume();
-          model.saveSettings();
-        });
-
-        applyWithEventBtn = applyBtn;
-      } else {
-        LOGGER.trace("Event filter was already added previously to apply button");
-      }
     }
   }
 
