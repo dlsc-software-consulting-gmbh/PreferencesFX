@@ -62,6 +62,7 @@ public class PreferencesFxDialog extends DialogPane {
     setupDialogClose();
     loadLastWindowState();
     setupButtons();
+    setupValueChangedListeners();
     if (model.getHistoryDebugState()) {
       setupDebugHistoryTable();
     }
@@ -104,6 +105,13 @@ public class PreferencesFxDialog extends DialogPane {
     addButtons();
     dialog.setDialogPane(this);
     setContent(preferencesFxView);
+  }
+
+  private void setupValueChangedListeners() {
+    model.instantPersistentProperty().addListener(observable -> {
+      addButtons();
+      setupButtons();
+    });
   }
 
   private void addButtons() {
