@@ -129,6 +129,7 @@ public class PreferencesFxUtils {
   public static List<Setting> filterSettingsByDescription(List<Setting> settings,
                                                           String description) {
     return settings.stream()
+        .filter(Setting::hasDescription)
         .filter(setting -> containsIgnoreCase(setting.getDescription(), description))
         .collect(Collectors.toList());
   }
