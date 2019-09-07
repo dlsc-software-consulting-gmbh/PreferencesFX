@@ -532,8 +532,8 @@ public class Setting<E extends Element, P extends Property> {
   /**
    * Returns whether or not this {@link Setting} has a value.
    * <br>
-   * For example, if {@code element} is a {@link Field}, {@code value} is defined, however, since
-   * if if {@code element} is a {@link NodeElement}, {@code value} will be null, since there is
+   * For example, if {@code element} is a {@link Field}, {@code value} is defined, however
+   * if {@code element} is a {@link NodeElement}, {@code value} will be null, since there is
    * nothing to persist.
    *
    * @return true if value is not null
