@@ -116,6 +116,7 @@ public class PreferencesFxDialog extends DialogPane {
 
   private void addButtons() {
     LOGGER.trace("Add dialog buttons for instant persistence: " + model.isInstantPersistent());
+    getButtonTypes().clear();
     if (model.isInstantPersistent()) {
       getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     } else {
