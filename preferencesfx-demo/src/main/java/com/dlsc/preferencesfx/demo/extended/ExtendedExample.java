@@ -3,10 +3,12 @@ package com.dlsc.preferencesfx.demo.extended;
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
 import com.dlsc.formsfx.model.structure.NodeElement;
+import com.dlsc.formsfx.model.structure.SingleSelectionField;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.demo.AppStarter;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleComboBoxControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
@@ -73,6 +75,16 @@ public class ExtendedExample extends StackPane {
   // Custom Control
   IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
   IntegerField customControl = setupCustomControl();
+
+  // Enum Control
+  private enum MyEnum {
+    FIRST, SECOND, THIRD
+  }
+  private ObjectProperty<MyEnum> myEnumSettingValue = new SimpleObjectProperty<>(MyEnum.FIRST);
+  private SimpleListProperty<MyEnum> enumList =
+      new SimpleListProperty<>(FXCollections.observableArrayList(Arrays.asList(MyEnum.values())));
+  private SingleSelectionField<MyEnum> myEnumControl =
+      Field.ofSingleSelectionType(enumList, myEnumSettingValue).render(new SimpleComboBoxControl<>());
 
   public ExtendedExample() {
     preferencesFx = createPreferences();
@@ -177,7 +189,7 @@ public class ExtendedExample extends StackPane {
                         Setting.of("Folder", directoryProperty, "Browse", null, true),
                         Setting.of("File with Default", fileDefaultProperty, new File("/"), false),
                         Setting.of("Folder with Default", directoryDefaultProperty, new File("/"), true)
-                        )
+                    )
                 )
             ),
         Category.of("Favorites",
@@ -281,7 +293,8 @@ public class ExtendedExample extends StackPane {
                     ),
                 Category.of("File Colors",
                     Setting.of(new Label("This can be your very own placeholder!"))),
-                Category.of("Scopes"),
+                Category.of("Scopes",
+                    Setting.of("My Enum", myEnumControl , myEnumSettingValue)),
                 Category.of("Notifications"),
                 Category.of("Quick Lists"),
                 Category.of("Path Variables")

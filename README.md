@@ -3,6 +3,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.dlsc.preferencesfx/preferencesfx-core.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.dlsc.preferencesfx%22%20AND%20a:%22preferencesfx-core%22)
 [![Build Status](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX.svg?branch=master)](https://travis-ci.com/dlsc-software-consulting-gmbh/PreferencesFX)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdlsc-software-consulting-gmbh%2FPreferencesFX.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdlsc-software-consulting-gmbh%2FPreferencesFX?ref=badge_shield)
 
 ![screenshot of created preferences dialog](docs/images/preferencesFX_in_use.png) 
 
@@ -382,3 +383,7 @@ It is possible to optionally add a [Validator](http://dlsc.com/wp-content/html/f
   - dieter.holz@fhnw.ch
   - Skype: dieter.holz.canoo.com
   - GitHub: DieterHolz
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdlsc-software-consulting-gmbh%2FPreferencesFX.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdlsc-software-consulting-gmbh%2FPreferencesFX?ref=badge_large)
