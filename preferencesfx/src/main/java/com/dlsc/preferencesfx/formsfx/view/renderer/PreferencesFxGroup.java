@@ -20,7 +20,7 @@ package com.dlsc.preferencesfx.formsfx.view.renderer;
  * =========================LICENSE_END==================================
  */
 
-import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.util.Strings;
@@ -28,9 +28,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
- * A section is a kind of group with more options. It can have a title and can
- * be collapsed by the user. Sections represent a more semantically heavy
- * grouping of fields, compared to groups.
+ * Represents a group of {@link Element}s which in comparison with {@link Group} are
+ * not collapsible and are separated by more space around it.
  *
  * @author Sacha Schmid
  * @author Rinesch Murugathas
@@ -41,7 +40,7 @@ public class PreferencesFxGroup extends Group {
 
   /**
    * The title acts as a description for the group. It is always visible to
-   * the user and tells them how the contained fields are grouped.
+   * the user and tells them how the contained elements are grouped.
    * This property is translatable if a {@link TranslationService} is set on
    * the containing form.
    */
@@ -53,8 +52,8 @@ public class PreferencesFxGroup extends Group {
   /**
    * {@inheritDoc}
    */
-  private PreferencesFxGroup(Field... fields) {
-    super(fields);
+  private PreferencesFxGroup(Element... elements) {
+    super(elements);
 
     // Whenever the title's key changes, update the displayed value based
     // on the new translation.
@@ -63,13 +62,13 @@ public class PreferencesFxGroup extends Group {
   }
 
   /**
-   * Creates a new section containing the given fields.
+   * Creates a new section containing the given elements.
    *
-   * @param fields The fields to be included in the section.
+   * @param elements The elements to be included in the section.
    * @return Returns a new {@code Section}.
    */
-  public static PreferencesFxGroup of(Field... fields) {
-    return new PreferencesFxGroup(fields);
+  public static PreferencesFxGroup of(Element... elements) {
+    return new PreferencesFxGroup(elements);
   }
 
   /**

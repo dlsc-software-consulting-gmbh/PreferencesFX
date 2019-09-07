@@ -70,6 +70,7 @@ public class SearchHandler {
       settingMatch = category.getGroups().stream()
           .map(Group::getSettings)      // get settings from groups
           .flatMap(Collection::stream)  // flatten all lists of settings to settings
+          .filter(Setting::hasDescription)
           .filter(setting -> !Strings.isNullOrEmpty(setting.getDescription()))
           .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText));
       // look in groups too

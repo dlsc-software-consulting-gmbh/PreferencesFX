@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.demo.extended;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.formsfx.model.structure.SingleSelectionField;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.preferencesfx.PreferencesFx;
@@ -27,6 +28,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -289,7 +291,8 @@ public class ExtendedExample extends StackPane {
                         Category.of("Usage Statistics"),
                         Category.of("Android SDK")
                     ),
-                Category.of("File Colors"),
+                Category.of("File Colors",
+                    Setting.of(new Label("This can be your very own placeholder!"))),
                 Category.of("Scopes",
                     Setting.of("My Enum", myEnumControl , myEnumSettingValue)),
                 Category.of("Notifications"),

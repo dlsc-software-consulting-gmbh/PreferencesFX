@@ -1,7 +1,9 @@
 package com.dlsc.preferencesfx.model;
 
 import com.dlsc.formsfx.model.structure.DataField;
+import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.formsfx.model.validators.Validator;
 import com.dlsc.preferencesfx.formsfx.view.controls.DoubleSliderControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
@@ -44,22 +46,22 @@ import org.slf4j.LoggerFactory;
  * @author François Martin
  * @author Marco Sanfratello
  */
-public class Setting<F extends Field, P extends Property> {
+public class Setting<E extends Element, P extends Property> {
   private static final Logger LOGGER =
       LoggerFactory.getLogger(Setting.class.getName());
 
   public static final String MARKED_STYLE_CLASS = "simple-control-marked";
   private String description;
-  private F field;
+  private E element;
   private P value;
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private final StringProperty breadcrumb = new SimpleStringProperty("");
   private String key = "";
 
-  private Setting(String description, F field, P value) {
+  private Setting(String description, E element, P value) {
     this.description = description;
-    this.field = field;
+    this.element = element;
     this.value = value;
   }
 
@@ -271,6 +273,24 @@ public class Setting<F extends Field, P extends Property> {
   }
 
   /**
+   * Creates a setting of a custom defined node element.
+   * <br>
+   * This allows for custom elements which just consist of a Node, without showing a description.
+   * @apiNote Changed state of the {@link Node} will NOT be saved!
+   *          Only use this for {@link Node}s with static content!
+   *
+   * @param <N>         the node element type
+   * @param node        custom node
+   * @return the constructed setting
+   */
+  public static <N extends Node> Setting of(N node) {
+    return new Setting<>(
+        null,
+        NodeElement.of(node),
+        null);
+  }
+
+  /**
    * Creates a custom color picker control.
    *
    * @param description   the title of this setting
@@ -393,8 +413,8 @@ public class Setting<F extends Field, P extends Property> {
    */
   @SafeVarargs
   public final Setting validate(Validator... newValue) {
-    if (field instanceof DataField) {
-      ((DataField) field).validate(newValue);
+    if (element instanceof DataField) {
+      ((DataField) element).validate(newValue);
     } else {
       throw new UnsupportedOperationException("Field type must be instance of DataField");
     }
@@ -407,9 +427,14 @@ public class Setting<F extends Field, P extends Property> {
    * visual feedback.
    */
   public void mark() {
+    if (!hasDescription()) {
+      throw new UnsupportedOperationException(
+          "Only Fields can be marked, since they have a description."
+      );
+    }
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
-      SimpleControl renderer = (SimpleControl) getField().getRenderer();
+      SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
       Node markNode = renderer.getFieldLabel();
       markNode.getStyleClass().add(MARKED_STYLE_CLASS);
       markNode.setOnMouseExited(unmarker);
@@ -423,9 +448,14 @@ public class Setting<F extends Field, P extends Property> {
    * visual feedback.
    */
   public void unmark() {
+    if (!hasDescription()) {
+      throw new UnsupportedOperationException(
+          "Only Fields can be unmarked, since they have a description."
+      );
+    }
     // check if it's marked before removing the style class
     if (marked) {
-      SimpleControl renderer = (SimpleControl) getField().getRenderer();
+      SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
       Node markNode = renderer.getFieldLabel();
       markNode.getStyleClass().remove(MARKED_STYLE_CLASS);
       markNode.removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
@@ -440,8 +470,15 @@ public class Setting<F extends Field, P extends Property> {
    * @return the description
    */
   public String getDescription() {
-    if (field != null) {
-      return field.getLabel();
+    if (element != null) {
+
+      if (!(element instanceof Field)) {
+        throw new UnsupportedOperationException(
+            "Cannot get description of an Element which is not a field"
+        );
+      }
+
+      return ((Field) element).getLabel();
     }
     return description;
   }
@@ -450,8 +487,8 @@ public class Setting<F extends Field, P extends Property> {
     return value;
   }
 
-  public F getField() {
-    return field;
+  public E getElement() {
+    return element;
   }
 
   /**
@@ -490,6 +527,32 @@ public class Setting<F extends Field, P extends Property> {
    */
   public void addToBreadcrumb(String breadCrumb) {
     setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
+  }
+
+  /**
+   * Returns whether or not this {@link Setting} has a value.
+   * <br>
+   * For example, if {@code element} is a {@link Field}, {@code value} is defined, however
+   * if {@code element} is a {@link NodeElement}, {@code value} will be null, since there is
+   * nothing to persist.
+   *
+   * @return true if value is not null
+   */
+  public boolean hasValue() {
+    return !Objects.isNull(value);
+  }
+
+  /**
+   * Returns whether or not this {@link Setting} has a description.
+   * <br>
+   * For example, if {@code element} is a {@link Field}, {@code description} is defined, however
+   * if {@code element} is a {@link NodeElement}, {@code description} will be null, since
+   * {@link NodeElement}s don't have a description.
+   *
+   * @return true if there is a description
+   */
+  public boolean hasDescription() {
+    return !Objects.isNull(description);
   }
 
   public String getBreadcrumb() {
