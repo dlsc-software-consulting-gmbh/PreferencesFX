@@ -45,9 +45,9 @@ public class BreadCrumbView extends HBox implements View {
     if (!model.isOneCategoryLayout()) {
       getChildren().add(breadCrumbBar);
     }
-    getChildren().addAll(
-        undoRedoBox
-    );
+    if (model.isInstantPersistent()) {
+      getChildren().add(undoRedoBox);
+    }
   }
 
   /**
