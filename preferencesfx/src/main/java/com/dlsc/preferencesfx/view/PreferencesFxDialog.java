@@ -174,6 +174,14 @@ public class PreferencesFxDialog extends DialogPane {
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
     final Button applyBtn = (Button) lookupButton(applyBtnType);
 
+    // make sure if visibleProperty was bound in a previous call to unbind it first
+    if (closeBtn != null) {
+      closeBtn.visibleProperty().unbind();
+    }
+    if (cancelBtn != null) {
+      cancelBtn.visibleProperty().unbind();
+    }
+
     if (model.isInstantPersistent()) {
       cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
       closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
