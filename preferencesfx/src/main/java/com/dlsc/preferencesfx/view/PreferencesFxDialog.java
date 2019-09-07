@@ -99,13 +99,17 @@ public class PreferencesFxDialog extends DialogPane {
   private void layoutForm() {
     dialog.setTitle("Preferences");
     dialog.setResizable(true);
+    addButtons();
+    dialog.setDialogPane(this);
+    setContent(preferencesFxView);
+  }
+
+  private void addButtons() {
     if (model.isInstantPersistent()) {
       getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     } else {
       getButtonTypes().addAll(cancelBtnType, applyBtnType, okBtnType);
     }
-    dialog.setDialogPane(this);
-    setContent(preferencesFxView);
   }
 
   private void setupDialogClose() {
