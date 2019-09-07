@@ -120,6 +120,7 @@ public class CategoryPresenter implements Presenter {
   }
 
   private void applyInstantPersistence(boolean instantPersistent, Form form) {
+    LOGGER.trace("Applying instant persistence: " + instantPersistent);
     BindingMode persistence;
     if (instantPersistent) {
       // instant persistence is on
