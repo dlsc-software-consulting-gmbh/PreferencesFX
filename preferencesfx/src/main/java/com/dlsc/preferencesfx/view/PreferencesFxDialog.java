@@ -6,6 +6,7 @@ import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -42,6 +43,7 @@ public class PreferencesFxDialog extends DialogPane {
   private ButtonType cancelBtnType = ButtonType.CANCEL;
   private ButtonType okBtnType = ButtonType.OK;
   private ButtonType applyBtnType = ButtonType.APPLY;
+  private Button applyWithEventBtn;
 
   /**
    * Initializes the {@link DialogPane} which shows the PreferencesFX window.
@@ -176,10 +178,15 @@ public class PreferencesFxDialog extends DialogPane {
       cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
       closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
     } else {
-      applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
-        event.consume();
-        model.saveSettings();
-      });
+      // check if we already added an event filter to the apply button, to avoid adding it twice
+      if (applyBtn != applyWithEventBtn) {
+        applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
+          event.consume();
+          model.saveSettings();
+        });
+
+        applyWithEventBtn = applyBtn;
+      }
     }
   }
 
