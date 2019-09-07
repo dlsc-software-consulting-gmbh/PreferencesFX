@@ -208,8 +208,16 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   private void bindButtonVisibility(Button closeBtn, Button cancelBtn) {
-    cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
-    closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    if (closeBtn != null && cancelBtn != null) {
+      cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+      closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    } else {
+      LOGGER.error("Visibility of dialog buttons could not be set!"
+          + "Instant persistence is on, "
+          + "expected close (actual: {}) and cancel (actual: {}) buttons",
+          closeBtn, cancelBtn
+      );
+    }
   }
 
   private void unbindVisibility(Button closeBtn, Button cancelBtn) {
