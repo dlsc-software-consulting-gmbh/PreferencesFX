@@ -198,7 +198,7 @@ Method | Class | Description
 `.saveSettings` | `PreferencesFx` | Defines whether the changed settings in the Preferences window should be saved or not. Defaults to true.
 `.debugHistoryMode` | `PreferencesFx` | Makes it possible to enable or disable the keycombination to open a debug view of the list of all actions in the history (undo / redo). Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the undo / redo history, shown in a table. Defaults to false.
 `.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the cancel and close buttons in the `PreferencesFxDialog`. Defaults to true.
-`.instantPersistent` | `PreferencesFx` | If set to true, it will instantly apply any changes that are being made in the `PreferencesFxDialog`. If set to false, it will only apply changes when the `Save` button is pressed. Defaults to true.
+`.instantPersistent` | `PreferencesFx` | If set to true, it will instantly apply any changes that are being made in the `PreferencesFxDialog`. If set to false, it will only apply changes when the `Save` / `Apply` / `OK` button is pressed. Due to a limitation in FormsFX, undo / redo cannot be used with instant persistence switched off! Defaults to true.
 `.i18n` | `PreferencesFx` | Sets the translation service of the preferences dialog for internationalization.
 `.dialogTitle` | `PreferencesFx` | Allows to specify a custom dialog title.
 `.dialogIcon` | `PreferencesFx` | Allows to specify a custom dialog icon.

@@ -81,8 +81,10 @@ public class DemoView extends VBox {
         favoritesLbl,
         fontSizeLbl,
         lineSpacingLbl,
-        favoriteNumberLbl
+        favoriteNumberLbl,
+        instantPersistence
     );
+    instantPersistence.setSelected(true);
     valueBox.setSpacing(20);
     valueBox.setPadding(new Insets(20, 0, 0, 20));
 
@@ -98,9 +100,8 @@ public class DemoView extends VBox {
         new Label("Font Size:"),
         new Label("Line Spacing:"),
         new Label("Favorite Number:"),
-        instantPersistence
+        new Label("Instant Persistence:")
     );
-    instantPersistence.setSelected(true);
     descriptionBox.setSpacing(20);
     descriptionBox.setPadding(new Insets(20, 0, 0, 20));
 
