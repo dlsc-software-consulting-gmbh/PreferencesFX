@@ -45,6 +45,11 @@ public class PreferencesFxPresenter implements Presenter {
   public void setupEventHandlers() {
     // As the scene is null here, listen to scene changes and make sure
     // that when the window is closed, the settings are saved beforehand.
+
+    // NOTE: this only applies to the main stage. When opening PreferencesFX as a Node in a new
+    // window, the implementor needs to take care that Settings are saved by themself!
+    // This is intentional by design to ensure that if the implementor wants to make their own
+    // PreferencesFX dialog to not override settings in case they are discarded.
     preferencesFxView.sceneProperty().addListener((observable, oldScene, newScene) -> {
       LOGGER.trace("new Scene: " + newScene);
       if (newScene != null && newScene.getWindow() != null) {
