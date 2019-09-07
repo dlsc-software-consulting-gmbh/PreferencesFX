@@ -6,7 +6,6 @@ import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -188,14 +187,14 @@ public class PreferencesFxDialog extends DialogPane {
     if (model.isInstantPersistent()) {
       bindButtonVisibility(closeBtn, cancelBtn);
     } else {
-      addApplyEventFilterSaveSettings(applyBtn);
+      setupApplyBtn(applyBtn);
     }
   }
 
-  private void addApplyEventFilterSaveSettings(Button applyBtn) {
+  private void setupApplyBtn(Button applyBtn) {
     // check if we already added an event filter to the apply button, to avoid adding it twice
     if (applyBtn != applyWithEventBtn) {
-      LOGGER.trace("Adding event filter to apply button");
+      LOGGER.trace("Setting up apply button");
       applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
         event.consume();
         model.saveSettings();
