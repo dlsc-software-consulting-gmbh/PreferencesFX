@@ -49,11 +49,10 @@ public class PreferencesFxPresenter implements Presenter {
       LOGGER.trace("new Scene: " + newScene);
       if (newScene != null && newScene.getWindow() != null) {
         LOGGER.trace("addEventHandler on Window close request to save settings");
-        newScene.getWindow()
-            .addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
-              LOGGER.trace("saveSettings because of WINDOW_CLOSE_REQUEST");
-              model.saveSettings();
-            });
+        newScene.getWindow().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
+          LOGGER.trace("saveSettings because of WINDOW_CLOSE_REQUEST");
+          model.saveSettings();
+        });
       }
     });
   }
