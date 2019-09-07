@@ -188,12 +188,17 @@ public class PreferencesFxDialog extends DialogPane {
     } else {
       // check if we already added an event filter to the apply button, to avoid adding it twice
       if (applyBtn != applyWithEventBtn) {
-        applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
-          event.consume();
-          model.saveSettings();
-        });
+        LOGGER.trace("Adding event filter to apply button");
+        applyBtn.addEventFilter(
+            ActionEvent.ACTION,
+            event -> {
+              event.consume();
+              model.saveSettings();
+            });
 
         applyWithEventBtn = applyBtn;
+      } else {
+        LOGGER.trace("Event filter was already added previously to apply button");
       }
     }
   }
