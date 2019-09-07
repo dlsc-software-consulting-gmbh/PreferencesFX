@@ -1,6 +1,8 @@
 package com.dlsc.preferencesfx.formsfx.view.renderer;
 
+import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import java.util.List;
@@ -75,40 +77,46 @@ public class PreferencesFxGroupRenderer {
       titleLabel.getStyleClass().add("group-title");
     }
 
-    List<Field> fields = preferencesGroup.getElements().stream()
-        .map(Field.class::cast)
+    List<Element> elements = preferencesGroup.getElements().stream()
+        .map(Element.class::cast)
         .collect(Collectors.toList());
     styleClass.append("-setting");
 
     int rowAmount = nextRow;
-    for (int i = 0; i < fields.size(); i++) {
+    for (int i = 0; i < elements.size(); i++) {
       // add to GridPane
-      Field field = fields.get(i);
-      SimpleControl c = (SimpleControl) field.getRenderer();
-      c.setField(field);
-      grid.add(c.getFieldLabel(), 0, i + rowAmount, 1, 1);
-      grid.add(c.getNode(), 1, i + rowAmount, 1, 1);
+      Element element = elements.get(i);
+      if (element instanceof Field) {
+        SimpleControl c = (SimpleControl) ((Field)element).getRenderer();
+        c.setField((Field)element);
+        grid.add(c.getFieldLabel(), 0, i + rowAmount, 1, 1);
+        grid.add(c.getNode(), 1, i + rowAmount, 1, 1);
 
-      // Styling
-      GridPane.setHgrow(c.getNode(), Priority.SOMETIMES);
-      GridPane.setValignment(c.getNode(), VPos.CENTER);
-      GridPane.setValignment(c.getFieldLabel(), VPos.CENTER);
+        // Styling
+        GridPane.setHgrow(c.getNode(), Priority.SOMETIMES);
+        GridPane.setValignment(c.getNode(), VPos.CENTER);
+        GridPane.setValignment(c.getFieldLabel(), VPos.CENTER);
 
-      // additional styling for the last setting
-      if (i == fields.size() - 1) {
-        styleClass.append("-last");
-        GridPane.setMargin(
-            c.getNode(),
-            new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0)
-        );
-        GridPane.setMargin(
-            c.getFieldLabel(),
-            new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0)
-        );
+        // additional styling for the last setting
+        if (i == elements.size() - 1) {
+          styleClass.append("-last");
+          GridPane.setMargin(
+              c.getNode(),
+              new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0)
+          );
+          GridPane.setMargin(
+              c.getFieldLabel(),
+              new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0)
+          );
+        }
+
+        c.getFieldLabel().getStyleClass().add(styleClass.toString() + "-label");
+        c.getNode().getStyleClass().add(styleClass.toString() + "-node");
       }
-
-      c.getFieldLabel().getStyleClass().add(styleClass.toString() + "-label");
-      c.getNode().getStyleClass().add(styleClass.toString() + "-node");
+      if (element instanceof NodeElement) {
+        NodeElement nodeElement = (NodeElement) element;
+        grid.add(nodeElement.getNode(), 0, i + rowAmount, GridPane.REMAINING, 1);
+      }
     }
   }
 

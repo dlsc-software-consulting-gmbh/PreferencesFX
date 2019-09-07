@@ -20,7 +20,7 @@ public class BreadCrumbView extends HBox implements View {
   private static final Logger LOGGER =
       LoggerFactory.getLogger(BreadCrumbView.class.getName());
   private final PreferencesFxModel model;
-  private final UndoRedoBox undoRedoBox;
+  final UndoRedoBox undoRedoBox;
   TreeItem<Category> breadcrumbsItm;
   BreadCrumbBar<Category> breadCrumbBar = new BreadCrumbBar<>();
 

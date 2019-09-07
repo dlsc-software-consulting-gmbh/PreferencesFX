@@ -175,7 +175,8 @@ public class Category {
    */
   public void unmarkSettings() {
     if (getGroups() != null) {
-      PreferencesFxUtils.groupsToSettings(getGroups())
+      PreferencesFxUtils.groupsToSettings(getGroups()).stream()
+          .filter(Setting::hasDescription)
           .forEach(Setting::unmark);
     }
   }

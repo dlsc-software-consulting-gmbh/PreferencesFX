@@ -2,7 +2,7 @@ package com.dlsc.preferencesfx.util;
 
 import static com.dlsc.preferencesfx.util.Strings.containsIgnoreCase;
 
-import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
@@ -45,10 +45,10 @@ public class PreferencesFxUtils {
    * Returns a list of all the settings which are contained in a list of {@code categories}
    * recursively.
    *
-   * @param categories the categories to fetch the fields from
-   * @return all fields of the categories
+   * @param categories the categories to fetch the elements from
+   * @return all elements of the categories
    */
-  public static List<Field> categoriesToFields(List<Category> categories) {
+  public static List<Element> categoriesToElements(List<Category> categories) {
     return categories.stream()
         .map(Category::getGroups)     // get groups from categories
         .filter(Objects::nonNull)     // remove all null
@@ -56,8 +56,8 @@ public class PreferencesFxUtils {
         .map(Group::getSettings)      // get settings from groups
         .filter(Objects::nonNull)     // remove all null
         .flatMap(Collection::stream)  // recursively flatten all settings
-        .map(Setting::getField)
-        .map(Field.class::cast)
+        .map(Setting::getElement)
+        .map(Element.class::cast)
         .collect(Collectors.toList());
   }
 
@@ -129,6 +129,7 @@ public class PreferencesFxUtils {
   public static List<Setting> filterSettingsByDescription(List<Setting> settings,
                                                           String description) {
     return settings.stream()
+        .filter(Setting::hasDescription)
         .filter(setting -> containsIgnoreCase(setting.getDescription(), description))
         .collect(Collectors.toList());
   }

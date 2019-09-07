@@ -1,11 +1,14 @@
 package com.dlsc.preferencesfx.util;
 
-import com.dlsc.preferencesfx.model.Setting;
 import com.google.gson.Gson;
-import java.util.prefs.Preferences;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Handles everything related to storing values of {@link Setting} using {@link Preferences}.
+ * Handles everything related to serializing and de-serializing values.
  *
  * @author François Martin
  * @author Marco Sanfratello
@@ -25,7 +28,21 @@ public class StorageHandlerImpl extends PreferencesBasedStorageHandler {
   }
 
   @Override
-  protected <T> T deserialize(String serialized, Class<? extends T> type) {
+  protected <T> T deserialize(String serialized, Class<T> type) {
     return gson.fromJson(serialized, type);
+  }
+
+  @Override
+  protected <T> List<T> deserializeList(String serialized, Class<T> type) {
+    final TypeToken typeToken = new TypeToken<List<JsonElement>>() {};
+    final List<JsonElement> list = gson.fromJson(serialized, typeToken.getType());
+
+    if (list == null) {
+      return Collections.emptyList();
+    }
+
+    return list.stream()
+        .map(jsonElement -> gson.fromJson(jsonElement, type))
+        .collect(Collectors.toList());
   }
 }

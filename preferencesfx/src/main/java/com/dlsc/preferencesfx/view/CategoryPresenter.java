@@ -110,7 +110,7 @@ public class CategoryPresenter implements Presenter {
       formGroups.add(preferencesGroup);
       // fill groups with settings (as FormsFX fields)
       for (Setting setting : groups.get(i).getSettings()) {
-        formGroups.get(i).getElements().add(setting.getField());
+        formGroups.get(i).getElements().add(setting.getElement());
       }
     }
 
@@ -120,6 +120,7 @@ public class CategoryPresenter implements Presenter {
   }
 
   private void applyInstantPersistence(boolean instantPersistent, Form form) {
+    LOGGER.trace("Applying instant persistence: " + instantPersistent);
     BindingMode persistence;
     if (instantPersistent) {
       // instant persistence is on

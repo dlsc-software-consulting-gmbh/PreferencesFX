@@ -48,6 +48,19 @@ public class BreadCrumbPresenter implements Presenter {
   }
 
   /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void setupBindings() {
+    // hide undoRedoBox if instant persistence is turned off
+    // this is due to a limit in FormsFX, only allowing to get the changed user input as a String
+    // when instant persistence is turned off, while it is not persisted yet
+    // this prevents us from getting notified of any changes except for changes in string fields.
+    // design decision: to be consistent, don't offer undo / redo at all
+    breadCrumbView.undoRedoBox.visibleProperty().bind(model.instantPersistentProperty());
+  }
+
+  /**
    * Sets up the BreadcrumbBar depending on the displayed category.
    */
   public void setupBreadCrumbBar() {

@@ -42,6 +42,7 @@ public class PreferencesFxDialog extends DialogPane {
   private ButtonType cancelBtnType = ButtonType.CANCEL;
   private ButtonType okBtnType = ButtonType.OK;
   private ButtonType applyBtnType = ButtonType.APPLY;
+  private Button applyWithEventBtn;
 
   /**
    * Initializes the {@link DialogPane} which shows the PreferencesFX window.
@@ -60,6 +61,7 @@ public class PreferencesFxDialog extends DialogPane {
     setupDialogClose();
     loadLastWindowState();
     setupButtons();
+    setupValueChangedListeners();
     if (model.getHistoryDebugState()) {
       setupDebugHistoryTable();
     }
@@ -99,13 +101,26 @@ public class PreferencesFxDialog extends DialogPane {
   private void layoutForm() {
     dialog.setTitle("Preferences");
     dialog.setResizable(true);
+    addButtons();
+    dialog.setDialogPane(this);
+    setContent(preferencesFxView);
+  }
+
+  private void setupValueChangedListeners() {
+    model.instantPersistentProperty().addListener(observable -> {
+      addButtons();
+      setupButtons();
+    });
+  }
+
+  private void addButtons() {
+    LOGGER.trace("Add dialog buttons for instant persistence: " + model.isInstantPersistent());
+    getButtonTypes().clear();
     if (model.isInstantPersistent()) {
       getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
     } else {
       getButtonTypes().addAll(cancelBtnType, applyBtnType, okBtnType);
     }
-    dialog.setDialogPane(this);
-    setContent(preferencesFxView);
   }
 
   private void setupDialogClose() {
@@ -162,19 +177,55 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   private void setupButtons() {
-    LOGGER.trace("Setting Buttons up");
+    LOGGER.trace("Setting Buttons up with instant persistence: " + model.isInstantPersistent());
     final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
     final Button applyBtn = (Button) lookupButton(applyBtnType);
 
+    unbindVisibility(closeBtn, cancelBtn);
+
     if (model.isInstantPersistent()) {
-      cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
-      closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+      bindButtonVisibility(closeBtn, cancelBtn);
     } else {
+      setupApplyBtn(applyBtn);
+    }
+  }
+
+  private void setupApplyBtn(Button applyBtn) {
+    // check if we already added an event filter to the apply button, to avoid adding it twice
+    if (applyBtn != applyWithEventBtn) {
+      LOGGER.trace("Setting up apply button");
       applyBtn.addEventFilter(ActionEvent.ACTION, event -> {
         event.consume();
         model.saveSettings();
       });
+
+      applyWithEventBtn = applyBtn;
+    } else {
+      LOGGER.trace("Event filter was already added previously to apply button");
+    }
+  }
+
+  private void bindButtonVisibility(Button closeBtn, Button cancelBtn) {
+    if (closeBtn != null && cancelBtn != null) {
+      cancelBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+      closeBtn.visibleProperty().bind(model.buttonsVisibleProperty());
+    } else {
+      LOGGER.error("Visibility of dialog buttons could not be set!"
+          + "Instant persistence is on, "
+          + "expected close (actual: {}) and cancel (actual: {}) buttons",
+          closeBtn, cancelBtn
+      );
+    }
+  }
+
+  private void unbindVisibility(Button closeBtn, Button cancelBtn) {
+    // make sure if visibleProperty was bound in a previous call to unbind it first
+    if (closeBtn != null) {
+      closeBtn.visibleProperty().unbind();
+    }
+    if (cancelBtn != null) {
+      cancelBtn.visibleProperty().unbind();
     }
   }
 

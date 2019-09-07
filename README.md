@@ -33,7 +33,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>8.5.0</version>
+  <version>8.6.0</version>
 </dependency>
 ```
 
@@ -42,7 +42,7 @@ To use this framework as part of your Maven build simply add the following depen
 <dependency>
   <groupId>com.dlsc.preferencesfx</groupId>
   <artifactId>preferencesfx-core</artifactId>
-  <version>11.5.0</version>
+  <version>11.6.0</version>
 </dependency>
 ```
 
@@ -53,14 +53,14 @@ To use this framework as part of your gradle build simply add the following to y
 ### Java 8
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.5.0'
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '8.6.0'
 }
 ```
 
 ### Java 11
 ```groovy
 dependencies {
-    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.5.0'
+    compile group: 'com.dlsc.preferencesfx', name: 'preferencesfx-core', version: '11.6.0'
 }
 ```
 
@@ -198,7 +198,7 @@ Method | Class | Description
 `.saveSettings` | `PreferencesFx` | Defines whether the changed settings in the Preferences window should be saved or not. Defaults to true.
 `.debugHistoryMode` | `PreferencesFx` | Makes it possible to enable or disable the keycombination to open a debug view of the list of all actions in the history (undo / redo). Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H (Mac) opens a dialog with the undo / redo history, shown in a table. Defaults to false.
 `.buttonsVisibility` | `PreferencesFx` | Sets the visibility of the cancel and close buttons in the `PreferencesFxDialog`. Defaults to true.
-`.instantPersistent` | `PreferencesFx` | If set to true, it will instantly apply any changes that are being made in the `PreferencesFxDialog`. If set to false, it will only apply changes when the `Save` button is pressed. Defaults to true.
+`.instantPersistent` | `PreferencesFx` | If set to true, it will instantly apply any changes that are being made in the `PreferencesFxDialog`. If set to false, it will only apply changes when the `Save` / `Apply` / `OK` button is pressed. Due to a limitation in FormsFX, undo / redo cannot be used with instant persistence switched off! Defaults to true.
 `.i18n` | `PreferencesFx` | Sets the translation service of the preferences dialog for internationalization.
 `.dialogTitle` | `PreferencesFx` | Allows to specify a custom dialog title.
 `.dialogIcon` | `PreferencesFx` | Allows to specify a custom dialog icon.
@@ -325,6 +325,14 @@ IntegerField customControl = Field.ofIntegerType(customControlProperty).render(
 Setting.of("Favorite Number", customControl, customControlProperty);</pre>
         </td>
         <td><img src="./docs/images/settings/custom_setting.png"/></td>
+    </tr>
+    <tr>
+        <td><pre lang="java">
+// Static node
+Node staticNode = new Label("This can be your very own placeholder!");
+Setting.of(staticNode);</pre>
+        </td>
+        <td><img src="./docs/images/settings/static_node.png"/></td>
     </tr>
 </table>
 
