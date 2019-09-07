@@ -542,6 +542,19 @@ public class Setting<E extends Element, P extends Property> {
     return !Objects.isNull(value);
   }
 
+  /**
+   * Returns whether or not this {@link Setting} has a description.
+   * <br>
+   * For example, if {@code element} is a {@link Field}, {@code description} is defined, however
+   * if {@code element} is a {@link NodeElement}, {@code description} will be null, since
+   * {@link NodeElement}s don't have a description.
+   *
+   * @return true if there is a description
+   */
+  public boolean hasDescription() {
+    return !Objects.isNull(description);
+  }
+
   public String getBreadcrumb() {
     return breadcrumb.get();
   }
