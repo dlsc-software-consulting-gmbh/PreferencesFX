@@ -169,7 +169,7 @@ public class PreferencesFxDialog extends DialogPane {
   }
 
   private void setupButtons() {
-    LOGGER.trace("Setting Buttons up");
+    LOGGER.trace("Setting Buttons up with instant persistence: " + model.isInstantPersistent());
     final Button closeBtn = (Button) lookupButton(closeWindowBtnType);
     final Button cancelBtn = (Button) lookupButton(cancelBtnType);
     final Button applyBtn = (Button) lookupButton(applyBtnType);
