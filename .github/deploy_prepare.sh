@@ -41,7 +41,7 @@ git push upstream $TAG_BRANCH
 echo "Finished Push commits"
 
 echo "Running mvn package"
-mvn package -DskipTests
+mvn clean package -DskipTests
 echo "Making zip of javadoc"
 cd ${TRAVIS_BUILD_DIR}/preferencesfx/target/apidocs
 zip -r ${TRAVIS_BUILD_DIR}/javadoc.zip .
