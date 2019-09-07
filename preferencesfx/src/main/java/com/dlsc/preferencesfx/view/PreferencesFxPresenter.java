@@ -47,7 +47,7 @@ public class PreferencesFxPresenter implements Presenter {
     // that when the window is closed, the settings are saved beforehand.
     preferencesFxView.sceneProperty().addListener((observable, oldScene, newScene) -> {
       LOGGER.trace("new Scene: " + newScene);
-      if (newScene != null) {
+      if (newScene != null && newScene.getWindow() != null) {
         LOGGER.trace("addEventHandler on Window close request to save settings");
         newScene.getWindow()
             .addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> {
