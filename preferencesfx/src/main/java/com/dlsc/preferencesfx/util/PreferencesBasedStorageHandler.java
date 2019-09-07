@@ -15,8 +15,9 @@ import static com.dlsc.preferencesfx.util.Constants.WINDOW_WIDTH;
 import com.dlsc.preferencesfx.model.Setting;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
@@ -72,9 +73,27 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    * @param <T>        the type of object into which to deserialze the string
    * @param serialized the string to deserialze
    * @param type       the class into which to deserialize the string
-   * @return string representation of the object for storage
+   * @return the deserialized object
    */
-  protected abstract <T> T deserialize(String serialized, Class<? extends T> type);
+  protected abstract <T> T deserialize(String serialized, Class<T> type);
+
+  /**
+   * Deserializes a list of objects from a string for storage.
+   *
+   * <p>Subclasses may use any way to deserialize the list.
+   * This should be the inverse operation of {@link #serialize(Object)}.
+   *
+   * <p>Therefore the following must hold true for any x of type List&lt;X&gt;:
+   * <pre>
+   *   Objects.equals(x, deserializeList(serialize(x), X.class)
+   * </pre>
+   *
+   * @param <T>        the type of objects in the list
+   * @param serialized the string to deserialze
+   * @param type       the class into which to deserialize the string
+   * @return deserialized list
+   */
+  protected abstract <T> List<T> deserializeList(String serialized, Class<T> type);
   // asciidoctor Documentation - end::serializationDeserialization[]
 
 
@@ -206,14 +225,28 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
    */
   public Object loadObject(String breadcrumb, Object defaultObject) {
     String serialized = getSerializedPreferencesValue(breadcrumb, serialize(defaultObject));
-    return deserialize(serialized, Object.class);
+    final Class<?> type = defaultObject == null ? Object.class : defaultObject.getClass();
+    return deserialize(serialized, type);
   }
 
   /**
-   * Searches in the preferences after a serialized ArrayList using the given key,
-   * deserializes and returns it as ObservableArrayList.
-   * When an ObservableList is deserialzed, Gson returns an ArrayList
-   * and needs to be wrapped into an ObservableArrayList. This is only needed for loading.
+   * Searches in the preferences after a serialized Object using the given key,
+   * deserializes and returns it. Returns a default Object if nothing is found.
+   *
+   * @param <T>           the type of object returned by this method
+   * @param breadcrumb    the key which is used to search the serialized Object
+   * @param type          the type of object used for deserialization
+   * @param defaultObject the Object which will be returned if nothing is found
+   * @return the deserialized Object or the default Object if nothing is found
+   */
+  public <T> T loadObject(String breadcrumb, Class<T> type, T defaultObject) {
+    String serialized = getSerializedPreferencesValue(breadcrumb, serialize(defaultObject));
+    return deserialize(serialized, type);
+  }
+
+  /**
+   * Searches in the preferences after a serialized List using the given key,
+   * deserializes and returns it as ObservableList.
    *
    * @param breadcrumb            the key which is used to search the serialized ArrayList
    * @param defaultObservableList the default ObservableList
@@ -224,8 +257,42 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
       String breadcrumb,
       ObservableList defaultObservableList
   ) {
-    String serialized = getSerializedPreferencesValue(breadcrumb, serialize(defaultObservableList));
-    return FXCollections.observableArrayList(deserialize(serialized, ArrayList.class));
+    final String serializedDefault = serialize(defaultObservableList);
+    final String serialized = getSerializedPreferencesValue(breadcrumb, serializedDefault);
+    final Class<?> type = getTypeFromList(defaultObservableList);
+    return FXCollections.observableArrayList(deserializeList(serialized, type));
+  }
+
+  /**
+   * Searches in the storage after a serialized List using the given key, deserializes and
+   * returns it as ObservableList.
+   *
+   * @param <T>                   the type inside the list returned by this method
+   * @param breadcrumb            the key which is used to search the serialized ArrayList
+   * @param defaultObservableList the default ObservableList which will be returned if nothing is
+   *                              found
+   * @return the deserialized ObservableList or the default ObservableList if nothing is found
+   */
+  public <T> ObservableList<T> loadObservableList(
+      String breadcrumb,
+      Class<T> type,
+      ObservableList<T> defaultObservableList
+  ) {
+    final String serializedDefault = serialize(defaultObservableList);
+    final String serialized = getSerializedPreferencesValue(breadcrumb, serializedDefault);
+    return FXCollections.observableArrayList(deserializeList(serialized, type));
+  }
+
+  private Class<?> getTypeFromList(ObservableList<?> list) {
+    if (list == null) {
+      return Object.class;
+    }
+
+    final Optional<Class<?>> potentialClass = list.stream()
+        .filter(Objects::nonNull)
+        .findFirst()
+        .map(Object::getClass);
+    return potentialClass.orElse(Object.class);
   }
 
   private String getSerializedPreferencesValue(String breadcrumb, String serializedDefault) {
