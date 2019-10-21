@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.util;
 
 import static com.dlsc.preferencesfx.util.Strings.containsIgnoreCase;
+import static com.dlsc.preferencesfx.util.Strings.isNullOrEmpty;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
@@ -60,26 +61,34 @@ public class SearchHandler {
    * If result is true, it will be shown, if the result is false, it will be hidden.
    */
   private Predicate<Category> filterPredicate = category -> {
-    // look in category description for matches
-    String searchText = model.getSearchText();
-    boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText);
-    boolean settingMatch = false;
-    boolean groupMatch = false;
-    if (category.getGroups() != null) {
-      // look in settings too
-      settingMatch = category.getGroups().stream()
-          .map(Group::getSettings)      // get settings from groups
-          .flatMap(Collection::stream)  // flatten all lists of settings to settings
-          .filter(Setting::hasDescription)
-          .filter(setting -> !Strings.isNullOrEmpty(setting.getDescription()))
-          .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText));
-      // look in groups too
-      groupMatch = category.getGroups().stream()
-          .filter(group -> !Strings.isNullOrEmpty(group.getDescription()))
-          .anyMatch(group -> containsIgnoreCase(group.getDescription(), searchText));
-    }
-    return categoryMatch || settingMatch || groupMatch;
+    final String searchText = model.getSearchText();
+    return testCategory(category, searchText)
+        || testGroups(category, searchText)
+        || testSettings(category, searchText);
   };
+
+  private boolean testCategory(Category category, String searchText) {
+    return containsIgnoreCase(category.getDescription(), searchText);
+  }
+
+  private boolean testGroups(Category category, String searchText) {
+    final List<Group> groups = category.getGroups();
+    return groups != null && groups.stream()
+        .map(Group::getDescription)
+        .filter(description -> !isNullOrEmpty(description))
+        .anyMatch(description -> containsIgnoreCase(description, searchText));
+  }
+
+  private boolean testSettings(Category category, String searchText) {
+    final List<Group> groups = category.getGroups();
+    return groups != null && groups.stream()
+        .map(Group::getSettings)      // get settings from groups
+        .flatMap(Collection::stream)  // flatten all lists of settings to settings
+        .filter(Setting::hasDescription)
+        .map(Setting::getDescription)
+        .filter(description -> !isNullOrEmpty(description))
+        .anyMatch(description -> containsIgnoreCase(description, searchText));
+  }
 
   /**
    * Initializes the SearchHandler by initially creating all necessary lists
