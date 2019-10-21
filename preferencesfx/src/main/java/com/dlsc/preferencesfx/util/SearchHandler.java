@@ -49,7 +49,7 @@ public class SearchHandler {
   private HashMap<Group, Category> groupCategoryMap;
   private HashMap<Setting, Category> settingCategoryMap;
 
-  private StringProperty searchText = new SimpleStringProperty();
+  private StringProperty searchTextProperty = new SimpleStringProperty();
 
   /**
    * Represents the category which is matched by the search and should ultimately be displayed.
@@ -94,19 +94,19 @@ public class SearchHandler {
    * Initializes the SearchHandler by initially creating all necessary lists
    * for filtering and setting up the bindings.
    *
-   * @param model             the model of PreferencesFx
-   * @param searchText        textProperty of a TextField where the search string is being input
-   * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
+   * @param model              the model of PreferencesFx
+   * @param searchTextProperty textProperty of a TextField where the search string is being input
+   * @param predicateProperty  of the rootItem of a {@link FilterableTreeItem}
    * @apiNote Must be called to make the filtering work.
    */
   public void init(
       PreferencesFxModel model,
-      StringProperty searchText,
+      StringProperty searchTextProperty,
       ObjectProperty<Predicate<Category>> predicateProperty
   ) {
     this.model = model;
     initializeSearch();
-    initializeSearchText(searchText);
+    initializeSearchText(searchTextProperty);
     bindFilterPredicate(predicateProperty);
   }
 
@@ -121,10 +121,10 @@ public class SearchHandler {
   /**
    * Initializes the search text by binding it and then adding a listener to react to changes.
    *
-   * @param searchText the property of the search text UI element
+   * @param searchTextProperty the property of the search text UI element
    */
-  public void initializeSearchText(StringProperty searchText) {
-    bindSearchText(searchText);
+  public void initializeSearchText(StringProperty searchTextProperty) {
+    bindSearchText(searchTextProperty);
     initializeSearchTextListener();
   }
 
@@ -133,7 +133,7 @@ public class SearchHandler {
    * If the search text is empty, everything will be unmarked, else the search will be updated.
    */
   private void initializeSearchTextListener() {
-    searchText.addListener((observable, oldText, newText) -> {
+    searchTextProperty.addListener((observable, oldText, newText) -> {
       if (isNullOrEmpty(newText)) { // empty search -> doesn't match anything!
         resetSearch();
       } else {
@@ -150,10 +150,10 @@ public class SearchHandler {
   /**
    * Makes sure this class is aware of the current text which is being searched for.
    *
-   * @param searchText textProperty of a TextField where the search string is being input
+   * @param searchTextProperty textProperty of a TextField where the search string is being input
    */
-  private void bindSearchText(StringProperty searchText) {
-    this.searchText.bind(searchText);
+  private void bindSearchText(StringProperty searchTextProperty) {
+    this.searchTextProperty.bind(searchTextProperty);
   }
 
   /**
@@ -163,11 +163,11 @@ public class SearchHandler {
    */
   public void bindFilterPredicate(ObjectProperty<Predicate<Category>> predicateProperty) {
     predicateProperty.bind(Bindings.createObjectBinding(() -> {
-      if (isNullOrEmpty(searchText.get())) {
+      if (isNullOrEmpty(searchTextProperty.get())) {
         return null;
       }
       return filterPredicate;
-    }, searchText));
+    }, searchTextProperty));
   }
 
   /**
