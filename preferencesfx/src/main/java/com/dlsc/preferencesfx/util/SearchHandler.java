@@ -134,7 +134,7 @@ public class SearchHandler {
    */
   private void initializeSearchTextListener() {
     searchText.addListener((observable, oldText, newText) -> {
-      if (newText.equals("")) { // empty search -> doesn't match anything!
+      if (isNullOrEmpty(newText)) { // empty search -> doesn't match anything!
         resetSearch();
       } else {
         updateSearch(newText);
@@ -163,7 +163,7 @@ public class SearchHandler {
    */
   public void bindFilterPredicate(ObjectProperty<Predicate<Category>> predicateProperty) {
     predicateProperty.bind(Bindings.createObjectBinding(() -> {
-      if (searchText.get() == null || searchText.get().isEmpty()) {
+      if (isNullOrEmpty(searchText.get())) {
         return null;
       }
       return filterPredicate;
