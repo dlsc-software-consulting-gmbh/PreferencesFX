@@ -310,6 +310,11 @@ public class PreferencesFx {
     return this;
   }
 
+  /**
+   * Return the stylesheets of the PreferenceFxDialog.
+   *
+   * @return the stylesheets List of the PreferenceFxDialog
+   */
   public ObservableList<String> getStylesheets(){
     return preferencesFxDialog.getStylesheets();
   }
