@@ -315,7 +315,7 @@ public class PreferencesFx {
    *
    * @return the stylesheets List of the PreferenceFxDialog
    */
-  public ObservableList<String> getStylesheets(){
+  public ObservableList<String> getStylesheets() {
     return preferencesFxDialog.getStylesheets();
   }
 }
