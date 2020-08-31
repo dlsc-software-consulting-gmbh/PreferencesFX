@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.util;
 
 import static com.dlsc.preferencesfx.util.Strings.containsIgnoreCase;
+import static com.dlsc.preferencesfx.util.Strings.isNullOrEmpty;
 
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
@@ -48,7 +49,7 @@ public class SearchHandler {
   private HashMap<Group, Category> groupCategoryMap;
   private HashMap<Setting, Category> settingCategoryMap;
 
-  private StringProperty searchText = new SimpleStringProperty();
+  private StringProperty searchTextProperty = new SimpleStringProperty();
 
   /**
    * Represents the category which is matched by the search and should ultimately be displayed.
@@ -60,44 +61,52 @@ public class SearchHandler {
    * If result is true, it will be shown, if the result is false, it will be hidden.
    */
   private Predicate<Category> filterPredicate = category -> {
-    // look in category description for matches
-    String searchText = model.getSearchText();
-    boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText);
-    boolean settingMatch = false;
-    boolean groupMatch = false;
-    if (category.getGroups() != null) {
-      // look in settings too
-      settingMatch = category.getGroups().stream()
-          .map(Group::getSettings)      // get settings from groups
-          .flatMap(Collection::stream)  // flatten all lists of settings to settings
-          .filter(Setting::hasDescription)
-          .filter(setting -> !Strings.isNullOrEmpty(setting.getDescription()))
-          .anyMatch(setting -> containsIgnoreCase(setting.getDescription(), searchText));
-      // look in groups too
-      groupMatch = category.getGroups().stream()
-          .filter(group -> !Strings.isNullOrEmpty(group.getDescription()))
-          .anyMatch(group -> containsIgnoreCase(group.getDescription(), searchText));
-    }
-    return categoryMatch || settingMatch || groupMatch;
+    final String searchText = model.getSearchText();
+    return testCategory(category, searchText)
+        || testGroups(category, searchText)
+        || testSettings(category, searchText);
   };
+
+  private boolean testCategory(Category category, String searchText) {
+    return containsIgnoreCase(category.getDescription(), searchText);
+  }
+
+  private boolean testGroups(Category category, String searchText) {
+    final List<Group> groups = category.getGroups();
+    return groups != null && groups.stream()
+        .map(Group::getDescription)
+        .filter(description -> !isNullOrEmpty(description))
+        .anyMatch(description -> containsIgnoreCase(description, searchText));
+  }
+
+  private boolean testSettings(Category category, String searchText) {
+    final List<Group> groups = category.getGroups();
+    return groups != null && groups.stream()
+        .map(Group::getSettings)      // get settings from groups
+        .flatMap(Collection::stream)  // flatten all lists of settings to settings
+        .filter(Setting::hasDescription)
+        .map(Setting::getDescription)
+        .filter(description -> !isNullOrEmpty(description))
+        .anyMatch(description -> containsIgnoreCase(description, searchText));
+  }
 
   /**
    * Initializes the SearchHandler by initially creating all necessary lists
    * for filtering and setting up the bindings.
    *
-   * @param model             the model of PreferencesFx
-   * @param searchText        textProperty of a TextField where the search string is being input
-   * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
+   * @param model              the model of PreferencesFx
+   * @param searchTextProperty textProperty of a TextField where the search string is being input
+   * @param predicateProperty  of the rootItem of a {@link FilterableTreeItem}
    * @apiNote Must be called to make the filtering work.
    */
   public void init(
       PreferencesFxModel model,
-      StringProperty searchText,
+      StringProperty searchTextProperty,
       ObjectProperty<Predicate<Category>> predicateProperty
   ) {
     this.model = model;
     initializeSearch();
-    initializeSearchText(searchText);
+    initializeSearchText(searchTextProperty);
     bindFilterPredicate(predicateProperty);
   }
 
@@ -112,10 +121,10 @@ public class SearchHandler {
   /**
    * Initializes the search text by binding it and then adding a listener to react to changes.
    *
-   * @param searchText the property of the search text UI element
+   * @param searchTextProperty the property of the search text UI element
    */
-  public void initializeSearchText(StringProperty searchText) {
-    bindSearchText(searchText);
+  public void initializeSearchText(StringProperty searchTextProperty) {
+    bindSearchText(searchTextProperty);
     initializeSearchTextListener();
   }
 
@@ -124,8 +133,8 @@ public class SearchHandler {
    * If the search text is empty, everything will be unmarked, else the search will be updated.
    */
   private void initializeSearchTextListener() {
-    searchText.addListener((observable, oldText, newText) -> {
-      if (newText.equals("")) { // empty search -> doesn't match anything!
+    searchTextProperty.addListener((observable, oldText, newText) -> {
+      if (isNullOrEmpty(newText)) { // empty search -> doesn't match anything!
         resetSearch();
       } else {
         updateSearch(newText);
@@ -141,10 +150,10 @@ public class SearchHandler {
   /**
    * Makes sure this class is aware of the current text which is being searched for.
    *
-   * @param searchText textProperty of a TextField where the search string is being input
+   * @param searchTextProperty textProperty of a TextField where the search string is being input
    */
-  private void bindSearchText(StringProperty searchText) {
-    this.searchText.bind(searchText);
+  private void bindSearchText(StringProperty searchTextProperty) {
+    this.searchTextProperty.bind(searchTextProperty);
   }
 
   /**
@@ -154,11 +163,11 @@ public class SearchHandler {
    */
   public void bindFilterPredicate(ObjectProperty<Predicate<Category>> predicateProperty) {
     predicateProperty.bind(Bindings.createObjectBinding(() -> {
-      if (searchText.get() == null || searchText.get().isEmpty()) {
+      if (isNullOrEmpty(searchTextProperty.get())) {
         return null;
       }
       return filterPredicate;
-    }, searchText));
+    }, searchTextProperty));
   }
 
   /**
