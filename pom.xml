@@ -15,8 +15,11 @@
     </modules>
 
     <properties>
+        <sonar.projectKey>dlsc-software-consulting-gmbh_PreferencesFX</sonar.projectKey>
+        <sonar.organization>dlsc-software-consulting-gmbh</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
         <maven.deploy.skip>true</maven.deploy.skip>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>1.6.0</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>1.6.2</asciidoctorj.version>
@@ -28,13 +31,22 @@
             <dependency>
                 <groupId>com.dlsc.preferencesfx</groupId>
                 <artifactId>preferencesfx-core</artifactId>
-                <version>11.6.0</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
@@ -56,6 +68,7 @@
                 <configuration>
                     <sourceDirectory>docs</sourceDirectory>
                     <attributes>
+                        <sourcedir>${project.build.sourceDirectory}</sourcedir>
                         <project-version>${project.version}</project-version>
                     </attributes>
                 </configuration>
