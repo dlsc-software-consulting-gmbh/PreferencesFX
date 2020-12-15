@@ -296,16 +296,7 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
   }
 
   private String getSerializedPreferencesValue(String breadcrumb, String serializedDefault) {
-    String serialized = preferences.get(hash(breadcrumb), serializedDefault);
-    if (serialized == serializedDefault) {
-      // try to get preferences value with legacy hashing method
-      serialized = preferences.get(deprecatedHash(breadcrumb), serializedDefault);
-      if (serialized != serializedDefault) {
-        LOGGER.warn("Preferences value of {} was loaded using the legacy hashing method. "
-            + "Value will be saved using the new hashing method with next save.", breadcrumb);
-      }
-    }
-    return serialized;
+    return preferences.get(hash(breadcrumb), serializedDefault);
   }
 
   /**
@@ -320,30 +311,6 @@ public abstract class PreferencesBasedStorageHandler implements StorageHandler {
       return false;
     }
     return true;
-  }
-
-  /**
-   * Legacy hashing method to calculate the SHA256 hash of a key.
-   * In some circumstances, this approach produces hashes with incorrect encoding, leading to issues
-   * with loading preferences (see #53).
-   * This method is only present for migration reasons, to ensure preferences with the old
-   * hashing format can still be loaded and then saved using the new hashing method
-   * ({@link #hash(String)}).
-   * This method may get removed in a later release, so DON'T use this method to save settings!
-   *
-   * @return SHA-256 representation of breadcrumb
-   */
-  @Deprecated
-  private String deprecatedHash(String key) {
-    Objects.requireNonNull(key);
-    MessageDigest messageDigest = null;
-    try {
-      messageDigest = MessageDigest.getInstance("SHA-256");
-    } catch (NoSuchAlgorithmException e) {
-      LOGGER.error("Hashing algorithm not found!");
-    }
-    messageDigest.update(key.getBytes());
-    return new String(messageDigest.digest());
   }
 
   /**
