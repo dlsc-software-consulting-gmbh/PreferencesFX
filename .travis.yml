@@ -48,7 +48,8 @@ deploy:
       all_branches: true
       condition: $TAG_BRANCH =~ ^(master|master-11)$
   - provider: releases
-    api_key: $GITHUB_TOKEN
+    api_key:
+      secure: "Xvdh4fmLoMvif8dFSkl2DeyqdKaVA6xpfsxwies8/rXJffTjDv8EUysuh3zwksFNHqlyKLDCRfSV8mlqKarfl5asI99sXSFyn5FKZNAd4WZJ68NPe89h0DteFPGYgqbSwwqzpuqTaY2KlsKh+PhtkcsDr61msEHYW1KXNxiSHbz4JVyR9UzuA1zdKs8okIym4/AMMEho0HXyzEwd1pLfBnd8uMCk8FgViM3Ffe5YSER9wL25RRw2n66hWwiuiDhPmQI2+WrR/7pVdjVOTkbRutO//PbTNVx+z00JMI0hqGfo3YgcduyG1g0ilJ4sv1fdqQ1fbFnGUtxosUEnomDxZiiTb0kU9zy70RndrNoStjWAlm98eH4YSt3KgHakccbjKAXnTOgmhm7W9XpomuHkaTW4L7cG/2cxRkbm86XdHwmRkWdRPO8ODqBDrrXrd7Up0yWx2f7F8woSBRf8NbqI3QNY3QMMpt1rRxQNX1XL1phjYLT7A81qy7vMjzErwYdFD9z7/vPnTeHT9/sNID1/JcDWi9yqK0tJOUz5ek1XGta1TJs/jCq8GDxBf+NnXDPjfbJ3d5LIrnxVZsWmMRk1zsIuKxxP14WmUJsHtbhKD3PGr2w8gPlecCKfJpQQiMmTyo+birXa7IGvhnrOa1Lgr+ZBa0CD2V03RFX/REYizwU="
     file_glob: true
     file:
       - javadoc.zip
