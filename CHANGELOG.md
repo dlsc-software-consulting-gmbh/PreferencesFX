@@ -1,5 +1,43 @@
 # Change Log
 
+## [11.7.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.7.0) (2020-12-15)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.6.0...11.7.0)
+
+**Implemented enhancements:**
+
+- Cannot use custom stylesheets on dialog [\#11](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/11)
+
+**Closed issues:**
+
+- deprecatedHash causes IllegalArgumentException in AbstractPreferences [\#292](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/292)
+- How to add a node into Setting.of\(Node\) and be able to save the data inside the node? [\#272](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/272)
+- Using PreferencesFX with a Database [\#176](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/176)
+
+**Merged pull requests:**
+
+- Bump mockito-core from 3.5.7 to 3.5.9 [\#240](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/240) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump junit from 4.12 to 4.13 [\#234](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/234) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump mockito-core from 3.5.2 to 3.5.7 [\#228](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/228) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump maven-checkstyle-plugin from 3.1.0 to 3.1.1 [\#223](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/223) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump mockito-core from 3.1.0 to 3.5.2 [\#220](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/220) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Custom Stylesheet for Dialog [\#215](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/215) ([JellevanAbbema](https://github.com/JellevanAbbema))
+- Bump log4j-core from 2.12.1 to 2.13.2 in /preferencesfx-demo [\#207](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/207) ([dependabot[bot]](https://github.com/apps/dependabot))
+- Bump controlsfx from 8.40.15 to 8.40.17 [\#205](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/205) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump maven-surefire-plugin from 3.0.0-M3 to 3.0.0-M5 [\#203](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/203) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump log4j-slf4j-impl from 2.12.1 to 2.13.3 [\#201](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/201) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump log4j-api from 2.12.1 to 2.13.3 [\#200](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/200) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump maven-source-plugin from 3.1.0 to 3.2.1 [\#170](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/170) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump slf4j-api from 1.7.28 to 1.7.30 [\#168](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/168) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Small search handler improvement [\#143](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/143) ([sclassen](https://github.com/sclassen))
+- Bump javafx-web from 13 to 13.0.1 [\#142](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/142) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump gson from 2.8.5 to 2.8.6 [\#141](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/141) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump mockito-core from 3.0.0 to 3.1.0 [\#139](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/139) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump mockito-core from 3.0.0 to 3.1.0 [\#138](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/138) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump asm from 7.1 to 7.2 [\#137](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/137) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump checkstyle from 8.24 to 8.25 [\#136](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/136) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump checkstyle from 8.24 to 8.25 [\#135](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/135) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+- Bump javafx-web from 12.0.2 to 13 [\#131](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/131) ([dependabot-preview[bot]](https://github.com/apps/dependabot-preview))
+
 ## [11.6.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.6.0) (2019-09-07)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/8.6.0...11.6.0)
 
@@ -10,6 +48,7 @@
 
 - Switch implementation from `Field` to `Element` [\#40](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/40)
 - Allow instant persistence to be set at runtime & hide undo / redo when no instant persistence [\#130](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/130) ([martinfrancois](https://github.com/martinfrancois))
+- Migrate from Field to Element [\#99](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/99) ([martinfrancois](https://github.com/martinfrancois))
 - Support of enums for field values [\#97](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/97) ([sclassen](https://github.com/sclassen))
 
 **Fixed bugs:**
@@ -85,7 +124,6 @@
 
 **Implemented enhancements:**
 
-- Migrate from Field to Element [\#99](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/99) ([martinfrancois](https://github.com/martinfrancois))
 - Automatically select first subcategory if a category is empty [\#86](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/86) ([ArvidNy](https://github.com/ArvidNy))
 
 **Merged pull requests:**
@@ -140,7 +178,6 @@
 - Buttons behavior: cancel should cancel? [\#13](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/13)
 - Fix for Issue 72 to allow single cat with subcategories. [\#76](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/76) ([p1r9t3](https://github.com/p1r9t3))
 - Fix demo saving bug [\#57](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/57) ([martinfrancois](https://github.com/martinfrancois))
-- Make cancel cancel again [\#56](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/56) ([martinfrancois](https://github.com/martinfrancois))
 - Fix hashing method [\#55](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/55) ([martinfrancois](https://github.com/martinfrancois))
 - Snapshot repo for ControlsFX 11 [\#46](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/46) ([Genron](https://github.com/Genron))
 - Snapshot repo for ControlsFX 10 [\#45](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/45) ([Genron](https://github.com/Genron))
@@ -183,12 +220,13 @@
 - Minor updates to event handling [\#31](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/31) ([aalmiray](https://github.com/aalmiray))
 - Support save/cancel events [\#28](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/28) ([aalmiray](https://github.com/aalmiray))
 - Added abstraction for StorageHandler: fix \#4 [\#22](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/22) ([kivimango](https://github.com/kivimango))
-- Improve Examples [\#19](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/19) ([Xerus2000](https://github.com/Xerus2000))
+- Improve Examples [\#19](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/19) ([xerus2000](https://github.com/xerus2000))
 - Add the modal window as a parameter of the show\(\) method.  [\#12](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/12) ([GeCol1](https://github.com/GeCol1))
 
 **Fixed bugs:**
 
 - NPE in SimpleRadioButtonControl [\#9](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/issues/9)
+- Make cancel cancel again [\#56](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/56) ([martinfrancois](https://github.com/martinfrancois))
 - Fix breaking FormsFX changes [\#39](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/39) ([martinfrancois](https://github.com/martinfrancois))
 - Fixed issue with blank dialog content when using the default Storage … [\#33](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/33) ([shannah](https://github.com/shannah))
 - Fix issue \#9 [\#16](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/16) ([finanzer](https://github.com/finanzer))
