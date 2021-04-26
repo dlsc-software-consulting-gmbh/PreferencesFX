@@ -33,7 +33,7 @@ public class UndoRedoBox extends HBox {
     undoBtn.setOnAction(event -> history.undo());
     undoBtn.disableProperty().bind(history.undoAvailableProperty().not());
 
-    redoBtn.getStyleClass().add("undo-button");
+    redoBtn.getStyleClass().add("redo-button");
     redoBtn.setGraphic(new FontIcon(Material.REDO));
     redoBtn.setOnAction(event -> history.redo());
     redoBtn.disableProperty().bind(history.redoAvailableProperty().not());
