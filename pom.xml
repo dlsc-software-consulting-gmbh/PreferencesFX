@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.preferencesfx</groupId>
     <artifactId>parent</artifactId>
-    <version>11.7.1</version>
+    <version>11.8.0</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -23,7 +23,7 @@
         <asciidoctor.maven.plugin.version>1.6.0</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>1.6.2</asciidoctorj.version>
         <jruby.version>9.2.6.0</jruby.version>
-        <javafx.version>16</javafx.version>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
 
     <distributionManagement>

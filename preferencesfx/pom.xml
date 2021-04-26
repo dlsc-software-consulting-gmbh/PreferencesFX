@@ -6,14 +6,8 @@
 
     <groupId>com.dlsc.preferencesfx</groupId>
     <artifactId>preferencesfx-core</artifactId>
-    <version>11.7.1</version>
+.    <version>11.8.0</version>
     <packaging>jar</packaging>
-
-    <parent>
-        <groupId>com.dlsc.preferencesfx</groupId>
-        <artifactId>parent</artifactId>
-        <version>11.7.1</version>
-    </parent>
 
     <name>PreferencesFX</name>
     <description>A framework for quickly creating a UI for setting application
@@ -73,6 +67,7 @@
         <checkstyle.path>../config/checkstyle/checkstyle.xml</checkstyle.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <ikonli.version>12.2.0</ikonli.version>
+        <javafx.version>16</javafx.version>
     </properties>
 
     <build>
@@ -107,7 +102,7 @@
                 <version>3.2.0</version>
                 <configuration>
                     <failOnError>true</failOnError>
-                    <failOnWarnings>true</failOnWarnings>
+                    <failOnWarnings>false</failOnWarnings>
                     <force>true</force>
                     <windowtitle>PreferencesFX API</windowtitle>
                     <additionalJOptions>
