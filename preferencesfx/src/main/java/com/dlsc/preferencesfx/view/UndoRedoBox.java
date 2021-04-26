@@ -24,12 +24,16 @@ public class UndoRedoBox extends HBox {
    * @param history the history to be used for undo and redo
    */
   public UndoRedoBox(History history) {
+    getStyleClass().add("undo-redo-box");
+
     getChildren().addAll(undoBtn, redoBtn);
 
+    undoBtn.getStyleClass().add("undo-button");
     undoBtn.setGraphic(new FontIcon(Material.UNDO));
     undoBtn.setOnAction(event -> history.undo());
     undoBtn.disableProperty().bind(history.undoAvailableProperty().not());
 
+    redoBtn.getStyleClass().add("undo-button");
     redoBtn.setGraphic(new FontIcon(Material.REDO));
     redoBtn.setOnAction(event -> history.redo());
     redoBtn.disableProperty().bind(history.redoAvailableProperty().not());
