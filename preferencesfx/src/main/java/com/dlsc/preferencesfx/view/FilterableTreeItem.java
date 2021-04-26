@@ -1,149 +1,116 @@
+/*******************************************************************************
+ * Copyright (c) 2014 EM-SOFTWARE and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Christoph Keimel <c.keimel@emsw.de> - initial API and implementation
+ *******************************************************************************/
 package com.dlsc.preferencesfx.view;
 
-import static javafx.beans.binding.Bindings.createObjectBinding;
-
-import java.lang.reflect.Field;
-import java.util.function.Predicate;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.cell.CheckBoxTreeCell;
+
+import java.util.function.Predicate;
 
 /**
- * A {@link TreeItem} with filterable leafs.
+ * An extension of {@link TreeItem} with the possibility to filter its children. To enable filtering
+ * it is necessary to set the {@link TreeItemPredicate}. If a predicate is set, then the tree item
+ * will also use this predicate to filter its children (if they are of the type FilterableTreeItem).
  *
- * <p>The tree allows to set a {@link Predicate} to filter its leafs.
- * Non leaf nodes are not filtered. If all children of a non leaf node
- * are filtered the node becomes a leaf node and the predicate is applied to it.
+ * A tree item that has children will not be filtered. The predicate will only be evaluated, if the
+ * tree item is a leaf. Since the predicate is also set for the child tree items, the tree item in question
+ * can turn into a leaf if all its children are filtered.
+ * 
+ * This class extends {@link CheckBoxTreeItem} so it can, but does not need to be, used in conjunction
+ * with {@link CheckBoxTreeCell} cells. 
  *
- * <p>This class is inspired by the efxclipse project
- * <a href="https://www.eclipse.org/efxclipse">https://www.eclipse.org/efxclipse</a>
- *
- * @param <T> The type of the {@link #getValue() value} property within TreeItem.
- *
- * @author Stephan Classen
+ * @param <T> The type of the {@link #getValue() value} property within {@link TreeItem}.
  */
-public class FilterableTreeItem<T> extends TreeItem<T> {
+public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 
-  private final ObservableList<FilterableTreeItem<T>> internalChildren;
-  private final TreeItemPredicate<T> treeItemPredicate = new TreeItemPredicate<>();
+	private final ObservableList<TreeItem<T>> sourceList = FXCollections.observableArrayList();
+	private final FilteredList<TreeItem<T>> filteredList =new FilteredList<>(sourceList);
+	private final ObjectProperty<TreeItemPredicate<T>> predicate = new SimpleObjectProperty<>();
 
-  /**
-   * Creates a new {@link FilterableTreeItem}.
-   *
-   * @param value the value of the {@link FilterableTreeItem}
-   */
-  FilterableTreeItem(T value) {
-    super(value);
-    internalChildren = FXCollections.observableArrayList();
+	/**
+	 * Creates a new {@link TreeItem} with sorted children.
+	 *
+	 * @param value the value of the {@link TreeItem}
+	 */
+	public FilterableTreeItem(T value) {
+		super(value);
 
-    final FilteredList<FilterableTreeItem<T>> filteredList = new FilteredList<>(internalChildren);
-    filteredList.predicateProperty().bind(
-        createObjectBinding(() -> treeItemPredicate, predicateProperty())
-    );
+		filteredList.predicateProperty().bind(Bindings.createObjectBinding(() -> {
+			Predicate<TreeItem<T>> p =  child -> {
+				// Set the predicate of child items to force filtering
+				if (child instanceof FilterableTreeItem) {
+					FilterableTreeItem<T> filterableChild = (FilterableTreeItem<T>) child;
+					filterableChild.setPredicate(predicate.get());
+				}
 
-    // set the children in the super class
-    setChildren(FXCollections.unmodifiableObservableList(filteredList));
-    filteredList.addListener(getChildrenListener());
-  }
+				// If there is no predicate, keep this tree item
+				if (predicate.get() == null) {
+					return true;
+				}
 
-  /**
-   * Add a child to this TreeItem.
-   *
-   * @param newItem the item to add to the children.
-   */
-  void add(FilterableTreeItem<T> newItem) {
-    internalChildren.add(newItem);
-  }
+				// If there are children, keep this tree item
+				if (child.getChildren().size() > 0) {
+					return true;
+				}
 
-  /**
-   * Returns the predicate property.
-   *
-   * @return the predicate property
-   */
-  ObjectProperty<Predicate<T>> predicateProperty() {
-    return treeItemPredicate.predicateProperty;
-  }
+				// Otherwise ask the TreeItemPredicate
+				return predicate.get().test(this, child.getValue());
+			};
+			return p;
+		}, predicate));
 
-  private void setChildren(ObservableList<FilterableTreeItem<T>> children) {
-    try {
-      final Field field = TreeItem.class.getDeclaredField("children");
-      if (!field.isAccessible()) {
-        field.setAccessible(true);
-      }
-      field.set(this, children);
-    } catch (NoSuchFieldException | IllegalAccessException | RuntimeException e) {
-      throw new RuntimeException("Could not set field: TreeItem.children", e);
+		Bindings.bindContent(getChildren(), getBackingList());
+	}
+	
+	/**
+	 * @return the backing list
+	 */
+	protected ObservableList<TreeItem<T>> getBackingList() {
+		return filteredList;
+	}
+
+	/**
+	 * Returns the list of children that is backing the filtered list.
+	 * @return underlying list of children
+	 */
+	public ObservableList<TreeItem<T>> getInternalChildren() {
+		return sourceList;
+	}
+
+	/**
+	 * @return the predicate property
+	 */
+	public final ObjectProperty<TreeItemPredicate<T>> predicateProperty() {
+        return predicate;
     }
-  }
 
-  @SuppressWarnings("unchecked")
-  private ListChangeListener<? super TreeItem<T>> getChildrenListener() {
-    try {
-      final Field field = TreeItem.class.getDeclaredField("childrenListener");
-      if (!field.isAccessible()) {
-        field.setAccessible(true);
-      }
-      final Object value = field.get(this);
-      return (ListChangeListener<? super TreeItem<T>>) value;
-    } catch (NoSuchFieldException | IllegalAccessException | RuntimeException e) {
-      throw new RuntimeException("Could not get field: TreeItem.childrenListener", e);
-    }
-  }
-
-  /**
-   * Wrapper around a predicate to apply it to the value of a {@link FilterableTreeItem}.
-   *
-   * @param <T> The type of the value property within the TreeItem.
-   */
-  private static class TreeItemPredicate<T> implements Predicate<FilterableTreeItem<T>> {
-
-    private final ObjectProperty<Predicate<T>> predicateProperty = new SimpleObjectProperty<>();
-
-    /**
-     * Tests if a TreeItem is visible.
-     *
-     * @param child the TreeItem to test
-     * @return {@code true} if the TreeItem is visible, {@code false} otherwise
-     */
-    @Override
-    public boolean test(FilterableTreeItem<T> child) {
-      final Predicate<T> predicate = predicateProperty.get();
-
-      // Update predicate on child - this will trigger filtering of the child
-      final ObjectProperty<Predicate<T>> childPredicate = child.predicateProperty();
-      childPredicate.set(newPredicate(predicate, childPredicate.get()));
-
-      // no predicate -> do not filter
-      if (predicate == null) {
-        return true;
-      }
-
-      // has children -> do not filter
-      if (!child.getChildren().isEmpty()) {
-        return true;
-      }
-
-      return predicate.test(child.getValue());
+	/**
+	 * @return the predicate
+	 */
+    public final TreeItemPredicate<T> getPredicate() {
+        return predicate.get();
     }
 
     /**
-     * Returns a predicate which is different from oldPredicate.
-     * This is required to trigger filtering on the children.
-     *
-     * @param predicate the new predicate
-     * @param oldPredicate the old predicate
-     * @return a predicate which is different from oldPredicate
+     * Set the predicate
+     * @param predicate the predicate
      */
-    @SuppressWarnings("FunctionalExpressionCanBeFolded")
-    private Predicate<T> newPredicate(Predicate<T> predicate, Predicate<T> oldPredicate) {
-      if (predicate == null) {
-        return null;
-      }
-      return oldPredicate == predicate ? predicate::test : predicate;
+    public final void setPredicate(TreeItemPredicate<T> predicate) {
+    	this.predicate.set(predicate);
     }
-  }
 }

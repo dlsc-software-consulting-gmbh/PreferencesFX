@@ -1,26 +1,23 @@
 package com.dlsc.preferencesfx.util;
 
-import static com.dlsc.preferencesfx.util.Strings.containsIgnoreCase;
-
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
 import com.dlsc.preferencesfx.view.FilterableTreeItem;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.Predicate;
+import com.dlsc.preferencesfx.view.TreeItemPredicate;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.dlsc.preferencesfx.util.Strings.containsIgnoreCase;
 
 /**
  * Handles everything related to searching in the{@link Category}, {@link Group}
@@ -59,7 +56,7 @@ public class SearchHandler {
    * Decides whether a {@link TreeItem} should be shown in the {@link TreeView} or not.
    * If result is true, it will be shown, if the result is false, it will be hidden.
    */
-  private Predicate<Category> filterPredicate = category -> {
+  private TreeItemPredicate<Category> filterPredicate = (parent, category) -> {
     // look in category description for matches
     String searchText = model.getSearchText();
     boolean categoryMatch = containsIgnoreCase(category.getDescription(), searchText);
@@ -93,7 +90,7 @@ public class SearchHandler {
   public void init(
       PreferencesFxModel model,
       StringProperty searchText,
-      ObjectProperty<Predicate<Category>> predicateProperty
+      ObjectProperty<TreeItemPredicate<Category>> predicateProperty
   ) {
     this.model = model;
     initializeSearch();
@@ -152,7 +149,7 @@ public class SearchHandler {
    *
    * @param predicateProperty of the rootItem of a {@link FilterableTreeItem}
    */
-  public void bindFilterPredicate(ObjectProperty<Predicate<Category>> predicateProperty) {
+  public void bindFilterPredicate(ObjectProperty<TreeItemPredicate<Category>> predicateProperty) {
     predicateProperty.bind(Bindings.createObjectBinding(() -> {
       if (searchText.get() == null || searchText.get().isEmpty()) {
         return null;

@@ -3,12 +3,13 @@ package com.dlsc.preferencesfx.view;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
-import java.util.HashMap;
-import java.util.List;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Contains presenter logic of the {@link NavigationView}.
@@ -116,7 +117,7 @@ public class NavigationPresenter implements Presenter {
       if (category.getChildren() != null) {
         addRecursive(item, category.getChildren());
       }
-      treeItem.add(item);
+      treeItem.getInternalChildren().add(item);
       categoryTreeItemMap.put(category, item);
     }
   }
