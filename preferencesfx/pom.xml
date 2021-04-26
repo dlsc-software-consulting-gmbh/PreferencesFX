@@ -72,6 +72,7 @@
     <properties>
         <checkstyle.path>../config/checkstyle/checkstyle.xml</checkstyle.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <ikonli.version>12.2.0</ikonli.version>
     </properties>
 
     <build>
@@ -206,15 +207,21 @@
         </dependency>
 
         <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-commons</artifactId>
-            <version>11.0</version>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-core</artifactId>
+            <version>${ikonli.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>de.jensd</groupId>
-            <artifactId>fontawesomefx-fontawesome</artifactId>
-            <version>4.7.0-11</version>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-javafx</artifactId>
+            <version>${ikonli.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-material-pack</artifactId>
+            <version>${ikonli.version}</version>
         </dependency>
 
         <!-- Logging -->
