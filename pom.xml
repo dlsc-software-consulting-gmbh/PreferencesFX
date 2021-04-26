@@ -6,7 +6,7 @@
 
     <groupId>com.dlsc.preferencesfx</groupId>
     <artifactId>parent</artifactId>
-    <version>11.7.0</version>
+    <version>11.7.1</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -19,12 +19,22 @@
         <sonar.organization>dlsc-software-consulting-gmbh</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
-        <maven.deploy.skip>true</maven.deploy.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>1.6.0</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>1.6.2</asciidoctorj.version>
         <jruby.version>9.2.6.0</jruby.version>
+        <javafx.version>16</javafx.version>
     </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-dlsc-oss-repository</id>
+            <name>dlsc-oss-repository</name>
+            <url>
+                https://api.bintray.com/maven/dlsc-oss/repository/PreferencesFX/;publish=1
+            </url>
+        </repository>
+    </distributionManagement>
 
     <dependencyManagement>
         <dependencies>
@@ -41,8 +51,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
+                    <source>11</source>
+                    <target>11</target>
                     <release>11</release>
                 </configuration>
             </plugin>

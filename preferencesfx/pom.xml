@@ -6,8 +6,14 @@
 
     <groupId>com.dlsc.preferencesfx</groupId>
     <artifactId>preferencesfx-core</artifactId>
-    <version>11.7.0</version>
+    <version>11.7.1</version>
     <packaging>jar</packaging>
+
+    <parent>
+        <groupId>com.dlsc.preferencesfx</groupId>
+        <artifactId>parent</artifactId>
+        <version>11.7.1</version>
+    </parent>
 
     <name>PreferencesFX</name>
     <description>A framework for quickly creating a UI for setting application
@@ -97,7 +103,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>3.2.0</version>
                 <configuration>
                     <failOnError>true</failOnError>
                     <failOnWarnings>true</failOnWarnings>
@@ -171,38 +177,6 @@
                     <forkCount>0</forkCount>
                 </configuration>
             </plugin>
-
-            <!-- Checkstyle -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.25</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <configLocation>${checkstyle.path}</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
-                    <includeTestSourceDirectory>false</includeTestSourceDirectory>
-                    <failOnViolation>true</failOnViolation>
-                    <violationSeverity>warning</violationSeverity>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>verify-style</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -210,13 +184,13 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>13.0.1</version>
+            <version>${javafx.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
-            <version>11.0.0</version>
+            <version>11.1.0</version>
         </dependency>
 
         <dependency>
@@ -228,7 +202,7 @@
         <dependency>
             <groupId>com.dlsc.formsfx</groupId>
             <artifactId>formsfx-core</artifactId>
-            <version>11.4.1</version>
+            <version>11.4.2</version>
         </dependency>
 
         <dependency>
