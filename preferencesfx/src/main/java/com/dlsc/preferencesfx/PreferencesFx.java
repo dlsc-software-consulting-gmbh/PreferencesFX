@@ -18,6 +18,7 @@ import com.dlsc.preferencesfx.view.PreferencesFxDialog;
 import com.dlsc.preferencesfx.view.PreferencesFxPresenter;
 import com.dlsc.preferencesfx.view.PreferencesFxView;
 import com.dlsc.preferencesfx.view.UndoRedoBox;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.image.Image;
@@ -308,5 +309,13 @@ public class PreferencesFx {
     preferencesFxDialog.setDialogIcon(image);
     return this;
   }
-
+  
+  /**
+   * Return the stylesheets of the PreferenceFxDialog.
+   *
+   * @return the stylesheets List of the PreferenceFxDialog
+   */
+  public ObservableList<String> getStylesheets() {
+    return preferencesFxDialog.getStylesheets();
+  }
 }
