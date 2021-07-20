@@ -20,7 +20,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <asciidoctor.maven.plugin.version>2.1.0</asciidoctor.maven.plugin.version>
+        <asciidoctor.maven.plugin.version>2.2.0</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>2.5.1</asciidoctorj.version>
         <jruby.version>9.2.6.0</jruby.version>
         <maven.deploy.skip>true</maven.deploy.skip>
