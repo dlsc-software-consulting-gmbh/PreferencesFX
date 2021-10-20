@@ -67,7 +67,7 @@
         <checkstyle.path>../config/checkstyle/checkstyle.xml</checkstyle.path>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <ikonli.version>12.2.0</ikonli.version>
-        <javafx.version>16</javafx.version>
+        <javafx.version>17.0.1</javafx.version>
     </properties>
 
     <build>
