@@ -1,25 +1,19 @@
 package com.dlsc.preferencesfx.util;
 
-import static com.dlsc.preferencesfx.util.Constants.DEFAULT_DIVIDER_POSITION;
-import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_HEIGHT;
-import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_POS_X;
-import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_POS_Y;
-import static com.dlsc.preferencesfx.util.Constants.DEFAULT_PREFERENCES_WIDTH;
-import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
-import static javafx.collections.FXCollections.observableList;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import com.google.gson.internal.LinkedTreeMap;
-import java.util.Objects;
 import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Objects;
+
+import static com.dlsc.preferencesfx.util.Constants.*;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static javafx.collections.FXCollections.observableList;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for {@link StorageHandlerImpl}.
@@ -167,10 +161,6 @@ public class StorageHandlerImplTest {
     final Object loadedEnum = storageHandler.loadObject("foo", null);
     assertThat(loadedEnum, is("FOO"));
     assertThat(loadedEnum, is(instanceOf(String.class)));
-
-    storageHandler.saveObject("foo", new SomeObject(6, "y"));
-    final Object defaultObject = storageHandler.loadObject("foo", null);
-    assertThat(defaultObject, is(instanceOf(LinkedTreeMap.class)));
   }
 
   @Test
