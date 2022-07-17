@@ -34,12 +34,12 @@ public class OneCategoryExample extends StackPane {
     return PreferencesFx.of(OneCategoryExample.class,
         Category.of("General",
             Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
+                Setting.of("Welcome Text",true, welcomeText)
             ),
             Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode),
-                Setting.of("Scaling", scaling)
+                Setting.of("Brightness",true, brightness),
+                Setting.of("Night mode", scaling.greaterThan(2).getValue(), nightMode),
+                Setting.of("Scaling", true, scaling) // 'false' cases error
                     .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1"))
             )
         )

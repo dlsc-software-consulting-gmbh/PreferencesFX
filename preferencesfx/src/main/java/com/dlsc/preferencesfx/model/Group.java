@@ -129,7 +129,11 @@ public class Group {
    */
   public void addToBreadcrumb(String breadCrumb) {
     setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
-    settings.forEach(setting -> setting.addToBreadcrumb(getBreadcrumb()));
+      settings.forEach(setting -> {
+        if (setting != null) {
+          setting.addToBreadcrumb(getBreadcrumb());
+        }
+      });
   }
 
   public String getBreadcrumb() {

@@ -83,11 +83,11 @@ public class StandardExample extends StackPane {
     return PreferencesFx.of(StandardExample.class,
         Category.of("General",
             Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
+                Setting.of("Welcome Text", true, welcomeText)
             ),
             Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
+                Setting.of("Brightness", true, brightness),
+                Setting.of("Night me", false, nightMode)
             )
         ),
         Category.of("Screen")
@@ -95,23 +95,23 @@ public class StandardExample extends StackPane {
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(
-                        Setting.of("Scaling", scaling)
+                        Setting.of("Scaling", true, scaling)
                             .validate(DoubleRangeValidator
                                 .atLeast(1, "Scaling needs to be at least 1")
                             ),
-                        Setting.of("Screen name", screenName),
-                        Setting.of("Resolution", resolutionItems, resolutionSelection),
-                        Setting.of("Orientation", orientationItems, orientationSelection)
+                        Setting.of("Screen name",true, screenName),
+                        Setting.of("Resolution", true, resolutionItems, resolutionSelection),
+                        Setting.of("Orientation",true, orientationItems, orientationSelection)
                     ).description("Screen Options"),
                     Group.of(
-                        Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1)
+                        Setting.of("Font Size", true, fontSize, 6, 36),
+                        Setting.of("Line Spacing", true, lineSpacing,  0, 3, 1)
                     )
                 )
             ),
         Category.of("Favorites",
-            Setting.of("Favorites", favoritesItems, favoritesSelection),
-            Setting.of("Favorite Number", customControl, customControlProperty)
+            Setting.of("Favorites",true, favoritesItems, favoritesSelection),
+            Setting.of("Favorite Number", true, customControl, customControlProperty)
         )
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
     // asciidoctor Documentation - end::setupPreferences[]

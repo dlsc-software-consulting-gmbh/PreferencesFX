@@ -143,6 +143,7 @@ public class PreferencesFxModel {
 
   public void setSaveSettings(boolean saveSettings) {
     this.saveSettings = saveSettings;
+    loadSettingValues();
   }
 
   public History getHistory() {
@@ -194,7 +195,7 @@ public class PreferencesFxModel {
     PreferencesFxUtils.categoriesToSettings(
         getFlatCategoriesLst()
     ).forEach(setting -> {
-      if (setting.hasValue()) {
+      if ( setting != null && setting.hasValue()) {
         setting.saveSettingValue(storageHandler);
       }
     });
@@ -207,7 +208,7 @@ public class PreferencesFxModel {
   public void loadSettingValues() {
     PreferencesFxUtils.categoriesToSettings(flatCategoriesLst)
         .forEach(setting -> {
-          if (setting.hasValue()) {
+          if (setting != null && setting.hasValue()) {
             LOGGER.trace("Loading: " + setting.getBreadcrumb());
             if (saveSettings) {
               setting.loadSettingValue(storageHandler);

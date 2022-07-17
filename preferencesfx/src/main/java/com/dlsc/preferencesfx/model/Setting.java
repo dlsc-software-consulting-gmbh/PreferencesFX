@@ -20,6 +20,8 @@ import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.io.File;
 import java.util.Objects;
+
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -72,14 +74,23 @@ public class Setting<E extends Element, P extends Property> {
    * @param property    to be bound, saved / loaded and used for undo / redo
    * @return the constructed setting
    */
-  public static Setting of(String description, BooleanProperty property) {
-    return new Setting<>(
-        description,
-        Field.ofBooleanType(property)
-            .label(description)
-            .render(new ToggleControl()),
-        property
-    );
+  public static Setting of(String description, Boolean isShown, BooleanProperty property) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofBooleanType(property)
+                      .label(description)
+                      .render(new ToggleControl()),
+              property
+              );
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -89,13 +100,22 @@ public class Setting<E extends Element, P extends Property> {
    * @param property    to be bound, saved / loaded and used for undo / redo
    * @return the constructed setting
    */
-  public static Setting of(String description, IntegerProperty property) {
-    return new Setting<>(
-        description,
-        Field.ofIntegerType(property)
-            .label(description)
-            .render(new SimpleIntegerControl()),
-        property);
+  public static Setting of(String description, Boolean isShown, IntegerProperty property) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofIntegerType(property)
+                      .label(description)
+                      .render(new SimpleIntegerControl()),
+              property);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -105,13 +125,22 @@ public class Setting<E extends Element, P extends Property> {
    * @param property    to be bound, saved / loaded and used for undo / redo
    * @return the constructed setting
    */
-  public static Setting of(String description, DoubleProperty property) {
-    return new Setting<>(
-        description,
-        Field.ofDoubleType(property)
-            .label(description)
-            .render(new SimpleDoubleControl()),
-        property);
+  public static Setting of(String description, Boolean isShown, DoubleProperty property) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofDoubleType(property)
+                      .label(description)
+                      .render(new SimpleDoubleControl()),
+              property);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -125,13 +154,22 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(
-      String description, DoubleProperty property, double min, double max, int precision) {
-    return new Setting<>(
-        description,
-        Field.ofDoubleType(property)
-            .label(description)
-            .render(new DoubleSliderControl(min, max, precision)),
-        property);
+      String description, Boolean isShown, DoubleProperty property, double min, double max, int precision) {
+   if (isShown) {
+     return new Setting<>(
+             description,
+             Field.ofDoubleType(property)
+                     .label(description)
+                     .render(new DoubleSliderControl(min, max, precision)),
+             property);
+   }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -143,13 +181,22 @@ public class Setting<E extends Element, P extends Property> {
    * @param max         maximum value of the {@link Slider}
    * @return the constructed setting
    */
-  public static Setting of(String description, IntegerProperty property, int min, int max) {
-    return new Setting<>(
-        description,
-        Field.ofIntegerType(property)
-            .label(description)
-            .render(new IntegerSliderControl(min, max)),
-        property);
+  public static Setting of(String description, Boolean isShown, IntegerProperty property, int min, int max) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofIntegerType(property)
+                      .label(description)
+                      .render(new IntegerSliderControl(min, max)),
+              property);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -159,13 +206,22 @@ public class Setting<E extends Element, P extends Property> {
    * @param property    to be bound, saved / loaded and used for undo / redo
    * @return the constructed setting
    */
-  public static Setting of(String description, StringProperty property) {
-    return new Setting<>(
-        description,
-        Field.ofStringType(property)
-            .label(description)
-            .render(new SimpleTextControl()),
-        property);
+  public static Setting of(String description, Boolean isShown, StringProperty property) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofStringType(property)
+                      .label(description)
+                      .render(new SimpleTextControl()),
+              property);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -180,13 +236,22 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static <P> Setting of(
-      String description, ListProperty<P> items, ObjectProperty<P> selection) {
-    return new Setting<>(
-        description,
-        Field.ofSingleSelectionType(items, selection)
-            .label(description)
-            .render(new SimpleComboBoxControl<>()),
-        selection);
+      String description, Boolean isShown, ListProperty<P> items, ObjectProperty<P> selection) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofSingleSelectionType(items, selection)
+                      .label(description)
+                      .render(new SimpleComboBoxControl<>()),
+              selection);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -201,13 +266,22 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static <P> Setting of(
-      String description, ObservableList<P> items, ObjectProperty<P> selection) {
-    return new Setting<>(
-        description,
-        Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection)
-            .label(description)
-            .render(new SimpleComboBoxControl<>()),
-        selection);
+      String description, Boolean isShown, ObservableList<P> items, ObjectProperty<P> selection) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection)
+                      .label(description)
+                      .render(new SimpleComboBoxControl<>()),
+              selection);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -223,13 +297,23 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static <P> Setting of(
-      String description, ListProperty<P> items, ListProperty<P> selections) {
-    return new Setting<>(
-        description,
-        Field.ofMultiSelectionType(items, selections)
-            .label(description)
-            .render(new SimpleListViewControl<>()),
-        selections);
+      String description, Boolean isShown, ListProperty<P> items, ListProperty<P> selections) {
+
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofMultiSelectionType(items, selections)
+                      .label(description)
+                      .render(new SimpleListViewControl<>()),
+              selections);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -245,13 +329,22 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static <P> Setting of(
-      String description, ObservableList<P> items, ListProperty<P> selections) {
-    return new Setting<>(
-        description,
-        Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections)
-            .label(description)
-            .render(new SimpleListViewControl<>()),
-        selections);
+      String description, Boolean isShown, ObservableList<P> items, ListProperty<P> selections) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections)
+                      .label(description)
+                      .render(new SimpleListViewControl<>()),
+              selections);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -265,11 +358,20 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static <F extends Field<F>, P extends Property> Setting of(
-      String description, F field, P property) {
-    return new Setting<>(
-        description,
-        field.label(description),
-        property);
+      String description, Boolean isShown, F field, P property) {
+    if (isShown) {
+      return new Setting<>(
+              description,
+              field.label(description),
+              property);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -283,11 +385,20 @@ public class Setting<E extends Element, P extends Property> {
    * @param node        custom node
    * @return the constructed setting
    */
-  public static <N extends Node> Setting of(N node) {
-    return new Setting<>(
-        null,
-        NodeElement.of(node),
-        null);
+  public static <N extends Node> Setting of(N node, Boolean isShown) {
+    if (isShown) {
+      return new Setting<>(
+              null,
+              NodeElement.of(node),
+              null);
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -297,8 +408,9 @@ public class Setting<E extends Element, P extends Property> {
    * @param colorProperty the current selected color value
    * @return the constructed setting
    */
-  public static Setting of(String description, ObjectProperty<Color> colorProperty) {
-    StringProperty stringProperty = new SimpleStringProperty();
+  public static Setting of(String description, Boolean isShown, ObjectProperty<Color> colorProperty) {
+    if (isShown) {
+      StringProperty stringProperty = new SimpleStringProperty();
     stringProperty.bindBidirectional(
         colorProperty, new StringConverter<Color>() {
           @Override
@@ -322,6 +434,14 @@ public class Setting<E extends Element, P extends Property> {
             ),
         stringProperty
     );
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
   /**
@@ -333,9 +453,10 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description,
+                           Boolean isShown,
                            ObjectProperty<File> fileProperty,
                            boolean directory) {
-    return of(description, fileProperty, null, directory);
+    return of(description, isShown, fileProperty, null, directory);
   }
 
   /**
@@ -349,10 +470,11 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description,
+                           Boolean isShown,
                            ObjectProperty<File> fileProperty,
                            File initialDirectory,
                            boolean directory) {
-    return of(description, fileProperty, "Browse", initialDirectory, directory);
+    return of(description, isShown, fileProperty, "Browse", initialDirectory, directory);
   }
 
   /**
@@ -367,11 +489,14 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description,
+                           Boolean isShown,
                            ObjectProperty<File> fileProperty,
                            String buttonText,
                            File initialDirectory,
                            boolean directory) {
-    StringProperty stringProperty = new SimpleStringProperty();
+
+    if (isShown) {
+      StringProperty stringProperty = new SimpleStringProperty();
     stringProperty.bindBidirectional(
         fileProperty, new StringConverter<File>() {
           @Override
@@ -397,6 +522,14 @@ public class Setting<E extends Element, P extends Property> {
             ),
         stringProperty
     );
+    }
+    else {
+      return new Setting<>(
+              null,
+              null,
+              null);
+
+    }
   }
 
 
@@ -432,6 +565,7 @@ public class Setting<E extends Element, P extends Property> {
           "Only Fields can be marked, since they have a description."
       );
     }
+
     // ensure it's not marked yet - so a control doesn't contain the same styleClass multiple times
     if (!marked) {
       SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
@@ -461,6 +595,10 @@ public class Setting<E extends Element, P extends Property> {
       markNode.removeEventHandler(MouseEvent.MOUSE_EXITED, unmarker);
       marked = !marked;
     }
+  }
+
+  public Boolean doesPropertyExist() {
+    return (element != null);
   }
 
   /**
@@ -526,7 +664,7 @@ public class Setting<E extends Element, P extends Property> {
    * @param breadCrumb the breadcrumb to add to this group's breadcrumb
    */
   public void addToBreadcrumb(String breadCrumb) {
-    setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
+      setBreadcrumb(breadCrumb + Constants.BREADCRUMB_DELIMITER + description);
   }
 
   /**

@@ -56,7 +56,7 @@ public class PreferencesFxUtils {
         .map(Group::getSettings)      // get settings from groups
         .filter(Objects::nonNull)     // remove all null
         .flatMap(Collection::stream)  // recursively flatten all settings
-        .map(Setting::getElement)
+        .map( Setting::getElement)
         .map(Element.class::cast)
         .collect(Collectors.toList());
   }

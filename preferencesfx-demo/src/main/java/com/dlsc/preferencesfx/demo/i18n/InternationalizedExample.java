@@ -92,11 +92,11 @@ public class InternationalizedExample extends StackPane {
     return PreferencesFx.of(InternationalizedExample.class,
         Category.of("general",
             Group.of("greeting",
-                Setting.of("welcome", welcomeText)
+                Setting.of("welcome",true, welcomeText)
             ),
             Group.of("display",
-                Setting.of("brightness", brightness),
-                Setting.of("night_mode", nightMode)
+                Setting.of("brightness",true, brightness),
+                Setting.of("night_mode", false, nightMode)
             )
         ),
         Category.of("screen")
@@ -104,21 +104,21 @@ public class InternationalizedExample extends StackPane {
             .subCategories(
                 Category.of("scaling_ordering",
                     Group.of(
-                        Setting.of("scaling", scaling)
+                        Setting.of("scaling", true,scaling)
                             .validate(DoubleRangeValidator.atLeast(1, "scaling_validate")),
-                        Setting.of("screen_name", screenName),
-                        Setting.of("resolution", resolutionItems, resolutionSelection),
-                        Setting.of("orientation", orientationItems, orientationSelection)
+                        Setting.of("screen_name",true, screenName),
+                        Setting.of("resolution", true,resolutionItems, resolutionSelection),
+                        Setting.of("orientation",true, orientationItems, orientationSelection)
                     ).description("screen_options"),
                     Group.of(
-                        Setting.of("font_size", fontSize, 6, 36),
-                        Setting.of("line_spacing", lineSpacing, 0, 3, 1)
+                        Setting.of("font_size", true,fontSize, 6, 36),
+                        Setting.of("line_spacing", true, lineSpacing,  0, 3, 1)
                     )
                 )
             ),
         Category.of("favorites",
-            Setting.of("favorites", favoritesItems, favoritesSelection),
-            Setting.of("favorite_number", customControl, customControlProperty)
+            Setting.of("favorites", true, favoritesItems, favoritesSelection),
+            Setting.of("favorite_number",true, customControl, customControlProperty)
         )
     ).i18n(rbs).persistWindowState(false)
      .saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);

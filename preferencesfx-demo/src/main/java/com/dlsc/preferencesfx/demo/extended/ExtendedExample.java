@@ -2,8 +2,6 @@ package com.dlsc.preferencesfx.demo.extended;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
-import com.dlsc.formsfx.model.structure.NodeElement;
-import com.dlsc.formsfx.model.structure.SingleSelectionField;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.demo.AppStarter;
@@ -14,7 +12,6 @@ import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
 import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -82,11 +79,11 @@ public class ExtendedExample extends StackPane {
   private enum MyEnum {
     FIRST, SECOND, THIRD
   }
-  private ObjectProperty<MyEnum> myEnumSettingValue = new SimpleObjectProperty<>(MyEnum.FIRST);
-  private SimpleListProperty<MyEnum> enumList =
-      new SimpleListProperty<>(FXCollections.observableArrayList(Arrays.asList(MyEnum.values())));
-  private SingleSelectionField<MyEnum> myEnumControl =
-      Field.ofSingleSelectionType(enumList, myEnumSettingValue).render(new SimpleComboBoxControl<>());
+//  private ObjectProperty<MyEnum> myEnumSettingValue = new SimpleObjectProperty<>(MyEnum.FIRST);
+//  private SimpleListProperty<MyEnum> enumList =
+//      new SimpleListProperty<>(FXCollections.observableArrayList(Arrays.asList(MyEnum.values())));
+//  private SingleSelectionField<MyEnum> myEnumControl =
+//      Field.ofSingleSelectionType(enumList, myEnumSettingValue).render(new SimpleComboBoxControl<>());
 
   public ExtendedExample() {
     preferencesFx = createPreferences();
@@ -166,124 +163,124 @@ public class ExtendedExample extends StackPane {
     return PreferencesFx.of(ExtendedExample.class,
         Category.of("General",
             Group.of("Greeting",
-                Setting.of("Welcome Text", welcomeText)
+                Setting.of("Welcome Text", true, welcomeText)
             ),
             Group.of("Display",
-                Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
+                Setting.of("Brightness", true,brightness),
+                Setting.of("Night mode", brightness.lessThan(10).get(), nightMode)
             )
         ),
         Category.of("Screen")
             .subCategories(
                 Category.of("Scaling & Ordering",
                     Group.of(
-                        Setting.of("Scaling", scaling)
+                        Setting.of("Scaling", true,scaling)
                             .validate(DoubleRangeValidator.atLeast(1, "Scaling needs to be at least 1")),
-                        Setting.of("Screen name", screenName),
-                        Setting.of("Resolution", resolutionItems, resolutionSelection),
-                        Setting.of("Orientation", orientationItems, orientationSelection)
+                        Setting.of("Screen name", true,screenName),
+                        Setting.of("Resolution",true, resolutionItems, resolutionSelection),
+                        Setting.of("Orientation", true,orientationItems, orientationSelection)
                     ).description("Screen Options"),
                     Group.of(
-                        Setting.of("Font Size", fontSize, 6, 36),
-                        Setting.of("Font Color", colorProperty),
-                        Setting.of("Line Spacing", lineSpacing, 0, 3, 1),
-                        Setting.of("File", fileProperty, false),
-                        Setting.of("Folder", directoryProperty, "Browse", null, true),
-                        Setting.of("File with Default", fileDefaultProperty, new File("/"), false),
-                        Setting.of("Folder with Default", directoryDefaultProperty, new File("/"), true)
+                        Setting.of("Font Size",true, fontSize, 6, 36),
+                        Setting.of("Font Color",true, colorProperty),
+                        Setting.of("Line Spacing",true, lineSpacing,0, 3, 1),
+                        Setting.of("File", true,fileProperty, false),
+                        Setting.of("Folder",true, directoryProperty, "Browse", null, true),
+                        Setting.of("File with Default",true, fileDefaultProperty, new File("/"), false),
+                        Setting.of("Folder with Default", true, directoryDefaultProperty, new File("/"), true)
                     )
                 )
             ),
         Category.of("Favorites",
-            Setting.of("Favorites", favoritesItems, favoritesSelection),
-            Setting.of("Favorite Number", customControl, customControlProperty)
+            Setting.of("Favorites", true, favoritesItems, favoritesSelection),
+            Setting.of("Favorite Number",true,  customControl, customControlProperty)
         ),
         Category.of("Appearance & Behaviour")
             .subCategories(
                 Category.of("Appearance",
                     Group.of("UI Options",
-                        Setting.of("Theme", themesLst, themesObj),
+                        Setting.of("Theme",true,  themesLst, themesObj),
                         Setting.of("Adjust colors for red-green vision defiency " +
-                                "(protanopia, deuteranopia)",
+                                "(protanopia, deuteranopia)", false,
                             new SimpleBooleanProperty()),
-                        Setting.of("Override default fonts",
+                        Setting.of("Override default fonts", true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Cyclic scrolling in list",
+                        Setting.of("Cyclic scrolling in list",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Show icons in quick navigation",
+                        Setting.of("Show icons in quick navigation",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Automatically position mouse cursor on default button",
+                        Setting.of("Automatically position mouse cursor on default button", true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Hide navigation popups on focus loss",
+                        Setting.of("Hide navigation popups on focus loss",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Drag-n-Drop with ALT pressed only",
+                        Setting.of("Drag-n-Drop with ALT pressed only",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Tooltip initial delay (ms)",
-                            new SimpleIntegerProperty(1200), 0, 1200)
+                        Setting.of("Tooltip initial delay (ms)",true,
+                                new SimpleIntegerProperty(1200), 0, 1200)
                     ),
                     Group.of("Antialiasing",
-                        Setting.of("IDE", ideLst, ideObj),
-                        Setting.of("Editor", editorLst, editorObj)
+                        Setting.of("IDE", true, ideLst, ideObj),
+                        Setting.of("Editor",true,  editorLst, editorObj)
                     ),
                     Group.of("Window Options",
-                        Setting.of("Animate windows",
+                        Setting.of("Animate windows",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Show memory indicator",
+                        Setting.of("Show memory indicator",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Disable mnemnonics in menu",
+                        Setting.of("Disable mnemnonics in menu",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Disable mnemnonics in controls",
+                        Setting.of("Disable mnemnonics in controls",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Display icons in menu items",
+                        Setting.of("Display icons in menu items",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Side-by-side layout on the left",
+                        Setting.of("Side-by-side layout on the left",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Smooth scrolling",
+                        Setting.of("Smooth scrolling",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Show tool window bars",
+                        Setting.of("Show tool window bars",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Show tool window numbers",
+                        Setting.of("Show tool window numbers",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Allow merging buttons on dialogs",
+                        Setting.of("Allow merging buttons on dialogs",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Small labels in editor tabs",
+                        Setting.of("Small labels in editor tabs",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Widescreen tool window layout",
+                        Setting.of("Widescreen tool window layout",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Side-by-side layout on the right",
+                        Setting.of("Side-by-side layout on the right",true,
                             new SimpleBooleanProperty())
                     ),
                     Group.of("Presentation Mode",
-                        Setting.of("Font size", fontLst, fontObj)
+                        Setting.of("Font size",true,  fontLst, fontObj)
                     )
                 ),
                 Category.of("Menus and Toolbars"),
                 Category.of("System Settings",
                     Group.of("Startup / Shutdown",
-                        Setting.of("Reopen last project on startup",
+                        Setting.of("Reopen last project on startup",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Confirm application exit",
+                        Setting.of("Confirm application exit",true,
                             new SimpleBooleanProperty(true))
                     ),
                     Group.of(
-                        Setting.of("Project Opening", projectOpeningLst, projectOpeningObj)
+                        Setting.of("Project Opening", true, projectOpeningLst, projectOpeningObj)
                     ),
                     Group.of("Synchronization",
-                        Setting.of("Synchronize files on frame or editor tab activation",
+                        Setting.of("Synchronize files on frame or editor tab activation",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Save files on frame deactivation",
+                        Setting.of("Save files on frame deactivation",true,
                             new SimpleBooleanProperty(true)),
-                        Setting.of("Saves files automatically if application is idle for 15 sec.",
+                        Setting.of("Saves files automatically if application is idle for 15 sec.",true,
                             new SimpleBooleanProperty()),
-                        Setting.of("Use safe write (save changes to a temporary file first)",
+                        Setting.of("Use safe write (save changes to a temporary file first)",true,
                             new SimpleBooleanProperty(true))
                     ),
                     Group.of("Accessibility",
-                        Setting.of("Support screen readers (requires restart)",
+                        Setting.of("Support screen readers (requires restart)",true,
                             new SimpleBooleanProperty())
                     ),
                     Group.of(
-                        Setting.of("On closing Tool Window with Running Process", closingToolLst, closingToolObj)
+                        Setting.of("On closing Tool Window with Running Process", true, closingToolLst, closingToolObj)
                     )
                 )
                     .subCategories(
@@ -294,9 +291,9 @@ public class ExtendedExample extends StackPane {
                         Category.of("Android SDK")
                     ),
                 Category.of("File Colors",
-                    Setting.of(new Label("This can be your very own placeholder!"))),
-                Category.of("Scopes",
-                    Setting.of("My Enum", myEnumControl , myEnumSettingValue)),
+                    Setting.of(new Label("This can be your very own placeholder!"), true)),
+//                Category.of("Scopes",
+//                    Setting.of("My Enum", myEnumControl , myEnumSettingValue)),
                 Category.of("Notifications"),
                 Category.of("Quick Lists"),
                 Category.of("Path Variables")
