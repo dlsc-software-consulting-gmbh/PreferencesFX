@@ -24,14 +24,16 @@ public class VisibilityNodeExample extends StackPane {
   }
 
   private PreferencesFx createPreferences() {
-    SimpleBooleanProperty visibilityProperty = new SimpleBooleanProperty(true);
-    brightness.addListener((observable, oldValue, newValue) -> { visibilityProperty.set(newValue.intValue() > 50); });
-
     return PreferencesFx.of(VisibilityNodeExample.class,
         Category.of("General",
             Group.of("Display",
                 Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode, visibilityProperty)
+                Setting.of("Night mode", nightMode, () -> {
+                  BooleanProperty visibilityProperty = new SimpleBooleanProperty(true);
+                  brightness.addListener((observable, oldValue, newValue) -> { visibilityProperty.set(newValue.intValue() > 50); });
+
+                  return visibilityProperty;
+                })
             )
         )
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
