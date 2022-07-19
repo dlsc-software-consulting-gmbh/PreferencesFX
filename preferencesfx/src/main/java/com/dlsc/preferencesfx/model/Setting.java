@@ -82,6 +82,16 @@ public class Setting<E extends Element, P extends Property> {
     );
   }
 
+  public static Setting of(String description, BooleanProperty property, BooleanProperty visibilityProperty) {
+    return new Setting<>(
+            description,
+            Field.ofBooleanType(property)
+                    .label(description)
+                    .render(new ToggleControl(visibilityProperty)),
+            property
+    );
+  }
+
   /**
    * Constructs a setting of {@link Integer} type, which is represented by a {@link TextField}.
    *

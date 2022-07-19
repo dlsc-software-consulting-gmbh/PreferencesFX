@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.BooleanField;
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.control.Label;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -20,6 +21,15 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
    */
   private Label fieldLabel;
 
+  private BooleanProperty nodeVisibilityProperty;
+
+  public ToggleControl() {
+  }
+
+  public ToggleControl(BooleanProperty booleanProperty) {
+    this.nodeVisibilityProperty = booleanProperty;
+  }
+
   /**
    * {@inheritDoc}
    */
@@ -34,6 +44,11 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
     // is necessary to offset the control to the left, because we don't use the provided label
     node.setTranslateX(NEGATIVE_LABEL_INSETS);
     node.setSelected(field.getValue());
+
+    if (this.nodeVisibilityProperty != null) {
+      node.visibleProperty().bind(this.nodeVisibilityProperty);
+      fieldLabel.visibleProperty().bind(this.nodeVisibilityProperty);
+    }
   }
 
   /**
