@@ -17,7 +17,7 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleListViewControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.Constants;
-import com.dlsc.preferencesfx.util.ElementVisibility;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.io.File;
 import java.util.Objects;
@@ -83,12 +83,12 @@ public class Setting<E extends Element, P extends Property> {
     );
   }
 
-  public static Setting of(String description, BooleanProperty property, ElementVisibility elementVisibility) {
+  public static Setting of(String description, BooleanProperty property, VisibilityProperty visibilityProperty) {
     return new Setting<>(
             description,
             Field.ofBooleanType(property)
                     .label(description)
-                    .render(new ToggleControl(elementVisibility)),
+                    .render(new ToggleControl(visibilityProperty)),
             property
     );
   }

@@ -4,6 +4,7 @@ import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,6 +16,8 @@ public class VisibilityNodeExample extends StackPane {
   public PreferencesFx preferencesFx;
 
   IntegerProperty brightness = new SimpleIntegerProperty(50);
+
+  IntegerProperty scale = new SimpleIntegerProperty(50);
 
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
 
@@ -28,12 +31,8 @@ public class VisibilityNodeExample extends StackPane {
         Category.of("General",
             Group.of("Display",
                 Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode, () -> {
-                  BooleanProperty visibilityProperty = new SimpleBooleanProperty(true);
-                  brightness.addListener((observable, oldValue, newValue) -> { visibilityProperty.set(newValue.intValue() > 50); });
-
-                  return visibilityProperty;
-                })
+                Setting.of("Night mode", nightMode, VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)),
+                Setting.of("Scale", scale)
             )
         )
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
