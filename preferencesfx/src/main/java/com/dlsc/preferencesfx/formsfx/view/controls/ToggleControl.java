@@ -19,7 +19,7 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
    * - toggleSwitch is the toggle switch to set user input.
    * - container holds the toggle so that it can be styled properly.
    */
-  private Label fieldLabel;
+  //private Label fieldLabel;
 
   private VisibilityProperty visibilityProperty;
 
@@ -37,7 +37,7 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   public void initializeParts() {
     super.initializeParts();
 
-    fieldLabel = new Label(field.labelProperty().getValue());
+    //fieldLabel = new Label(field.labelProperty().getValue());
 
     node = new ToggleSwitch();
     node.getStyleClass().add("toggle-control");
@@ -47,7 +47,10 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
 
     if (this.visibilityProperty != null) {
       this.node.visibleProperty().bind(this.visibilityProperty.get());
-      this.fieldLabel.visibleProperty().bind(this.visibilityProperty.get());
+      this.node.managedProperty().bind(this.visibilityProperty.get());
+
+      this.getFieldLabel().visibleProperty().bind(this.visibilityProperty.get());
+      this.getFieldLabel().managedProperty().bind(this.visibilityProperty.get());
     }
   }
 
