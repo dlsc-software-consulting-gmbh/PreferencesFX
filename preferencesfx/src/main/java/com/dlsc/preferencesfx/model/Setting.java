@@ -59,7 +59,7 @@ public class Setting<E extends Element, P extends Property> {
   private final StringProperty breadcrumb = new SimpleStringProperty("");
   private String key = "";
 
-  private Setting(String description, E element, P value) {
+  protected Setting(String description, E element, P value) {
     this.description = description;
     this.element = element;
     this.value = value;
