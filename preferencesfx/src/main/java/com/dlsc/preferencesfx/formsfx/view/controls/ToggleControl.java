@@ -44,14 +44,6 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
     // is necessary to offset the control to the left, because we don't use the provided label
     node.setTranslateX(NEGATIVE_LABEL_INSETS);
     node.setSelected(field.getValue());
-
-    if (this.visibilityProperty != null) {
-      this.node.visibleProperty().bind(this.visibilityProperty.get());
-      this.node.managedProperty().bind(this.visibilityProperty.get());
-
-      this.getFieldLabel().visibleProperty().bind(this.visibilityProperty.get());
-      this.getFieldLabel().managedProperty().bind(this.visibilityProperty.get());
-    }
   }
 
   /**
@@ -68,6 +60,14 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   @Override
   public void setupBindings() {
     super.setupBindings();
+
+    if (this.visibilityProperty != null) {
+      this.node.visibleProperty().bind(this.visibilityProperty.get());
+      this.node.managedProperty().bind(this.visibilityProperty.get());
+
+      this.getFieldLabel().visibleProperty().bind(this.visibilityProperty.get());
+      this.getFieldLabel().managedProperty().bind(this.visibilityProperty.get());
+    }
   }
 
   /**
