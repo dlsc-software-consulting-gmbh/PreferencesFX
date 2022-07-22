@@ -2,9 +2,11 @@ package com.dlsc.preferencesfx.demo.standard;
 
 import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.formsfx.model.structure.PasswordField;
 import com.dlsc.formsfx.model.validators.DoubleRangeValidator;
 import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.formsfx.view.controls.IntegerSliderControl;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimplePasswordControl;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
@@ -64,9 +66,13 @@ public class StandardExample extends StackPane {
           "Eboda Phot-O-Shop", "Mikesoft Text"))
   );
 
-  // Custom Control
+  // Custom Controls
   IntegerProperty customControlProperty = new SimpleIntegerProperty(42);
   IntegerField customControl = setupCustomControl();
+
+  StringProperty somePassword = new SimpleStringProperty("");
+  PasswordField somePasswordControl = Field.ofPasswordType(somePassword).render(
+        new SimplePasswordControl());
 
   public StandardExample() {
     preferencesFx = createPreferences();
@@ -88,6 +94,9 @@ public class StandardExample extends StackPane {
             Group.of("Display",
                 Setting.of("Brightness", brightness),
                 Setting.of("Night mode", nightMode)
+            ),
+            Group.of("Secrets",
+                    Setting.of("Password", somePasswordControl, somePassword)
             )
         ),
         Category.of("Screen")
