@@ -29,12 +29,14 @@ public class VisibilityNodeExample extends StackPane {
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(VisibilityNodeExample.class,
         Category.of("General",
-            VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50),
             Group.of("Display",
                 Setting.of("Brightness", brightness),
                 Setting.of("Night mode", nightMode, VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)),
-                Setting.of("Scale", scale)
+                Setting.of("Scale", scale, VisibilityProperty.of(nightMode, (newValue) -> newValue))
             )
+        ),
+        Category.of("HiddenCategory",
+                VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)
         )
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }

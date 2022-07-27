@@ -22,6 +22,8 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.StringField;
 import java.util.Objects;
+
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
@@ -45,6 +47,22 @@ public class SimpleColorPickerControl extends SimpleControl<StringField, StackPa
   private ColorPicker colorPicker;
   private Color initialValue;
   private Label fieldLabel;
+
+
+  /**
+   * Constructs a SimpleColorPickerControl of {@link SimpleColorPickerControl} type, with visibility condition.
+   *
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed SimpleColorPickerControl
+   */
+  public static SimpleColorPickerControl of(Color initialValue, VisibilityProperty visibilityProperty) {
+    SimpleColorPickerControl simpleColorPickerControl = new SimpleColorPickerControl(initialValue);
+
+    simpleColorPickerControl.visibilityProperty = visibilityProperty;
+
+    return simpleColorPickerControl;
+  }
 
   /**
    * Create a SimpleColorPickerControl with an initial value.

@@ -23,6 +23,8 @@ import com.dlsc.formsfx.model.structure.StringField;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -61,6 +63,23 @@ public class SimpleChooserControl extends SimpleControl<StringField, StackPane> 
   private String buttonText;
   private File initialDirectory;
   private boolean directory;
+
+  /**
+   * Constructs a SimpleChooserControl of {@link SimpleChooserControl} type, with visibility condition.
+   *
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed SimpleChooserControl
+   */
+  public static SimpleChooserControl of(String buttonText,
+      File initialDirectory,
+      boolean directory, VisibilityProperty visibilityProperty) {
+    SimpleChooserControl simpleChooserControl = new SimpleChooserControl(buttonText, initialDirectory, directory);
+
+    simpleChooserControl.visibilityProperty = visibilityProperty;
+
+    return simpleChooserControl;
+  }
 
   /**
    * Create a new SimpleChooserControl.

@@ -21,6 +21,7 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.StringField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -50,6 +51,24 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
   private Label readOnlyLabel;
   private Label fieldLabel;
 
+  public SimpleTextControl() {
+  }
+
+  /**
+   * Constructs a SimpleTextControl of {@link SimpleTextControl} type, with visibility condition.
+   *
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed SimpleTextControl
+   */
+  public static SimpleTextControl of(VisibilityProperty visibilityProperty) {
+    SimpleTextControl simpleTextControl = new SimpleTextControl();
+
+    simpleTextControl.visibilityProperty = visibilityProperty;
+
+    return simpleTextControl;
+  }
+  
   /**
    * {@inheritDoc}
    */

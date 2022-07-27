@@ -23,6 +23,8 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
 import com.dlsc.formsfx.model.structure.MultiSelectionField;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 
@@ -42,6 +44,24 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
    * - The node is a VBox holding all node.
    */
   private final List<CheckBox> checkboxes = new ArrayList<>();
+
+  public SimpleCheckBoxControl() {
+  }
+
+  /**
+   * Constructs a SimpleCheckBoxControl of {@link SimpleCheckBoxControl} type, with visibility condition.
+   *
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed SimpleCheckBoxControl
+   */
+  public static SimpleCheckBoxControl of(VisibilityProperty visibilityProperty) {
+    SimpleCheckBoxControl simpleCheckBoxControl = new SimpleCheckBoxControl();
+
+    simpleCheckBoxControl.visibilityProperty = visibilityProperty;
+
+    return simpleCheckBoxControl;
+  }
 
   /**
    * {@inheritDoc}

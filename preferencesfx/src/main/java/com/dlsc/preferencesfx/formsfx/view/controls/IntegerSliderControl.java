@@ -1,6 +1,7 @@
 package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -27,6 +28,23 @@ public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
   private Label valueLabel;
   private int min;
   private int max;
+
+  /**
+   * Constructs a IntegerSliderControl of {@link IntegerSliderControl} type, with visibility condition.
+   *
+   * @param min minimum slider value
+   * @param max maximum slider value
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed IntegerSliderControl
+   */
+  public static IntegerSliderControl of(int min, int max, VisibilityProperty visibilityProperty) {
+    IntegerSliderControl integerSliderControl = new IntegerSliderControl(min, max);
+
+    integerSliderControl.visibilityProperty = visibilityProperty;
+
+    return integerSliderControl;
+  }
 
   /**
    * Creates a slider for integer values.

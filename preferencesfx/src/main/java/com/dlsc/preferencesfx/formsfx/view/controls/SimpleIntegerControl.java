@@ -21,6 +21,7 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.IntegerField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -37,6 +38,24 @@ import javafx.util.converter.IntegerStringConverter;
  */
 public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Integer> {
 
+  public SimpleIntegerControl() {
+  }
+
+  /**
+   * Constructs a SimpleIntegerControl of {@link SimpleIntegerControl} type, with visibility condition.
+   *
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed SimpleIntegerControl
+   */
+  public static SimpleIntegerControl of(VisibilityProperty visibilityProperty) {
+    SimpleIntegerControl simpleIntegerControl = new SimpleIntegerControl();
+
+    simpleIntegerControl.visibilityProperty = visibilityProperty;
+
+    return simpleIntegerControl;
+  }
+  
   /**
    * {@inheritDoc}
    */

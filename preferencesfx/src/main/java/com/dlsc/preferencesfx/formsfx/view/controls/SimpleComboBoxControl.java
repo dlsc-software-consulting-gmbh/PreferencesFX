@@ -21,6 +21,7 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.SingleSelectionField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -48,6 +49,24 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
   private Label fieldLabel;
   private ComboBox<V> comboBox;
   private Label readOnlyLabel;
+
+  public SimpleComboBoxControl() {
+  }
+
+  /**
+   * Constructs a SimpleComboBoxControl of {@link SimpleComboBoxControl} type, with visibility condition.
+   *
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed SimpleComboBoxControl
+   */
+  public static SimpleComboBoxControl of(VisibilityProperty visibilityProperty) {
+    SimpleComboBoxControl simpleComboBoxControl = new SimpleComboBoxControl();
+
+    simpleComboBoxControl.visibilityProperty = visibilityProperty;
+
+    return simpleComboBoxControl;
+  }
 
   /**
    * {@inheritDoc}
