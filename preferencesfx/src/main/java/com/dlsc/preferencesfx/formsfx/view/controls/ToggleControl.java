@@ -21,13 +21,22 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
    */
   private Label fieldLabel;
 
-  private VisibilityProperty visibilityProperty;
-
   public ToggleControl() {
   }
 
-  public ToggleControl(VisibilityProperty visibilityProperty) {
-    this.visibilityProperty = visibilityProperty;
+  /**
+   * Constructs a ToggleControl of {@link ToggleControl} type, with visibility condition.
+   *
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed ToggleControl
+   */
+  public static ToggleControl of(VisibilityProperty visibilityProperty) {
+    ToggleControl toggleControl = new ToggleControl();
+
+    toggleControl.visibilityProperty = visibilityProperty;
+
+    return toggleControl;
   }
 
   /**
@@ -60,14 +69,6 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   @Override
   public void setupBindings() {
     super.setupBindings();
-
-    if (this.visibilityProperty != null) {
-      this.node.visibleProperty().bind(this.visibilityProperty.get());
-      this.node.managedProperty().bind(this.visibilityProperty.get());
-
-      this.getFieldLabel().visibleProperty().bind(this.visibilityProperty.get());
-      this.getFieldLabel().managedProperty().bind(this.visibilityProperty.get());
-    }
   }
 
   /**

@@ -2,6 +2,7 @@ package com.dlsc.preferencesfx.model;
 
 import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFxGroup;
 import com.dlsc.preferencesfx.util.Constants;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.util.Arrays;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,6 +30,8 @@ public class Group {
   private boolean marked = false;
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private final StringProperty breadcrumb = new SimpleStringProperty("");
+
+  private VisibilityProperty visibilityProperty;
 
   private Group(String description, Setting... settings) {
     this.description = description;
@@ -142,5 +145,13 @@ public class Group {
 
   public void setBreadcrumb(String breadcrumb) {
     this.breadcrumb.set(breadcrumb);
+  }
+
+  public VisibilityProperty getVisibilityProperty() {
+    return visibilityProperty;
+  }
+
+  public void setVisibilityProperty(VisibilityProperty visibilityProperty) {
+    this.visibilityProperty = visibilityProperty;
   }
 }

@@ -74,13 +74,7 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description, BooleanProperty property) {
-    return new Setting<>(
-        description,
-        Field.ofBooleanType(property)
-            .label(description)
-            .render(new ToggleControl()),
-        property
-    );
+    return of(description, property, null);
   }
 
   public static Setting of(String description, BooleanProperty property, VisibilityProperty visibilityProperty) {
@@ -88,7 +82,7 @@ public class Setting<E extends Element, P extends Property> {
             description,
             Field.ofBooleanType(property)
                     .label(description)
-                    .render(new ToggleControl(visibilityProperty)),
+                    .render(ToggleControl.of(visibilityProperty)),
             property
     );
   }
@@ -101,11 +95,23 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description, IntegerProperty property) {
+    return of(description, property, null);
+  }
+
+  /**
+   * Constructs a setting of {@link Integer} type, which is represented by a {@link TextField}.
+   *
+   * @param description the title of this setting
+   * @param property    to be bound, saved / loaded and used for undo / redo
+   * @param visibilityProperties control visibility of element
+   * @return the constructed setting
+   */
+  public static Setting of(String description, IntegerProperty property, VisibilityProperty visibilityProperties) {
     return new Setting<>(
         description,
         Field.ofIntegerType(property)
             .label(description)
-            .render(new SimpleIntegerControl()),
+            .render(SimpleIntegerControl.of(visibilityProperties)),
         property);
   }
 

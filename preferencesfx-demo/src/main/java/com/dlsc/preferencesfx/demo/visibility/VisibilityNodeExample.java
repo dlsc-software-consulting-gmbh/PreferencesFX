@@ -29,6 +29,7 @@ public class VisibilityNodeExample extends StackPane {
   private PreferencesFx createPreferences() {
     return PreferencesFx.of(VisibilityNodeExample.class,
         Category.of("General",
+            VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50),
             Group.of("Display",
                 Setting.of("Brightness", brightness),
                 Setting.of("Night mode", nightMode, VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)),

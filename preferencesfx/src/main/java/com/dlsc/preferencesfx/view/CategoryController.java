@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.view;
 import static com.dlsc.preferencesfx.util.Constants.SCROLLBAR_SUBTRACT;
 
 import com.dlsc.preferencesfx.model.Category;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.util.HashMap;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -28,6 +29,8 @@ public class CategoryController extends ScrollPane {
 
   private HashMap<Category, CategoryView> views = new HashMap<>();
   private HashMap<Category, CategoryPresenter> presenters = new HashMap<>();
+
+  protected VisibilityProperty visibilityProperty;
 
   /**
    * Initializes the category controller.

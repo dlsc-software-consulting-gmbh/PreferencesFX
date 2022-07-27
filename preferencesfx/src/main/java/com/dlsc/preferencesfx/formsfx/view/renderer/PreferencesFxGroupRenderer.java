@@ -5,6 +5,7 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.geometry.Insets;
