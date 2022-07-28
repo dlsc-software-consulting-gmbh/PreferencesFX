@@ -24,7 +24,7 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   /**
    * Constructs a ToggleControl of {@link ToggleControl} type, with visibility condition.
    *
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed ToggleControl
    */

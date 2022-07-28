@@ -37,7 +37,7 @@ public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Double
   /**
    * Constructs a SimpleDoubleControl of {@link SimpleDoubleControl} type, with visibility condition.
    *
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed SimpleDoubleControl
    */

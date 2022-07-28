@@ -54,7 +54,7 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
   /**
    * Constructs a SimpleTextControl of {@link SimpleTextControl} type, with visibility condition.
    *
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed SimpleTextControl
    */

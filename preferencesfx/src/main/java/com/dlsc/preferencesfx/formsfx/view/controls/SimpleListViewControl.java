@@ -54,7 +54,7 @@ public class SimpleListViewControl<V>
   /**
    * Constructs a SimpleListViewControl of {@link SimpleListViewControl} type, with visibility condition.
    *
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed SimpleListViewControl
    */

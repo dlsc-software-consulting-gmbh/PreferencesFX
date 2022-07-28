@@ -20,10 +20,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  * =========================LICENSE_END==================================
  */
 
-import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.preferencesfx.model.Setting;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
-import javafx.beans.property.Property;
 import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Point2D;
@@ -31,6 +27,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
+
+import com.dlsc.formsfx.model.structure.Field;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 
 /**
  * This class provides a base for general purpose FormsFX controls.

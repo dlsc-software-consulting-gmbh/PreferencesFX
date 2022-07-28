@@ -19,8 +19,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  * =========================LICENSE_END==================================
  */
 
-import com.dlsc.formsfx.model.structure.StringField;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,6 +34,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+
+import com.dlsc.formsfx.model.structure.StringField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 
 /**
  * This class provides the base implementation for a simple control to select or enter a directory
@@ -67,7 +68,7 @@ public class SimpleChooserControl extends SimpleControl<StringField, StackPane> 
   /**
    * Constructs a SimpleChooserControl of {@link SimpleChooserControl} type, with visibility condition.
    *
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed SimpleChooserControl
    */

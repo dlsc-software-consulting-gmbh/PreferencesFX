@@ -59,7 +59,7 @@ public class SimplePasswordControl extends SimpleControl<PasswordField, StackPan
     /**
      * Constructs a SimplePasswordControl of {@link SimplePasswordControl} type, with visibility condition.
      *
-     * @param visibilityProperty - property for control visibility of this element
+     * @param visibilityProperty property for control visibility of this element
      *
      * @return the constructed SimplePasswordControl
      */

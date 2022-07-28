@@ -34,7 +34,7 @@ public class IntegerSliderControl extends SimpleControl<IntegerField, HBox> {
    *
    * @param min minimum slider value
    * @param max maximum slider value
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed IntegerSliderControl
    */

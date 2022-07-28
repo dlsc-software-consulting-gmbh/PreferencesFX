@@ -35,9 +35,6 @@ import javafx.scene.control.CheckBox;
  */
 public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> {
 
-  public SimpleBooleanControl() {
-  }
-
   /**
    * Constructs a SimpleBooleanControl of {@link SimpleBooleanControl} type, with visibility condition.
    *

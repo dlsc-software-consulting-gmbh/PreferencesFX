@@ -20,12 +20,13 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  * =========================LICENSE_END==================================
  */
 
-import com.dlsc.formsfx.model.structure.SingleSelectionField;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+
+import com.dlsc.formsfx.model.structure.SingleSelectionField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 
 /**
  * This class provides the base implementation for a simple control to edit
@@ -53,7 +54,7 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
   /**
    * Constructs a SimpleComboBoxControl of {@link SimpleComboBoxControl} type, with visibility condition.
    *
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed SimpleComboBoxControl
    */

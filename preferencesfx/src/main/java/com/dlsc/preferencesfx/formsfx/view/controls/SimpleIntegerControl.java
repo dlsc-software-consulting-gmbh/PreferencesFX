@@ -41,7 +41,7 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
   /**
    * Constructs a SimpleIntegerControl of {@link SimpleIntegerControl} type, with visibility condition.
    *
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed SimpleIntegerControl
    */
