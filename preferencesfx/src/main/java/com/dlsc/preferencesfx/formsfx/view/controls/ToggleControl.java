@@ -21,9 +21,6 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
    */
   private Label fieldLabel;
 
-  public ToggleControl() {
-  }
-
   /**
    * Constructs a ToggleControl of {@link ToggleControl} type, with visibility condition.
    *
@@ -93,5 +90,3 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   }
 
 }
-
-

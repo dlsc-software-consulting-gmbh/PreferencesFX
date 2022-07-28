@@ -34,9 +34,6 @@ import javafx.scene.control.SpinnerValueFactory;
  */
 public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Double> {
 
-  public SimpleDoubleControl() {
-  }
-
   /**
    * Constructs a SimpleDoubleControl of {@link SimpleDoubleControl} type, with visibility condition.
    *
@@ -51,7 +48,7 @@ public class SimpleDoubleControl extends SimpleNumberControl<DoubleField, Double
 
     return simpleDoubleControl;
   }
-  
+
   /**
    * {@inheritDoc}
    */

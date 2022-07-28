@@ -45,8 +45,6 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
    */
   private final List<CheckBox> checkboxes = new ArrayList<>();
 
-  public SimpleCheckBoxControl() {
-  }
 
   /**
    * Constructs a SimpleCheckBoxControl of {@link SimpleCheckBoxControl} type, with visibility condition.

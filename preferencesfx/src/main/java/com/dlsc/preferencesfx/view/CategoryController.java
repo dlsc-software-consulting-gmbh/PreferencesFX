@@ -30,8 +30,6 @@ public class CategoryController extends ScrollPane {
   private HashMap<Category, CategoryView> views = new HashMap<>();
   private HashMap<Category, CategoryPresenter> presenters = new HashMap<>();
 
-  protected VisibilityProperty visibilityProperty;
-
   /**
    * Initializes the category controller.
    */

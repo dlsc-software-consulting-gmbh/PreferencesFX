@@ -36,7 +36,11 @@ public class VisibilityNodeExample extends StackPane {
             )
         ),
         Category.of("HiddenCategory",
-                VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)
+                VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50),
+            Group.of("Display",
+                Setting.of("Scale", scale, VisibilityProperty.of(nightMode, (newValue) -> newValue))
+            )
+
         )
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
   }

@@ -21,10 +21,10 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.SingleSelectionField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -50,9 +50,6 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
   private ToggleGroup toggleGroup;
 
   private Label fieldLabel;
-
-  public SimpleRadioButtonControl() {
-  }
 
   /**
    * Constructs a SimpleRadioButtonControl of {@link SimpleRadioButtonControl} type, with visibility condition.

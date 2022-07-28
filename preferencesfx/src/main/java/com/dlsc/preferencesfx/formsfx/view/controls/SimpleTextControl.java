@@ -51,9 +51,6 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
   private Label readOnlyLabel;
   private Label fieldLabel;
 
-  public SimpleTextControl() {
-  }
-
   /**
    * Constructs a SimpleTextControl of {@link SimpleTextControl} type, with visibility condition.
    *
@@ -68,7 +65,7 @@ public class SimpleTextControl extends SimpleControl<StringField, StackPane> {
 
     return simpleTextControl;
   }
-  
+
   /**
    * {@inheritDoc}
    */

@@ -51,9 +51,6 @@ public class SimpleListViewControl<V>
    */
   private boolean preventUpdate;
 
-  public SimpleListViewControl() {
-  }
-
   /**
    * Constructs a SimpleListViewControl of {@link SimpleListViewControl} type, with visibility condition.
    *
@@ -68,7 +65,7 @@ public class SimpleListViewControl<V>
 
     return simpleListViewControl;
   }
-  
+
 
   /**
    * {@inheritDoc}

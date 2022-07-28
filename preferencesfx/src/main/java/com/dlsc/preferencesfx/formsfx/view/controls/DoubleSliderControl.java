@@ -1,10 +1,10 @@
 package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.DoubleField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -38,11 +38,10 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
    * @param min       minimum slider value
    * @param max       maximum slider value
    * @param precision number of digits after the decimal point
-   * @param visibilityProperty - property for control visibility of this element
+   * @param visibilityProperty property for control visibility of this element
    *
    * @return the constructed DoubleSliderControl
    */
-
   public static DoubleSliderControl of(double min, double max, int precision, VisibilityProperty visibilityProperty) {
     DoubleSliderControl doubleSliderControl = new DoubleSliderControl(min, max, precision);
 

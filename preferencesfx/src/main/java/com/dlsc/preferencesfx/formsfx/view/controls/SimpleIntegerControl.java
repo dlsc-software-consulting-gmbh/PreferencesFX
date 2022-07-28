@@ -38,9 +38,6 @@ import javafx.util.converter.IntegerStringConverter;
  */
 public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Integer> {
 
-  public SimpleIntegerControl() {
-  }
-
   /**
    * Constructs a SimpleIntegerControl of {@link SimpleIntegerControl} type, with visibility condition.
    *
@@ -55,7 +52,7 @@ public class SimpleIntegerControl extends SimpleNumberControl<IntegerField, Inte
 
     return simpleIntegerControl;
   }
-  
+
   /**
    * {@inheritDoc}
    */

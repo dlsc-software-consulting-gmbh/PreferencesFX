@@ -50,9 +50,6 @@ public class SimpleComboBoxControl<V> extends SimpleControl<SingleSelectionField
   private ComboBox<V> comboBox;
   private Label readOnlyLabel;
 
-  public SimpleComboBoxControl() {
-  }
-
   /**
    * Constructs a SimpleComboBoxControl of {@link SimpleComboBoxControl} type, with visibility condition.
    *

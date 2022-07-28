@@ -56,9 +56,6 @@ public class SimplePasswordControl extends SimpleControl<PasswordField, StackPan
      */
     protected StringBinding obfuscatedUserInputBinding;
 
-    public SimplePasswordControl() {
-    }
-
     /**
      * Constructs a SimplePasswordControl of {@link SimplePasswordControl} type, with visibility condition.
      *
@@ -73,7 +70,7 @@ public class SimplePasswordControl extends SimpleControl<PasswordField, StackPan
 
         return simplePasswordControl;
     }
-    
+
     /**
      * {@inheritDoc}
      */
