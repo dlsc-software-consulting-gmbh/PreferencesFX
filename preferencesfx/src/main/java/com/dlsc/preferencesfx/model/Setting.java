@@ -771,4 +771,15 @@ public class Setting<E extends Element, P extends Property> {
     this.key = key;
     return this;
   }
+
+  /**
+   * Apply {@link VisibilityProperty} to renderer ({@link SimpleControl}.
+   *
+   * @param visibilityProperty source visibility condition
+   */
+  public void applyVisibility(VisibilityProperty visibilityProperty) {
+    SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
+
+    renderer.setVisibilityProperty(visibilityProperty);
+  }
 }

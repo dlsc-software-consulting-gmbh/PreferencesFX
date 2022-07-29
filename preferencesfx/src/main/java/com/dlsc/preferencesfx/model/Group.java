@@ -36,9 +36,10 @@ public class Group {
 
   private VisibilityProperty visibilityProperty;
 
-  private Group(String description, Setting... settings) {
+  private Group(String description, VisibilityProperty visibilityProperty, Setting... settings) {
     this.description = description;
     this.settings = Arrays.asList(settings);
+    this.visibilityProperty = visibilityProperty;
   }
 
   /**
@@ -49,29 +50,13 @@ public class Group {
    * @return this object for chaining with the fluent API
    */
   public static Group of(String description, Setting... settings) {
-    return new Group(description, settings);
+    return new Group(description, null, settings);
   }
 
   public static Group of(String description, VisibilityProperty visibilityProperty, Setting... settings) {
-    Group group = new Group(description, settings);
-    group.setVisibilityProperty(visibilityProperty);
+    Group group = new Group(description, visibilityProperty, settings);
 
-    if (settings != null) {
-      for (Setting setting : settings) {
-        Element element = setting.getElement();
-
-        if (element instanceof DataField) {
-          DataField dataField = (DataField) element;
-
-          com.dlsc.formsfx.view.controls.SimpleControl renderer = dataField.getRenderer();
-
-          if (renderer instanceof SimpleControl) {
-            SimpleControl simpleControl = (SimpleControl) renderer;
-            simpleControl.setVisibilityProperty(visibilityProperty);
-          }
-        }
-      }
-    }
+    group.applyVisibilityForSettings();
 
     return group;
   }
@@ -83,7 +68,22 @@ public class Group {
    * @return this object for chaining with the fluent API
    */
   public static Group of(Setting... settings) {
-    return new Group(null, settings);
+    return new Group(null, null, settings);
+  }
+
+  /**
+   * Constructs a new group with {@code settings}, without a {@code description}.
+   *
+   * @param settings the settings that belong to this group
+   * @param visibilityProperty visibility condition for Group
+   * @return this object for chaining with the fluent API
+   */
+  public static Group of(VisibilityProperty visibilityProperty, Setting... settings) {
+    Group group = new Group(null, visibilityProperty, settings);
+
+    group.applyVisibilityForSettings();
+
+    return group;
   }
 
   /**
@@ -180,5 +180,13 @@ public class Group {
 
   public void setVisibilityProperty(VisibilityProperty visibilityProperty) {
     this.visibilityProperty = visibilityProperty;
+  }
+
+  private void applyVisibilityForSettings() {
+    if (settings != null) {
+      for (Setting setting : settings) {
+        setting.applyVisibility(visibilityProperty);
+      }
+    }
   }
 }
