@@ -126,6 +126,13 @@ public class PreferencesFxGroupRenderer {
    */
   public void setupBindings() {
     titleLabel.textProperty().bind(preferencesGroup.titleProperty());
+
+    VisibilityProperty visibilityProperty = preferencesGroup.getVisibilityProperty();
+
+    if (visibilityProperty != null) {
+      this.titleLabel.visibleProperty().bind(visibilityProperty.get());
+      this.titleLabel.managedProperty().bind(visibilityProperty.get());
+    }
   }
 
   /**

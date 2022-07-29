@@ -1,5 +1,8 @@
 package com.dlsc.preferencesfx.model;
 
+import com.dlsc.formsfx.model.structure.DataField;
+import com.dlsc.formsfx.model.structure.Element;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFxGroup;
 import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.VisibilityProperty;
@@ -47,6 +50,30 @@ public class Group {
    */
   public static Group of(String description, Setting... settings) {
     return new Group(description, settings);
+  }
+
+  public static Group of(String description, VisibilityProperty visibilityProperty, Setting... settings) {
+    Group group = new Group(description, settings);
+    group.setVisibilityProperty(visibilityProperty);
+
+    if (settings != null) {
+      for (Setting setting : settings) {
+        Element element = setting.getElement();
+
+        if (element instanceof DataField) {
+          DataField dataField = (DataField) element;
+
+          com.dlsc.formsfx.view.controls.SimpleControl renderer = dataField.getRenderer();
+
+          if (renderer instanceof SimpleControl) {
+            SimpleControl simpleControl = (SimpleControl) renderer;
+            simpleControl.setVisibilityProperty(visibilityProperty);
+          }
+        }
+      }
+    }
+
+    return group;
   }
 
   /**
