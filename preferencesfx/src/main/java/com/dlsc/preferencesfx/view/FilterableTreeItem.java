@@ -53,7 +53,7 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 		super(value);
 
 		filteredList.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-			Predicate<FilterableTreeItem<T>> p =  child -> {
+			Predicate<FilterableTreeItem<T>> treeItemPredicate =  child -> {
 				// Set the predicate of child items to force filtering
 				if (child instanceof FilterableTreeItem) {
 					FilterableTreeItem<T> filterableChild = (FilterableTreeItem<T>) child;
@@ -77,7 +77,7 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 				// Otherwise ask the TreeItemPredicate
 				return predicate.get().test(this, child.getValue());
 			};
-			return p;
+			return treeItemPredicate;
 		}, predicate));
 
 		Bindings.bindContent(getChildren(), getBackingList());
