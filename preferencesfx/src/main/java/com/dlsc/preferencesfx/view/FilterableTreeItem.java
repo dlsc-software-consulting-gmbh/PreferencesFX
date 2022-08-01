@@ -38,9 +38,11 @@ import java.util.function.Predicate;
  */
 public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 
-	private final ObservableList<TreeItem<T>> sourceList = FXCollections.observableArrayList();
-	private final FilteredList<TreeItem<T>> filteredList =new FilteredList<>(sourceList);
+	private final ObservableList<FilterableTreeItem<T>> sourceList = FXCollections.observableArrayList();
+	private final FilteredList<FilterableTreeItem<T>> filteredList =new FilteredList<>(sourceList);
 	private final ObjectProperty<TreeItemPredicate<T>> predicate = new SimpleObjectProperty<>();
+
+	private boolean isVisible = true;
 
 	/**
 	 * Creates a new {@link TreeItem} with sorted children.
@@ -51,11 +53,15 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 		super(value);
 
 		filteredList.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-			Predicate<TreeItem<T>> p =  child -> {
+			Predicate<FilterableTreeItem<T>> p =  child -> {
 				// Set the predicate of child items to force filtering
 				if (child instanceof FilterableTreeItem) {
 					FilterableTreeItem<T> filterableChild = (FilterableTreeItem<T>) child;
 					filterableChild.setPredicate(predicate.get());
+				}
+
+				if (!child.isVisible) {
+					return false;
 				}
 
 				// If there is no predicate, keep this tree item
@@ -80,7 +86,7 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	/**
 	 * @return the backing list
 	 */
-	protected ObservableList<TreeItem<T>> getBackingList() {
+	protected ObservableList<FilterableTreeItem<T>> getBackingList() {
 		return filteredList;
 	}
 
@@ -88,7 +94,7 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	 * Returns the list of children that is backing the filtered list.
 	 * @return underlying list of children
 	 */
-	public ObservableList<TreeItem<T>> getInternalChildren() {
+	public ObservableList<FilterableTreeItem<T>> getInternalChildren() {
 		return sourceList;
 	}
 
@@ -102,15 +108,23 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	/**
 	 * @return the predicate
 	 */
-    public final TreeItemPredicate<T> getPredicate() {
-        return predicate.get();
-    }
+	public final TreeItemPredicate<T> getPredicate() {
+			return predicate.get();
+	}
 
-    /**
-     * Set the predicate
-     * @param predicate the predicate
-     */
-    public final void setPredicate(TreeItemPredicate<T> predicate) {
-    	this.predicate.set(predicate);
-    }
+	/**
+	 * Set the predicate
+	 * @param predicate the predicate
+	 */
+	public final void setPredicate(TreeItemPredicate<T> predicate) {
+		this.predicate.set(predicate);
+	}
+
+	public boolean isVisible() {
+		return isVisible;
+	}
+
+	public void setVisible(boolean visible) {
+		isVisible = visible;
+	}
 }

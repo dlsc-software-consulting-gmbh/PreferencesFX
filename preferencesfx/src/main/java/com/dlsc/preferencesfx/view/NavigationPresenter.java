@@ -119,6 +119,15 @@ public class NavigationPresenter implements Presenter {
       }
       treeItem.getInternalChildren().add(item);
       categoryTreeItemMap.put(category, item);
+
+      if (category.visibilityProperty() != null) {
+        category.visibilityProperty().get().addListener((observableValue, aBoolean, newValue) -> {
+          item.setVisible(newValue);
+
+          // Workaround to trigger FilterableTreeItem filter functionality.
+          navigationView.searchFld.textProperty().set(navigationView.searchFld.textProperty().get());
+        });
+      }
     }
   }
 
