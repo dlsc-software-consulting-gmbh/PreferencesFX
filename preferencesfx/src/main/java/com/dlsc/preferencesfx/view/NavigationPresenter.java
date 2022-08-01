@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.view;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import org.slf4j.Logger;
@@ -124,8 +125,7 @@ public class NavigationPresenter implements Presenter {
         category.visibilityProperty().get().addListener((observableValue, aBoolean, newValue) -> {
           item.setVisible(newValue);
 
-          // Workaround to trigger FilterableTreeItem filter functionality.
-          navigationView.searchFld.textProperty().set(navigationView.searchFld.textProperty().get());
+          navigationView.invalidate();
         });
       }
     }
