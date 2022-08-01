@@ -25,6 +25,8 @@ public class VisibilityNodeExample extends StackPane {
 
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
 
+  BooleanProperty productionVisibility = new SimpleBooleanProperty(true);
+
   public VisibilityNodeExample() {
     preferencesFx = createPreferences();
     getChildren().add(new VisibilityNodeView(preferencesFx, this));
@@ -36,12 +38,18 @@ public class VisibilityNodeExample extends StackPane {
             Group.of("Display",
                 Setting.of("Brightness", brightness),
                 Setting.of("Night mode", nightMode, VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)),
-                Setting.of("Scale", scale, VisibilityProperty.of(nightMode, (newValue) -> newValue))
+                Setting.of("Scale", scale, VisibilityProperty.of(nightMode, (newValue) -> newValue)),
+                Setting.of("Is production category visible", productionVisibility)
             )
         ),
-        Category.of("View", VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50),
+        Category.of("Production", VisibilityProperty.of(productionVisibility, (newValue) -> newValue),
             Group.of("Display",
-                Setting.of("Salery", salary, VisibilityProperty.of(nightMode, (newValue) -> newValue))
+                Setting.of("Port", salary, VisibilityProperty.of(nightMode, (newValue) -> newValue))
+            )
+        ),
+        Category.of("View",
+            Group.of("Display",
+                Setting.of("Salary", salary, VisibilityProperty.of(nightMode, (newValue) -> newValue))
             ),
             Group.of("Bonuses",
                 VisibilityProperty.of(salary, (newValue) -> newValue.intValue() > 10),

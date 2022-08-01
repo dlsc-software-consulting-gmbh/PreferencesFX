@@ -356,7 +356,7 @@ public class Category {
     return expand;
   }
 
-  public VisibilityProperty getVisibilityProperty() {
+  public VisibilityProperty visibilityProperty() {
     return visibilityProperty;
   }
 

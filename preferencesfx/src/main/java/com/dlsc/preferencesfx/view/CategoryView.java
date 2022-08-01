@@ -55,7 +55,7 @@ public class CategoryView extends StackPane implements View {
    */
   @Override
   public void initializeSelf() {
-    VisibilityProperty visibilityProperty = this.categoryModel.getVisibilityProperty();
+    VisibilityProperty visibilityProperty = this.categoryModel.visibilityProperty();
 
     if (visibilityProperty != null) {
       this.visibleProperty().bind(visibilityProperty.get());
