@@ -1,5 +1,12 @@
 # Change Log
 
+## [11.8.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.8.0) (2022-08-02)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.6.0...11.8.0)
+
+**Implemented enhancements:**
+
+- Added support setting an optional visibility condition for Categories, Groups and Settings
+
 ## [11.7.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.7.0) (2020-12-15)
 [Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.6.0...11.7.0)
 
