@@ -21,6 +21,7 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.PasswordField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.geometry.Pos;
@@ -54,6 +55,21 @@ public class SimplePasswordControl extends SimpleControl<PasswordField, StackPan
      * Translates characters found in user input into '*'
      */
     protected StringBinding obfuscatedUserInputBinding;
+
+    /**
+     * Constructs a SimplePasswordControl of {@link SimplePasswordControl} type, with visibility condition.
+     *
+     * @param visibilityProperty property for control visibility of this element
+     *
+     * @return the constructed SimplePasswordControl
+     */
+    public static SimplePasswordControl of(VisibilityProperty visibilityProperty) {
+        SimplePasswordControl simplePasswordControl = new SimplePasswordControl();
+
+        simplePasswordControl.visibilityProperty = visibilityProperty;
+
+        return simplePasswordControl;
+    }
 
     /**
      * {@inheritDoc}

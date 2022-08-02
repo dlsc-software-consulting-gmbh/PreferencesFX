@@ -3,6 +3,7 @@ package com.dlsc.preferencesfx.view;
 import static com.dlsc.preferencesfx.util.Constants.SCROLLBAR_SUBTRACT;
 
 import com.dlsc.preferencesfx.model.Category;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.util.HashMap;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
