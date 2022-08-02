@@ -21,13 +21,19 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
    */
   private Label fieldLabel;
 
-  private VisibilityProperty visibilityProperty;
+  /**
+   * Constructs a ToggleControl of {@link ToggleControl} type, with visibility condition.
+   *
+   * @param visibilityProperty property for control visibility of this element
+   *
+   * @return the constructed ToggleControl
+   */
+  public static ToggleControl of(VisibilityProperty visibilityProperty) {
+    ToggleControl toggleControl = new ToggleControl();
 
-  public ToggleControl() {
-  }
+    toggleControl.visibilityProperty = visibilityProperty;
 
-  public ToggleControl(VisibilityProperty visibilityProperty) {
-    this.visibilityProperty = visibilityProperty;
+    return toggleControl;
   }
 
   /**
@@ -44,11 +50,6 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
     // is necessary to offset the control to the left, because we don't use the provided label
     node.setTranslateX(NEGATIVE_LABEL_INSETS);
     node.setSelected(field.getValue());
-
-    if (this.visibilityProperty != null) {
-      this.node.visibleProperty().bind(this.visibilityProperty.get());
-      this.fieldLabel.visibleProperty().bind(this.visibilityProperty.get());
-    }
   }
 
   /**
@@ -89,5 +90,3 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   }
 
 }
-
-

@@ -19,12 +19,14 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  * limitations under the License.
  * =========================LICENSE_END==================================
  */
-
-import com.dlsc.formsfx.model.structure.MultiSelectionField;
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
+
+import com.dlsc.formsfx.model.structure.MultiSelectionField;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 
 /**
  * This class provides the base implementation for a simple control to edit
@@ -42,6 +44,21 @@ public class SimpleCheckBoxControl<V> extends SimpleControl<MultiSelectionField<
    * - The node is a VBox holding all node.
    */
   private final List<CheckBox> checkboxes = new ArrayList<>();
+
+  /**
+   * Constructs a SimpleCheckBoxControl of {@link SimpleCheckBoxControl} type, with visibility condition.
+   *
+   * @param visibilityProperty - property for control visibility of this element
+   *
+   * @return the constructed SimpleCheckBoxControl
+   */
+  public static <V> SimpleCheckBoxControl of(VisibilityProperty visibilityProperty) {
+    SimpleCheckBoxControl<V> simpleCheckBoxControl = new SimpleCheckBoxControl<>();
+
+    simpleCheckBoxControl.visibilityProperty = visibilityProperty;
+
+    return simpleCheckBoxControl;
+  }
 
   /**
    * {@inheritDoc}

@@ -19,7 +19,13 @@ public class VisibilityNodeExample extends StackPane {
 
   IntegerProperty scale = new SimpleIntegerProperty(50);
 
+  IntegerProperty salary = new SimpleIntegerProperty(50);
+
+  IntegerProperty bonus = new SimpleIntegerProperty(50);
+
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
+
+  BooleanProperty productionVisibility = new SimpleBooleanProperty(true);
 
   public VisibilityNodeExample() {
     preferencesFx = createPreferences();
@@ -32,7 +38,22 @@ public class VisibilityNodeExample extends StackPane {
             Group.of("Display",
                 Setting.of("Brightness", brightness),
                 Setting.of("Night mode", nightMode, VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)),
-                Setting.of("Scale", scale)
+                Setting.of("Scale", scale, VisibilityProperty.of(nightMode, (newValue) -> newValue)),
+                Setting.of("Is production category visible", productionVisibility)
+            )
+        ),
+        Category.of("Production", VisibilityProperty.of(productionVisibility, (newValue) -> newValue),
+            Group.of("Display",
+                Setting.of("Port", salary, VisibilityProperty.of(nightMode, (newValue) -> newValue))
+            )
+        ),
+        Category.of("View",
+            Group.of("Display",
+                Setting.of("Salary", salary, VisibilityProperty.of(nightMode, (newValue) -> newValue))
+            ),
+            Group.of("Bonuses",
+                VisibilityProperty.of(salary, (newValue) -> newValue.intValue() > 10),
+                Setting.of("Bonus", bonus)
             )
         )
     ).persistWindowState(false).saveSettings(true).debugHistoryMode(false).buttonsVisibility(true);
