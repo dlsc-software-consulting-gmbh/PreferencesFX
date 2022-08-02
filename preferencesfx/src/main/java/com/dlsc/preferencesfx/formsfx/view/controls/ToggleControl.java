@@ -1,7 +1,6 @@
 package com.dlsc.preferencesfx.formsfx.view.controls;
 
 import com.dlsc.formsfx.model.structure.BooleanField;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.scene.control.Label;
 import org.controlsfx.control.ToggleSwitch;
 
@@ -20,21 +19,6 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
    * - container holds the toggle so that it can be styled properly.
    */
   private Label fieldLabel;
-
-  /**
-   * Constructs a ToggleControl of {@link ToggleControl} type, with visibility condition.
-   *
-   * @param visibilityProperty property for control visibility of this element
-   *
-   * @return the constructed ToggleControl
-   */
-  public static ToggleControl of(VisibilityProperty visibilityProperty) {
-    ToggleControl toggleControl = new ToggleControl();
-
-    toggleControl.visibilityProperty = visibilityProperty;
-
-    return toggleControl;
-  }
 
   /**
    * {@inheritDoc}
@@ -90,3 +74,5 @@ public class ToggleControl extends SimpleControl<BooleanField, ToggleSwitch> {
   }
 
 }
+
+

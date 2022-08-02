@@ -8,6 +8,4 @@ module com.dlsc.preferencesfx.demo {
     exports com.dlsc.preferencesfx.demo;
 
     opens com.dlsc.preferencesfx.demo;
-    exports com.dlsc.preferencesfx.demo.visibility;
-    opens com.dlsc.preferencesfx.demo.visibility;
 }

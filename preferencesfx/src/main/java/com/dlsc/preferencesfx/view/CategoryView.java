@@ -6,7 +6,6 @@ import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.model.Setting;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.scene.layout.StackPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,12 +54,7 @@ public class CategoryView extends StackPane implements View {
    */
   @Override
   public void initializeSelf() {
-    VisibilityProperty visibilityProperty = this.categoryModel.visibilityProperty();
 
-    if (visibilityProperty != null) {
-      this.visibleProperty().bind(visibilityProperty.get());
-      this.managedProperty().bind(visibilityProperty.get());
-    }
   }
 
   /**
@@ -83,5 +77,6 @@ public class CategoryView extends StackPane implements View {
    */
   @Override
   public void bindFieldsToModel() {
+
   }
 }

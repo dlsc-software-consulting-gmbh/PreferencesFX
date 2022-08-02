@@ -92,11 +92,6 @@ public class NavigationView extends VBox implements View {
     model.searchTextProperty().bind(searchFld.textProperty());
   }
 
-  public void invalidate() {
-    // Workaround to trigger FilterableTreeItem filter functionality.
-    searchFld.textProperty().set(searchFld.textProperty().get());
-  }
-
   /**
    * Selects the given category TreeItem in the NavigationView.
    *

@@ -3,9 +3,6 @@ package com.dlsc.preferencesfx.view;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
-import java.util.stream.Collectors;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import org.slf4j.Logger;
@@ -110,28 +107,18 @@ public class NavigationPresenter implements Presenter {
 
   }
 
-  private void addRecursive(FilterableTreeItem<Category> parentTreeItem, List<Category> categories) {
+  private void addRecursive(FilterableTreeItem<Category> treeItem, List<Category> categories) {
     for (Category category : categories) {
-      FilterableTreeItem<Category> treeItem = new FilterableTreeItem<>(category);
+      FilterableTreeItem<Category> item = new FilterableTreeItem<>(category);
       if (category.isExpand()) {
-        treeItem.setExpanded(true);
+        item.setExpanded(true);
       }
-
       // If there are subcategories, add them recursively.
       if (category.getChildren() != null) {
-        addRecursive(treeItem, category.getChildren());
+        addRecursive(item, category.getChildren());
       }
-
-      parentTreeItem.getInternalChildren().add(treeItem);
-      categoryTreeItemMap.put(category, treeItem);
-
-      if (category.visibilityProperty() != null) {
-        category.visibilityProperty().get().addListener((observableValue, aBoolean, newValue) -> {
-          FilterableTreeItem<Category> childTreeItem = categoryTreeItemMap.get(category);
-
-          navigationView.rootItem.changeChildItemVisibility(childTreeItem, newValue);
-        });
-      }
+      treeItem.getInternalChildren().add(item);
+      categoryTreeItemMap.put(category, item);
     }
   }
 

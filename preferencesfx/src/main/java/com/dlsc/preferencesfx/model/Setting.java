@@ -17,7 +17,6 @@ import com.dlsc.preferencesfx.formsfx.view.controls.SimpleListViewControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleTextControl;
 import com.dlsc.preferencesfx.formsfx.view.controls.ToggleControl;
 import com.dlsc.preferencesfx.util.Constants;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import java.io.File;
 import java.util.Objects;
@@ -74,16 +73,12 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description, BooleanProperty property) {
-    return of(description, property, null);
-  }
-
-  public static Setting of(String description, BooleanProperty property, VisibilityProperty visibilityProperty) {
     return new Setting<>(
-            description,
-            Field.ofBooleanType(property)
-                    .label(description)
-                    .render(ToggleControl.of(visibilityProperty)),
-            property
+        description,
+        Field.ofBooleanType(property)
+            .label(description)
+            .render(new ToggleControl()),
+        property
     );
   }
 
@@ -95,51 +90,27 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description, IntegerProperty property) {
-    return of(description, property, null);
-  }
-
-  /**
-   * Constructs a setting of {@link Integer} type, which is represented by a {@link TextField}.
-   *
-   * @param description the title of this setting
-   * @param property    to be bound, saved / loaded and used for undo / redo
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static Setting of(String description, IntegerProperty property, VisibilityProperty visibilityProperty) {
     return new Setting<>(
         description,
         Field.ofIntegerType(property)
             .label(description)
-            .render(SimpleIntegerControl.of(visibilityProperty)),
+            .render(new SimpleIntegerControl()),
         property);
   }
-
-    /**
-     * Constructs a setting of {@link Double} type, which is represented by a {@link TextField}.
-     *
-     * @param description the title of this setting
-     * @param property    to be bound, saved / loaded and used for undo / redo
-     * @return the constructed setting
-     */
-    public static Setting of(String description, DoubleProperty property) {
-        return of(description, property, null);
-    }
 
   /**
    * Constructs a setting of {@link Double} type, which is represented by a {@link TextField}.
    *
    * @param description the title of this setting
    * @param property    to be bound, saved / loaded and used for undo / redo
-   * @param visibilityProperty control visibility of element
    * @return the constructed setting
    */
-  public static Setting of(String description, DoubleProperty property, VisibilityProperty visibilityProperty) {
+  public static Setting of(String description, DoubleProperty property) {
     return new Setting<>(
         description,
         Field.ofDoubleType(property)
             .label(description)
-            .render(SimpleDoubleControl.of(visibilityProperty)),
+            .render(new SimpleDoubleControl()),
         property);
   }
 
@@ -155,26 +126,11 @@ public class Setting<E extends Element, P extends Property> {
    */
   public static Setting of(
       String description, DoubleProperty property, double min, double max, int precision) {
-      return of(description, property, null);
-  }
-  /**
-   * Constructs a setting of {@link Double} type, which is represented by a {@link Slider}.
-   *
-   * @param description the title of this setting
-   * @param property    to be bound, saved / loaded and used for undo / redo
-   * @param min         minimum value of the {@link Slider}
-   * @param max         maximum value of the {@link Slider}
-   * @param precision   number of digits after the decimal point
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static Setting of(
-      String description, DoubleProperty property, double min, double max, int precision, VisibilityProperty visibilityProperty) {
     return new Setting<>(
         description,
         Field.ofDoubleType(property)
             .label(description)
-            .render(DoubleSliderControl.of(min, max, precision, visibilityProperty)),
+            .render(new DoubleSliderControl(min, max, precision)),
         property);
   }
 
@@ -188,24 +144,11 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description, IntegerProperty property, int min, int max) {
-      return of(description, property, null);
-  }
-  /**
-   * Constructs a setting of {@link Integer} type, which is represented by a {@link Slider}.
-   *
-   * @param description the title of this setting
-   * @param property    to be bound, saved / loaded and used for undo / redo
-   * @param min         minimum value of the {@link Slider}
-   * @param max         maximum value of the {@link Slider}
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static Setting of(String description, IntegerProperty property, int min, int max, VisibilityProperty visibilityProperty) {
     return new Setting<>(
         description,
         Field.ofIntegerType(property)
             .label(description)
-            .render(IntegerSliderControl.of(min, max, visibilityProperty)),
+            .render(new IntegerSliderControl(min, max)),
         property);
   }
 
@@ -217,23 +160,11 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description, StringProperty property) {
-      return of(description, property, null);
-  }
-
-  /**
-   * Constructs a setting of {@link String} type, which is represented by a {@link TextField}.
-   *
-   * @param description the title of this setting
-   * @param property    to be bound, saved / loaded and used for undo / redo
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static Setting of(String description, StringProperty property, VisibilityProperty visibilityProperty) {
     return new Setting<>(
         description,
         Field.ofStringType(property)
             .label(description)
-            .render(SimpleTextControl.of(visibilityProperty)),
+            .render(new SimpleTextControl()),
         property);
   }
 
@@ -250,28 +181,11 @@ public class Setting<E extends Element, P extends Property> {
    */
   public static <P> Setting of(
       String description, ListProperty<P> items, ObjectProperty<P> selection) {
-      return of(description, items, selection, null);
-  }
-
-  /**
-   * Creates a combobox with single selection.
-   *
-   * @param description the title of this setting
-   * @param items       the items which are possible to choose in the combobox, which are shown
-   *                    in their {@link #toString()} representation
-   * @param selection   the currently selected item of the combobox to be bound, saved / loaded and
-   *                    used for undo / redo
-   * @param <P>         the type of objects which should be displayed in the combobox
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static <P> Setting of(
-      String description, ListProperty<P> items, ObjectProperty<P> selection, VisibilityProperty visibilityProperty) {
     return new Setting<>(
         description,
         Field.ofSingleSelectionType(items, selection)
             .label(description)
-            .render(SimpleComboBoxControl.of(visibilityProperty)),
+            .render(new SimpleComboBoxControl<>()),
         selection);
   }
 
@@ -288,28 +202,11 @@ public class Setting<E extends Element, P extends Property> {
    */
   public static <P> Setting of(
       String description, ObservableList<P> items, ObjectProperty<P> selection) {
-      return of(description, items, selection, null);
-  }
-
-  /**
-   * Creates a combobox with single selection.
-   *
-   * @param description the title of this setting
-   * @param items       the items which are possible to choose in the combobox, which are shown
-   *                    in their {@link #toString()} representation
-   * @param selection   the currently selected item of the combobox to be bound, saved / loaded and
-   *                    used for undo / redo
-   * @param <P>         the type of objects which should be displayed in the combobox
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static <P> Setting of(
-      String description, ObservableList<P> items, ObjectProperty<P> selection, VisibilityProperty visibilityProperty) {
     return new Setting<>(
         description,
         Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection)
             .label(description)
-            .render(SimpleComboBoxControl.of(visibilityProperty)),
+            .render(new SimpleComboBoxControl<>()),
         selection);
   }
 
@@ -327,29 +224,11 @@ public class Setting<E extends Element, P extends Property> {
    */
   public static <P> Setting of(
       String description, ListProperty<P> items, ListProperty<P> selections) {
-      return of(description, items, selections, null);
-  }
-
-  /**
-   * Creates a combobox with multiselection.
-   * At least one element has to be selected at all times.
-   *
-   * @param description the title of this setting
-   * @param items       the items which are possible to choose in the combobox, which are shown
-   *                    in their {@link #toString()} representation
-   * @param selections  the currently selected item(s) of the combobox to be bound, saved / loaded
-   *                    and used for undo / redo
-   * @param <P>         the type of objects which should be displayed in the combobox
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static <P> Setting of(
-      String description, ListProperty<P> items, ListProperty<P> selections, VisibilityProperty visibilityProperty) {
     return new Setting<>(
         description,
         Field.ofMultiSelectionType(items, selections)
             .label(description)
-            .render(SimpleListViewControl.of(visibilityProperty)),
+            .render(new SimpleListViewControl<>()),
         selections);
   }
 
@@ -367,29 +246,11 @@ public class Setting<E extends Element, P extends Property> {
    */
   public static <P> Setting of(
       String description, ObservableList<P> items, ListProperty<P> selections) {
-      return of(description, items, selections, null);
-  }
-
-  /**
-   * Creates a combobox with multiselection.
-   * At least one element has to be selected at all times.
-   *
-   * @param description the title of this setting
-   * @param items       the items which are possible to choose in the combobox, which are shown
-   *                    in their {@link #toString()} representation
-   * @param selections  the currently selected item(s) of the combobox to be bound, saved / loaded
-   *                    and used for undo / redo
-   * @param <P>         the type of objects which should be displayed in the combobox
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static <P> Setting of(
-      String description, ObservableList<P> items, ListProperty<P> selections, VisibilityProperty visibilityProperty) {
     return new Setting<>(
         description,
         Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections)
             .label(description)
-            .render(SimpleListViewControl.of(visibilityProperty)),
+            .render(new SimpleListViewControl<>()),
         selections);
   }
 
@@ -437,18 +298,6 @@ public class Setting<E extends Element, P extends Property> {
    * @return the constructed setting
    */
   public static Setting of(String description, ObjectProperty<Color> colorProperty) {
-      return of(description, colorProperty, null);
-  }
-
-  /**
-   * Creates a custom color picker control.
-   *
-   * @param description   the title of this setting
-   * @param colorProperty the current selected color value
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static Setting of(String description, ObjectProperty<Color> colorProperty, VisibilityProperty visibilityProperty) {
     StringProperty stringProperty = new SimpleStringProperty();
     stringProperty.bindBidirectional(
         colorProperty, new StringConverter<Color>() {
@@ -468,8 +317,8 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofStringType(stringProperty)
             .label(description)
-            .render(SimpleColorPickerControl.of(
-                Objects.isNull(colorProperty.get()) ? Color.BLACK : colorProperty.get(), visibilityProperty)
+            .render(new SimpleColorPickerControl(
+                Objects.isNull(colorProperty.get()) ? Color.BLACK : colorProperty.get())
             ),
         stringProperty
     );
@@ -522,27 +371,6 @@ public class Setting<E extends Element, P extends Property> {
                            String buttonText,
                            File initialDirectory,
                            boolean directory) {
-    return of(description, fileProperty, buttonText, initialDirectory, directory, null);
-  }
-
-  /**
-   * Creates a file/directory chooser control.
-   *
-   * @param description       the title of this setting
-   * @param fileProperty      the property to which the chosen file / directory should be set to
-   * @param buttonText        text of the button to open the file / directory chooser
-   * @param initialDirectory  An optional initial path, can be null. If null, will use the path from
-   *                          the previously chosen file if present.
-   * @param directory         true, if only directories are allowed
-   * @param visibilityProperty control visibility of element
-   * @return the constructed setting
-   */
-  public static Setting of(String description,
-                           ObjectProperty<File> fileProperty,
-                           String buttonText,
-                           File initialDirectory,
-                           boolean directory,
-      VisibilityProperty visibilityProperty) {
     StringProperty stringProperty = new SimpleStringProperty();
     stringProperty.bindBidirectional(
         fileProperty, new StringConverter<File>() {
@@ -565,7 +393,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofStringType(stringProperty)
             .label(description)
-            .render(SimpleChooserControl.of(buttonText, initialDirectory, directory, visibilityProperty)
+            .render(new SimpleChooserControl(buttonText, initialDirectory, directory)
             ),
         stringProperty
     );
@@ -770,16 +598,5 @@ public class Setting<E extends Element, P extends Property> {
   public Setting customKey(String key) {
     this.key = key;
     return this;
-  }
-
-  /**
-   * Apply {@link VisibilityProperty} to renderer ({@link SimpleControl}.
-   *
-   * @param visibilityProperty source visibility condition
-   */
-  public void applyVisibility(VisibilityProperty visibilityProperty) {
-    SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
-
-    renderer.setVisibilityProperty(visibilityProperty);
   }
 }
