@@ -367,6 +367,7 @@ It is possible to optionally add a [Validator](http://dlsc.com/wp-content/html/f
 ## Visibility
 
 PreferencesFX support setting an optional visibility condition for Categories, Groups and Settings
+
 * condition could be defined as a lambda-expression
 * condition will be re-evaluated whenever any Setting changes
 
