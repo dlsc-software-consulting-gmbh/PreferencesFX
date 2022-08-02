@@ -21,7 +21,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.MultiSelectionField;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -50,22 +49,6 @@ public class SimpleListViewControl<V>
    * The flag used for setting the selection properly.
    */
   private boolean preventUpdate;
-
-  /**
-   * Constructs a SimpleListViewControl of {@link SimpleListViewControl} type, with visibility condition.
-   *
-   * @param visibilityProperty property for control visibility of this element
-   *
-   * @return the constructed SimpleListViewControl
-   */
-  public static SimpleListViewControl of(VisibilityProperty visibilityProperty) {
-    SimpleListViewControl simpleListViewControl = new SimpleListViewControl();
-
-    simpleListViewControl.visibilityProperty = visibilityProperty;
-
-    return simpleListViewControl;
-  }
-
 
   /**
    * {@inheritDoc}

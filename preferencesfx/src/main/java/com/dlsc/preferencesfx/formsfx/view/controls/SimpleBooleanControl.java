@@ -21,7 +21,6 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  */
 
 import com.dlsc.formsfx.model.structure.BooleanField;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.scene.control.CheckBox;
 
 /**
@@ -35,21 +34,6 @@ import javafx.scene.control.CheckBox;
  */
 public class SimpleBooleanControl extends SimpleControl<BooleanField, CheckBox> {
 
-  /**
-   * Constructs a SimpleBooleanControl of {@link SimpleBooleanControl} type, with visibility condition.
-   *
-   * @param visibilityProperty - property for control visibility of this element
-   *
-   * @return the constructed SimpleBooleanControl
-   */
-  public static SimpleBooleanControl of(VisibilityProperty visibilityProperty) {
-    SimpleBooleanControl simpleBooleanControl = new SimpleBooleanControl();
-
-    simpleBooleanControl.visibilityProperty = visibilityProperty;
-
-    return simpleBooleanControl;
-  }
-  
   /**
    * {@inheritDoc}
    */

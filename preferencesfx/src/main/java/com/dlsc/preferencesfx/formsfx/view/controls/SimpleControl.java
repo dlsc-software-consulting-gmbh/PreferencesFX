@@ -20,6 +20,7 @@ package com.dlsc.preferencesfx.formsfx.view.controls;
  * =========================LICENSE_END==================================
  */
 
+import com.dlsc.formsfx.model.structure.Field;
 import javafx.collections.ListChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Point2D;
@@ -27,9 +28,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-
-import com.dlsc.formsfx.model.structure.Field;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 
 /**
  * This class provides a base for general purpose FormsFX controls.
@@ -61,11 +59,6 @@ public abstract class SimpleControl<F extends Field, N extends Node>
    * The control which gets rendered.
    */
   protected N node;
-
-  /**
-   * Property for control visibility.
-   */
-  protected VisibilityProperty visibilityProperty;
   /**
    * Tooltip to hold the error message.
    */
@@ -114,14 +107,6 @@ public abstract class SimpleControl<F extends Field, N extends Node>
     node.idProperty().bind(field.idProperty());
     node.disableProperty().bind(field.editableProperty().not());
     fieldLabel.textProperty().bind(field.labelProperty());
-
-    if (this.visibilityProperty != null) {
-      this.node.visibleProperty().bind(this.visibilityProperty.get());
-      this.node.managedProperty().bind(this.visibilityProperty.get());
-
-      this.getFieldLabel().visibleProperty().bind(this.visibilityProperty.get());
-      this.getFieldLabel().managedProperty().bind(this.visibilityProperty.get());
-    }
   }
 
   @Override
@@ -251,13 +236,5 @@ public abstract class SimpleControl<F extends Field, N extends Node>
 
   public N getNode() {
     return node;
-  }
-
-  public VisibilityProperty getVisibilityProperty() {
-    return this.visibilityProperty;
-  }
-
-  public void setVisibilityProperty(VisibilityProperty visibilityProperty) {
-    this.visibilityProperty = visibilityProperty;
   }
 }

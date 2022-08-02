@@ -24,7 +24,6 @@ import com.dlsc.formsfx.model.structure.Element;
 import com.dlsc.formsfx.model.structure.Group;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.util.Strings;
-import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -49,8 +48,6 @@ public class PreferencesFxGroup extends Group {
   private final StringProperty title = new SimpleStringProperty("");
 
   private PreferencesFxGroupRenderer renderer;
-
-  private VisibilityProperty visibilityProperty;
 
   /**
    * {@inheritDoc}
@@ -87,11 +84,6 @@ public class PreferencesFxGroup extends Group {
     return this;
   }
 
-  public PreferencesFxGroup visibilityProperty(VisibilityProperty visibilityProperty) {
-    this.visibilityProperty = visibilityProperty;
-    return this;
-  }
-
   public String getTitle() {
     return title.get();
   }
@@ -123,13 +115,5 @@ public class PreferencesFxGroup extends Group {
     if (!Strings.isNullOrEmpty(titleKey.getValue())) {
       title.setValue(translationService.translate(titleKey.get()));
     }
-  }
-
-  public VisibilityProperty getVisibilityProperty() {
-    return visibilityProperty;
-  }
-
-  public void setVisibilityProperty(VisibilityProperty visibilityProperty) {
-    this.visibilityProperty = visibilityProperty;
   }
 }
