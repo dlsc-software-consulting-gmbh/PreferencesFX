@@ -10,6 +10,8 @@
  *******************************************************************************/
 package com.dlsc.preferencesfx.view;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -42,7 +44,7 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	private final FilteredList<FilterableTreeItem<T>> filteredList =new FilteredList<>(sourceList);
 	private final ObjectProperty<TreeItemPredicate<T>> predicate = new SimpleObjectProperty<>();
 
-	private boolean isVisible = true;
+	private Map<FilterableTreeItem<T>, Integer> childItemIndexesMap = new HashMap<>();
 
 	/**
 	 * Creates a new {@link TreeItem} with sorted children.
@@ -52,16 +54,16 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	public FilterableTreeItem(T value) {
 		super(value);
 
+		setupFilteredListPredicateBindings();
+	}
+
+	private void setupFilteredListPredicateBindings() {
 		filteredList.predicateProperty().bind(Bindings.createObjectBinding(() -> {
 			Predicate<FilterableTreeItem<T>> treeItemPredicate =  child -> {
 				// Set the predicate of child items to force filtering
 				if (child instanceof FilterableTreeItem) {
 					FilterableTreeItem<T> filterableChild = (FilterableTreeItem<T>) child;
 					filterableChild.setPredicate(predicate.get());
-				}
-
-				if (!child.isVisible) {
-					return false;
 				}
 
 				// If there is no predicate, keep this tree item
@@ -82,7 +84,7 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 
 		Bindings.bindContent(getChildren(), getBackingList());
 	}
-	
+
 	/**
 	 * @return the backing list
 	 */
@@ -120,11 +122,20 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 		this.predicate.set(predicate);
 	}
 
-	public boolean isVisible() {
-		return isVisible;
-	}
+	/**
+	 * Remove child item from {@link #sourceList} and save item position if visibility is false.
+	 * If visibility is true it restore (add item to {@link #sourceList}) to same position using index.
+	 *
+	 * @param childItem - child item object
+	 * @param visible		- visibility of this child item
+	 */
+	public void changeChildItemVisibility(FilterableTreeItem<T> childItem, boolean visible) {
+		if (visible) {
+			sourceList.add(childItemIndexesMap.get(childItem), childItem);
+		} else {
+			childItemIndexesMap.put(childItem, sourceList.indexOf(childItem));
 
-	public void setVisible(boolean visible) {
-		isVisible = visible;
+			sourceList.remove(childItem);
+		}
 	}
 }
