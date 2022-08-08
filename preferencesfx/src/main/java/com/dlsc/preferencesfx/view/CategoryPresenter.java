@@ -104,12 +104,16 @@ public class CategoryPresenter implements Presenter {
 
     // create PreferenceGroups from Groups
     for (int i = 0; i < groups.size(); i++) {
-      PreferencesFxGroup preferencesGroup =
-          (PreferencesFxGroup) PreferencesFxGroup.of().title(groups.get(i).getDescription());
-      groups.get(i).setPreferencesGroup(preferencesGroup);
+      Group group = groups.get(i);
+      PreferencesFxGroup preferencesGroup = (PreferencesFxGroup) PreferencesFxGroup
+          .of()
+          .visibilityProperty(group.getVisibilityProperty())
+          .title(group.getDescription());
+      group.setPreferencesGroup(preferencesGroup);
       formGroups.add(preferencesGroup);
+
       // fill groups with settings (as FormsFX fields)
-      for (Setting setting : groups.get(i).getSettings()) {
+      for (Setting setting : group.getSettings()) {
         formGroups.get(i).getElements().add(setting.getElement());
       }
     }

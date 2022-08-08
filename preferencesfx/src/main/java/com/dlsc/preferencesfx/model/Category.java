@@ -5,6 +5,7 @@ import static com.dlsc.preferencesfx.util.Constants.BREADCRUMB_DELIMITER;
 import com.dlsc.formsfx.model.util.TranslationService;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
 import com.dlsc.preferencesfx.util.Strings;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import com.dlsc.preferencesfx.view.CategoryView;
 import java.util.Arrays;
 import java.util.List;
@@ -35,29 +36,33 @@ public class Category {
   private Node itemIcon;
   private boolean expand = false;
 
+  private VisibilityProperty visibilityProperty;
+
   /**
    * Creates a category without groups, for top-level categories without any settings.
    *
    * @param description Category name, for display in {@link CategoryView}
    */
-  private Category(String description) {
+  private Category(String description, VisibilityProperty visibilityProperty) {
+    this.visibilityProperty = visibilityProperty;
+
     descriptionKey.setValue(description);
     translate(null);
     setBreadcrumb(description);
   }
 
-  private Category(String description, Group... groups) {
-    this(description);
+  private Category(String description, VisibilityProperty visibilityProperty, Group... groups) {
+    this(description, visibilityProperty);
     this.groups = Arrays.asList(groups);
   }
 
-  private Category(String description, Node itemIcon) {
-    this(description);
+  private Category(String description, Node itemIcon, VisibilityProperty visibilityProperty) {
+    this(description, visibilityProperty);
     this.itemIcon = itemIcon;
   }
 
-  private Category(String description, Node itemIcon, Group... groups) {
-    this(description, groups);
+  private Category(String description, Node itemIcon, VisibilityProperty visibilityProperty, Group... groups) {
+    this(description, visibilityProperty, groups);
     this.itemIcon = itemIcon;
   }
 
@@ -69,7 +74,19 @@ public class Category {
    * @return initialized Category object
    */
   public static Category of(String description) {
-    return new Category(description);
+    return new Category(description, null);
+  }
+
+  /**
+   * Creates an empty category.
+   * Can be used for top-level categories without {@link Setting}.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param visibilityProperty control category visibility
+   * @return initialized Category object
+   */
+  public static Category of(String description, VisibilityProperty visibilityProperty) {
+    return new Category(description, visibilityProperty);
   }
 
   /**
@@ -80,7 +97,19 @@ public class Category {
    * @return initialized Category object
    */
   public static Category of(String description, Group... groups) {
-    return new Category(description, groups);
+    return new Category(description, null, groups);
+  }
+
+  /**
+   * Creates a new category from groups.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link CategoryView}
+   * @param visibilityProperty control category visibility
+   * @return initialized Category object
+   */
+  public static Category of(String description, VisibilityProperty visibilityProperty, Group... groups) {
+    return new Category(description, visibilityProperty, groups);
   }
 
   /**
@@ -91,7 +120,19 @@ public class Category {
    * @return initialized Category object
    */
   public static Category of(String description, Setting... settings) {
-    return new Category(description, Group.of(settings));
+    return new Category(description, null, Group.of(settings));
+  }
+
+  /**
+   * Creates a new category from settings, if the settings shouldn't be individually grouped.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param settings    {@link Setting} to be shown in the {@link CategoryView}
+   * @param visibilityProperty control category visibility
+   * @return initialized Category object
+   */
+  public static Category of(String description, VisibilityProperty visibilityProperty, Setting... settings) {
+    return new Category(description, visibilityProperty, Group.of(settings));
   }
 
   /**
@@ -103,7 +144,20 @@ public class Category {
    * @return initialized Category object
    */
   public static Category of(String description, Node itemIcon) {
-    return new Category(description, itemIcon);
+    return new Category(description, itemIcon, null);
+  }
+
+  /**
+   * Creates an empty category.
+   * Can be used for top-level categories without {@link Setting}.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param itemIcon    Icon to be shown next to the category name
+   * @param visibilityProperty control category visibility
+   * @return initialized Category object
+   */
+  public static Category of(String description, Node itemIcon, VisibilityProperty visibilityProperty) {
+    return new Category(description, itemIcon, visibilityProperty);
   }
 
   /**
@@ -115,7 +169,20 @@ public class Category {
    * @return initialized Category object
    */
   public static Category of(String description, Node itemIcon, Group... groups) {
-    return new Category(description, itemIcon, groups);
+    return new Category(description, itemIcon, null, groups);
+  }
+
+  /**
+   * Creates a new category from groups.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param itemIcon    Icon to be shown next to the category name
+   * @param groups      {@link Group} with {@link Setting} to be shown in the {@link CategoryView}
+   * @param visibilityProperty control category visibility
+   * @return initialized Category object
+   */
+  public static Category of(String description, Node itemIcon, VisibilityProperty visibilityProperty, Group... groups) {
+    return new Category(description, itemIcon, visibilityProperty, groups);
   }
 
   /**
@@ -127,7 +194,20 @@ public class Category {
    * @return initialized Category object
    */
   public static Category of(String description, Node itemIcon, Setting... settings) {
-    return new Category(description, itemIcon, Group.of(settings));
+    return new Category(description, itemIcon, null, Group.of(settings));
+  }
+
+  /**
+   * Creates a new category from settings, if the settings shouldn't be individually grouped.
+   *
+   * @param description Category name, for display in {@link CategoryView}
+   * @param itemIcon    Icon to be shown next to the category name
+   * @param settings    {@link Setting} to be shown in the {@link CategoryView}
+   * @param visibilityProperty control category visibility
+   * @return initialized Category object
+   */
+  public static Category of(String description, Node itemIcon, VisibilityProperty visibilityProperty, Setting... settings) {
+    return new Category(description, itemIcon, visibilityProperty, Group.of(settings));
   }
 
   /**
@@ -274,5 +354,13 @@ public class Category {
    */
   public boolean isExpand() {
     return expand;
+  }
+
+  public VisibilityProperty visibilityProperty() {
+    return visibilityProperty;
+  }
+
+  public void setVisibilityProperty(VisibilityProperty visibilityProperty) {
+    this.visibilityProperty = visibilityProperty;
   }
 }
