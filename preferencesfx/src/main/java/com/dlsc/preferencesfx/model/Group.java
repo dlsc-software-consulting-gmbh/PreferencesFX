@@ -1,7 +1,11 @@
 package com.dlsc.preferencesfx.model;
 
+import com.dlsc.formsfx.model.structure.DataField;
+import com.dlsc.formsfx.model.structure.Element;
+import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFxGroup;
 import com.dlsc.preferencesfx.util.Constants;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.util.Arrays;
 import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
@@ -30,9 +34,12 @@ public class Group {
   private final EventHandler<MouseEvent> unmarker = event -> unmark();
   private final StringProperty breadcrumb = new SimpleStringProperty("");
 
-  private Group(String description, Setting... settings) {
+  private VisibilityProperty visibilityProperty;
+
+  private Group(String description, VisibilityProperty visibilityProperty, Setting... settings) {
     this.description = description;
     this.settings = Arrays.asList(settings);
+    this.visibilityProperty = visibilityProperty;
   }
 
   /**
@@ -43,7 +50,15 @@ public class Group {
    * @return this object for chaining with the fluent API
    */
   public static Group of(String description, Setting... settings) {
-    return new Group(description, settings);
+    return new Group(description, null, settings);
+  }
+
+  public static Group of(String description, VisibilityProperty visibilityProperty, Setting... settings) {
+    Group group = new Group(description, visibilityProperty, settings);
+
+    group.applyVisibilityForSettings();
+
+    return group;
   }
 
   /**
@@ -53,7 +68,22 @@ public class Group {
    * @return this object for chaining with the fluent API
    */
   public static Group of(Setting... settings) {
-    return new Group(null, settings);
+    return new Group(null, null, settings);
+  }
+
+  /**
+   * Constructs a new group with {@code settings}, without a {@code description}.
+   *
+   * @param settings the settings that belong to this group
+   * @param visibilityProperty visibility condition for Group
+   * @return this object for chaining with the fluent API
+   */
+  public static Group of(VisibilityProperty visibilityProperty, Setting... settings) {
+    Group group = new Group(null, visibilityProperty, settings);
+
+    group.applyVisibilityForSettings();
+
+    return group;
   }
 
   /**
@@ -142,5 +172,21 @@ public class Group {
 
   public void setBreadcrumb(String breadcrumb) {
     this.breadcrumb.set(breadcrumb);
+  }
+
+  public VisibilityProperty getVisibilityProperty() {
+    return visibilityProperty;
+  }
+
+  public void setVisibilityProperty(VisibilityProperty visibilityProperty) {
+    this.visibilityProperty = visibilityProperty;
+  }
+
+  private void applyVisibilityForSettings() {
+    if (settings != null) {
+      for (Setting setting : settings) {
+        setting.applyVisibility(visibilityProperty);
+      }
+    }
   }
 }
