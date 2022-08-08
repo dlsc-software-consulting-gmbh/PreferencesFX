@@ -27,6 +27,8 @@ public interface VisibilityProperty {
 
             property.addListener((observable, oldValue, newValue) -> visibilityProperty.set(visibilityFunc.apply(newValue)));
 
+            // set the initial value of the visibility property properly
+            visibilityProperty.set(visibilityFunc.apply(property.getValue()));
             return visibilityProperty;
         };
     }

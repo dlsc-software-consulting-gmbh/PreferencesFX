@@ -127,10 +127,12 @@ public class NavigationPresenter implements Presenter {
 
       if (category.visibilityProperty() != null) {
         category.visibilityProperty().get().addListener((observableValue, aBoolean, newValue) -> {
-          FilterableTreeItem<Category> childTreeItem = categoryTreeItemMap.get(category);
-
-          navigationView.rootItem.changeChildItemVisibility(childTreeItem, newValue);
+          parentTreeItem.changeChildItemVisibility(treeItem, newValue);
         });
+        // immediately hide the category if it is not visible according to current value of visibilityProperty
+        if (!category.visibilityProperty().get().getValue()) {
+          parentTreeItem.changeChildItemVisibility(treeItem, false);
+        }
       }
     }
   }
