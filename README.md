@@ -376,18 +376,18 @@ Category.of("General",
   Group.of("Display",
     Setting.of("Brightness", brightness),
     Setting.of("Night mode", nightMode, VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)),
-    Setting.of("Scale", scale, VisibilityProperty.of(nightMode, (newValue) -> newValue)),
+    Setting.of("Scale", scale, VisibilityProperty.of(nightMode),
     Setting.of("Is production category visible", productionVisibility)
   )
 ),
-Category.of("Production", VisibilityProperty.of(productionVisibility, (newValue) -> newValue),
+Category.of("Production", VisibilityProperty.of(productionVisibility),
   Group.of("Display",
-      Setting.of("Port", salary, VisibilityProperty.of(nightMode, (newValue) -> newValue))
+      Setting.of("Port", salary, VisibilityProperty.of(nightMode)
   )
 ),
 Category.of("View",
   Group.of("Display",
-    Setting.of("Salary", salary, VisibilityProperty.of(nightMode, (newValue) -> newValue))
+    Setting.of("Salary", salary, VisibilityProperty.of(nightMode)
   ),
   Group.of("Bonuses", VisibilityProperty.of(salary, (newValue) -> newValue.intValue() > 10),
     Setting.of("Bonus", bonus)
