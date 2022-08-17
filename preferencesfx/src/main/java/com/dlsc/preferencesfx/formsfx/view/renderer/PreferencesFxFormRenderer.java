@@ -59,6 +59,5 @@ public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
     // Outer Padding of Category Pane
     setPadding(new Insets(SPACING * 3));
     setHgap(SPACING * 3);
-    setVgap(SPACING * 2);
   }
 }
