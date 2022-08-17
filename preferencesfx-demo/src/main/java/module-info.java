@@ -6,7 +6,6 @@ module com.dlsc.preferencesfx.demo {
     requires org.apache.logging.log4j.slf4j;
 
     exports com.dlsc.preferencesfx.demo;
-    exports com.dlsc.preferencesfx.demo.visibility;
 
     opens com.dlsc.preferencesfx.demo;
     opens com.dlsc.preferencesfx.demo.extended;
