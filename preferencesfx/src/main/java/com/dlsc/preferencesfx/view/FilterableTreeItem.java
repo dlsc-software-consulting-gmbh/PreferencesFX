@@ -10,6 +10,8 @@
  *******************************************************************************/
 package com.dlsc.preferencesfx.view;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -38,9 +40,11 @@ import java.util.function.Predicate;
  */
 public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 
-	private final ObservableList<TreeItem<T>> sourceList = FXCollections.observableArrayList();
-	private final FilteredList<TreeItem<T>> filteredList =new FilteredList<>(sourceList);
+	private final ObservableList<FilterableTreeItem<T>> sourceList = FXCollections.observableArrayList();
+	private final FilteredList<FilterableTreeItem<T>> filteredList =new FilteredList<>(sourceList);
 	private final ObjectProperty<TreeItemPredicate<T>> predicate = new SimpleObjectProperty<>();
+
+	private final Map<FilterableTreeItem<T>, Integer> childItemIndexesMap = new HashMap<>();
 
 	/**
 	 * Creates a new {@link TreeItem} with sorted children.
@@ -50,37 +54,38 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	public FilterableTreeItem(T value) {
 		super(value);
 
-		filteredList.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-			Predicate<TreeItem<T>> p =  child -> {
-				// Set the predicate of child items to force filtering
-				if (child instanceof FilterableTreeItem) {
-					FilterableTreeItem<T> filterableChild = (FilterableTreeItem<T>) child;
-					filterableChild.setPredicate(predicate.get());
-				}
+		setupFilteredListPredicateBindings();
+	}
 
-				// If there is no predicate, keep this tree item
-				if (predicate.get() == null) {
-					return true;
-				}
+	private void setupFilteredListPredicateBindings() {
+		filteredList.predicateProperty().bind(Bindings.createObjectBinding(() -> child -> {
+			// Set the predicate of child items to force filtering
+			if (child != null) {
+				child.setPredicate(predicate.get());
+			}
 
-				// If there are children, keep this tree item
-				if (child.getChildren().size() > 0) {
-					return true;
-				}
+			// If there is no predicate, keep this tree item
+			if (predicate.get() == null) {
+				return true;
+			}
 
-				// Otherwise ask the TreeItemPredicate
-				return predicate.get().test(this, child.getValue());
-			};
-			return p;
+			// If there are children, keep this tree item
+			assert child != null;
+			if (child.getChildren().size() > 0) {
+				return true;
+			}
+
+			// Otherwise ask the TreeItemPredicate
+			return predicate.get().test(this, child.getValue());
 		}, predicate));
 
 		Bindings.bindContent(getChildren(), getBackingList());
 	}
-	
+
 	/**
 	 * @return the backing list
 	 */
-	protected ObservableList<TreeItem<T>> getBackingList() {
+	protected ObservableList<FilterableTreeItem<T>> getBackingList() {
 		return filteredList;
 	}
 
@@ -88,7 +93,7 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	 * Returns the list of children that is backing the filtered list.
 	 * @return underlying list of children
 	 */
-	public ObservableList<TreeItem<T>> getInternalChildren() {
+	public ObservableList<FilterableTreeItem<T>> getInternalChildren() {
 		return sourceList;
 	}
 
@@ -102,15 +107,32 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	/**
 	 * @return the predicate
 	 */
-    public final TreeItemPredicate<T> getPredicate() {
-        return predicate.get();
-    }
+	public final TreeItemPredicate<T> getPredicate() {
+			return predicate.get();
+	}
 
-    /**
-     * Set the predicate
-     * @param predicate the predicate
-     */
-    public final void setPredicate(TreeItemPredicate<T> predicate) {
-    	this.predicate.set(predicate);
-    }
+	/**
+	 * Set the predicate
+	 * @param predicate the predicate
+	 */
+	public final void setPredicate(TreeItemPredicate<T> predicate) {
+		this.predicate.set(predicate);
+	}
+
+	/**
+	 * Remove child item from {@link #sourceList} and save item position if visibility is false.
+	 * If visibility is true it restore (add item to {@link #sourceList}) to same position using index.
+	 *
+	 * @param childItem - child item object
+	 * @param visible		- visibility of this child item
+	 */
+	public void changeChildItemVisibility(FilterableTreeItem<T> childItem, boolean visible) {
+		if (visible) {
+			sourceList.add(childItemIndexesMap.get(childItem), childItem);
+		} else {
+			childItemIndexesMap.put(childItem, sourceList.indexOf(childItem));
+
+			sourceList.remove(childItem);
+		}
+	}
 }

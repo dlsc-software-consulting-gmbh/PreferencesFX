@@ -16,6 +16,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
@@ -43,6 +44,11 @@ public class ExtendedExample extends StackPane {
   StringProperty welcomeText = new SimpleStringProperty("Hello World");
   IntegerProperty brightness = new SimpleIntegerProperty(50);
   BooleanProperty nightMode = new SimpleBooleanProperty(true);
+
+  // Visibility
+  BooleanProperty settingVisible = new SimpleBooleanProperty(true);
+  BooleanProperty groupVisible = new SimpleBooleanProperty(true);
+  BooleanProperty categoryVisible = new SimpleBooleanProperty(true);
 
   // Screen
   DoubleProperty scaling = new SimpleDoubleProperty(1);
@@ -170,7 +176,7 @@ public class ExtendedExample extends StackPane {
             ),
             Group.of("Display",
                 Setting.of("Brightness", brightness),
-                Setting.of("Night mode", nightMode)
+                Setting.of("Night mode", nightMode, VisibilityProperty.of(brightness, (newvalue) -> newvalue.intValue() > 20))
             )
         ),
         Category.of("Screen")
@@ -202,7 +208,8 @@ public class ExtendedExample extends StackPane {
             .subCategories(
                 Category.of("Appearance",
                     Group.of("UI Options",
-                        Setting.of("Theme", themesLst, themesObj),
+                        Setting.of("Allow theme override", settingVisible),
+                        Setting.of("Theme", themesLst, themesObj, VisibilityProperty.of(settingVisible)),
                         Setting.of("Adjust colors for red-green vision defiency " +
                                 "(protanopia, deuteranopia)",
                             new SimpleBooleanProperty()),
@@ -219,9 +226,11 @@ public class ExtendedExample extends StackPane {
                         Setting.of("Drag-n-Drop with ALT pressed only",
                             new SimpleBooleanProperty()),
                         Setting.of("Tooltip initial delay (ms)",
-                            new SimpleIntegerProperty(1200), 0, 1200)
+                            new SimpleIntegerProperty(1200), 0, 1200),
+                        Setting.of("Enable Antialiasing", groupVisible),
+                        Setting.of("Allow changing system settings", categoryVisible)
                     ),
-                    Group.of("Antialiasing",
+                    Group.of("Antialiasing", VisibilityProperty.of(groupVisible),
                         Setting.of("IDE", ideLst, ideObj),
                         Setting.of("Editor", editorLst, editorObj)
                     ),
@@ -258,7 +267,7 @@ public class ExtendedExample extends StackPane {
                     )
                 ),
                 Category.of("Menus and Toolbars"),
-                Category.of("System Settings",
+                Category.of("System Settings", VisibilityProperty.of(categoryVisible),
                     Group.of("Startup / Shutdown",
                         Setting.of("Reopen last project on startup",
                             new SimpleBooleanProperty(true)),

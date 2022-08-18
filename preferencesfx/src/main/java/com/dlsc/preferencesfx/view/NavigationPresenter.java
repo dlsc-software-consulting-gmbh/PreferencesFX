@@ -3,6 +3,9 @@ package com.dlsc.preferencesfx.view;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.PreferencesFxModel;
 import com.dlsc.preferencesfx.util.SearchHandler;
+import java.util.stream.Collectors;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import org.slf4j.Logger;
@@ -107,18 +110,30 @@ public class NavigationPresenter implements Presenter {
 
   }
 
-  private void addRecursive(FilterableTreeItem<Category> treeItem, List<Category> categories) {
+  private void addRecursive(FilterableTreeItem<Category> parentTreeItem, List<Category> categories) {
     for (Category category : categories) {
-      FilterableTreeItem<Category> item = new FilterableTreeItem<>(category);
+      FilterableTreeItem<Category> treeItem = new FilterableTreeItem<>(category);
       if (category.isExpand()) {
-        item.setExpanded(true);
+        treeItem.setExpanded(true);
       }
+
       // If there are subcategories, add them recursively.
       if (category.getChildren() != null) {
-        addRecursive(item, category.getChildren());
+        addRecursive(treeItem, category.getChildren());
       }
-      treeItem.getInternalChildren().add(item);
-      categoryTreeItemMap.put(category, item);
+
+      parentTreeItem.getInternalChildren().add(treeItem);
+      categoryTreeItemMap.put(category, treeItem);
+
+      if (category.visibilityProperty() != null) {
+        category.visibilityProperty().get().addListener((observableValue, aBoolean, newValue) -> {
+          parentTreeItem.changeChildItemVisibility(treeItem, newValue);
+        });
+        // immediately hide the category if it is not visible according to current value of visibilityProperty
+        if (!category.visibilityProperty().get().getValue()) {
+          parentTreeItem.changeChildItemVisibility(treeItem, false);
+        }
+      }
     }
   }
 

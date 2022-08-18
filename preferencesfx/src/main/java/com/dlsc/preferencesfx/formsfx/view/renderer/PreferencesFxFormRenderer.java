@@ -47,7 +47,7 @@ public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
   @Override
   public void initializeParts() {
     groups = form.getGroups().stream().map(
-        g -> new PreferencesFxGroupRenderer((PreferencesFxGroup) g, this)
+        group -> new PreferencesFxGroupRenderer((PreferencesFxGroup) group, this)
     ).collect(Collectors.toList());
   }
 
@@ -59,6 +59,5 @@ public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
     // Outer Padding of Category Pane
     setPadding(new Insets(SPACING * 3));
     setHgap(SPACING * 3);
-    setVgap(SPACING * 2);
   }
 }

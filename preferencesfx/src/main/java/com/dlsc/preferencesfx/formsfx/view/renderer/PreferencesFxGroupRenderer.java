@@ -5,6 +5,7 @@ import com.dlsc.formsfx.model.structure.Field;
 import com.dlsc.formsfx.model.structure.NodeElement;
 import com.dlsc.preferencesfx.formsfx.view.controls.SimpleControl;
 import com.dlsc.preferencesfx.util.PreferencesFxUtils;
+import com.dlsc.preferencesfx.util.VisibilityProperty;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.geometry.Insets;
@@ -12,6 +13,8 @@ import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+
+import static com.dlsc.preferencesfx.formsfx.view.renderer.PreferencesFxFormRenderer.SPACING;
 
 /**
  * This class renders a group for a PreferencesFx form.
@@ -97,18 +100,17 @@ public class PreferencesFxGroupRenderer {
         GridPane.setValignment(c.getNode(), VPos.CENTER);
         GridPane.setValignment(c.getFieldLabel(), VPos.CENTER);
 
-        // additional styling for the last setting
+        Insets margin;
         if (i == elements.size() - 1) {
+          // additional styling for the last setting
           styleClass.append("-last");
-          GridPane.setMargin(
-              c.getNode(),
-              new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0)
-          );
-          GridPane.setMargin(
-              c.getFieldLabel(),
-              new Insets(0, 0, PreferencesFxFormRenderer.SPACING * 4, 0)
-          );
+          margin = new Insets(SPACING * 2, 0, SPACING * 4, 0);
+        } else {
+          margin = new Insets(SPACING * 2, 0, 0, 0);
         }
+
+        GridPane.setMargin(c.getNode(), margin);
+        GridPane.setMargin(c.getFieldLabel(), margin);
 
         c.getFieldLabel().getStyleClass().add(styleClass.toString() + "-label");
         c.getNode().getStyleClass().add(styleClass.toString() + "-node");
@@ -125,6 +127,13 @@ public class PreferencesFxGroupRenderer {
    */
   public void setupBindings() {
     titleLabel.textProperty().bind(preferencesGroup.titleProperty());
+
+    VisibilityProperty visibilityProperty = preferencesGroup.getVisibilityProperty();
+
+    if (visibilityProperty != null) {
+      this.titleLabel.visibleProperty().bind(visibilityProperty.get());
+      this.titleLabel.managedProperty().bind(visibilityProperty.get());
+    }
   }
 
   /**

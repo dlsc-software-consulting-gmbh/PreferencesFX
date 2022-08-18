@@ -22,6 +22,7 @@
    - [Setting types](#setting-types)
 - [Localisation](#localisation)
 - [Validation](#validation)
+- [Visibility](#visibility)
 - [Team](#team)
 
 ## Maven
@@ -362,6 +363,37 @@ It is possible to optionally add a [Validator](http://dlsc.com/wp-content/html/f
 | `RegexValidator` | Valiates text against a regular expression. This validator offers pre-defined expressions for common use cases, such as email addresses.
 | `SelectionLengthValidator` | Defines a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
 | `StringLengthValidator` | Defines a length interval which is considered valid. This range can be limited in either one direction or in both directions. |
+
+## Visibility
+
+PreferencesFX supports setting an optional visibility condition for Categories, Groups and Settings
+
+* condition could be defined as a lambda-expression
+* condition will be re-evaluated whenever any Setting changes
+
+```java
+Category.of("General",
+  Group.of("Display",
+    Setting.of("Brightness", brightness),
+    Setting.of("Night mode", nightMode, VisibilityProperty.of(brightness, (newValue) -> newValue.intValue() > 50)),
+    Setting.of("Scale", scale, VisibilityProperty.of(nightMode),
+    Setting.of("Is production category visible", productionVisibility)
+  )
+),
+Category.of("Production", VisibilityProperty.of(productionVisibility),
+  Group.of("Display",
+      Setting.of("Port", salary, VisibilityProperty.of(nightMode)
+  )
+),
+Category.of("View",
+  Group.of("Display",
+    Setting.of("Salary", salary, VisibilityProperty.of(nightMode)
+  ),
+  Group.of("Bonuses", VisibilityProperty.of(salary, (newValue) -> newValue.intValue() > 10),
+    Setting.of("Bonus", bonus)
+  )
+)
+```
 
 ## Team
 - Marco Sanfratello
