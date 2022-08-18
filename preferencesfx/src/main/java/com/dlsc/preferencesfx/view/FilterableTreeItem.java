@@ -44,7 +44,7 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	private final FilteredList<FilterableTreeItem<T>> filteredList =new FilteredList<>(sourceList);
 	private final ObjectProperty<TreeItemPredicate<T>> predicate = new SimpleObjectProperty<>();
 
-	private Map<FilterableTreeItem<T>, Integer> childItemIndexesMap = new HashMap<>();
+	private final Map<FilterableTreeItem<T>, Integer> childItemIndexesMap = new HashMap<>();
 
 	/**
 	 * Creates a new {@link TreeItem} with sorted children.
@@ -58,28 +58,25 @@ public class FilterableTreeItem<T> extends CheckBoxTreeItem<T> {
 	}
 
 	private void setupFilteredListPredicateBindings() {
-		filteredList.predicateProperty().bind(Bindings.createObjectBinding(() -> {
-			Predicate<FilterableTreeItem<T>> treeItemPredicate =  child -> {
-				// Set the predicate of child items to force filtering
-				if (child instanceof FilterableTreeItem) {
-					FilterableTreeItem<T> filterableChild = (FilterableTreeItem<T>) child;
-					filterableChild.setPredicate(predicate.get());
-				}
+		filteredList.predicateProperty().bind(Bindings.createObjectBinding(() -> child -> {
+			// Set the predicate of child items to force filtering
+			if (child != null) {
+				child.setPredicate(predicate.get());
+			}
 
-				// If there is no predicate, keep this tree item
-				if (predicate.get() == null) {
-					return true;
-				}
+			// If there is no predicate, keep this tree item
+			if (predicate.get() == null) {
+				return true;
+			}
 
-				// If there are children, keep this tree item
-				if (child.getChildren().size() > 0) {
-					return true;
-				}
+			// If there are children, keep this tree item
+			assert child != null;
+			if (child.getChildren().size() > 0) {
+				return true;
+			}
 
-				// Otherwise ask the TreeItemPredicate
-				return predicate.get().test(this, child.getValue());
-			};
-			return treeItemPredicate;
+			// Otherwise ask the TreeItemPredicate
+			return predicate.get().test(this, child.getValue());
 		}, predicate));
 
 		Bindings.bindContent(getChildren(), getBackingList());
