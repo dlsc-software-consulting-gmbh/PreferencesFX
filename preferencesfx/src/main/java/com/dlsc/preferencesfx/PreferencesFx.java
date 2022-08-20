@@ -75,6 +75,7 @@ public class PreferencesFx {
     breadCrumbPresenter = new BreadCrumbPresenter(preferencesFxModel, breadCrumbView);
 
     categoryController = new CategoryController();
+    categoryController.setFitToWidth(true);
     initializeCategoryViews();
 
     // display initial category

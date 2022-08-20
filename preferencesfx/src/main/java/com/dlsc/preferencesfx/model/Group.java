@@ -185,7 +185,7 @@ public class Group {
   private void applyVisibilityForSettings() {
     if (settings != null) {
       for (Setting setting : settings) {
-        setting.applyVisibility(visibilityProperty);
+        setting.applyVisibility(visibilityProperty, true);
       }
     }
   }

@@ -4,6 +4,7 @@ import java.util.function.Function;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 
 @FunctionalInterface
 public interface VisibilityProperty {
@@ -21,7 +22,7 @@ public interface VisibilityProperty {
      * @return
      * @param <T>
      */
-    static <T> VisibilityProperty of(Property<T> property, Function<T, Boolean> visibilityFunc) {
+    static <T> VisibilityProperty of(ObservableValue<T> property, Function<T, Boolean> visibilityFunc) {
         return () -> {
             BooleanProperty visibilityProperty = new SimpleBooleanProperty(true);
 
@@ -43,7 +44,7 @@ public interface VisibilityProperty {
      * @return
      * @param <T>
      */
-    static <T> VisibilityProperty of(Property<Boolean> property) {
+    static <T> VisibilityProperty of(ObservableValue<Boolean> property) {
         return VisibilityProperty.of(property, (newValue) -> newValue);
     }
 
