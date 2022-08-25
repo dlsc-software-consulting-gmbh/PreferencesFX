@@ -84,6 +84,7 @@ public abstract class SimpleControl<F extends Field, N extends Node>
   @Override
   public void init() {
     this.initializeParts();
+    this.updatePseudoStyles();
     this.layoutParts();
     this.setupEventHandlers();
     this.setupValueChangedListeners();
@@ -100,6 +101,9 @@ public abstract class SimpleControl<F extends Field, N extends Node>
     fieldLabel = new Label();
     fieldLabel.getStyleClass().addAll(field.getStyleClass());
 
+  }
+
+  private void updatePseudoStyles() {
     updateStyle(INVALID_CLASS, !field.isValid());
     updateStyle(REQUIRED_CLASS, field.isRequired());
     updateStyle(CHANGED_CLASS, field.hasChanged());
