@@ -776,10 +776,23 @@ public class Setting<E extends Element, P extends Property> {
    * Apply {@link VisibilityProperty} to renderer ({@link SimpleControl}.
    *
    * @param visibilityProperty source visibility condition
+   * @param additionalVisibilityCondition define the visibility condition to be added (ANDed) to the current (if any)
    */
-  public void applyVisibility(VisibilityProperty visibilityProperty) {
+  public Setting applyVisibility(VisibilityProperty visibilityProperty, boolean additionalVisibilityCondition) {
     SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
 
+    if (additionalVisibilityCondition) {
+      VisibilityProperty existingVP = renderer.getVisibilityProperty();
+      if (existingVP != null) {
+        visibilityProperty = VisibilityProperty.of(existingVP.get().and(visibilityProperty.get()));
+      }
+    }
     renderer.setVisibilityProperty(visibilityProperty);
+    return this;
   }
+
+  public Setting applyVisibility(VisibilityProperty visibilityProperty) {
+    return applyVisibility(visibilityProperty, false);
+  }
+
 }
