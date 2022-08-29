@@ -209,6 +209,14 @@ public class PreferencesFx {
   }
 
   /**
+   * Check if any changes are pending. Useful when manually saving settings.
+   * @return true if there are unsaved changed.
+   */
+  public boolean areSettingsPending() {
+    return !preferencesFxModel.getHistory().getChanges().isEmpty();
+  }
+
+  /**
    * Defines whether the table to debug the undo / redo history should be shown in a dialog when
    * pressing a key combination or not. <br> Pressing Ctrl + Shift + H (Windows) or CMD + Shift + H
    * (Mac) opens a dialog with the undo / redo history, shown in a table.
