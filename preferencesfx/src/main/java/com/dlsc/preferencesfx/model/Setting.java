@@ -779,15 +779,20 @@ public class Setting<E extends Element, P extends Property> {
    * @param additionalVisibilityCondition define the visibility condition to be added (ANDed) to the current (if any)
    */
   public Setting applyVisibility(VisibilityProperty visibilityProperty, boolean additionalVisibilityCondition) {
-    SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
+    if (element instanceof Field) {
+      SimpleControl renderer = (SimpleControl) ((Field) getElement()).getRenderer();
 
-    if (additionalVisibilityCondition) {
-      VisibilityProperty existingVP = renderer.getVisibilityProperty();
-      if (existingVP != null) {
-        visibilityProperty = VisibilityProperty.of(existingVP.get().and(visibilityProperty.get()));
+      if (additionalVisibilityCondition) {
+        VisibilityProperty existingVP = renderer.getVisibilityProperty();
+        if (existingVP != null) {
+          visibilityProperty = VisibilityProperty.of(existingVP.get().and(visibilityProperty.get()));
+        }
       }
+      renderer.setVisibilityProperty(visibilityProperty);
     }
-    renderer.setVisibilityProperty(visibilityProperty);
+    if (element instanceof NodeElement) {
+      ((NodeElement) element).getNode().visibleProperty().bind(visibilityProperty.get());
+    }
     return this;
   }
 

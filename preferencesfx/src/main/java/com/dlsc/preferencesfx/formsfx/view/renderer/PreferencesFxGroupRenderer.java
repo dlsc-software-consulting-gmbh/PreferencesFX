@@ -78,6 +78,10 @@ public class PreferencesFxGroupRenderer {
       grid.add(titleLabel, 0, nextRow++, 2, 1);
       styleClass.append("-title");
       titleLabel.getStyleClass().add("group-title");
+      // Set margin for all but first group titles to visually separate groups
+      if (nextRow > 1) {
+        GridPane.setMargin(titleLabel, new Insets(SPACING * 4, 0, 0, 0));
+      }
     }
 
     List<Element> elements = preferencesGroup.getElements().stream()
@@ -90,8 +94,8 @@ public class PreferencesFxGroupRenderer {
       // add to GridPane
       Element element = elements.get(i);
       if (element instanceof Field) {
-        SimpleControl c = (SimpleControl) ((Field)element).getRenderer();
-        c.setField((Field)element);
+        SimpleControl c = (SimpleControl) ((Field) element).getRenderer();
+        c.setField((Field) element);
         grid.add(c.getFieldLabel(), 0, i + rowAmount, 1, 1);
         grid.add(c.getNode(), 1, i + rowAmount, 1, 1);
 
@@ -100,13 +104,14 @@ public class PreferencesFxGroupRenderer {
         GridPane.setValignment(c.getNode(), VPos.CENTER);
         GridPane.setValignment(c.getFieldLabel(), VPos.CENTER);
 
-        Insets margin;
+        Insets margin = new Insets(SPACING * 2, 0, 0, 0);
         if (i == elements.size() - 1) {
           // additional styling for the last setting
           styleClass.append("-last");
-          margin = new Insets(SPACING * 2, 0, SPACING * 4, 0);
-        } else {
-          margin = new Insets(SPACING * 2, 0, 0, 0);
+        }
+        if ((preferencesGroup.getTitle() == null) && (i == 0) && (nextRow > 0)) {
+          // when there is no group title and this is the first element, add margin to top
+          margin = new Insets(SPACING * 6, 0, 0, 0);
         }
 
         GridPane.setMargin(c.getNode(), margin);
