@@ -212,7 +212,7 @@ public class PreferencesFx {
    * Check if any changes are pending. Useful when manually saving settings.
    * @return true if there are unsaved changed.
    */
-  public boolean areSettingsPending() {
+  public boolean isContainingChanges() {
     return !preferencesFxModel.getHistory().getChanges().isEmpty();
   }
 
