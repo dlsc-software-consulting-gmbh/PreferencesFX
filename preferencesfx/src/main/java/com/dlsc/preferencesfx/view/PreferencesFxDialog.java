@@ -47,7 +47,7 @@ public class PreferencesFxDialog extends DialogPane {
   /**
    * Initializes the {@link DialogPane} which shows the PreferencesFX window.
    *
-   * @param model             the model of PreferencesFX
+   * @param model             the model of PreferencesFX. Assumes settings are already loaded.
    * @param preferencesFxView the master view to be display in this {@link DialogPane}
    */
   public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferencesFxView) {
@@ -56,7 +56,6 @@ public class PreferencesFxDialog extends DialogPane {
     persistWindowState = model.isPersistWindowState();
     saveSettings = model.isSaveSettings();
     storageHandler = model.getStorageHandler();
-    model.loadSettingValues();
     layoutForm();
     setupDialogClose();
     loadLastWindowState();
