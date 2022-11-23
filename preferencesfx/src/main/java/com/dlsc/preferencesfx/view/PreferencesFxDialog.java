@@ -65,6 +65,7 @@ public class PreferencesFxDialog extends DialogPane {
     if (model.getHistoryDebugState()) {
       setupDebugHistoryTable();
     }
+    model.getHistory().clear(false);  // Ensure history is initially empty
   }
 
   /**
