@@ -92,7 +92,7 @@ public class ExtendedExample extends StackPane {
   private SimpleListProperty<MyEnum> enumList =
       new SimpleListProperty<>(FXCollections.observableArrayList(Arrays.asList(MyEnum.values())));
   private SingleSelectionField<MyEnum> myEnumControl =
-      Field.ofSingleSelectionType(enumList, myEnumSettingValue).render(new SimpleComboBoxControl<>());
+      Field.ofSingleSelectionType(enumList, myEnumSettingValue).render(() -> new SimpleComboBoxControl<>());
 
   public ExtendedExample() {
     preferencesFx = createPreferences();
@@ -101,7 +101,7 @@ public class ExtendedExample extends StackPane {
 
   private IntegerField setupCustomControl() {
     return Field.ofIntegerType(customControlProperty).render(
-        new IntegerSliderControl(0, 42));
+            () -> new IntegerSliderControl(0, 42));
   }
 
   //  -------------- Demo --------------

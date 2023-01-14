@@ -85,7 +85,7 @@ public class InternationalizedExample extends StackPane {
 
   private IntegerField setupCustomControl() {
     return Field.ofIntegerType(customControlProperty).render(
-        new IntegerSliderControl(0, 42));
+            () -> new IntegerSliderControl(0, 42));
   }
 
   private PreferencesFx createPreferences() {
