@@ -6,8 +6,8 @@ module com.dlsc.preferencesfx {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.material;
 
-    requires java.prefs;
-    requires com.google.gson;
+    requires static java.prefs;
+    requires static com.google.gson;
     requires java.sql;
     requires org.controlsfx.controls;
     requires org.slf4j;

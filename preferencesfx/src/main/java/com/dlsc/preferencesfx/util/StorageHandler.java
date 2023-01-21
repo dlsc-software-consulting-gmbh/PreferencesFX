@@ -167,7 +167,4 @@ public interface StorageHandler {
    * @return true if successful, false if there was an exception.
    */
   boolean clearPreferences();
-
-  Preferences getPreferences();
-
 }
