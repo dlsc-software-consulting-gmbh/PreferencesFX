@@ -82,7 +82,7 @@ public class Setting<E extends Element, P extends Property> {
             description,
             Field.ofBooleanType(property)
                     .label(description)
-                    .render(ToggleControl.of(visibilityProperty)),
+                    .render(() -> ToggleControl.of(visibilityProperty)),
             property
     );
   }
@@ -111,7 +111,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofIntegerType(property)
             .label(description)
-            .render(SimpleIntegerControl.of(visibilityProperty)),
+            .render(() -> SimpleIntegerControl.of(visibilityProperty)),
         property);
   }
 
@@ -139,7 +139,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofDoubleType(property)
             .label(description)
-            .render(SimpleDoubleControl.of(visibilityProperty)),
+            .render(() -> SimpleDoubleControl.of(visibilityProperty)),
         property);
   }
 
@@ -174,7 +174,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofDoubleType(property)
             .label(description)
-            .render(DoubleSliderControl.of(min, max, precision, visibilityProperty)),
+            .render(() -> DoubleSliderControl.of(min, max, precision, visibilityProperty)),
         property);
   }
 
@@ -205,7 +205,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofIntegerType(property)
             .label(description)
-            .render(IntegerSliderControl.of(min, max, visibilityProperty)),
+            .render(() -> IntegerSliderControl.of(min, max, visibilityProperty)),
         property);
   }
 
@@ -233,7 +233,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofStringType(property)
             .label(description)
-            .render(SimpleTextControl.of(visibilityProperty)),
+            .render(() -> SimpleTextControl.of(visibilityProperty)),
         property);
   }
 
@@ -271,7 +271,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofSingleSelectionType(items, selection)
             .label(description)
-            .render(SimpleComboBoxControl.of(visibilityProperty)),
+            .render(() -> SimpleComboBoxControl.of(visibilityProperty)),
         selection);
   }
 
@@ -309,7 +309,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofSingleSelectionType(new SimpleListProperty<>(items), selection)
             .label(description)
-            .render(SimpleComboBoxControl.of(visibilityProperty)),
+            .render(() -> SimpleComboBoxControl.of(visibilityProperty)),
         selection);
   }
 
@@ -349,7 +349,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofMultiSelectionType(items, selections)
             .label(description)
-            .render(SimpleListViewControl.of(visibilityProperty)),
+            .render(() -> SimpleListViewControl.of(visibilityProperty)),
         selections);
   }
 
@@ -389,7 +389,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofMultiSelectionType(new SimpleListProperty<>(items), selections)
             .label(description)
-            .render(SimpleListViewControl.of(visibilityProperty)),
+            .render(() -> SimpleListViewControl.of(visibilityProperty)),
         selections);
   }
 
@@ -468,7 +468,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofStringType(stringProperty)
             .label(description)
-            .render(SimpleColorPickerControl.of(
+            .render(() -> SimpleColorPickerControl.of(
                 Objects.isNull(colorProperty.get()) ? Color.BLACK : colorProperty.get(), visibilityProperty)
             ),
         stringProperty
@@ -565,7 +565,7 @@ public class Setting<E extends Element, P extends Property> {
         description,
         Field.ofStringType(stringProperty)
             .label(description)
-            .render(SimpleChooserControl.of(buttonText, initialDirectory, directory, visibilityProperty)
+            .render(() -> SimpleChooserControl.of(buttonText, initialDirectory, directory, visibilityProperty)
             ),
         stringProperty
     );

@@ -72,7 +72,7 @@ public class StandardExample extends StackPane {
 
   StringProperty somePassword = new SimpleStringProperty("");
   PasswordField somePasswordControl = Field.ofPasswordType(somePassword).render(
-        new SimplePasswordControl());
+          () -> new SimplePasswordControl());
 
   public StandardExample() {
     preferencesFx = createPreferences();
@@ -81,7 +81,7 @@ public class StandardExample extends StackPane {
 
   private IntegerField setupCustomControl() {
     return Field.ofIntegerType(customControlProperty).render(
-        new IntegerSliderControl(0, 42));
+            () -> new IntegerSliderControl(0, 42));
   }
 
   private PreferencesFx createPreferences() {
