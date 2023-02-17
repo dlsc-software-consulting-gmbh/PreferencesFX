@@ -180,8 +180,8 @@
                         </goals>
                         <configuration>
                             <backend>html5</backend>
-                            <sourceHighlighter>coderay</sourceHighlighter>
                             <attributes>
+                                <source-highlighter>coderay</source-highlighter>
                                 <coderay-linenums-mode>table</coderay-linenums-mode>
                                 <imagesdir></imagesdir>
                                 <toc>left</toc>
