@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.geometry.Insets;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 
 /**
  * Renders a {@link Form} for a {@link Category} in PreferencesFX.
@@ -23,7 +23,7 @@ public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
    */
   public static final double SPACING = 5;
 
-  private Form form;
+  private final Form form;
   private List<PreferencesFxGroupRenderer> groups = new ArrayList<>();
 
   /**
@@ -59,5 +59,10 @@ public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
     // Outer Padding of Category Pane
     setPadding(new Insets(SPACING * 3));
     setHgap(SPACING * 3);
+
+    //This stops the left-most column from resizing
+    ColumnConstraints column1 = new ColumnConstraints();
+    column1.setMinWidth(Region.USE_PREF_SIZE);
+    getColumnConstraints().add(column1);
   }
 }
