@@ -4,6 +4,7 @@ module com.dlsc.preferencesfx.demo {
     requires org.apache.logging.log4j;
     requires org.apache.logging.log4j.core;
     requires org.apache.logging.log4j.slf4j;
+    requires com.google.gson;
 
     exports com.dlsc.preferencesfx.demo;
 
