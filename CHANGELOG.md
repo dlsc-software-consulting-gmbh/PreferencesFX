@@ -1,7 +1,20 @@
 # Change Log
 
-## [11.7.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/11.7.0) (2020-12-15)
-[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/11.6.0...11.7.0)
+## [11.16.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/v11.16.0) (2023-04-30)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/v11.15.0...v11.16.0)
+
+**Merged pull requests:**
+
+- Stop PreferencesFxFormRenderer from shrinking labels [\#449](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/449)
+- Bump org.controlsfx.controlsfx from 11.1.1 to 11.1.2 [\#445](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/445)
+- Bump org.slf4j.slf4j-api from 1.7.32 to 1.7.36 [\#445](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/pull/445)
+
+## [11.15.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/v11.15.0) (2023-01-28)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/v11.7.0...v11.15.0)
+
+
+## [11.7.0](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/tree/v11.7.0) (2020-12-15)
+[Full Changelog](https://github.com/dlsc-software-consulting-gmbh/PreferencesFX/compare/v11.6.0...v11.7.0)
 
 **Implemented enhancements:**
 
