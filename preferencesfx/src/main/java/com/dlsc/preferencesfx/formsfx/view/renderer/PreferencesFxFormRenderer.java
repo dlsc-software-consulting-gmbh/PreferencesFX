@@ -23,8 +23,8 @@ public class PreferencesFxFormRenderer extends GridPane implements ViewMixin {
    */
   public static final double SPACING = 5;
 
-  private final Form form;
-  private List<PreferencesFxGroupRenderer> groups = new ArrayList<>();
+  protected final Form form;
+  protected List<PreferencesFxGroupRenderer> groups = new ArrayList<>();
 
   /**
    * This is the constructor to pass over data.

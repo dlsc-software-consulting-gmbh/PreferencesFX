@@ -55,7 +55,7 @@ public class PreferencesFxGroup extends Group {
   /**
    * {@inheritDoc}
    */
-  private PreferencesFxGroup(Element... elements) {
+  protected PreferencesFxGroup(Element... elements) {
     super(elements);
 
     // Whenever the title's key changes, update the displayed value based
