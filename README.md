@@ -1,3 +1,5 @@
+[![JFXCentral](https://img.shields.io/badge/Find_me_on-JFXCentral-blue?logo=googlechrome&logoColor=white)](https://www.jfx-central.com/libraries/preferencesfx)
+
 # PreferencesFX
 **Preference dialogs for business applications made easy. Creating preference dialogs in Java has never been this easy!**
 
