@@ -35,7 +35,6 @@ public class PreferencesFxDialog extends DialogPane {
 
   private Dialog dialog = new Dialog();
   private StorageHandler storageHandler;
-  private boolean persistWindowState;
   private boolean saveSettings;
   private boolean modalityInitialized;
   private ButtonType closeWindowBtnType = ButtonType.CLOSE;
@@ -53,13 +52,11 @@ public class PreferencesFxDialog extends DialogPane {
   public PreferencesFxDialog(PreferencesFxModel model, PreferencesFxView preferencesFxView) {
     this.model = model;
     this.preferencesFxView = preferencesFxView;
-    persistWindowState = model.isPersistWindowState();
     saveSettings = model.isSaveSettings();
     storageHandler = model.getStorageHandler();
     model.loadSettingValues();
     layoutForm();
     setupDialogClose();
-    loadLastWindowState();
     setupButtons();
     setupValueChangedListeners();
     if (model.getHistoryDebugState()) {
@@ -84,6 +81,7 @@ public class PreferencesFxDialog extends DialogPane {
    *              the {@link PreferencesFxDialog}, as long as it is open.
    */
   public void show(boolean modal) {
+    loadLastWindowState();
     if (!modalityInitialized) {
       // only set modality once to avoid exception:
       // java.lang.IllegalStateException: Cannot set modality once stage has been set visible
@@ -133,7 +131,7 @@ public class PreferencesFxDialog extends DialogPane {
         model.discardChanges();
       } else {
         LOGGER.trace("Dialog - Close Button or 'x' was pressed");
-        if (persistWindowState) {
+        if (model.isPersistWindowState()) {
           saveWindowState();
         }
         model.saveSettings();
@@ -154,15 +152,19 @@ public class PreferencesFxDialog extends DialogPane {
    * Loads last saved size and position of the window.
    */
   private void loadLastWindowState() {
-    if (persistWindowState) {
+    if (model.isPersistWindowState()) {
       setPrefSize(storageHandler.loadWindowWidth(), storageHandler.loadWindowHeight());
-      getScene().getWindow().setX(storageHandler.loadWindowPosX());
-      getScene().getWindow().setY(storageHandler.loadWindowPosY());
       model.setDividerPosition(storageHandler.loadDividerPosition());
       model.setDisplayedCategory(model.loadSelectedCategory());
+      if (!modalityInitialized) {
+          getScene().getWindow().setX(storageHandler.loadWindowPosX());
+          getScene().getWindow().setY(storageHandler.loadWindowPosY());
+      }
     } else {
       setPrefSize(Constants.DEFAULT_PREFERENCES_WIDTH, Constants.DEFAULT_PREFERENCES_HEIGHT);
-      getScene().getWindow().centerOnScreen();
+      if (!modalityInitialized) {
+          getScene().getWindow().centerOnScreen();
+      }
     }
   }
 
