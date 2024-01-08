@@ -180,7 +180,7 @@ public class PreferencesFx {
    *
    * @param save if true, the values of all settings of the application are saved. When the
    *             application is started again, the settings values will be restored to the last
-   *             saved state. Defaults to false.
+   *             saved state. Defaults to true.
    * @return this object for fluent API
    */
   public PreferencesFx saveSettings(boolean save) {
