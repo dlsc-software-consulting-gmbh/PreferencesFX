@@ -41,7 +41,7 @@ public class PreferencesFxGroupRenderer {
    *
    * @param preferencesGroup The PreferencesGroup which gets rendered.
    */
-  PreferencesFxGroupRenderer(PreferencesFxGroup preferencesGroup, GridPane grid) {
+  protected PreferencesFxGroupRenderer(PreferencesFxGroup preferencesGroup, GridPane grid) {
     this.preferencesGroup = preferencesGroup;
     this.grid = grid;
     preferencesGroup.setRenderer(this);

@@ -26,8 +26,8 @@ public class DoubleSliderControl extends SimpleControl<DoubleField, HBox> {
    * - slider is the control to change the value.
    * - node holds the control so that it can be styled properly.
    */
-  private Slider slider;
-  private Label valueLabel;
+  protected Slider slider;
+  protected Label valueLabel;
   private double min;
   private double max;
   private int precision;

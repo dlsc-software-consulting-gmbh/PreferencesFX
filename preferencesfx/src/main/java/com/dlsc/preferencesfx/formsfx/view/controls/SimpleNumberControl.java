@@ -44,9 +44,9 @@ public abstract class SimpleNumberControl<F extends DataField, D extends Number>
    * - The editableSpinner is a Spinner for setting numerical values.
    * - The readOnlyLabel is the label to put over editableSpinner.
    */
-  private Label fieldLabel;
+  protected Label fieldLabel;
   protected Spinner<D> editableSpinner;
-  private Label readOnlyLabel;
+  protected Label readOnlyLabel;
 
   /**
    * {@inheritDoc}

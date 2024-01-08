@@ -46,10 +46,10 @@ public class SimpleRadioButtonControl<V> extends SimpleControl<SingleSelectionFi
    * - The toggleGroup defines the group for the radio buttons.
    * - The node is a VBox holding all radio buttons.
    */
-  private final List<RadioButton> radioButtons = new ArrayList<>();
-  private ToggleGroup toggleGroup;
+  protected final List<RadioButton> radioButtons = new ArrayList<>();
+  protected ToggleGroup toggleGroup;
 
-  private Label fieldLabel;
+  protected Label fieldLabel;
 
   /**
    * Constructs a SimpleRadioButtonControl of {@link SimpleRadioButtonControl} type, with visibility condition.

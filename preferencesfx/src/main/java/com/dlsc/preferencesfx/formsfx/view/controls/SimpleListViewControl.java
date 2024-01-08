@@ -44,12 +44,12 @@ public class SimpleListViewControl<V>
    * the field.
    * - The node is the container that displays list values.
    */
-  private Label fieldLabel;
+  protected Label fieldLabel;
 
   /**
    * The flag used for setting the selection properly.
    */
-  private boolean preventUpdate;
+  protected boolean preventUpdate;
 
   /**
    * Constructs a SimpleListViewControl of {@link SimpleListViewControl} type, with visibility condition.
