@@ -21,9 +21,12 @@ import com.dlsc.preferencesfx.view.UndoRedoBox;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ResourceBundle;
 
 /**
  * Represents the main PreferencesFX class.
@@ -318,12 +321,42 @@ public class PreferencesFx {
     preferencesFxDialog.setDialogIcon(image);
     return this;
   }
-  
+
   /**
-   * Return the stylesheets of the PreferenceFxDialog.
+   * Sets the text of the dialog buttons using a ResourceBundle.
    *
-   * @return the stylesheets List of the PreferenceFxDialog
+   * ResourceBundle keys:
+   * <ul>
+   *   <li><b>button.close</b>  - text for the Close button</li>
+   *   <li><b>button.ok</b>     - text for the OK button</li>
+   *   <li><b>button.apply</b>  - text for the Apply button</li>
+   *   <li><b>button.cancel</b> - text for the Cancel button</li>
+   * </ul>
    */
+  public PreferencesFx setDialogButtonsText(ResourceBundle bundle) {
+    preferencesFxDialog.setDialogButtonsText(bundle);
+    return this;
+  }
+
+  /**
+   * Set the text language on the dialog buttons to the language of your choice.
+   * You can also do so using {@link #setDialogButtonsText(java.util.ResourceBundle) setDialogButtonsText(ResourceBundle)}.
+   *
+   * @param close  text to show on the "close" button
+   * @param ok     text to show on the "ok" button
+   * @param apply  text to show on the "apply" button
+   * @param cancel text to show on the "cancel" button
+   */
+  public PreferencesFx setDialogButtonsText(String close, String ok, String apply, String cancel) {
+    preferencesFxDialog.setDialogButtonsText(close, ok, apply, cancel);
+    return this;
+  }
+
+    /**
+     * Return the stylesheets of the PreferenceFxDialog.
+     *
+     * @return the stylesheets List of the PreferenceFxDialog
+     */
   public ObservableList<String> getStylesheets() {
     return preferencesFxDialog.getStylesheets();
   }

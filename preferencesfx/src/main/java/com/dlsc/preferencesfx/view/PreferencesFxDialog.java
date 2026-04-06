@@ -7,6 +7,7 @@ import com.dlsc.preferencesfx.util.Constants;
 import com.dlsc.preferencesfx.util.StorageHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -19,6 +20,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ResourceBundle;
 
 /**
  * Represents the dialog which is used to show the PreferencesFX window.
@@ -249,4 +252,57 @@ public class PreferencesFxDialog extends DialogPane {
   public void setDialogIcon(Image image) {
     ((Stage) dialog.getDialogPane().getScene().getWindow()).getIcons().add(image);
   }
+
+  /**
+   * Set the text language on the dialog buttons to the language of your choice.
+   * You can also do so using {@link #setDialogButtonsText(java.util.ResourceBundle) setDialogButtonsText(ResourceBundle)}.
+   *
+   * @param close  text to show on the "close" button
+   * @param ok     text to show on the "ok" button
+   * @param apply  text to show on the "apply" button
+   * @param cancel text to show on the "cancel" button
+   */
+  public void setDialogButtonsText(String close, String ok, String apply, String cancel) {
+    closeWindowBtnType = new ButtonType(close, ButtonType.CLOSE.getButtonData());
+    okBtnType = new ButtonType(ok, ButtonType.OK.getButtonData());
+    applyBtnType = new ButtonType(apply, ButtonType.APPLY.getButtonData());
+    cancelBtnType = new ButtonType(cancel, ButtonType.CANCEL.getButtonData());
+    setupButtons();
+  }
+
+  /**
+   * Sets the text of the dialog buttons using a ResourceBundle.
+   *
+   * ResourceBundle keys:
+   * <ul>
+   *   <li><b>button.close</b>  - text for the Close button</li>
+   *   <li><b>button.ok</b>     - text for the OK button</li>
+   *   <li><b>button.apply</b>  - text for the Apply button</li>
+   *   <li><b>button.cancel</b> - text for the Cancel button</li>
+   * </ul>
+   */
+  public void setDialogButtonsText(ResourceBundle bundle) {
+    closeWindowBtnType = new ButtonType(
+            bundle.getString("button.close"),
+            ButtonType.CLOSE.getButtonData()
+    );
+
+    okBtnType = new ButtonType(
+            bundle.getString("button.ok"),
+            ButtonType.OK.getButtonData()
+    );
+
+    applyBtnType = new ButtonType(
+            bundle.getString("button.apply"),
+            ButtonType.APPLY.getButtonData()
+    );
+
+    cancelBtnType = new ButtonType(
+            bundle.getString("button.cancel"),
+            ButtonType.CANCEL.getButtonData()
+    );
+
+    setupButtons();
+  }
+
 }
