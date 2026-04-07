@@ -7,6 +7,7 @@ module com.dlsc.preferencesfx.demo {
     requires com.google.gson;
 
     exports com.dlsc.preferencesfx.demo;
+    exports  com.dlsc.preferencesfx.demo.dialog_i18n;
 
     opens com.dlsc.preferencesfx.demo;
     opens com.dlsc.preferencesfx.demo.extended;

@@ -267,9 +267,17 @@ public class PreferencesFxDialog extends DialogPane {
     okBtnType = new ButtonType(ok, ButtonType.OK.getButtonData());
     applyBtnType = new ButtonType(apply, ButtonType.APPLY.getButtonData());
     cancelBtnType = new ButtonType(cancel, ButtonType.CANCEL.getButtonData());
+
+    getButtonTypes().clear();
+
+    if (model.isInstantPersistent()) {
+      getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
+    } else {
+      getButtonTypes().addAll(cancelBtnType, applyBtnType, okBtnType);
+    }
+
     setupButtons();
   }
-
   /**
    * Sets the text of the dialog buttons using a ResourceBundle.
    *
@@ -301,6 +309,14 @@ public class PreferencesFxDialog extends DialogPane {
             bundle.getString("button.cancel"),
             ButtonType.CANCEL.getButtonData()
     );
+
+    getButtonTypes().clear();
+
+    if (model.isInstantPersistent()) {
+      getButtonTypes().addAll(closeWindowBtnType, cancelBtnType);
+    } else {
+      getButtonTypes().addAll(cancelBtnType, applyBtnType, okBtnType);
+    }
 
     setupButtons();
   }
