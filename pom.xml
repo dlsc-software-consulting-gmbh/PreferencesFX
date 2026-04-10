@@ -27,10 +27,6 @@
         <java.version>11</java.version>
         <ikonli.version>12.2.0</ikonli.version>
         <javafx.version>17.0.1</javafx.version>
-        <sonar.projectKey>dlsc-software-consulting-gmbh_PreferencesFX</sonar.projectKey>
-        <sonar.organization>dlsc-software-consulting-gmbh</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.moduleKey>${project.artifactId}</sonar.moduleKey>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoctor.maven.plugin.version>2.2.1</asciidoctor.maven.plugin.version>
         <asciidoctorj.version>2.5.2</asciidoctorj.version>
