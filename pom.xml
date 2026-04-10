@@ -8,6 +8,7 @@
     <artifactId>parent</artifactId>
     <version>11.17.0</version>
     <packaging>pom</packaging>
+    <name>PreferencesFXParent</name>
 
     <parent>
         <groupId>com.dlsc</groupId>
